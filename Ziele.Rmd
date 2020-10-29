@@ -1,0 +1,26 @@
+---
+title: "Kursziele"
+output: html_document
+---
+
+<style type="text/css">
+.title {
+  display: none;
+}
+
+#getting-started img {
+  margin-right: 10px;
+}
+
+</style>
+
+<div class="row" style="padding-top: 30px;">
+<div class="col-sm-6">
+
+# **Ziele des R-Kurses im IW**
+
+Jeder Teilnehmer verfolgt sicher seine eigenen Ziele. Was die Teilnehmer aus der Kursteilnahme mitnehmen könnten:
+
+1. Wie R funktioniert. R gibt es schon recht lange und basiert auf der Programmiersprache S [(mehr)](https://www.r-project.org/about.html). R ist eine Programmiersprache und kostenfreie Software mit dem Fokus auf statistische Berechnungen. Der Kurs gibt eine nicht-technische Einführung in die Grundstruktur. Wir arbeiten mit dem *tidyvese* [(mehr)](https://www.tidyverse.org/). Das tidyverse ist eine Sammlung von R-Paketen, die einer gemeinsamen Struktur und Logik folgen. Wichtiger ist: das Coding im tidyverse ist sehr intuitiv.
+
+2. Wie R-Studio funktioniert. R-Studio ist eine Entwicklungsumgebung und grafische Benutzeroberfläche für R. Wenn R der Motor ist, dann ist R-Studio das Cockpit [(mehr)](https://rstudio.com/). 

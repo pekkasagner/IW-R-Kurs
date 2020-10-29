@@ -4,6 +4,8 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Ziele"
+      href: Ziele.html
     - text: "Journal"
       href: Journal.html
     - text: "Links"
