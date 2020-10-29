@@ -1,6 +1,6 @@
-name: "MyLabJournal"
+name: "IW-R-Kurs"
 navbar:
-  title: "MyLabJournal"
+  title: "IW-R-Kurs"
   left:
     - text: "Home"
       href: index.html
