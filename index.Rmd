@@ -5,4 +5,4 @@ output: html_document
 
 #Website zum IW-R-Kurs
 
-Diese Website begleitet begleitet den IW-R-Kurs. 
+Diese Website begleitet den IW-R-Kurs. Fragen gerne an [Armin Mertens](mailto:armin.mertens@iwkoeln.de?subject=[IW-R-Kurs]) und [Pekka Sagner](mailto:sagner@iwkoeln.de?subject=[IW-R-Kurs]).
