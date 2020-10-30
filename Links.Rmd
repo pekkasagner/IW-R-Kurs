@@ -1,19 +1,136 @@
 ---
-title: "Resources"
+title: "Resourcen"
 output: html_document
 ---
 
-### R and R-Studio
+# tidyverse <a href='https://tidyverse.tidyverse.org'><img src='https://raw.githubusercontent.com/tidyverse/tidyverse/master/man/figures/logo.png' align="right" height="138.5" /></a>
 
-[R](http://www.r-project.org) is a free open-source programming language that can be used for statistical analysis, data-simulation, graphing, and lots of other stuff. Another free program is [R-studio](http://www.rstudio.com), that provides a nice graphic interface for R. Download R first, then download R-studio. Both can run on PCs, Macs or Linux. Students will be learning R in the stats labs using the lab manual []().
+Das **tidyverse** in R ist eine Sammlung von Paketen, denen dieselbe Repräsentation
+von Daten ("tidy data") zu Grunde liegen und die ein gemeinsames API Design 
+nutzen. 
 
-### Additional R resources
+### Installation
 
-1. Google is great, Google your problem
-2. [Stackoverflow](https://stackoverflow.com) is great, google will often take you there because someone has already asked your question, and someone else has answered, usually many people have answered your question many ways.
-3. Danielle Navarro wrote a [free Psych Stats textbook using R](https://compcogscisydney.org/learning-statistics-with-r/), it's worth checking out (some of our textbook are based on Danielle's)
-4. I am currently writing another stats textbook (incorporating some of the above). You can read it while it's being made right here [https://crumplab.github.io/statistics/](https://crumplab.github.io/statistics/), also check out the lab manual for more specific things about doing various stats in R (also in draft right now) [https://crumplab.github.io/statisticsLab/](https://crumplab.github.io/statisticsLab/)
-5. Daniell Navarro recently made this website for introducing R, it's great, check it out (also made using this R markdown process): [http://compcogscisydney.org/psyr/](http://compcogscisydney.org/psyr/)
-6. Check out my slightly older programming book that also introduces R [https://crumplab.github.io/programmingforpsych/](https://crumplab.github.io/programmingforpsych/)
-7. This is the definitive guide for all things R Markdown (you will find this very useful as you get better at this skill): [https://bookdown.org/yihui/rmarkdown/](https://bookdown.org/yihui/rmarkdown/)
+```{r eval = FALSE}
+# Install from CRAN
+install.packages("tidyverse")
+```
+
+### Nutzung
+
+Der Befehl `library(tidyverse)` lädt automatisch die folgenden Pakete, die 
+sofort genutzt werden können.
+
+* [ggplot2](https://ggplot2.tidyverse.org), für Datenvisualisierung.
+* [dplyr](https://dplyr.tidyverse.org), für Datenbearbeitung.
+* [tidyr](https://tidyr.tidyverse.org), für das Säubern von Daten.
+* [readr](https://readr.tidyverse.org), für den Import von Daten.
+* [purrr](https://purrr.tidyverse.org), für funktionales Programmieren.
+* [tibble](https://tibble.tidyverse.org), für Tibbles (eine Art DataFrame).
+* [stringr](https://github.com/tidyverse/stringr), für Strings.
+* [forcats](https://github.com/hadley/forcats), für Faktor-Variablen.
+
+### Weitere Pakete
+
+Neben den oben genannten Paketen, die sofort genutzt werden können wenn das
+tidyverse-Paket geladen wird, installiert der Befehl 
+`install.packages("tidyverse")` weitere Pakete. Diese werden seltener
+gebraucht, sind aber doch so gebräuchlich, dass sie direkt mitinstalliert 
+werden. Über den `library("Paketname")` Befehl müssen diese allerdings je nach
+Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese
+mitinstallierten Befehle umfassen:
+
+*   Für die Arbeit mit Daten mit zeitlichem Bezug:
+
+    * [hms](https://github.com/rstats-db/hms), für Uhrzeiten.
+    * [lubridate](https://github.com/tidyverse/lubridate), für Datums/Zeit-Transformationen.
+    
+*   Für den Import weiterer Datenformate:
+
+    * [feather](https://github.com/wesm/feather), für das Teilen von Daten mit Python und weiteren Programmiersprachen.
+    * [haven](https://github.com/tidyverse/haven), für SPSS, SAS and **Stata** Daten.
+    * [httr](https://github.com/r-lib/httr), für Web-APIs.
+    * [jsonlite](https://github.com/jeroen/jsonlite) für JSON.
+    * [readxl](https://github.com/tidyverse/readxl), für `.xls` und `.xlsx` Dateien.
+    * [rvest](https://github.com/tidyverse/rvest), für Web-Scraping.
+    * [xml2](https://github.com/r-lib/xml2), für XML.
+
+*   Modellierung
+
+    * [broom](https://github.com/tidymodels/broom), für das Säubern / Auslesen von Modellobjekten.
+    
+# ggplot2 <a href='https://ggplot2.tidyverse.org'><img src='https://raw.githubusercontent.com/tidyverse/ggplot2/master/man/figures/logo.png' align="right" height="138.5" /></a>
+
+**ggplot2** stellt die Hauptbiblothek für Datenvisualisierung mit R in diesem 
+Kurs dar. Das Paket ist ein System für die Erstellung von Visualisierungen 
+basierend auf [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl?ie=UTF8&qid=1477928463&sr=8-1&keywords=the+grammar+of+graphics&linkCode=sl1&tag=ggplot2-20&linkId=f0130e557161b83fbe97ba0e9175c431). **ggplot2** erlaubt dem Nutzer die Erstellung von Datenvisualisierungen 
+in verschiedenen, aufeinander aufbauenden Schichten (Layern) und bietet dabei höchste 
+Flexibilität.
+
+### Installation
+
+Wie oben beschrieben ist der einfachste Weg **ggplot2** zu installieren einfach 
+das komplette **tidyverse** zu installieren. Wenn gewünscht, kann das Paket 
+aber auch einzeln installiert werden.
+
+```{r eval = FALSE}
+# Der einfachste Weg:
+install.packages("tidyverse")
+
+# Die Alternative:
+install.packages("ggplot2")
+
+```
+
+# Weiterführende Ressourcen 
+
+Neben den offiziellen Homepages der R Pakete gibt es eine Reihe frei vergübarer
+Online-Ressourcen, die hiflreiche Informationen erhalten.
+
+### Grundlagen der Datenvisualisierung (Englisch)
+
+Das Buch bietet einen umfangreichen Überblick über die Grundlagen und theoretischen Hintergründe der Datenvisualisierung. Auch wenn das Buch mit R / Rmarkdown geschrieben wurde, gibt es hier allerdings keine Code-Beispiele in R.
+
+[Claus Wilke - Fundamentals of Data Visualisation (2020)](https://clauswilke.com/dataviz/)
+
+____
+
+### ggplot2 Grammar Guide (Englisch)
+
+Diese Online Ressource bietet einen konzisen Überblick über die wichtigsten ggplot2 "Vokabeln". 
+
+[ggplot2 grammar guide](https://evamaerey.github.io/ggplot2_grammar_guide/about)
+
+___
+
+### Data Vizalisation - A Practical Introduction (Englisch)
+
+Das Buch von Kieran Healy ist eines der besten und umfassendsten Werke
+über Datenvisualisierung mit *ggplot2*. Neben der hier frei verfügbaren
+Online Version befindet sich auch eine Hard Copy bei uns im Haus.
+
+[Kieran Healy - Data Visualization (2019)](https://socviz.co/)
+
+____
+
+### R for Data Science (Englisch)
+
+Das Buch "R for Data Science"  ist ein Standardwerk für Einsteiger in R und das Tidyverse. Auch wenn der Großteil des Buches die generelle Bearbeitung, Transformation und Säuberung von Daten behandelt, beinhaltet es auch ein eigenes Kapitel (Kapitel 3) zu Datenvisualisierung mit *ggplot2*.
+
+[Grolemund & Wickham - R for Data Science (2019)](https://r4ds.had.co.nz/data-visualisation.html)
+
+### Interaktive Datenvisualisierung mit plotly und shiny (Englisch)
+
+Online Ressource des Buchs "Interactive web-based data visualization with R,
+plotly, and shiny". Gute Ressource für detaillierte Information zur Erstellung
+intektiver Grafiken und deren Deployment auf einer Website. 
+
+[Sievert - Interactive web based data visualization (2019)](https://plotly-r.com/index.html)
+
+### Flex Dashboards (Englisch)
+
+Gute Einführung (Webinar) in die Erstellung von Dashboards mit Flexdashboard.
+
+[Grolemund - Flexdashboard (2016)](https://rstudio.com/resources/webinars/introducing-flexdashboards/)
+
 
