@@ -1,10 +1,10 @@
 ---
-title: "Journal"
+title: "1. Stunde"
 output:
   html_document:
     toc: true
     toc_float: true
-    collapsed: false
+    collapsed: true
     number_sections: false
     toc_depth: 1
     #code_folding: hide
