@@ -21,39 +21,39 @@ install.packages("tidyverse")
 Der Befehl `library(tidyverse)` lädt automatisch die folgenden Pakete, die 
 sofort genutzt werden können.
 
-* [ggplot2](https://ggplot2.tidyverse.org), für Datenvisualisierung.
-* [dplyr](https://dplyr.tidyverse.org), für Datenbearbeitung.
-* [tidyr](https://tidyr.tidyverse.org), für das Säubern von Daten.
-* [readr](https://readr.tidyverse.org), für den Import von Daten.
-* [purrr](https://purrr.tidyverse.org), für funktionales Programmieren.
-* [tibble](https://tibble.tidyverse.org), für Tibbles (eine Art DataFrame).
-* [stringr](https://github.com/tidyverse/stringr), für Strings.
+* [ggplot2](https://ggplot2.tidyverse.org), für Datenvisualisierung,
+* [dplyr](https://dplyr.tidyverse.org), für Datenbearbeitung,
+* [tidyr](https://tidyr.tidyverse.org), für das Säubern von Daten,
+* [readr](https://readr.tidyverse.org), für den Import von Daten,
+* [purrr](https://purrr.tidyverse.org), für funktionales Programmieren,
+* [tibble](https://tibble.tidyverse.org), für Tibbles (eine Art DataFrame),
+* [stringr](https://github.com/tidyverse/stringr), für Strings,
 * [forcats](https://github.com/hadley/forcats), für Faktor-Variablen.
 
 ### Weitere Pakete
 
-Neben den oben genannten Paketen, die sofort genutzt werden können wenn das
+Neben den oben genannten Paketen, die sofort genutzt werden können, wenn das
 tidyverse-Paket geladen wird, installiert der Befehl 
 `install.packages("tidyverse")` weitere Pakete. Diese werden seltener
-gebraucht, sind aber doch so gebräuchlich, dass sie direkt mitinstalliert 
+gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert 
 werden. Über den `library("Paketname")` Befehl müssen diese allerdings je nach
 Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese
-mitinstallierten Befehle umfassen:
+mit installierten Befehle umfassen:
 
 *   Für die Arbeit mit Daten mit zeitlichem Bezug:
 
-    * [hms](https://github.com/rstats-db/hms), für Uhrzeiten.
+    * [hms](https://github.com/rstats-db/hms), für Uhrzeiten,
     * [lubridate](https://github.com/tidyverse/lubridate), für Datums/Zeit-Transformationen.
     
 *   Für den Import weiterer Datenformate:
 
-    * [feather](https://github.com/wesm/feather), für das Teilen von Daten mit Python und weiteren Programmiersprachen.
-    * [haven](https://github.com/tidyverse/haven), für SPSS, SAS and **Stata** Daten.
-    * [httr](https://github.com/r-lib/httr), für Web-APIs.
-    * [jsonlite](https://github.com/jeroen/jsonlite) für JSON.
-    * [readxl](https://github.com/tidyverse/readxl), für `.xls` und `.xlsx` Dateien.
-    * [rvest](https://github.com/tidyverse/rvest), für Web-Scraping.
-    * [xml2](https://github.com/r-lib/xml2), für XML.
+    * [feather](https://github.com/wesm/feather), für das Teilen von Daten mit Python und weiteren Programmiersprachen,
+    * [haven](https://github.com/tidyverse/haven), für SPSS, SAS and **Stata** Daten
+    * [httr](https://github.com/r-lib/httr), für Web-APIs,
+    * [jsonlite](https://github.com/jeroen/jsonlite) für JSON,
+    * [readxl](https://github.com/tidyverse/readxl), für `.xls` und `.xlsx` Dateien,
+    * [rvest](https://github.com/tidyverse/rvest), für Web-Scraping,
+    * [xml2](https://github.com/r-lib/xml2), für XML,
 
 *   Modellierung
 
