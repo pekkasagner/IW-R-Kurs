@@ -11,7 +11,7 @@
 
 
 
-<title>Resources</title>
+<title>Resourcen</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -295,26 +295,108 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Resources</h1>
+<h1 class="title toc-ignore">Resourcen</h1>
 
 </div>
 
 
-<div id="r-and-r-studio" class="section level3">
-<h3>R and R-Studio</h3>
-<p><a href="http://www.r-project.org">R</a> is a free open-source programming language that can be used for statistical analysis, data-simulation, graphing, and lots of other stuff. Another free program is <a href="http://www.rstudio.com">R-studio</a>, that provides a nice graphic interface for R. Download R first, then download R-studio. Both can run on PCs, Macs or Linux. Students will be learning R in the stats labs using the lab manual <a href=""></a>.</p>
+<div id="tidyverse" class="section level1">
+<h1>tidyverse <a href='https://tidyverse.tidyverse.org'><img src='https://raw.githubusercontent.com/tidyverse/tidyverse/master/man/figures/logo.png' align="right" height="138.5" /></a></h1>
+<p>Das <strong>tidyverse</strong> in R ist eine Sammlung von Paketen, denen dieselbe Repräsentation von Daten (&quot;tidy data&quot;) zu Grunde liegen und die ein gemeinsames API Design nutzen.</p>
+<div id="installation" class="section level3">
+<h3>Installation</h3>
+<pre class="r"><code># Install from CRAN
+install.packages(&quot;tidyverse&quot;)</code></pre>
 </div>
-<div id="additional-r-resources" class="section level3">
-<h3>Additional R resources</h3>
-<ol style="list-style-type: decimal">
-<li>Google is great, Google your problem</li>
-<li><a href="https://stackoverflow.com">Stackoverflow</a> is great, google will often take you there because someone has already asked your question, and someone else has answered, usually many people have answered your question many ways.</li>
-<li>Danielle Navarro wrote a <a href="https://compcogscisydney.org/learning-statistics-with-r/">free Psych Stats textbook using R</a>, it's worth checking out (some of our textbook are based on Danielle's)</li>
-<li>I am currently writing another stats textbook (incorporating some of the above). You can read it while it's being made right here <a href="https://crumplab.github.io/statistics/" class="uri">https://crumplab.github.io/statistics/</a>, also check out the lab manual for more specific things about doing various stats in R (also in draft right now) <a href="https://crumplab.github.io/statisticsLab/" class="uri">https://crumplab.github.io/statisticsLab/</a></li>
-<li>Daniell Navarro recently made this website for introducing R, it's great, check it out (also made using this R markdown process): <a href="http://compcogscisydney.org/psyr/" class="uri">http://compcogscisydney.org/psyr/</a></li>
-<li>Check out my slightly older programming book that also introduces R <a href="https://crumplab.github.io/programmingforpsych/" class="uri">https://crumplab.github.io/programmingforpsych/</a></li>
-<li>This is the definitive guide for all things R Markdown (you will find this very useful as you get better at this skill): <a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a></li>
-</ol>
+<div id="nutzung" class="section level3">
+<h3>Nutzung</h3>
+<p>Der Befehl <code>library(tidyverse)</code> lädt automatisch die folgenden Pakete, die sofort genutzt werden können.</p>
+<ul>
+<li><a href="https://ggplot2.tidyverse.org">ggplot2</a>, für Datenvisualisierung,</li>
+<li><a href="https://dplyr.tidyverse.org">dplyr</a>, für Datenbearbeitung,</li>
+<li><a href="https://tidyr.tidyverse.org">tidyr</a>, für das Säubern von Daten,</li>
+<li><a href="https://readr.tidyverse.org">readr</a>, für den Import von Daten,</li>
+<li><a href="https://purrr.tidyverse.org">purrr</a>, für funktionales Programmieren,</li>
+<li><a href="https://tibble.tidyverse.org">tibble</a>, für Tibbles (eine Art DataFrame),</li>
+<li><a href="https://github.com/tidyverse/stringr">stringr</a>, für Strings,</li>
+<li><a href="https://github.com/hadley/forcats">forcats</a>, für Faktor-Variablen.</li>
+</ul>
+</div>
+<div id="weitere-pakete" class="section level3">
+<h3>Weitere Pakete</h3>
+<p>Neben den oben genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages(&quot;tidyverse&quot;)</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library(&quot;Paketname&quot;)</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:</p>
+<ul>
+<li><p>Für die Arbeit mit Daten mit zeitlichem Bezug:</p>
+<ul>
+<li><a href="https://github.com/rstats-db/hms">hms</a>, für Uhrzeiten,</li>
+<li><a href="https://github.com/tidyverse/lubridate">lubridate</a>, für Datums/Zeit-Transformationen.</li>
+</ul></li>
+<li><p>Für den Import weiterer Datenformate:</p>
+<ul>
+<li><a href="https://github.com/wesm/feather">feather</a>, für das Teilen von Daten mit Python und weiteren Programmiersprachen,</li>
+<li><a href="https://github.com/tidyverse/haven">haven</a>, für SPSS, SAS and <strong>Stata</strong> Daten</li>
+<li><a href="https://github.com/r-lib/httr">httr</a>, für Web-APIs,</li>
+<li><a href="https://github.com/jeroen/jsonlite">jsonlite</a> für JSON,</li>
+<li><a href="https://github.com/tidyverse/readxl">readxl</a>, für <code>.xls</code> und <code>.xlsx</code> Dateien,</li>
+<li><a href="https://github.com/tidyverse/rvest">rvest</a>, für Web-Scraping,</li>
+<li><a href="https://github.com/r-lib/xml2">xml2</a>, für XML,</li>
+</ul></li>
+<li><p>Modellierung</p>
+<ul>
+<li><a href="https://github.com/tidymodels/broom">broom</a>, für das Säubern / Auslesen von Modellobjekten.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="ggplot2" class="section level1">
+<h1>ggplot2 <a href='https://ggplot2.tidyverse.org'><img src='https://raw.githubusercontent.com/tidyverse/ggplot2/master/man/figures/logo.png' align="right" height="138.5" /></a></h1>
+<p><strong>ggplot2</strong> stellt die Hauptbiblothek für Datenvisualisierung mit R in diesem Kurs dar. Das Paket ist ein System für die Erstellung von Visualisierungen basierend auf <a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl?ie=UTF8&amp;qid=1477928463&amp;sr=8-1&amp;keywords=the+grammar+of+graphics&amp;linkCode=sl1&amp;tag=ggplot2-20&amp;linkId=f0130e557161b83fbe97ba0e9175c431">The Grammar of Graphics</a>. <strong>ggplot2</strong> erlaubt dem Nutzer die Erstellung von Datenvisualisierungen in verschiedenen, aufeinander aufbauenden Schichten (Layern) und bietet dabei höchste Flexibilität.</p>
+<div id="installation-1" class="section level3">
+<h3>Installation</h3>
+<p>Wie oben beschrieben ist der einfachste Weg <strong>ggplot2</strong> zu installieren einfach das komplette <strong>tidyverse</strong> zu installieren. Wenn gewünscht, kann das Paket aber auch einzeln installiert werden.</p>
+<pre class="r"><code># Der einfachste Weg:
+install.packages(&quot;tidyverse&quot;)
+
+# Die Alternative:
+install.packages(&quot;ggplot2&quot;)</code></pre>
+</div>
+</div>
+<div id="weiterführende-ressourcen" class="section level1">
+<h1>Weiterführende Ressourcen</h1>
+<p>Neben den offiziellen Homepages der R Pakete gibt es eine Reihe frei vergübarer Online-Ressourcen, die hiflreiche Informationen erhalten.</p>
+<div id="grundlagen-der-datenvisualisierung-englisch" class="section level3">
+<h3>Grundlagen der Datenvisualisierung (Englisch)</h3>
+<p>Das Buch bietet einen umfangreichen Überblick über die Grundlagen und theoretischen Hintergründe der Datenvisualisierung. Auch wenn das Buch mit R / Rmarkdown geschrieben wurde, gibt es hier allerdings keine Code-Beispiele in R.</p>
+<p><a href="https://clauswilke.com/dataviz/">Claus Wilke - Fundamentals of Data Visualisation (2020)</a></p>
+<hr />
+</div>
+<div id="ggplot2-grammar-guide-englisch" class="section level3">
+<h3>ggplot2 Grammar Guide (Englisch)</h3>
+<p>Diese Online Ressource bietet einen konzisen Überblick über die wichtigsten ggplot2 &quot;Vokabeln&quot;.</p>
+<p><a href="https://evamaerey.github.io/ggplot2_grammar_guide/about">ggplot2 grammar guide</a></p>
+<hr />
+</div>
+<div id="data-vizalisation---a-practical-introduction-englisch" class="section level3">
+<h3>Data Vizalisation - A Practical Introduction (Englisch)</h3>
+<p>Das Buch von Kieran Healy ist eines der besten und umfassendsten Werke über Datenvisualisierung mit <em>ggplot2</em>. Neben der hier frei verfügbaren Online Version befindet sich auch eine Hard Copy bei uns im Haus.</p>
+<p><a href="https://socviz.co/">Kieran Healy - Data Visualization (2019)</a></p>
+<hr />
+</div>
+<div id="r-for-data-science-englisch" class="section level3">
+<h3>R for Data Science (Englisch)</h3>
+<p>Das Buch &quot;R for Data Science&quot; ist ein Standardwerk für Einsteiger in R und das Tidyverse. Auch wenn der Großteil des Buches die generelle Bearbeitung, Transformation und Säuberung von Daten behandelt, beinhaltet es auch ein eigenes Kapitel (Kapitel 3) zu Datenvisualisierung mit <em>ggplot2</em>.</p>
+<p><a href="https://r4ds.had.co.nz/data-visualisation.html">Grolemund &amp; Wickham - R for Data Science (2019)</a></p>
+</div>
+<div id="interaktive-datenvisualisierung-mit-plotly-und-shiny-englisch" class="section level3">
+<h3>Interaktive Datenvisualisierung mit plotly und shiny (Englisch)</h3>
+<p>Online Ressource des Buchs &quot;Interactive web-based data visualization with R, plotly, and shiny&quot;. Gute Ressource für detaillierte Information zur Erstellung intektiver Grafiken und deren Deployment auf einer Website.</p>
+<p><a href="https://plotly-r.com/index.html">Sievert - Interactive web based data visualization (2019)</a></p>
+</div>
+<div id="flex-dashboards-englisch" class="section level3">
+<h3>Flex Dashboards (Englisch)</h3>
+<p>Gute Einführung (Webinar) in die Erstellung von Dashboards mit Flexdashboard.</p>
+<p><a href="https://rstudio.com/resources/webinars/introducing-flexdashboards/">Grolemund - Flexdashboard (2016)</a></p>
+</div>
 </div>
 
 
