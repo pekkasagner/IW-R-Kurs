@@ -6,7 +6,7 @@ output: html_document
 # tidyverse <a href='https://tidyverse.tidyverse.org'><img src='https://raw.githubusercontent.com/tidyverse/tidyverse/master/man/figures/logo.png' align="right" height="138.5" /></a>
 
 Das **tidyverse** in R ist eine Sammlung von Paketen, denen dieselbe Repräsentation
-von Daten ([tidy data][https://vita.had.co.nz/papers/tidy-data.pdf]) zu Grunde liegen und die ein gemeinsames API Design 
+von Daten ([tidy data](https://vita.had.co.nz/papers/tidy-data.pdf)) zu Grunde liegen und die ein gemeinsames API Design 
 nutzen. "Tidy data" umschreibt "aufgeräumte" bzw. "saubere" Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird.
 
 ### Installation
