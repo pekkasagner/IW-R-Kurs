@@ -6,8 +6,8 @@ output: html_document
 # tidyverse <a href='https://tidyverse.tidyverse.org'><img src='https://raw.githubusercontent.com/tidyverse/tidyverse/master/man/figures/logo.png' align="right" height="138.5" /></a>
 
 Das **tidyverse** in R ist eine Sammlung von Paketen, denen dieselbe Repräsentation
-von Daten ("tidy data") zu Grunde liegen und die ein gemeinsames API Design 
-nutzen. 
+von Daten ([tidy data](https://vita.had.co.nz/papers/tidy-data.pdf)) zu Grunde liegen und die ein gemeinsames API Design 
+nutzen. "Tidy data" umschreibt "aufgeräumte" bzw. "saubere" Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird.
 
 ### Installation
 
@@ -30,9 +30,11 @@ sofort genutzt werden können.
 * [stringr](https://github.com/tidyverse/stringr), für Strings,
 * [forcats](https://github.com/hadley/forcats), für Faktor-Variablen.
 
+*Die oben angegeben Weblinks enthalten neben der Beschreibung der jeweiligen R-Pakete auch sogenannte "Cheatsheets". Dort werden sehr übersichtlich die wichtigsten Funtkionen der Pakete dargestellt und erläutert. 
+
 ### Weitere Pakete
 
-Neben den oben genannten Paketen, die sofort genutzt werden können, wenn das
+Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das
 tidyverse-Paket geladen wird, installiert der Befehl 
 `install.packages("tidyverse")` weitere Pakete. Diese werden seltener
 gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert 

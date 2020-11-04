@@ -302,7 +302,7 @@ $(document).ready(function () {
 
 <div id="tidyverse" class="section level1">
 <h1>tidyverse <a href='https://tidyverse.tidyverse.org'><img src='https://raw.githubusercontent.com/tidyverse/tidyverse/master/man/figures/logo.png' align="right" height="138.5" /></a></h1>
-<p>Das <strong>tidyverse</strong> in R ist eine Sammlung von Paketen, denen dieselbe Repräsentation von Daten (&quot;tidy data&quot;) zu Grunde liegen und die ein gemeinsames API Design nutzen.</p>
+<p>Das <strong>tidyverse</strong> in R ist eine Sammlung von Paketen, denen dieselbe Repräsentation von Daten (<a href="https://vita.had.co.nz/papers/tidy-data.pdf">tidy data</a>) zu Grunde liegen und die ein gemeinsames API Design nutzen. “Tidy data” umschreibt “aufgeräumte” bzw. “saubere” Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird.</p>
 <div id="installation" class="section level3">
 <h3>Installation</h3>
 <pre class="r"><code># Install from CRAN
@@ -321,10 +321,11 @@ install.packages(&quot;tidyverse&quot;)</code></pre>
 <li><a href="https://github.com/tidyverse/stringr">stringr</a>, für Strings,</li>
 <li><a href="https://github.com/hadley/forcats">forcats</a>, für Faktor-Variablen.</li>
 </ul>
+<p>*Die oben angegeben Weblinks enthalten neben der Beschreibung der jeweiligen R-Pakete auch sogenannte “Cheatsheets”. Dort werden sehr übersichtlich die wichtigsten Funtkionen der Pakete dargestellt und erläutert.</p>
 </div>
 <div id="weitere-pakete" class="section level3">
 <h3>Weitere Pakete</h3>
-<p>Neben den oben genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages(&quot;tidyverse&quot;)</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library(&quot;Paketname&quot;)</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:</p>
+<p>Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages("tidyverse")</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library("Paketname")</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:</p>
 <ul>
 <li><p>Für die Arbeit mit Daten mit zeitlichem Bezug:</p>
 <ul>
@@ -372,7 +373,7 @@ install.packages(&quot;ggplot2&quot;)</code></pre>
 </div>
 <div id="ggplot2-grammar-guide-englisch" class="section level3">
 <h3>ggplot2 Grammar Guide (Englisch)</h3>
-<p>Diese Online Ressource bietet einen konzisen Überblick über die wichtigsten ggplot2 &quot;Vokabeln&quot;.</p>
+<p>Diese Online Ressource bietet einen konzisen Überblick über die wichtigsten ggplot2 “Vokabeln”.</p>
 <p><a href="https://evamaerey.github.io/ggplot2_grammar_guide/about">ggplot2 grammar guide</a></p>
 <hr />
 </div>
@@ -384,12 +385,12 @@ install.packages(&quot;ggplot2&quot;)</code></pre>
 </div>
 <div id="r-for-data-science-englisch" class="section level3">
 <h3>R for Data Science (Englisch)</h3>
-<p>Das Buch &quot;R for Data Science&quot; ist ein Standardwerk für Einsteiger in R und das Tidyverse. Auch wenn der Großteil des Buches die generelle Bearbeitung, Transformation und Säuberung von Daten behandelt, beinhaltet es auch ein eigenes Kapitel (Kapitel 3) zu Datenvisualisierung mit <em>ggplot2</em>.</p>
+<p>Das Buch “R for Data Science” ist ein Standardwerk für Einsteiger in R und das Tidyverse. Auch wenn der Großteil des Buches die generelle Bearbeitung, Transformation und Säuberung von Daten behandelt, beinhaltet es auch ein eigenes Kapitel (Kapitel 3) zu Datenvisualisierung mit <em>ggplot2</em>.</p>
 <p><a href="https://r4ds.had.co.nz/data-visualisation.html">Grolemund &amp; Wickham - R for Data Science (2019)</a></p>
 </div>
 <div id="interaktive-datenvisualisierung-mit-plotly-und-shiny-englisch" class="section level3">
 <h3>Interaktive Datenvisualisierung mit plotly und shiny (Englisch)</h3>
-<p>Online Ressource des Buchs &quot;Interactive web-based data visualization with R, plotly, and shiny&quot;. Gute Ressource für detaillierte Information zur Erstellung intektiver Grafiken und deren Deployment auf einer Website.</p>
+<p>Online Ressource des Buchs “Interactive web-based data visualization with R, plotly, and shiny”. Gute Ressource für detaillierte Information zur Erstellung intektiver Grafiken und deren Deployment auf einer Website.</p>
 <p><a href="https://plotly-r.com/index.html">Sievert - Interactive web based data visualization (2019)</a></p>
 </div>
 <div id="flex-dashboards-englisch" class="section level3">
