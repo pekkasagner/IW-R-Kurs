@@ -8,6 +8,8 @@ navbar:
       href: Ziele.html
     - text: "1. Stunde"
       href: Stunde1.html
+    - text: "Mikrodatenanalyse"
+      href: Mikrodatenanalyse_Workflow.html
     - text: "Links"
       href: Links.html
 output_dir: "docs"

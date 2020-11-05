@@ -1,0 +1,47 @@
+---
+title: "Mikrodatenanalyse in R"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: true
+    number_sections: false
+    toc_depth: 2
+    #code_folding: hide
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
+
+# Ziele der Sitzung
+
+* Setup eines effizienten Workflows für die Analyse von großen (Mikro-)Datensätzen
+* Mergen aus verschiedenen Datensätzen
+* Erstellen eines Arbeitsdatensatzes
+* Deskriptive Statistiken (numerisch und grafisch)
+* Gewichtete Statistiken
+
+# Setup eines effizienten Workflows
+
+* Mikrodatensätze wirken häufig komplex. Grund hierfür sind sicherlich die Dimensionen der Datensätze. Viele Beobachtungen (Zeilen!) treffen auf viele Variablen (Spalten!)
+* Bei der Datenanalyse unterscheiden sich die Workflows in der Grundstruktur kaum von der Analyse anderer *kleinerer* Datensätze:
+1) Daten einlesen
+2) Daten säubern
+3) Daten analysieren
+4) Daten transformieren
+5) Daten visualisieren
+6) Daten kommunizieren
+
+![](images/Workflow_Datenanalyse.png)
+Quelle: Vgl. [R4DS](https://bookdown.org/asmundhreinn/r4ds-master/wrangle-intro.html)
+
+* In der Praxis geht es meist nicht so geradlinig zu. Insbesondere bei großen Datensätzen kann es sinnvol sein, einige Zwischenschritte einzubauen. 
+
+* Bei der Arbeit mit Mikrodatensätzen müssen in der Regel verschiedene Datensätze zu einem Arbeitsdatensatz zusammengeführt werden. 
+
+* Das Zusammenführen der Daten kann, je nach Größe der Datensätze einige Zeit in Anspruch nehmen. Um zu Vermeiden, den Arbeitsdatensatz ständig auf's Neue zusammenzufügen, sollte ein Arbeitsdatensatz gespeichert werden.
+
+* An diesem sollten, außer dem Zusammenführen der Daten, noch keine Änderungen vergenommen worden sein. Das Verändern der Daten erfolgt erst in einem späteren Schritt. Geht im Verlaufe der Datenanalyse etwas schief und der Arbeitsdatensatz wird ausversehen überschrieben, kann schnell die Erstversion wiederhergestellt werden. Ein erneutes Zusammenstellen der Daten wird vermieden.

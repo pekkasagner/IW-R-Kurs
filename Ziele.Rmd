@@ -38,7 +38,6 @@ Jeder Teilnehmer verfolgt sicher seine eigenen Ziele. Was die Teilnehmer aus der
 
 ### Viel Spaß beim Lernen!
 
-<a href = "https://crumplab.github.io">
 ![](images/Intro.gif)
-</a>
+
 </div>
