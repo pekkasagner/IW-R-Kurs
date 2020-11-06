@@ -486,8 +486,43 @@ ls(&quot;package:haven&quot;)</code></pre>
 ## [23] &quot;zap_empty&quot;                &quot;zap_formats&quot;             
 ## [25] &quot;zap_label&quot;                &quot;zap_labels&quot;              
 ## [27] &quot;zap_missing&quot;              &quot;zap_widths&quot;</code></pre>
-<pre class="r"><code>read_dta(&quot;Beispielordner_Mikrodatenanalyse/data_in/phealth.dta&quot;)</code></pre>
+<p>Für unsere Mikrodatenanalyse nutzen wir drei Datensätze: <tt>ppathl.dta</tt>, <tt>pl.sav</tt>, <tt>phealth.dta</tt>. Wir lesen diese mit den Befehlen</p>
+<pre class="r"><code>ppathl &lt;- read_dta(&quot;Beispielordner_Mikrodatenanalyse/data_in/ppathl.dta&quot;)
+pl &lt;- read_sav(&quot;Beispielordner_Mikrodatenanalyse/data_in/pl.sav&quot;)
+phealth &lt;- read_dta(&quot;Beispielordner_Mikrodatenanalyse/data_in/phealth.dta&quot;)
+
+ppathl</code></pre>
+<pre><code>## # A tibble: 12,922 x 4
+##    persnr  jahr          sex weight
+##     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl+lbl&gt;  &lt;dbl&gt;
+##  1 500575  2001 1 [weiblich]   467.
+##  2 279067  2003 1 [weiblich]   860.
+##  3 238927  2004 0 [maenlich]   343.
+##  4 240595  2004 0 [maenlich]   869.
+##  5  88977  2003 1 [weiblich]   367.
+##  6 254006  2001 0 [maenlich]   314.
+##  7 344281  2003 1 [weiblich]   892.
+##  8 666151  2002 0 [maenlich]   908.
+##  9 383792  2001 0 [maenlich]   793.
+## 10 482355  2002 1 [weiblich]   648.
+## # ... with 12,912 more rows</code></pre>
+<pre class="r"><code>pl</code></pre>
 <pre><code>## # A tibble: 12,922 x 6
+##    persnr  jahr bildung anz_kind  bula region
+##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
+##  1 294354  2001    10.5        0    11 Land  
+##  2 414129  2001    12          0     4 Stadt 
+##  3 417490  2002    10.5        2     2 Land  
+##  4 334726  2000     9          0    14 Stadt 
+##  5 569347  2001    11          2    15 Stadt 
+##  6 471291  2003    18          0    11 Land  
+##  7 663550  2004    11          0    15 Stadt 
+##  8 587268  2001    NA          0     6 Stadt 
+##  9  75033  2000    13          1    13 Stadt 
+## 10 180832  2003    12          0    13 Land  
+## # ... with 12,912 more rows</code></pre>
+<pre class="r"><code>phealth</code></pre>
+<pre><code>## # A tibble: 12,276 x 6
 ##    persnr  jahr      gesund_org gesund_std               lebensz_org lebensz_std
 ##     &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl+lbl&gt;      &lt;dbl&gt;                 &lt;dbl+lbl&gt;       &lt;dbl&gt;
 ##  1 235585  2000 4 [Gut]              0.567  5 [5 Zufrieden: Skala 0~     -1.23  
@@ -500,7 +535,7 @@ ls(&quot;package:haven&quot;)</code></pre>
 ##  8 246747  2002 5 [Sehr_gut]         1.60  10 [10 Zufrieden: Skala ~      1.61  
 ##  9 544752  2001 4 [Gut]              0.567  6 [6 Zufrieden: Skala 0~     -0.659 
 ## 10 152915  2000 5 [Sehr_gut]         1.60   7 [7 Zufrieden: Skala 0~     -0.0909
-## # ... with 12,912 more rows</code></pre>
+## # ... with 12,266 more rows</code></pre>
 </div>
 </div>
 </div>

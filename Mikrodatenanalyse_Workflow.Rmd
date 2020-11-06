@@ -100,8 +100,17 @@ library(haven)
 ls("package:haven")
 ```
 
+Für unsere Mikrodatenanalyse nutzen wir drei Datensätze:  <tt>ppathl.dta</tt>, <tt>pl.sav</tt>, <tt>phealth.dta</tt>. Wir lesen diese mit den Befehlen 
+
+
 ```{r}
-read_dta("Beispielordner_Mikrodatenanalyse/data_in/phealth.dta")
+ppathl <- read_dta("Beispielordner_Mikrodatenanalyse/data_in/ppathl.dta")
+pl <- read_sav("Beispielordner_Mikrodatenanalyse/data_in/pl.sav")
+phealth <- read_dta("Beispielordner_Mikrodatenanalyse/data_in/phealth.dta")
+
+ppathl
+pl
+phealth
 ```
 
 

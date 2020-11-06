@@ -18,7 +18,7 @@ set.seed(58008)
  
 (phealth <- soep_lebensz %>% 
   select(persnr, jahr, gesund_org, gesund_std, lebensz_org, lebensz_std) %>% 
-  sample_frac(1L)
+  sample_frac(.95)
 )
 
 (pl <- soep_lebensz %>% 
