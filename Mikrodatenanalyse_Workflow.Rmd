@@ -25,15 +25,16 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 * Gewichtete Statistiken
 
 # Setup eines effizienten Workflows
+## Grundidee
 
 * Mikrodatensätze wirken häufig komplex. Grund hierfür sind sicherlich die Dimensionen der Datensätze. Viele Beobachtungen (Zeilen!) treffen auf viele Variablen (Spalten!)
 * Bei der Datenanalyse unterscheiden sich die Workflows in der Grundstruktur kaum von der Analyse anderer *kleinerer* Datensätze:
-1) Daten einlesen
-2) Daten säubern
-3) Daten analysieren
-4) Daten transformieren
-5) Daten visualisieren
-6) Daten kommunizieren
+1. Daten einlesen
+2. Daten säubern
+3. Daten analysieren
+4. Daten transformieren
+5. Daten visualisieren
+6. Daten kommunizieren
 
 ![](images/Workflow_Datenanalyse.png)
 Quelle: Vgl. [R4DS](https://bookdown.org/asmundhreinn/r4ds-master/wrangle-intro.html)
@@ -45,3 +46,63 @@ Quelle: Vgl. [R4DS](https://bookdown.org/asmundhreinn/r4ds-master/wrangle-intro.
 * Das Zusammenführen der Daten kann, je nach Größe der Datensätze einige Zeit in Anspruch nehmen. Um zu Vermeiden, den Arbeitsdatensatz ständig auf's Neue zusammenzufügen, sollte ein Arbeitsdatensatz gespeichert werden.
 
 * An diesem sollten, außer dem Zusammenführen der Daten, noch keine Änderungen vergenommen worden sein. Das Verändern der Daten erfolgt erst in einem späteren Schritt. Geht im Verlaufe der Datenanalyse etwas schief und der Arbeitsdatensatz wird ausversehen überschrieben, kann schnell die Erstversion wiederhergestellt werden. Ein erneutes Zusammenstellen der Daten wird vermieden.
+
+* Ein effizienter Workflow bei der Analyse großer Datenmengen aus verschiedenen Quellen könnte also so aussehen:
+
+![](images/Workflow_Datenanalyse_Mikrodaten.png)
+Quelle: Adaptiert von [R4DS](https://bookdown.org/asmundhreinn/r4ds-master/wrangle-intro.html)
+
+## Ordnerstruktur
+
+* Ein effizienter Workflow beginnt bei einer effizienten Ordnerstruktur. Dabei sollte mir R-Projekten gearbeitet werden. Eine beispielhafte Ordnerstruktur könnte so aussehen:
+```{r echo = FALSE}
+library(fs)
+fs::dir_tree("Beispielordner_Mikrodatenanalyse", recurse = TRUE)
+```
+* Der Projektordner <tt> Beispielordner_Mikrodatenanalyse </tt> enthält alle relevanten Dateien. In der ersten Ebene liegt die .Rproj-Datei (<tt>Projekt_Mikrodatenanalyse.Rproj</tt>), .R-Dateien und Unterordner.
+
+* Ausgehend vom Projektordner, in dem die .Rproj-Datei liegt, können beliebige Unterordner gebildet werden. Alternativ zur obigen Struktur könnten die .R-Dateien auch in einen eigenen Ordner verschoben werden.
+
+* Andere Beispiele für Ordnerstrukturen finden sich zum Beispiel hier:
+
+> * [RStudio Projects and Working Directories: A Beginner's Guide](https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner's-guide/)
+
+> * [Bookdown: How to organize a project folder](https://bookdown.org/lyzhang10/lzhang_r_tips_book/how-to-organize-a-project-folder.html)
+ 
+> * [RStudio: Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
+
+# Mikrodatenanalyse Praxisbeispiel
+
+## Daten einlesen
+
+### Problem: 
+
+Mikrodaten werden in der Regel (noch) nicht in einem R-Datenformat ausgeliefert. Häufig sind zunächst nur dta-Dateien (Stata) oder sav-Dateien (SPSS) verfügbar.
+
+###Lösung: 
+
+Das Paket <tt>haven</tt> ermöglicht das Einlesen *fremder* Dateitypen.
+
+```{r haven_installieren, eval = FALSE}
+#Einmalig installieren
+install.packages("haven")
+```
+
+```{r haven_laden}
+#Laden
+library(haven)
+```
+
+* Das Paket bietet verschiedene Funktionen, um fremde Dateiformate einzulesen, und diese zu speichern. Stata oder SPSS-Nutzer sind zudem die Arbeit mit *Labeln* gewohnt. In R wird dies standardmäßig nicht unterstützt. <tt>haven</tt> enthält verschiedene Funktionen, um Label zu definieren, ändern, löschen, usw.:
+
+```{r}
+#Liste aller Funktionen im Paket haven
+ls("package:haven")
+```
+
+```{r}
+read_dta("Beispielordner_Mikrodatenanalyse/data_in/phealth.dta")
+```
+
+
+

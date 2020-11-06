@@ -391,6 +391,8 @@ div.tocify {
 </div>
 <div id="setup-eines-effizienten-workflows" class="section level1">
 <h1>Setup eines effizienten Workflows</h1>
+<div id="grundidee" class="section level2">
+<h2>Grundidee</h2>
 <ul>
 <li>Mikrodatensätze wirken häufig komplex. Grund hierfür sind sicherlich die Dimensionen der Datensätze. Viele Beobachtungen (Zeilen!) treffen auf viele Variablen (Spalten!)</li>
 <li>Bei der Datenanalyse unterscheiden sich die Workflows in der Grundstruktur kaum von der Analyse anderer <em>kleinerer</em> Datensätze:</li>
@@ -409,7 +411,98 @@ div.tocify {
 <li><p>Bei der Arbeit mit Mikrodatensätzen müssen in der Regel verschiedene Datensätze zu einem Arbeitsdatensatz zusammengeführt werden.</p></li>
 <li><p>Das Zusammenführen der Daten kann, je nach Größe der Datensätze einige Zeit in Anspruch nehmen. Um zu Vermeiden, den Arbeitsdatensatz ständig auf's Neue zusammenzufügen, sollte ein Arbeitsdatensatz gespeichert werden.</p></li>
 <li><p>An diesem sollten, außer dem Zusammenführen der Daten, noch keine Änderungen vergenommen worden sein. Das Verändern der Daten erfolgt erst in einem späteren Schritt. Geht im Verlaufe der Datenanalyse etwas schief und der Arbeitsdatensatz wird ausversehen überschrieben, kann schnell die Erstversion wiederhergestellt werden. Ein erneutes Zusammenstellen der Daten wird vermieden.</p></li>
+<li><p>Ein effizienter Workflow bei der Analyse großer Datenmengen aus verschiedenen Quellen könnte also so aussehen:</p></li>
 </ul>
+<p><img src="images/Workflow_Datenanalyse_Mikrodaten.png" /> Quelle: Adaptiert von <a href="https://bookdown.org/asmundhreinn/r4ds-master/wrangle-intro.html">R4DS</a></p>
+</div>
+<div id="ordnerstruktur" class="section level2">
+<h2>Ordnerstruktur</h2>
+<ul>
+<li>Ein effizienter Workflow beginnt bei einer effizienten Ordnerstruktur. Dabei sollte mir R-Projekten gearbeitet werden. Eine beispielhafte Ordnerstruktur könnte so aussehen:</li>
+</ul>
+<pre><code>## Beispielordner_Mikrodatenanalyse
+## +-- 01_Daten.R
+## +-- 02_Analyse.R
+## +-- data_in
+## |   +-- phealth.dta
+## |   +-- pl.sav
+## |   \-- ppathl.dta
+## +-- data_out
+## +-- graphs_out
+## \-- Projekt_Mikrodatenanalyse.Rproj</code></pre>
+<ul>
+<li><p>Der Projektordner <tt> Beispielordner_Mikrodatenanalyse </tt> enthält alle relevanten Dateien. In der ersten Ebene liegt die .Rproj-Datei (<tt>Projekt_Mikrodatenanalyse.Rproj</tt>), .R-Dateien und Unterordner.</p></li>
+<li><p>Ausgehend vom Projektordner, in dem die .Rproj-Datei liegt, können beliebige Unterordner gebildet werden. Alternativ zur obigen Struktur könnten die .R-Dateien auch in einen eigenen Ordner verschoben werden.</p></li>
+<li><p>Andere Beispiele für Ordnerstrukturen finden sich zum Beispiel hier:</p></li>
+</ul>
+<blockquote>
+<ul>
+<li><a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner&#39;s-guide/">RStudio Projects and Working Directories: A Beginner's Guide</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><a href="https://bookdown.org/lyzhang10/lzhang_r_tips_book/how-to-organize-a-project-folder.html">Bookdown: How to organize a project folder</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio: Using Projects</a></li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div id="mikrodatenanalyse-praxisbeispiel" class="section level1">
+<h1>Mikrodatenanalyse Praxisbeispiel</h1>
+<div id="daten-einlesen" class="section level2">
+<h2>Daten einlesen</h2>
+<div id="problem" class="section level3">
+<h3>Problem:</h3>
+<p>Mikrodaten werden in der Regel (noch) nicht in einem R-Datenformat ausgeliefert. Häufig sind zunächst nur dta-Dateien (Stata) oder sav-Dateien (SPSS) verfügbar.</p>
+</div>
+<div id="lösung" class="section level3">
+<h3>Lösung:</h3>
+<p>Das Paket <tt>haven</tt> ermöglicht das Einlesen <em>fremder</em> Dateitypen.</p>
+<pre class="r"><code>#Einmalig installieren
+install.packages(&quot;haven&quot;)</code></pre>
+<pre class="r"><code>#Laden
+library(haven)</code></pre>
+<ul>
+<li>Das Paket bietet verschiedene Funktionen, um fremde Dateiformate einzulesen, und diese zu speichern. Stata oder SPSS-Nutzer sind zudem die Arbeit mit <em>Labeln</em> gewohnt. In R wird dies standardmäßig nicht unterstützt. <tt>haven</tt> enthält verschiedene Funktionen, um Label zu definieren, ändern, löschen, usw.:</li>
+</ul>
+<pre class="r"><code>#Liste aller Funktionen im Paket haven
+ls(&quot;package:haven&quot;)</code></pre>
+<pre><code>##  [1] &quot;as_factor&quot;                &quot;format_tagged_na&quot;        
+##  [3] &quot;is.labelled&quot;              &quot;is_tagged_na&quot;            
+##  [5] &quot;labelled&quot;                 &quot;labelled_spss&quot;           
+##  [7] &quot;na_tag&quot;                   &quot;print_labels&quot;            
+##  [9] &quot;print_tagged_na&quot;          &quot;read_dta&quot;                
+## [11] &quot;read_por&quot;                 &quot;read_sas&quot;                
+## [13] &quot;read_sav&quot;                 &quot;read_spss&quot;               
+## [15] &quot;read_stata&quot;               &quot;read_xpt&quot;                
+## [17] &quot;tagged_na&quot;                &quot;vec_arith.haven_labelled&quot;
+## [19] &quot;write_dta&quot;                &quot;write_sas&quot;               
+## [21] &quot;write_sav&quot;                &quot;write_xpt&quot;               
+## [23] &quot;zap_empty&quot;                &quot;zap_formats&quot;             
+## [25] &quot;zap_label&quot;                &quot;zap_labels&quot;              
+## [27] &quot;zap_missing&quot;              &quot;zap_widths&quot;</code></pre>
+<pre class="r"><code>read_dta(&quot;Beispielordner_Mikrodatenanalyse/data_in/phealth.dta&quot;)</code></pre>
+<pre><code>## # A tibble: 12,922 x 6
+##    persnr  jahr      gesund_org gesund_std               lebensz_org lebensz_std
+##     &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl+lbl&gt;      &lt;dbl&gt;                 &lt;dbl+lbl&gt;       &lt;dbl&gt;
+##  1 235585  2000 4 [Gut]              0.567  5 [5 Zufrieden: Skala 0~     -1.23  
+##  2  74141  2000 3 [Zufriedenst~     -0.464  6 [6 Zufrieden: Skala 0~     -0.659 
+##  3 512655  2001 4 [Gut]              0.567  6 [6 Zufrieden: Skala 0~     -0.659 
+##  4 259440  2003 3 [Zufriedenst~     -0.464  8 [8 Zufrieden: Skala 0~      0.477 
+##  5 527534  2002 4 [Gut]              0.567  9 [9 Zufrieden: Skala 0~      1.05  
+##  6 510444  2001 1 [Schlecht]        -2.53   5 [5 Zufrieden: Skala 0~     -1.23  
+##  7 396886  2001 2 [Weniger_gut]     -1.49   6 [6 Zufrieden: Skala 0~     -0.659 
+##  8 246747  2002 5 [Sehr_gut]         1.60  10 [10 Zufrieden: Skala ~      1.61  
+##  9 544752  2001 4 [Gut]              0.567  6 [6 Zufrieden: Skala 0~     -0.659 
+## 10 152915  2000 5 [Sehr_gut]         1.60   7 [7 Zufrieden: Skala 0~     -0.0909
+## # ... with 12,912 more rows</code></pre>
+</div>
+</div>
 </div>
 
 

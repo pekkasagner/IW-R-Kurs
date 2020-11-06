@@ -30,5 +30,5 @@ set.seed(58008)
 
 haven::write_dta(ppathl, path = "daten_beispiele/soep_dummy/ppathl.dta")
 haven::write_dta(phealth, path = "daten_beispiele/soep_dummy/phealth.dta")
-haven::write_dta(pl, path = "daten_beispiele/soep_dummy/pl.dta")
+haven::write_sav(pl, path = "daten_beispiele/soep_dummy/pl.sav")
 
