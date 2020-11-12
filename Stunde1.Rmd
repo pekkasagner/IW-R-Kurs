@@ -41,6 +41,31 @@ RStudio ist ein integrierte Entwicklungsumgebung (IDE) und graphische Benutzerob
 
 ### 1.2.1 Das Layout von R-Studio
 
+![](images/R-panes.png)
+Das Grundlayout von R-Studio besteht aus vier Fenstern. Diese sind wie oben
+angeordnet und können funktional folgendermaßen unterschieden werden:
+
+* Fenster 1: Das Fenster enthält das Hauptskript oder ggf. den Viewer (hiermit können Datensätze (ohne Schreibfunktion) betrachtet werden)
+
+* Fenster 2: Beinhaltet die Umgebungsübersicht. Alle Objekte und Variablen die erstellt wurden, können hier betrachtet werden.
+
+* Fenster 3: Hier befindet sich die Konsole.
+
+* Fenster 4: Beinhaltet ein Übersicht über alle Dateien im Ordner / Plots / Pakete / oder die Hilfe.
+
+Über 'Tools > Global Options > Pane Layout' können diese Fenster nach belieben angeordnet und ein- bzw. ausgeblendet werden. 
+
+
 ### 1.2.2 Erweiterte Einstellungen in R-Studio
+
+Wenn man R-Studio das erste mal benutzt, macht es Sinn, einige Einstellungen zu verändern, die standardmäßig eingestellt sind. 
+
+Hier macht es Sinn, sich unter 'Tools > Global Options' einmal die verschiedenen Optionen anzuschauen. 
+
+![](images/R-einstellungen.png)
+Zwei wichtige Einstellungen sind (unserer Meinung nach) den Haken bei "Restore .RData into workspace at start-up" zu entfernen und die Option bei "Save workspace to .RData on exit" auf "Never" zu setzen. In einzelfällen kann es sinnvoll sein, Daten und Zuweisungen aus der letzten Sitzung automatisch in der nächsten Sitzung zu laden. In vielen Fällen kann dies aber zu Verwirrung oder sogar zu Fehlern führen. 
+
+Des Weiteren macht es Sinn, sich unter 'Tools > Global Options > Appearance' mit den verfügbaren Optionen auseinanderzusetzen. Hier lassen sich etwa Schriftart und -größe sowie das Generelle Theme von R-Studio einstellen. Wenn man längere Zeit vor R-Studio sitzt (was durchaus zu empfehlen ist), kann es Sinn machen einen Darkmode zu nutzen, um die Augen zu schonen. 
+
 
 ### 1.2.3 Erstellung von Projekten

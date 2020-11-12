@@ -11,7 +11,7 @@
 
 
 
-<title></title>
+<title>1. RStudio und das tidyverse</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -374,9 +374,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore"><ol style="list-style-type: decimal">
-<li>RStudio und das tidyverse</li>
-</ol></h1>
+<h1 class="title toc-ignore">1. RStudio und das tidyverse</h1>
 
 </div>
 
@@ -409,9 +407,21 @@ div.tocify {
 <p>RStudio ist ein integrierte Entwicklungsumgebung (IDE) und graphische Benutzeroberflächer für R. <a href="https://rstudio.com/">RStudio</a> ist als lokale Desktop-Version, als Server Version und auch in der Cloud verfügbar. Auch wenn R und R-Skripte auch über die Konsole gestartet werden können, bietet R-Studio einige Komfortfunktionen, die die Datenanalyse vereinfachen. Diese Funktionen umfassen unter anderem die Organisation von Analysen und Daten in Projekten (siehe Kapitel 1.3), die Möglichkeit Datensätze interaktiv zu betrachten, die Visualisierung von Daten und etwa die direkte Integration von Versionsverwaltung mit <a href="https://git-scm.com/">Git</a>.</p>
 <div id="das-layout-von-r-studio" class="section level3">
 <h3>1.2.1 Das Layout von R-Studio</h3>
+<p><img src="images/R-panes.png" /> Das Grundlayout von R-Studio besteht aus vier Fenstern. Diese sind wie oben angeordnet und können funktional folgendermaßen unterschieden werden:</p>
+<ul>
+<li><p>Fenster 1: Das Fenster enthält das Hauptskript oder ggf. den Viewer (hiermit können Datensätze (ohne Schreibfunktion) betrachtet werden)</p></li>
+<li><p>Fenster 2: Beinhaltet die Umgebungsübersicht. Alle Objekte und Variablen die erstellt wurden, können hier betrachtet werden.</p></li>
+<li><p>Fenster 3: Hier befindet sich die Konsole.</p></li>
+<li><p>Fenster 4: Beinhaltet ein Übersicht über alle Dateien im Ordner / Plots / Pakete / oder die Hilfe.</p></li>
+</ul>
+<p>Über ‘Tools &gt; Global Options &gt; Pane Layout’ können diese Fenster nach belieben angeordnet und ein- bzw. ausgeblendet werden.</p>
 </div>
 <div id="erweiterte-einstellungen-in-r-studio" class="section level3">
 <h3>1.2.2 Erweiterte Einstellungen in R-Studio</h3>
+<p>Wenn man R-Studio das erste mal benutzt, macht es Sinn, einige Einstellungen zu verändern, die standardmäßig eingestellt sind.</p>
+<p>Hier macht es Sinn, sich unter ‘Tools &gt; Global Options’ einmal die verschiedenen Optionen anzuschauen.</p>
+<p><img src="images/R-einstellungen.png" /> Zwei wichtige Einstellungen sind (unserer Meinung nach) den Haken bei “Restore .RData into workspace at start-up” zu entfernen und die Option bei “Save workspace to .RData on exit” auf “Never” zu setzen. In einzelfällen kann es sinnvoll sein, Daten und Zuweisungen aus der letzten Sitzung automatisch in der nächsten Sitzung zu laden. In vielen Fällen kann dies aber zu Verwirrung oder sogar zu Fehlern führen.</p>
+<p>Des Weiteren macht es Sinn, sich unter ‘Tools &gt; Global Options &gt; Appearance’ mit den verfügbaren Optionen auseinanderzusetzen. Hier lassen sich etwa Schriftart und -größe sowie das Generelle Theme von R-Studio einstellen. Wenn man längere Zeit vor R-Studio sitzt (was durchaus zu empfehlen ist), kann es Sinn machen einen Darkmode zu nutzen, um die Augen zu schonen.</p>
 </div>
 <div id="erstellung-von-projekten" class="section level3">
 <h3>1.2.3 Erstellung von Projekten</h3>

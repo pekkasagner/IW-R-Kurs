@@ -409,7 +409,7 @@ div.tocify {
 <ul>
 <li><p>In der Praxis geht es meist nicht so geradlinig zu. Insbesondere bei großen Datensätzen kann es sinnvol sein, einige Zwischenschritte einzubauen.</p></li>
 <li><p>Bei der Arbeit mit Mikrodatensätzen müssen in der Regel verschiedene Datensätze zu einem Arbeitsdatensatz zusammengeführt werden.</p></li>
-<li><p>Das Zusammenführen der Daten kann, je nach Größe der Datensätze einige Zeit in Anspruch nehmen. Um zu Vermeiden, den Arbeitsdatensatz ständig auf's Neue zusammenzufügen, sollte ein Arbeitsdatensatz gespeichert werden.</p></li>
+<li><p>Das Zusammenführen der Daten kann, je nach Größe der Datensätze einige Zeit in Anspruch nehmen. Um zu Vermeiden, den Arbeitsdatensatz ständig auf’s Neue zusammenzufügen, sollte ein Arbeitsdatensatz gespeichert werden.</p></li>
 <li><p>An diesem sollten, außer dem Zusammenführen der Daten, noch keine Änderungen vergenommen worden sein. Das Verändern der Daten erfolgt erst in einem späteren Schritt. Geht im Verlaufe der Datenanalyse etwas schief und der Arbeitsdatensatz wird ausversehen überschrieben, kann schnell die Erstversion wiederhergestellt werden. Ein erneutes Zusammenstellen der Daten wird vermieden.</p></li>
 <li><p>Ein effizienter Workflow bei der Analyse großer Datenmengen aus verschiedenen Quellen könnte also so aussehen:</p></li>
 </ul>
@@ -437,7 +437,7 @@ div.tocify {
 </ul>
 <blockquote>
 <ul>
-<li><a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner&#39;s-guide/">RStudio Projects and Working Directories: A Beginner's Guide</a></li>
+<li><a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner&#39;s-guide/">RStudio Projects and Working Directories: A Beginner’s Guide</a></li>
 </ul>
 </blockquote>
 <blockquote>
@@ -459,9 +459,7 @@ div.tocify {
 <div id="problem" class="section level3">
 <h3>Problem:</h3>
 <p>Mikrodaten werden in der Regel (noch) nicht in einem R-Datenformat ausgeliefert. Häufig sind zunächst nur dta-Dateien (Stata) oder sav-Dateien (SPSS) verfügbar.</p>
-</div>
-<div id="lösung" class="section level3">
-<h3>Lösung:</h3>
+<p>###Lösung:</p>
 <p>Das Paket <tt>haven</tt> ermöglicht das Einlesen <em>fremder</em> Dateitypen.</p>
 <pre class="r"><code>#Einmalig installieren
 install.packages(&quot;haven&quot;)</code></pre>
