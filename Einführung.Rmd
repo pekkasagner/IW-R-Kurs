@@ -16,15 +16,16 @@ output:
 knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 ```
 
+---- 
+
 # Ziele der Sitzung
 
-1. Gutes Verständnis von R in RStudio
+* Verständnis der Grundfunktion von RStudio
+* Erweiterte Einstellungen
+* Erstellung eines Projektes
+* Gutes Setup für Datenanalyse und Datenvisualisierung mit R
 
-  * Erstellung eines Projektes
-  * Verständnis der Grundfunktion
-  * Erweiterte Einstellungen
-
-2. Know-How im Tidyverse
+----
 
 # R und RStudio installieren 
 
@@ -35,9 +36,13 @@ Wenn IW-Laptops benutzt werden, sollten R und RStudio bereits von der IT install
 
 Die Kursinhalte können ggf. auch mit älteren Version bearbeitet werden. Für eine Minimierung möglicher Fehler macht es aber Sinn, dass alle Kursteilnehmer mit den gleichen Versionen arbeiten. 
 
+----
+
 # RStudio verstehen
 
 [RStudio](https://rstudio.com/) ist ein integrierte Entwicklungsumgebung (IDE) und graphische Benutzeroberflächer für R. Rstudio ist als lokale Desktop-Version, als Server Version und auch in der Cloud verfügbar. Auch wenn R und R-Skripte über die Konsole gestartet werden können, bietet R-Studio gerade für Anfänger einige Komfortfunktionen, die die Datenanalyse vereinfachen. Diese Funktionen umfassen unter anderem die Organisation von Analysen und Daten in Projekten (siehe unten), die Möglichkeit Datensätze interaktiv zu betrachten, die Visualisierung von Daten und die direkte Integration von Versionsverwaltung mit [Git](https://git-scm.com/). 
+
+----
 
 # Das Layout von R-Studio
 <center>
@@ -59,6 +64,7 @@ angeordnet und können funktional folgendermaßen unterschieden werden:
 
 Über <code>Tools > Global Options > Pane Layout</code> können diese Fenster nach belieben angeordnet und ein- bzw. ausgeblendet werden. 
 
+----
 
 # Erweiterte Einstellungen
 
@@ -80,6 +86,8 @@ Zwei wichtige Einstellungen sind (unserer Meinung nach):
 In Einzelfällen kann es sinnvoll sein, Daten und Zuweisungen aus der letzten Sitzung automatisch in der nächsten Sitzung zu importieren. Öfter kann dies aber zu Verwirrung oder sogar zu Fehlern führen. Vor allem schulen die Einstellungen darin, alle Ergebnisse reprozudiertbar in Skripten zu speichern. 
 
 Des Weiteren macht es Sinn, sich unter <code>Tools > Global Options > Appearance</code> mit den verfügbaren Optionen auseinanderzusetzen. Hier lassen sich etwa Schriftart und -größe sowie das generelle Theme von R-Studio einstellen. Wenn man längere Zeit vor R-Studio sitzt (was durchaus zu empfehlen ist), kann es Sinn machen, einen Darkmode zu nutzen, um die Augen zu schonen. 
+
+----
 
 
 # Erstellung von Projekten
@@ -119,3 +127,15 @@ Im nächsten Fenster wählt man noch einmal die Option 'New Project'. Hier beste
 Im letzten Schritt gibt man den Namen des Ordners / des Projektes sowie den Pfad des Ordners an. Arbeitet man mit Versionskontrolle, besteht hier zudem die Möglichkeit, das Projekte bzw. den Ordner direkt mit git zu initialisieren.
 
 Im nächsten Kapitel sollen die Vorteile von R-Studio Projekten anhand von Beispielen deutlich gemacht werden.
+
+----
+
+# Weiterführende Informationen
+
+Hier werden eine Reihe von Links mit weiterführenden Informationen zu RStudio-Projekten aufgeführt. Wenn man plant, R und Rstudio häufiger zu nutzen, macht es Sinn, sich vor allem am Anfang mit den Grundlagen vernünftiger Projekt- und Ordnerverwaltung auseinander zu setzten. Einmal erlernte suboptimale Vorgehensweise sind später oft schwieriger zu korrigieren. Die folgenden Links können dabei helfen:
+
+* [Chris von Csefalvay - Structuring R Projects](https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/)
+
+* [Martin Chan - RStudio Projects and Working Directories - A Beginners Guide](https://www.r-bloggers.com/2020/01/rstudio-projects-and-working-directories-a-beginners-guide/)
+
+* [R4DS - Workflow: projects](https://r4ds.had.co.nz/workflow-projects.html)
