@@ -40,8 +40,12 @@ Die Kursinhalte können ggf. auch mit älteren Version bearbeitet werden. Für e
 RStudio ist ein integrierte Entwicklungsumgebung (IDE) und graphische Benutzeroberflächer für R. [RStudio](https://rstudio.com/) ist als lokale Desktop-Version, als Server Version und auch in der Cloud verfügbar. Auch wenn R und R-Skripte auch über die Konsole gestartet werden können, bietet R-Studio einige Komfortfunktionen, die die Datenanalyse vereinfachen. Diese Funktionen umfassen unter anderem die Organisation von Analysen und Daten in Projekten (siehe Kapitel 1.3), die Möglichkeit Datensätze interaktiv zu betrachten, die Visualisierung von Daten und etwa die direkte Integration von Versionsverwaltung mit [Git](https://git-scm.com/). 
 
 # Das Layout von R-Studio
+<center>
 
-![](images/R-panes.png)
+![](images/R-panes.png){width=75%}
+
+</center>
+
 Das Grundlayout von R-Studio besteht aus vier Fenstern. Diese sind wie oben
 angeordnet und können funktional folgendermaßen unterschieden werden:
 
@@ -62,7 +66,12 @@ Wenn man R-Studio das erste mal benutzt, macht es Sinn, einige Einstellungen zu 
 
 Hier macht es Sinn, sich unter 'Tools > Global Options' einmal die verschiedenen Optionen anzuschauen. 
 
-![](images/R-einstellungen.png)
+<center>
+
+![](images/R-einstellungen.png){width=50%}
+
+</center>
+
 Zwei wichtige Einstellungen sind (unserer Meinung nach):
 
 1. den Haken bei "Restore .RData into workspace at start-up" zu entfernen und 
@@ -70,7 +79,8 @@ Zwei wichtige Einstellungen sind (unserer Meinung nach):
 
 In Einzelfällen kann es sinnvoll sein, Daten und Zuweisungen aus der letzten Sitzung automatisch in der nächsten Sitzung zu importieren. Öfter kann dies aber zu Verwirrung oder sogar zu Fehlern führen. 
 
-Des Weiteren macht es Sinn, sich unter 'Tools > Global Options > Appearance' mit den verfügbaren Optionen auseinanderzusetzen. Hier lassen sich etwa Schriftart und -größe sowie das Generelle Theme von R-Studio einstellen. Wenn man längere Zeit vor R-Studio sitzt (was durchaus zu empfehlen ist), kann es Sinn machen einen Darkmode zu nutzen, um die Augen zu schonen. 
+Des Weiteren macht es Sinn, sich unter 'Tools > Global Options > Appearance' mit den verfügbaren Optionen auseinanderzusetzen. Hier lassen sich etwa Schriftart und -größe sowie das generelle Theme von R-Studio einstellen. Wenn man längere Zeit vor R-Studio sitzt (was durchaus zu empfehlen ist), kann es Sinn machen, einen Darkmode zu nutzen, um die Augen zu schonen. 
 
 
 # Erstellung von Projekten
+
