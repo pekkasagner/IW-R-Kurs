@@ -1,0 +1,84 @@
+---
+title: "Das Tidyverse"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: true
+    number_sections: false
+    toc_depth: 1
+    #code_folding: hide
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
+
+---- 
+
+# Ziele der Sitzung
+
+* Grundverständnis der tidyverse
+* Laden verschiedener Dateiformate
+* Bearbeiten von Daten
+* Verstädnnigs von Pipes (%>%)
+* Übergang in ggplot2 
+
+----
+
+# Was ist das tidyverse?
+
+Das [tidyverse](https://www.tidyverse.org/) in R ist eine Sammlung von Paketen, denen dieselbe Repräsentation von Daten ([tidy data](https://vita.had.co.nz/papers/tidy-data.pdf)) zu Grunde liegen und die ein gemeinsames API Design nutzen. "Tidy data" umschreibt "aufgeräumte" bzw. "saubere" Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Die Pakete und Funktionen des tidyverse können die oft sperrigen und schwer verständlichen Base-R Funktionen fast vollständig ersetzen und bieten einen intuitiven Einstieg in die Analyse und Visualisierung von Daten. 
+
+----
+
+# Installation und Inhalt
+
+Das tidyverse kann über den Befehl <code> install.packages("tidyverse") </code> installiert werden. Wird die Bibilothek in mit <code> library(tidyverse) </code> in die Umgebung geladen, sind die folgenden Pakete direkt nutzbar:
+
+* [ggplot2](https://ggplot2.tidyverse.org), für Datenvisualisierung,
+* [dplyr](https://dplyr.tidyverse.org), für Datenbearbeitung,
+* [tidyr](https://tidyr.tidyverse.org), für das Säubern von Daten,
+* [readr](https://readr.tidyverse.org), für den Import von Daten,
+* [purrr](https://purrr.tidyverse.org), für funktionales Programmieren,
+* [tibble](https://tibble.tidyverse.org), für Tibbles (eine Art DataFrame),
+* [stringr](https://github.com/tidyverse/stringr), für Strings,
+* [forcats](https://github.com/hadley/forcats), für Faktor-Variablen.
+
+Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code> install.packages("tidyverse") </code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code> library("Paketname") </code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:
+
+*   Für die Arbeit mit Daten mit zeitlichem Bezug:
+
+    * [hms](https://github.com/rstats-db/hms), für Uhrzeiten,
+    * [lubridate](https://github.com/tidyverse/lubridate), für Datums/Zeit-Transformationen.
+    
+    
+*   Für den Import weiterer Datenformate:
+
+    * [feather](https://github.com/wesm/feather), für das Teilen von Daten mit Python und weiteren Programmiersprachen,
+    * [haven](https://github.com/tidyverse/haven), für SPSS, SAS and **Stata** Daten
+    * [httr](https://github.com/r-lib/httr), für Web-APIs,
+    * [jsonlite](https://github.com/jeroen/jsonlite) für JSON,
+    * [readxl](https://github.com/tidyverse/readxl), für `.xls` und `.xlsx` Dateien,
+    * [rvest](https://github.com/tidyverse/rvest), für Web-Scraping,
+    * [xml2](https://github.com/r-lib/xml2), für XML
+
+*   Modellierung
+
+    * [broom](https://github.com/tidymodels/broom), für das Säubern / Auslesen von Modellobjekten.
+    
+----
+    
+# Mögliche Probleme
+
+Lädt man das tidyverse in die Arbeitsumgebung, wird folgende Nachricht angezeigt:
+
+<center>
+
+![](images/tidyverse_1_load.png){width=75%}
+
+</center>
+
+Einerseits werden hier unter "Attaching packages" die geladenen Pakete samt der jeweiligen Version angezeigt. Unter "Conflicts" gibt es zudem zwei Warnhinweise. Diese weisen auf mögliche Probleme bei der Nutzung verschiedener R-Pakete hin. Hier werden durch das Laden des tidyverse zwei Befehle aus der "stats-Bibliothek" maskiert, also überschrieben. Konkret bedeutet das, dass nachdem das tidyverse geladen wurde, die Befehle <code> filter() </code> und <code> lag() </code> ihre Funktionalität aus dem "dplyr-Paket" und nicht mehr von "stats" beziehen. 

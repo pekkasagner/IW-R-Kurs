@@ -47,7 +47,7 @@ Die Kursinhalte können ggf. auch mit älteren Version bearbeitet werden. Für e
 # Das Layout von R-Studio
 <center>
 
-![](images/R-panes.png){width=75%}
+![](images/einführung_1_fenster.png){width=75%}
 
 </center>
 
@@ -74,7 +74,7 @@ Hier macht es Sinn, sich unter 'Tools > Global Options' einmal die verschiedenen
 
 <center>
 
-![](images/R-einstellungen.png){width=50%}
+![](images/einführung_2_einstellungen.png){width=50%}
 
 </center>
 
@@ -104,7 +104,7 @@ Projekte können unter <code>File > New Project</code> erstellt werden.
 
 <center>
 
-![](images/rpoject_1.png){width=50%}
+![](images/einführung_3_project.png){width=50%}
 
 </center>
 
@@ -112,7 +112,7 @@ Im dann erscheinenden Fenster besteht die Möglichkeit, für ein Projekt einen n
 
 <center>
 
-![](images/rproject_2.png){width=50%}
+![](images/einführung_4_project.png){width=50%}
 
 </center>
 
@@ -120,7 +120,7 @@ Im nächsten Fenster wählt man noch einmal die Option 'New Project'. Hier beste
 
 <center>
 
-![](images/rproject_3.png){width=50%}
+![](images/einführung_5_project.png){width=50%}
 
 </center>
 
