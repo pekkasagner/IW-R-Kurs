@@ -10,6 +10,8 @@ navbar:
       href: Einführung.html
     - text: "Tidyverse"
       href: Tidyverse.html
+    - text: "ggplot2"
+      href: ggplot.html
     - text: "Mikrodatenanalyse"
       href: Mikrodatenanalyse_Workflow.html
     - text: "Links"

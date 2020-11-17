@@ -1,0 +1,44 @@
+---
+title: "Datenvisualisierung mit ggplot2"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: true
+    number_sections: false
+    toc_depth: 2
+    #code_folding: hide
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
+
+---- 
+
+# Ziele der Sitzung
+
+* Grundverständnis von ggplo2
+* Visualisierung von Daten 
+
+
+----
+
+# Was ist ggplot2?
+
+```{r load_data}
+library(tidyverse)
+
+# Laden der Daten
+Arbeitslosenquote <- 
+  readxl::read_xls('daten_beispiele/Arbeitslosenquote.xls',
+                         skip = 1) %>% 
+  rename('Kennziffer' = '...1',
+         'Raumeinheit' = '...2',
+         'Aggregat' = '...3') %>% 
+  pivot_longer(!c(Kennziffer, Raumeinheit, Aggregat), 
+               names_to = 'Jahr', 
+               values_to = 'Arbeitslosenquote')
+```

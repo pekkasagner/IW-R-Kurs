@@ -11,7 +11,7 @@
 
 
 
-<title>Kursziele</title>
+<title>Datenvisualisierung mit ggplot2</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -259,6 +262,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -266,6 +332,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -315,41 +391,40 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Kursziele</h1>
+<h1 class="title toc-ignore">Datenvisualisierung mit ggplot2</h1>
 
 </div>
 
 
-<style type="text/css">
-.title {
-  display: none;
-}
-
-#getting-started img {
-  margin-right: 10px;
-}
-
-</style>
-<div class="row" style="padding-top: 30px;">
-<div class="col-sm-6">
-<h1 id="ziele-des-r-kurses-im-iw"><strong>Ziele des R-Kurses im IW</strong></h1>
-<p>Jeder Teilnehmer verfolgt sicher seine eigenen Ziele. Was die Teilnehmer aus der Kursteilnahme mitnehmen könnten:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Wie R funktioniert:</strong> R gibt es schon recht lange und basiert auf der Programmiersprache S <a href="https://www.r-project.org/about.html">(mehr)</a>. R ist eine Programmiersprache und kostenfreie Software mit dem Fokus auf statistische Berechnungen. Der Kurs gibt eine nicht-technische Einführung in die Grundstruktur. Wir arbeiten mit dem <em>tidyvese</em> <a href="https://www.tidyverse.org/">(mehr)</a>. Das tidyverse ist eine Sammlung von R-Paketen, die einer gemeinsamen Struktur und Logik folgen. Wichtiger ist: das Coding im tidyverse ist sehr intuitiv.</p></li>
-<li><p><strong>Wie R-Studio funktioniert:</strong> R-Studio ist eine Entwicklungsumgebung und grafische Benutzeroberfläche für R. Wenn R der Motor ist, dann ist R-Studio das Cockpit <a href="https://rstudio.com/">(mehr)</a>.</p></li>
-<li><p><strong>Wie die Datenanalyse funktioniert:</strong> Der Fokus des Kurses liegt zwar auf der Datenvisualisierung, um Daten jedoch visualisieren zu können, müssen wir den ein oder anderen Schritt dahin gehen. Dabei werden das Fundament für die Datenanalyse mit R erklärt.</p></li>
-<li><p><strong>Wie die Datenvisualisierung funktioniert:</strong> Mit R lassen sich schicke Abbildungen erstellen. Im Kurs wird die “Grammar of Graphics (gg)” genutzt, um einfache und weniger einfache Abbildungen zu erstellen <a href="https://ggplot2.tidyverse.org/">(mehr)</a>.</p></li>
-<li><p><strong>Wie Animationen funktionieren:</strong> Abbildungen sind zweidimensional: langweilig! Wir erstellen zwar keine aus dem Bildschirm springenden Abbildungen. Allerdings lassen sich Abbildungen durch Animationen eine spannende dritte Dimension geben <a href="https://gganimate.com/articles/gganimate.html">(mehr)</a>.</p></li>
-<li><p><strong>Bonus:</strong> Es gibt ein R-Paket, mit dem Grafiken im IW Corporate Design erstellen kann. Wir zeigen, was es kann und wie man es benutzt.</p></li>
-</ol>
+<hr />
+<div id="ziele-der-sitzung" class="section level1">
+<h1>Ziele der Sitzung</h1>
+<ul>
+<li>Grundverständnis von ggplo2</li>
+<li>Visualisierung von Daten</li>
+</ul>
+<hr />
 </div>
-<div class="col-sm-6">
-<h3 id="viel-spaß-beim-lernen">Viel Spaß beim Lernen!</h3>
-<p><img src="images/Intro.gif" /></p>
+<div id="was-ist-ggplot2" class="section level1">
+<h1>Was ist ggplot2?</h1>
+<pre class="r"><code>library(tidyverse)
+
+# Laden der Daten
+Arbeitslosenquote &lt;- 
+  readxl::read_xls(&#39;daten_beispiele/Arbeitslosenquote.xls&#39;,
+                         skip = 1) %&gt;% 
+  rename(&#39;Kennziffer&#39; = &#39;...1&#39;,
+         &#39;Raumeinheit&#39; = &#39;...2&#39;,
+         &#39;Aggregat&#39; = &#39;...3&#39;) %&gt;% 
+  pivot_longer(!c(Kennziffer, Raumeinheit, Aggregat), 
+               names_to = &#39;Jahr&#39;, 
+               values_to = &#39;Arbeitslosenquote&#39;)</code></pre>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -382,6 +457,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
