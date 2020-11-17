@@ -1,3 +1,14 @@
 base
 fs
 haven
+tidylog
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+waldo

@@ -393,6 +393,7 @@ div.tocify {
 </div>
 
 
+<hr />
 <div id="ziele-der-sitzung" class="section level1">
 <h1>Ziele der Sitzung</h1>
 <ul>
@@ -402,15 +403,15 @@ div.tocify {
 <li>Deskriptive Statistiken (numerisch und grafisch)</li>
 <li>Gewichtete Statistiken</li>
 </ul>
+<hr />
 </div>
 <div id="setup-eines-effizienten-workflows" class="section level1">
 <h1>Setup eines effizienten Workflows</h1>
+<hr />
 <div id="grundidee" class="section level2">
 <h2>Grundidee</h2>
-<ul>
-<li>Mikrodatensätze wirken häufig komplex. Grund hierfür sind sicherlich die Dimensionen der Datensätze. Viele Beobachtungen (Zeilen!) treffen auf viele Variablen (Spalten!)</li>
-<li>Bei der Datenanalyse unterscheiden sich die Workflows in der Grundstruktur kaum von der Analyse anderer <em>kleinerer</em> Datensätze:</li>
-</ul>
+<p>Mikrodatensätze wirken häufig komplex. Grund hierfür sind sicherlich die Dimensionen der Datensätze. Viele Beobachtungen (Zeilen!) treffen auf viele Variablen (Spalten!)</p>
+<p>Bei der Datenanalyse unterscheiden sich die Workflows in der Grundstruktur kaum von der Analyse anderer <em>kleinerer</em> Datensätze:</p>
 <ol style="list-style-type: decimal">
 <li>Daten einlesen</li>
 <li>Daten säubern</li>
@@ -420,20 +421,17 @@ div.tocify {
 <li>Daten kommunizieren</li>
 </ol>
 <p><img src="images/Workflow_Datenanalyse.png" /> Quelle: Vgl. <a href="https://bookdown.org/asmundhreinn/r4ds-master/wrangle-intro.html">R4DS</a></p>
-<ul>
-<li><p>In der Praxis geht es meist nicht so geradlinig zu. Insbesondere bei großen Datensätzen kann es sinnvol sein, einige Zwischenschritte einzubauen.</p></li>
-<li><p>Bei der Arbeit mit Mikrodatensätzen müssen in der Regel verschiedene Datensätze zu einem Arbeitsdatensatz zusammengeführt werden.</p></li>
-<li><p>Das Zusammenführen der Daten kann, je nach Größe der Datensätze einige Zeit in Anspruch nehmen. Um zu Vermeiden, den Arbeitsdatensatz ständig auf’s Neue zusammenzufügen, sollte ein Arbeitsdatensatz gespeichert werden.</p></li>
-<li><p>An diesem sollten, außer dem Zusammenführen der Daten, noch keine Änderungen vergenommen worden sein. Das Verändern der Daten erfolgt erst in einem späteren Schritt. Geht im Verlaufe der Datenanalyse etwas schief und der Arbeitsdatensatz wird ausversehen überschrieben, kann schnell die Erstversion wiederhergestellt werden. Ein erneutes Zusammenstellen der Daten wird vermieden.</p></li>
-<li><p>Ein effizienter Workflow bei der Analyse großer Datenmengen aus verschiedenen Quellen könnte also so aussehen:</p></li>
-</ul>
+<p>In der Praxis geht es meist nicht so geradlinig zu. Insbesondere bei großen Datensätzen kann es sinnvol sein, einige Zwischenschritte einzubauen.</p>
+<p>Bei der Arbeit mit Mikrodatensätzen müssen in der Regel verschiedene Datensätze zu einem Arbeitsdatensatz zusammengeführt werden.</p>
+<p>Das Zusammenführen der Daten kann, je nach Größe der Datensätze einige Zeit in Anspruch nehmen. Um zu Vermeiden, den Arbeitsdatensatz ständig auf’s Neue zusammenzufügen, sollte ein Arbeitsdatensatz gespeichert werden.</p>
+<p>An diesem sollten, außer dem Zusammenführen der Daten, noch keine Änderungen vergenommen worden sein. Das Verändern der Daten erfolgt erst in einem späteren Schritt. Geht im Verlaufe der Datenanalyse etwas schief und der Arbeitsdatensatz wird ausversehen überschrieben, kann schnell die Erstversion wiederhergestellt werden. Ein erneutes Zusammenstellen der Daten wird vermieden.</p>
+<p>Ein effizienter Workflow bei der Analyse großer Datenmengen aus verschiedenen Quellen könnte also so aussehen:</p>
 <p><img src="images/Workflow_Datenanalyse_Mikrodaten.png" /> Quelle: Adaptiert von <a href="https://bookdown.org/asmundhreinn/r4ds-master/wrangle-intro.html">R4DS</a></p>
+<hr />
 </div>
 <div id="ordnerstruktur" class="section level2">
 <h2>Ordnerstruktur</h2>
-<ul>
-<li>Ein effizienter Workflow beginnt bei einer effizienten Ordnerstruktur. Dabei sollte mir R-Projekten gearbeitet werden. Eine beispielhafte Ordnerstruktur könnte so aussehen:</li>
-</ul>
+<p>Ein effizienter Workflow beginnt bei einer effizienten Ordnerstruktur. Dabei sollte mir R-Projekten gearbeitet werden. Eine beispielhafte Ordnerstruktur könnte so aussehen:</p>
 <pre><code>## Beispielordner_Mikrodatenanalyse
 ## +-- 01_Daten.R
 ## +-- 02_Analyse.R
@@ -444,26 +442,15 @@ div.tocify {
 ## +-- data_out
 ## +-- graphs_out
 ## \-- Projekt_Mikrodatenanalyse.Rproj</code></pre>
+<p>Der Projektordner <tt> Beispielordner_Mikrodatenanalyse </tt> enthält alle relevanten Dateien. In der ersten Ebene liegt die .Rproj-Datei (<tt>Projekt_Mikrodatenanalyse.Rproj</tt>), .R-Dateien und Unterordner.</p>
+<p>Ausgehend vom Projektordner, in dem die .Rproj-Datei liegt, können beliebige Unterordner gebildet werden. Alternativ zur obigen Struktur könnten die .R-Dateien auch in einen eigenen Ordner verschoben werden.</p>
+<p>Andere Beispiele für Ordnerstrukturen finden sich zum Beispiel hier:</p>
 <ul>
-<li><p>Der Projektordner <tt> Beispielordner_Mikrodatenanalyse </tt> enthält alle relevanten Dateien. In der ersten Ebene liegt die .Rproj-Datei (<tt>Projekt_Mikrodatenanalyse.Rproj</tt>), .R-Dateien und Unterordner.</p></li>
-<li><p>Ausgehend vom Projektordner, in dem die .Rproj-Datei liegt, können beliebige Unterordner gebildet werden. Alternativ zur obigen Struktur könnten die .R-Dateien auch in einen eigenen Ordner verschoben werden.</p></li>
-<li><p>Andere Beispiele für Ordnerstrukturen finden sich zum Beispiel hier:</p></li>
+<li><p><a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner&#39;s-guide/">RStudio Projects and Working Directories: A Beginner’s Guide</a></p></li>
+<li><p><a href="https://bookdown.org/lyzhang10/lzhang_r_tips_book/how-to-organize-a-project-folder.html">Bookdown: How to organize a project folder</a></p></li>
+<li><p><a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio: Using Projects</a></p></li>
 </ul>
-<blockquote>
-<ul>
-<li><a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner&#39;s-guide/">RStudio Projects and Working Directories: A Beginner’s Guide</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><a href="https://bookdown.org/lyzhang10/lzhang_r_tips_book/how-to-organize-a-project-folder.html">Bookdown: How to organize a project folder</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li><a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio: Using Projects</a></li>
-</ul>
-</blockquote>
+<hr />
 </div>
 </div>
 <div id="mikrodatenanalyse-praxisbeispiel" class="section level1">
@@ -479,9 +466,7 @@ div.tocify {
 install.packages(&quot;haven&quot;)</code></pre>
 <pre class="r"><code>#Laden
 library(haven)</code></pre>
-<ul>
-<li>Das Paket bietet verschiedene Funktionen, um fremde Dateiformate einzulesen, und diese zu speichern. Stata oder SPSS-Nutzer sind zudem die Arbeit mit <em>Labeln</em> gewohnt. In R wird dies standardmäßig nicht unterstützt. <tt>haven</tt> enthält verschiedene Funktionen, um Label zu definieren, ändern, löschen, usw.:</li>
-</ul>
+<p>Das Paket bietet verschiedene Funktionen, um fremde Dateiformate einzulesen, und diese zu speichern. Stata oder SPSS-Nutzer sind zudem die Arbeit mit <em>Labeln</em> gewohnt. In R wird dies standardmäßig nicht unterstützt. <tt>haven</tt> enthält verschiedene Funktionen, um Label zu definieren, ändern, löschen, usw.:</p>
 <pre class="r"><code>#Liste aller Funktionen im Paket haven
 ls(&quot;package:haven&quot;)</code></pre>
 <pre><code>##  [1] &quot;as_factor&quot;                &quot;format_tagged_na&quot;        
@@ -498,12 +483,13 @@ ls(&quot;package:haven&quot;)</code></pre>
 ## [23] &quot;zap_empty&quot;                &quot;zap_formats&quot;             
 ## [25] &quot;zap_label&quot;                &quot;zap_labels&quot;              
 ## [27] &quot;zap_missing&quot;              &quot;zap_widths&quot;</code></pre>
-<p>Für unsere Mikrodatenanalyse nutzen wir drei Datensätze: <tt>ppathl.dta</tt>, <tt>pl.sav</tt>, <tt>phealth.dta</tt>. Wir lesen diese mit den Befehlen</p>
+<p>Bei der Arbeit mit Mikrodatensätzen liegt die erste Hürde im Zusammentragen der Datensätze. Beispielhaft soll dies anhand dreier Datensätze demonstriert werden. Die Datensätze basieren auf dem frei zugänglichen <a href="https://www.diw.de/de/diw_02.c.222838.de/soep_in_der_lehre.html">SOEP-Übungsdatensatz</a>. Dieser wurde um weitere Variablen ergänzt und für einen realistischeren Anwendungsfall aufgesplittet. Die Variablen sind verfremdet, beziehungsweise auf Zufallsbasis erstellt.</p>
+<p>Für unsere Mikrodatenanalyse nutzen wir drei Datensätze: <tt>ppathl.dta</tt>, <tt>pl.sav</tt>, <tt>phealth.dta</tt>. Wir lesen diese mit den Befehlen <tt>read_dta()</tt> beziehungsweise <tt>read_sav()</tt> aus dem Paket <tt>haven</tt> ein.</p>
 <pre class="r"><code>ppathl &lt;- read_dta(&quot;Beispielordner_Mikrodatenanalyse/data_in/ppathl.dta&quot;)
 pl &lt;- read_sav(&quot;Beispielordner_Mikrodatenanalyse/data_in/pl.sav&quot;)
-phealth &lt;- read_dta(&quot;Beispielordner_Mikrodatenanalyse/data_in/phealth.dta&quot;)
-
-ppathl</code></pre>
+phealth &lt;- read_dta(&quot;Beispielordner_Mikrodatenanalyse/data_in/phealth.dta&quot;)</code></pre>
+<p>Wie immer sollten die Datensätze zunächst inspiziert werden:</p>
+<pre class="r"><code>ppathl</code></pre>
 <pre><code>## # A tibble: 12,922 x 4
 ##    persnr  jahr          sex weight
 ##     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl+lbl&gt;  &lt;dbl&gt;
@@ -548,6 +534,63 @@ ppathl</code></pre>
 ##  9 544752  2001 4 [Gut]              0.567  6 [6 Zufrieden: Skala 0~     -0.659 
 ## 10 152915  2000 5 [Sehr_gut]         1.60   7 [7 Zufrieden: Skala 0~     -0.0909
 ## # ... with 12,266 more rows</code></pre>
+<p>Ein Teil der Variablen ist vom Typ <tt>haven_labelled</tt>, angezeigt durch <tt>&lt;dbl+lbl&gt;</tt>. Für Statanutzer ist dies nichts Neues. Dies bedeutet lediglich, dass die Variablen neben dem eigentlichen Variablennamen noch eine Kurzbeschreibung tragen. <tt>&lt;dbl+lbl&gt;</tt> zeigt an, dass die Variable numerisch ist (<tt><dbl></tt>) und ein Label trägt <tt>&lt;+lbl&gt;</tt>.</p>
+<p>Um die drei Datensätze zusammenzufügen nutzen wir die beiden Matching-Variablen <tt>persnr</tt> und <tt>jahr</tt>.</p>
+<p>Optional: Standardmäßig zeigt R keine Änderungen an Datensätzen in der Konsole an. Wer gerne Feedback für Datenmanipulationen und auch Mergevorgänge möchte, der kann hierfür das Paket <tt>tidylog</tt> nutzen. Das Paket bietet Informationen für eine Vielzahl an Datenmanipulationsfunktionen aus dem tidyverse.</p>
+<pre class="r"><code>library(tidyverse)
+library(tidylog)
+ls(&quot;package:tidylog&quot;)</code></pre>
+<pre><code>##  [1] &quot;add_count&quot;     &quot;add_tally&quot;     &quot;anti_join&quot;     &quot;count&quot;        
+##  [5] &quot;distinct&quot;      &quot;distinct_all&quot;  &quot;distinct_at&quot;   &quot;distinct_if&quot;  
+##  [9] &quot;drop_na&quot;       &quot;fill&quot;          &quot;filter&quot;        &quot;filter_all&quot;   
+## [13] &quot;filter_at&quot;     &quot;filter_if&quot;     &quot;full_join&quot;     &quot;gather&quot;       
+## [17] &quot;group_by&quot;      &quot;group_by_all&quot;  &quot;group_by_at&quot;   &quot;group_by_if&quot;  
+## [21] &quot;inner_join&quot;    &quot;left_join&quot;     &quot;mutate&quot;        &quot;mutate_all&quot;   
+## [25] &quot;mutate_at&quot;     &quot;mutate_if&quot;     &quot;pivot_longer&quot;  &quot;pivot_wider&quot;  
+## [29] &quot;relocate&quot;      &quot;rename&quot;        &quot;rename_all&quot;    &quot;rename_at&quot;    
+## [33] &quot;rename_if&quot;     &quot;rename_with&quot;   &quot;replace_na&quot;    &quot;right_join&quot;   
+## [37] &quot;sample_frac&quot;   &quot;sample_n&quot;      &quot;select&quot;        &quot;select_all&quot;   
+## [41] &quot;select_at&quot;     &quot;select_if&quot;     &quot;semi_join&quot;     &quot;slice&quot;        
+## [45] &quot;slice_head&quot;    &quot;slice_max&quot;     &quot;slice_min&quot;     &quot;slice_sample&quot; 
+## [49] &quot;slice_tail&quot;    &quot;spread&quot;        &quot;summarise&quot;     &quot;summarise_all&quot;
+## [53] &quot;summarise_at&quot;  &quot;summarise_if&quot;  &quot;summarize&quot;     &quot;summarize_all&quot;
+## [57] &quot;summarize_at&quot;  &quot;summarize_if&quot;  &quot;tally&quot;         &quot;tidylog&quot;      
+## [61] &quot;top_frac&quot;      &quot;top_n&quot;         &quot;transmute&quot;     &quot;transmute_all&quot;
+## [65] &quot;transmute_at&quot;  &quot;transmute_if&quot;  &quot;uncount&quot;       &quot;ungroup&quot;</code></pre>
+<p>Um Datensätze zusammenzuführen werden die <tt>Mutating Joins</tt>-Funktionen genutzt. Die vier Funktionen aus dem Paket <tt>dplyr</tt> welches Teil des <tt>tidyverse</tt> ist, sind:</p>
+<ul>
+<li><p><tt>Neuer_Datensatz &lt;- left_join(Datensatz1, Datensatz2, by = c(“Matchingvariable1”, “Matchingvariable2”))</tt>: Datensatz1 bleibt komplett erhalten und wird um Spalten von Datensatz2 ergänzt.</p></li>
+<li><p><tt>Neuer_Datensatz &lt;- right_join(Datensatz1, Datensatz2, by = c(“Matchingvariable1”, “Matchingvariable2”))</tt>: Datensatz2 bleibt komplett erhalten und wird um Spalten von Datensatz1 ergänzt.</p></li>
+<li><p><tt>Neuer_Datensatz &lt;- inner_join(Datensatz1, Datensatz2, by = c(“Matchingvariable1”, “Matchingvariable2”))</tt>: Nur die Beobachtungen behalten, bei denen dieselben Matchingvariablen in beiden Datensätzen auftauchen.</p></li>
+<li><p><tt>Neuer_Datensatz &lt;- full_join(Datensatz1, Datensatz2, by = c(“Matchingvariable1”, “Matchingvariable2”))</tt>: Neuer Datensatz enthält sowohl Beobachtungen, die in beiden Datensätzen vorkommen als auch Einzelbeobachtungen, die nicht gematcht wurden.</p></li>
+</ul>
+<p><img src="images/dplyr_join.png" /></p>
+<p>Quelle: <a href="%22https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf%22">Data Wrangling Cheat Sheet</a></p>
+<p>Bei der Arbeit mit Mikrodatensätzen beginnt man in der Regel mit einem Basisdatensatz, in unserem Fall <tt>ppathl</tt>. Dieser enthält in der Regel alle Beobachtungen. Aufbauend auf diesem Datensatz werden weitere Informationen hinzugefügt. Wir wissen also, dass wir an <tt>ppathl</tt> alle anderen Datensätze dranspielen können. In unserem finalen Datensatz sind alle Zeilen aus <tt>ppathl</tt> enthalten, ergänzt um weitere Variablen aus den anderen Datensätzen. Wir nutzen also den <tt>left_join</tt>.</p>
+<p>Um einen Arbeitsdatensatz aus mehreren Datensätzen zu erstellen, kann man schrittweise vorgehen:</p>
+<pre class="r"><code>#1. Schritt
+zwischendatensatz1 &lt;- left_join(ppathl, pl, by = c(&quot;persnr&quot;, &quot;jahr&quot;))</code></pre>
+<pre class="r"><code>#2. Schritt
+arbeitsdatensatz_mit_zwischenschritt &lt;- left_join(zwischendatensatz1, phealth, by = c(&quot;persnr&quot;, &quot;jahr&quot;))</code></pre>
+<p>Wer sich sicher fühlt nutzt den Pipe-Befehl und kombiniert die beiden Schritte.</p>
+<pre class="r"><code>library(tidyverse)
+arbeitsdatensatz &lt;- ppathl %&gt;% #Ausgangsdatensatz ppathl
+  left_join(pl, by = c(&quot;persnr&quot;, &quot;jahr&quot;)) %&gt;% #1. Schritt
+  left_join(phealth, by = c(&quot;persnr&quot;, &quot;jahr&quot;)) #2. Schritt</code></pre>
+<p>Das Ergebnis ist identisch:</p>
+<pre class="r"><code>library(waldo)
+waldo::compare(arbeitsdatensatz, arbeitsdatensatz_mit_zwischenschritt)</code></pre>
+<pre><code>## v No differences</code></pre>
+<p>An dieser Stelle bietet es sich an, den Arbeitsdatensatz oder vielleicht sogar alle bisher geladenen und erstellten Objekte (z.B. Datensätze) abzuspeichern. Mit <tt>saveRDS</tt> kann ein einzelnes R-Objekt gespeichert werden. <tt>readRDS</tt> lädt dieses ein.</p>
+<pre class="r"><code># Einzelnes Objekt speichern:
+saveRDS(object = arbeitsdatensatz, file = &quot;arbeitsdatensatz.rds&quot;)
+# Einzelnes Objekt laden:
+arbeitsdatensatz &lt;- readRDS(&quot;arbeitsdatensatz.rds&quot;)</code></pre>
+<p>Sollen alle bisher erstellten Obejekte gespeichert werden, geschieht dies mit <tt>save.image</tt>. Geladen wird mit dem Befehl <tt>load</tt>.</p>
+<pre class="r"><code># Gesamten Workspace speichern:
+save.image(file = &quot;arbeitsdatensatz.RData&quot;)
+# Und wieder laden
+load(&quot;arbeitsdatensatz.RData&quot;)</code></pre>
 </div>
 </div>
 </div>
@@ -598,7 +641,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2",
+      selectors: "h1",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
