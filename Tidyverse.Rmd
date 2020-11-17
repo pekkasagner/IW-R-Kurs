@@ -154,7 +154,7 @@ Der daraus resultierende Datensatz kann mit <code> View(Arbeitslosenquote) </cod
 
 ----
 
-## Die magrittr-Pipe (%>%)
+## magrittr-Pipe (%>%)
 
 Das tidyverse lädt automatisch die sogenannte "Pipe" aus dem magrittr-Paket. Die Pipe erlaubt es, Code zu schreiben der einfacher verstehen und zu lesen ist. Wollen wir etwa die fünf kreisfreien Städte mit der höchsten Arbeitslosenquote im aktuellsten Jahr gibt es mehrere Möglichkeiten, diese darzustellen. Eine Möglichkeit wäre, die notwendigen Operationen in neue Objekte zu speichern und diese dann weiterzu bearbeiten. 
 
@@ -272,6 +272,38 @@ Arbeitslosenquote %>%
   filter(Jahr == max(Jahr)) %>% 
   arrange(Arbeitslosenquote)
 ```
+----
 
+# Übergang in ggplot2
 
+Für das Erstellen von Grafiken mit ggplot2 müssen die Daten im oben beschriebenen tidy data Format sein. Ein guter Workflow beinhaltet deshalb, die Daten mit den oben besprochenen Funktionen in das gewünschte Format zu bringen und dann direkt mit der Pipe nach ggplot zu übergeben. 
 
+Eine beispielhafte erste Grafik, die die Arbeitslosenquote pro Jahr und Aggregat zeigt, könnte folgendermaßen aussehen:
+
+```{r plot_1}
+Arbeitslosenquote %>% 
+  mutate(Jahr = as.double(Jahr)) %>% 
+  group_by(Aggregat, Jahr) %>% 
+  summarise(Arbeitslosenquote = mean(Arbeitslosenquote)) %>% 
+  ggplot(aes(x = Jahr, 
+             y = Arbeitslosenquote, 
+             group = Aggregat, 
+             col = Aggregat)) +
+  geom_line(size = 1.0) +
+  theme_minimal()
+  
+```
+
+Ausführliche Informationen zu Datenvisualisierung in R mit ggplot2 gibt es im anschließenden Kapitel unter "Visualisierung". 
+
+----
+
+# Weiterführende Informationen 
+
+Hier werden eine Reihe von Links mit weiterführenden Informationen zum Datenmanagement mit dem Tidyverse angeführt. Auch wenn dieser Kurs hauptsächlich Datenvisualisierung diskutiert, ist das Datenmanagement und die Transformation von Daten ein zentraler Teil von Datenvisualisierung. Deshalb ist es unerlässlich, sich vertieft mit den wichtigsten dplyr-Funktionen vertraut zu machen und diese regelmäßig zu benutzen. Gute weiterführende Informationsquellen über das Datenmanagement im Tidyverse sind deshalb hier aufgeführt. 
+
+* [R for Data Science (Kapitel 9-21)](https://r4ds.had.co.nz/wrangle-intro.html)
+
+* [Yih Huynh - Guide to R (Kapitel 6 und 7)](https://bookdown.org/yih_huynh/Guide-to-R-Book/basic-data-management.html)
+
+* [dplyr Beschreibung](https://dplyr.tidyverse.org/)
