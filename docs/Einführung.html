@@ -418,9 +418,8 @@ div.tocify {
 <h1>RStudio verstehen</h1>
 <p><a href="https://rstudio.com/">RStudio</a> ist ein integrierte Entwicklungsumgebung (IDE) und graphische Benutzeroberflächer für R. Rstudio ist als lokale Desktop-Version, als Server Version und auch in der Cloud verfügbar. Auch wenn R und R-Skripte über die Konsole gestartet werden können, bietet R-Studio gerade für Anfänger einige Komfortfunktionen, die die Datenanalyse vereinfachen. Diese Funktionen umfassen unter anderem die Organisation von Analysen und Daten in Projekten (siehe unten), die Möglichkeit Datensätze interaktiv zu betrachten, die Visualisierung von Daten und die direkte Integration von Versionsverwaltung mit <a href="https://git-scm.com/">Git</a>.</p>
 <hr />
-</div>
-<div id="das-layout-von-r-studio" class="section level1">
-<h1>Das Layout von R-Studio</h1>
+<div id="das-layout-von-r-studio" class="section level2">
+<h2>Das Layout von R-Studio</h2>
 <center>
 <p><img src="images/einführung_1_fenster.png" style="width:75.0%" /></p>
 </center>
@@ -434,8 +433,8 @@ div.tocify {
 <p>Über <code>Tools &gt; Global Options &gt; Pane Layout</code> können diese Fenster nach belieben angeordnet und ein- bzw. ausgeblendet werden.</p>
 <hr />
 </div>
-<div id="erweiterte-einstellungen" class="section level1">
-<h1>Erweiterte Einstellungen</h1>
+<div id="erweiterte-einstellungen" class="section level2">
+<h2>Erweiterte Einstellungen</h2>
 <p>Wenn man R-Studio das erste mal benutzt, macht es Sinn, einige Einstellungen zu verändern, die standardmäßig eingestellt sind.</p>
 <p>Hier macht es Sinn, sich unter ‘Tools &gt; Global Options’ einmal die verschiedenen Optionen anzuschauen.</p>
 <center>
@@ -449,6 +448,78 @@ div.tocify {
 <p>In Einzelfällen kann es sinnvoll sein, Daten und Zuweisungen aus der letzten Sitzung automatisch in der nächsten Sitzung zu importieren. Öfter kann dies aber zu Verwirrung oder sogar zu Fehlern führen. Vor allem schulen die Einstellungen darin, alle Ergebnisse reprozudiertbar in Skripten zu speichern.</p>
 <p>Des Weiteren macht es Sinn, sich unter <code>Tools &gt; Global Options &gt; Appearance</code> mit den verfügbaren Optionen auseinanderzusetzen. Hier lassen sich etwa Schriftart und -größe sowie das generelle Theme von R-Studio einstellen. Wenn man längere Zeit vor R-Studio sitzt (was durchaus zu empfehlen ist), kann es Sinn machen, einen Darkmode zu nutzen, um die Augen zu schonen.</p>
 <hr />
+</div>
+<div id="r-studio-shortcuts" class="section level2">
+<h2>R-Studio Shortcuts</h2>
+<p>In R-Studio gibt es eine ganze Reihe an Shortcuts, die das Coden deutlich vereinfachen und beschleunigen können. Eine relativ umfrangreiche Übersicht gibt es <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">hier</a>. Folgende Shortcuts sind unserer Meinung nach unerlässlich für den alltäglichen Gebrauch von R-Studio. Diese Auswahl kann aber nach Belieben erweitert werden.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Beschreibung</th>
+<th align="left">Shortcut (Windows)</th>
+<th align="left">Shortcut (Mac)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bewegen des Cursors zur Konsole</td>
+<td align="left">Ctrl+2</td>
+<td align="left">Ctrl+2</td>
+</tr>
+<tr class="even">
+<td align="left">Leeren der Konsole</td>
+<td align="left">Ctrl+L</td>
+<td align="left">Ctrl+L</td>
+</tr>
+<tr class="odd">
+<td align="left">Abbrechen des momentan ausge-</td>
+<td align="left">Esc</td>
+<td align="left">Esc</td>
+</tr>
+<tr class="even">
+<td align="left">führten Befehls</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Neues Skript</td>
+<td align="left">Ctrl+Shift+N</td>
+<td align="left">Cmd+Shift+N</td>
+</tr>
+<tr class="even">
+<td align="left">Speichern des aktiven Dokuments</td>
+<td align="left">Ctrl+S</td>
+<td align="left">Ctrl+S</td>
+</tr>
+<tr class="odd">
+<td align="left">Assignment Operator</td>
+<td align="left">Alt+-</td>
+<td align="left">Option+-</td>
+</tr>
+<tr class="even">
+<td align="left">Pipe Operator</td>
+<td align="left">Ctrl+Shift+M</td>
+<td align="left">Cmd+Shift+M</td>
+</tr>
+<tr class="odd">
+<td align="left">Autocompletion</td>
+<td align="left">Tab</td>
+<td align="left">Tab</td>
+</tr>
+<tr class="even">
+<td align="left">Shortcut Übersicht</td>
+<td align="left">Alt+Shift+K</td>
+<td align="left">Option+Shift+K</td>
+</tr>
+<tr class="odd">
+<td align="left">Neustart der R Session</td>
+<td align="left">Ctrl+Shift+F10</td>
+<td align="left">Ctrl+Shift+F10</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
 </div>
 <div id="erstellung-von-projekten" class="section level1">
 <h1>Erstellung von Projekten</h1>
@@ -528,7 +599,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1",
+      selectors: "h1,h2",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {

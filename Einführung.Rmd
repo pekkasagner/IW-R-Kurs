@@ -6,7 +6,7 @@ output:
     toc_float: true
     collapsed: true
     number_sections: false
-    toc_depth: 1
+    toc_depth: 2
     #code_folding: hide
 ---
 
@@ -44,7 +44,7 @@ Die Kursinhalte können ggf. auch mit älteren Version bearbeitet werden. Für e
 
 ----
 
-# Das Layout von R-Studio
+## Das Layout von R-Studio
 <center>
 
 ![](images/einführung_1_fenster.png){width=75%}
@@ -66,7 +66,7 @@ angeordnet und können funktional folgendermaßen unterschieden werden:
 
 ----
 
-# Erweiterte Einstellungen
+## Erweiterte Einstellungen
 
 Wenn man R-Studio das erste mal benutzt, macht es Sinn, einige Einstellungen zu verändern, die standardmäßig eingestellt sind. 
 
@@ -89,6 +89,25 @@ Des Weiteren macht es Sinn, sich unter <code>Tools > Global Options > Appearance
 
 ----
 
+## R-Studio Shortcuts
+
+In R-Studio gibt es eine ganze Reihe an Shortcuts, die das Coden deutlich vereinfachen und beschleunigen können. Eine relativ umfrangreiche Übersicht gibt es [hier](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Folgende Shortcuts sind unserer Meinung nach unerlässlich für den alltäglichen Gebrauch von R-Studio. Diese Auswahl kann aber nach Belieben erweitert werden.
+
+Beschreibung                      Shortcut (Windows)  Shortcut (Mac) 
+--------------------------------  ------------------- ---------------
+Bewegen des Cursors zur Konsole   Ctrl+2              Ctrl+2
+Leeren der Konsole                Ctrl+L              Ctrl+L
+Abbrechen des momentan ausge-     Esc                 Esc
+führten Befehls  
+Neues Skript                      Ctrl+Shift+N        Cmd+Shift+N
+Speichern des aktiven Dokuments   Ctrl+S              Ctrl+S
+Assignment Operator               Alt+-               Option+-
+Pipe Operator                     Ctrl+Shift+M        Cmd+Shift+M
+Autocompletion                    Tab                 Tab
+Shortcut Übersicht                Alt+Shift+K         Option+Shift+K
+Neustart der R Session            Ctrl+Shift+F10      Ctrl+Shift+F10
+
+----
 
 # Erstellung von Projekten
 
