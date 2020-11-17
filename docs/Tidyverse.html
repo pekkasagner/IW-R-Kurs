@@ -25,6 +25,17 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -435,14 +446,238 @@ div.tocify {
 </ul></li>
 </ul>
 <hr />
-</div>
-<div id="mögliche-probleme" class="section level1">
-<h1>Mögliche Probleme</h1>
+<div id="mögliche-probleme" class="section level2">
+<h2>Mögliche Probleme</h2>
 <p>Lädt man das tidyverse in die Arbeitsumgebung, wird folgende Nachricht angezeigt:</p>
 <center>
 <p><img src="images/tidyverse_1_load.png" style="width:75.0%" /></p>
 </center>
-<p>Einerseits werden hier unter “Attaching packages” die geladenen Pakete samt der jeweiligen Version angezeigt. Unter “Conflicts” gibt es zudem zwei Warnhinweise. Diese weisen auf mögliche Probleme bei der Nutzung verschiedener R-Pakete hin. Hier werden durch das Laden des tidyverse zwei Befehle aus der “stats-Bibliothek” maskiert, also überschrieben. Konkret bedeutet das, dass nachdem das tidyverse geladen wurde, die Befehle <code> filter() </code> und <code> lag() </code> ihre Funktionalität aus dem “dplyr-Paket” und nicht mehr von “stats” beziehen.</p>
+<p>Einerseits werden hier unter “Attaching packages” die geladenen Pakete samt der jeweiligen Version angezeigt. Unter “Conflicts” gibt es zudem zwei Warnhinweise. Diese weisen auf mögliche Probleme bei der Nutzung verschiedener R-Pakete hin. Hier werden durch das Laden des tidyverse zwei Befehle aus der “stats-Bibliothek” maskiert, also überschrieben. Konkret bedeutet das, dass nachdem das tidyverse geladen wurde, die Befehle <code> filter() </code> und <code> lag() </code> ihre Funktionalität aus dem “dplyr-Paket” und nicht mehr von “stats” beziehen. Möchte man jetzt die <code> filter() </code> Funktion aus der stats-Bibliothek nutzen, kann man diesen folgendermaßen aufrufen <code> stats::filter() </code>.</p>
+<pre class="r"><code># Lädt nur die filter() Funktion von dplyr
+dplyr::filter()
+
+# Lädt alle (!) Funktionen von dplyr und nutzt dann filter()
+library(dplyr)
+filter()</code></pre>
+<hr />
+</div>
+</div>
+<div id="datenmanagement-im-tidyverse" class="section level1">
+<h1>Datenmanagement im tidyverse</h1>
+<p>Das tidyverse bietet ein kohärentes Framework, in welchem Daten intuitiv in ein gewünschtes Format übertragen werden können. Zunächst wird das Konzept von “Tidy Data” erklärt und anschließen ein Beispieldatensatz von Arbeitslosenzaheln in deutschen Landkreisen geladen.</p>
+<hr />
+<div id="tidy-data" class="section level2">
+<h2>Tidy Data</h2>
+<p>“Tidy data” umschreibt “aufgeräumte” bzw. “saubere” Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Es ist wichtig, das Konuzept von tidy data zu verstehen, da alle Pakete im tidyverse darauf basieren. Im tidy data Format sollte ein Datensatz von den folgenden, zusammenhängenden Regeln beschrieben werden können:</p>
+<ol style="list-style-type: decimal">
+<li>Jede Variable muss in einer eigenen Spalte sein</li>
+<li>Jede Beobachtung muss eine eigene Zeile haben</li>
+<li>Jeder Wert muss eine eigene Zelle haben</li>
+</ol>
+<p>Im folgenden Kapitel werden diese Regeln anhand eines Beispiels verdeutlicht.</p>
+<hr />
+</div>
+<div id="laden-der-daten" class="section level2">
+<h2>Laden der Daten</h2>
+<p>In ihrer ursprünglichen Form sehen die Daten folgendermaßen aus:</p>
+<center>
+<p><img src="images/tidyverse_3_data_horrible_data.png" style="width:100.0%" /></p>
+</center>
+<p>Hier sieht man, dass sich die obene genannten Regeln für tidy data nicht anwenden lassen. Während die Variablen “Kennziffer”, “Raumeinheit” und “Aggregat” korrekt in einer Spalte gespeichert wurden, wurden die Variablen “Arbeitslosenquote” und “Jahr” auf mehrere Spalten (ins wide format) aufgeteilt. Dadurch hat jede Beobachtung (also die Arbeitslosenquote einer Raumeinheit pro Jahr) auch nicht eine eigene Zeile. Der folgende R-Code lädt die Daten und überführt sie in ein tidy data Format.</p>
+<pre class="r"><code>library(tidyverse)
+
+# Laden der Daten
+Arbeitslosenquote &lt;- 
+  readxl::read_xls(&#39;daten_beispiele/Arbeitslosenquote.xls&#39;,
+                         skip = 1) %&gt;% 
+  rename(&#39;Kennziffer&#39; = &#39;...1&#39;,
+         &#39;Raumeinheit&#39; = &#39;...2&#39;,
+         &#39;Aggregat&#39; = &#39;...3&#39;) %&gt;% 
+  pivot_longer(!c(Kennziffer, Raumeinheit, Aggregat), 
+               names_to = &#39;Jahr&#39;, 
+               values_to = &#39;Arbeitslosenquote&#39;)</code></pre>
+<p>Hier wird zunächst mit <code> read_xls() </code> die .xls-Datei geladen. Da das Paket readxl zwar im tidyverse mit heruntergeladen aber nicht automatisch in die Arbeitsumgebung geladen wird, wird das Paket hier mit <code> readxl::read_xls() </code> direkt angesprochen. Der Zusatz <code> skip = 1 </code> überspringt die erste Zeile der .xls-Datei, da die Variabelnnamen auf zwei Spalten verteilt sind.</p>
+<p>Mit der Funktion <code> rename() </code> werden die fehlenden Variablennamen ergänzt.</p>
+<p>Die letzte Funktion <code> pivot_longer() </code> überführt die restlichen Spalten vom wide ins long Format. Die Funktion wird im späteren Kursverlauf genauer erklärt.</p>
+<p>Der daraus resultierende Datensatz kann mit <code> View(Arbeitslosenquote) </code> im Viewer von R-Studio betrachtet werden.</p>
+<center>
+<p><img src="images/tidyverse_2_data_clean.png" style="width:80.0%" /></p>
+</center>
+<hr />
+</div>
+<div id="die-magrittr-pipe" class="section level2">
+<h2>Die magrittr-Pipe (%&gt;%)</h2>
+<p>Das tidyverse lädt automatisch die sogenannte “Pipe” aus dem magrittr-Paket. Die Pipe erlaubt es, Code zu schreiben der einfacher verstehen und zu lesen ist. Wollen wir etwa die fünf kreisfreien Städte mit der höchsten Arbeitslosenquote im aktuellsten Jahr gibt es mehrere Möglichkeiten, diese darzustellen. Eine Möglichkeit wäre, die notwendigen Operationen in neue Objekte zu speichern und diese dann weiterzu bearbeiten.</p>
+<pre class="r"><code>Arbeitslosenquote_1 &lt;- filter(Arbeitslosenquote, Aggregat == &quot;krsfr. Stadt&quot;)
+Arbeitslosenquote_2 &lt;- filter(Arbeitslosenquote_1, Jahr == max(Jahr))
+Arbeitslosenquote_3 &lt;- top_n(Arbeitslosenquote_2, 5)
+Arbeitslosenquote_4 &lt;- arrange(Arbeitslosenquote_3, desc(Arbeitslosenquote))
+Arbeitslosenquote_4</code></pre>
+<pre><code>## # A tibble: 5 x 5
+##   Kennziffer Raumeinheit          Aggregat     Jahr  Arbeitslosenquote
+##   &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;        &lt;chr&gt;             &lt;dbl&gt;
+## 1 05513      Gelsenkirchen, Stadt krsfr. Stadt 2017               14  
+## 2 04012      Bremerhaven, Stadt   krsfr. Stadt 2017               13  
+## 3 05112      Duisburg, Stadt      krsfr. Stadt 2017               12.5
+## 4 07317      Pirmasens, Stadt     krsfr. Stadt 2017               12.3
+## 5 05916      Herne, Stadt         krsfr. Stadt 2017               12.1</code></pre>
+<p>Mit der Pipe lässt sich der obige Code wie folgt darstellen.</p>
+<pre class="r"><code>Arbeitslosenquote %&gt;% 
+  filter(Aggregat == &quot;krsfr. Stadt&quot;,
+         Jahr == max(Jahr)) %&gt;% 
+  top_n(5) %&gt;% 
+  arrange(desc(Arbeitslosenquote))</code></pre>
+<pre><code>## # A tibble: 5 x 5
+##   Kennziffer Raumeinheit          Aggregat     Jahr  Arbeitslosenquote
+##   &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;        &lt;chr&gt;             &lt;dbl&gt;
+## 1 05513      Gelsenkirchen, Stadt krsfr. Stadt 2017               14  
+## 2 04012      Bremerhaven, Stadt   krsfr. Stadt 2017               13  
+## 3 05112      Duisburg, Stadt      krsfr. Stadt 2017               12.5
+## 4 07317      Pirmasens, Stadt     krsfr. Stadt 2017               12.3
+## 5 05916      Herne, Stadt         krsfr. Stadt 2017               12.1</code></pre>
+<p>Vor allem in punkto Lesbarkeit und Kompaktheit bietet die Pipe gegenüber ihren Alternativen große Vorteile. Auch wird hier kein zusätzlicher Arbeitsspeicher verwendent, um Objekte zu speichern, die eigentlich gar nicht benötigt werden. Illustriert am obigen Beispiel, kann man die Pipe folgendermaßen verstehen:</p>
+<ol style="list-style-type: decimal">
+<li><p>Das aktuelle Datenobjekt wird immer in den nächsten Schritt weitergegeben. Hier wird das Objekt “Arbeitslosenquote” also direkt im auf <code> %&gt;% </code> folgenden Befehl als Datenobjekt verwendet. So entfällt der Schritt, in jeder Funktion vom Format <code> filter(data, variable == “value”) </code>, das Datenobjekt (data) mit anzugeben.</p></li>
+<li><p>Das bearbeitete Objekt wird immer in den nächsten Schritt weitergegeben, ohne dass es zwischengespeichert wird und werden muss.</p></li>
+</ol>
+<p>Vereinfacht gesagt ist also</p>
+<ul>
+<li><code> x %&gt;% f </code> äquivalent zu <code> f(x) </code></li>
+<li><code> x %&gt;% f(y) </code> äquaivalent zu <code> f(x , y) </code> und</li>
+<li><code> x %&gt;% f %&gt;% g %&gt;% h </code> äquivalent zu <code> h(g(f(x))) </code></li>
+</ul>
+<p>Vor allem in der explorativen Datenanalyse und beim Erstellen von Visualisierungen ist die Pipe sehr gut geeignet. Bei sehr komplizierten Datenstrukturen, oder sehr vielen Operationen sollte man allerdings auf andere Tools zurückgreifen.</p>
+<hr />
+</div>
+<div id="filter" class="section level2">
+<h2>filter()</h2>
+<p>Die <code> filter() </code> ermöglicht, wie der Name impliziert, das filtern von Datensätzen nach festgelegten Kriterien.</p>
+<pre class="r"><code># Filtern nach Aggregat und Arbeitslosenquote
+Arbeitslosenquote %&gt;% 
+  filter(Aggregat == &quot;Landkreis&quot;,
+         Arbeitslosenquote &gt; 10)</code></pre>
+<pre><code>## # A tibble: 1,148 x 5
+##    Kennziffer Raumeinheit         Aggregat  Jahr  Arbeitslosenquote
+##    &lt;chr&gt;      &lt;chr&gt;               &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;
+##  1 01051      Dithmarschen        Landkreis 1998               10.7
+##  2 01051      Dithmarschen        Landkreis 2003               10.5
+##  3 01051      Dithmarschen        Landkreis 2004               11.1
+##  4 01051      Dithmarschen        Landkreis 2005               13.7
+##  5 01051      Dithmarschen        Landkreis 2006               11.8
+##  6 01054      Nordfriesland       Landkreis 2005               10.1
+##  7 01055      Ostholstein         Landkreis 1998               10.2
+##  8 01055      Ostholstein         Landkreis 2005               11.3
+##  9 01056      Pinneberg           Landkreis 2005               10.1
+## 10 01059      Schleswig-Flensburg Landkreis 2005               10.2
+## # ... with 1,138 more rows</code></pre>
+<hr />
+</div>
+<div id="select" class="section level2">
+<h2>select()</h2>
+<p>Mit der Funktion <code> select() </code> wählt man alle relevanten Spalten bzw. Variablen aus einem Datensatz aus.</p>
+<pre class="r"><code>Arbeitslosenquote %&gt;% 
+  select(Raumeinheit, Jahr, Arbeitslosenquote)</code></pre>
+<pre><code>## # A tibble: 8,020 x 3
+##    Raumeinheit      Jahr  Arbeitslosenquote
+##    &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt;
+##  1 Flensburg, Stadt 1998               14.6
+##  2 Flensburg, Stadt 1999               13  
+##  3 Flensburg, Stadt 2000               11.8
+##  4 Flensburg, Stadt 2001               12.1
+##  5 Flensburg, Stadt 2002               12.1
+##  6 Flensburg, Stadt 2003               13.7
+##  7 Flensburg, Stadt 2004               14  
+##  8 Flensburg, Stadt 2005               18.3
+##  9 Flensburg, Stadt 2006               15.4
+## 10 Flensburg, Stadt 2007               12.5
+## # ... with 8,010 more rows</code></pre>
+<hr />
+</div>
+<div id="mutate" class="section level2">
+<h2>mutate()</h2>
+<p>Die Funktion <code> mutate() </code> erlaubt es, Spalten bzw. Variablen in einem Datensatz zu verändern oder neue Spalten zu erzeugen.</p>
+<pre class="r"><code>Arbeitslosenquote %&gt;% 
+  select(Raumeinheit, Jahr, Arbeitslosenquote) %&gt;% 
+  filter(Jahr == &quot;2007&quot;) %&gt;% 
+  mutate(Abweichung = Arbeitslosenquote - mean(Arbeitslosenquote))</code></pre>
+<pre><code>## # A tibble: 401 x 4
+##    Raumeinheit         Jahr  Arbeitslosenquote Abweichung
+##    &lt;chr&gt;               &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Flensburg, Stadt    2007               12.5      3.86 
+##  2 Kiel, Stadt         2007               12.6      3.96 
+##  3 Lübeck, Stadt       2007               13.1      4.46 
+##  4 Neumünster, Stadt   2007               11.6      2.96 
+##  5 Dithmarschen        2007               10        1.36 
+##  6 Herzogtum Lauenburg 2007                7.2     -1.44 
+##  7 Nordfriesland       2007                8.5     -0.141
+##  8 Ostholstein         2007                8.8      0.159
+##  9 Pinneberg           2007                6.8     -1.84 
+## 10 Plön                2007                7.6     -1.04 
+## # ... with 391 more rows</code></pre>
+<hr />
+</div>
+<div id="group_by" class="section level2">
+<h2>group_by()</h2>
+<p><code> group_by() </code> gruppiert bestimmte Variablen in gewünschte Gruppen für nachfolgende Operationen. Viele Funktionen bauen auf <code> group_by </code> auf.</p>
+<pre class="r"><code>Arbeitslosenquote %&gt;% 
+  select(-Kennziffer) %&gt;% 
+  filter(Jahr == &quot;1998&quot;) %&gt;% 
+  group_by(Aggregat) %&gt;% 
+  mutate(Quote_Aggr = mean(Arbeitslosenquote))</code></pre>
+<pre><code>## # A tibble: 401 x 5
+## # Groups:   Aggregat [2]
+##    Raumeinheit         Aggregat     Jahr  Arbeitslosenquote Quote_Aggr
+##    &lt;chr&gt;               &lt;chr&gt;        &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Flensburg, Stadt    krsfr. Stadt 1998               14.6       12.4
+##  2 Kiel, Stadt         krsfr. Stadt 1998               13.9       12.4
+##  3 Lübeck, Stadt       krsfr. Stadt 1998               13.4       12.4
+##  4 Neumünster, Stadt   krsfr. Stadt 1998               13.4       12.4
+##  5 Dithmarschen        Landkreis    1998               10.7       10.1
+##  6 Herzogtum Lauenburg Landkreis    1998                8.3       10.1
+##  7 Nordfriesland       Landkreis    1998                9.2       10.1
+##  8 Ostholstein         Landkreis    1998               10.2       10.1
+##  9 Pinneberg           Landkreis    1998                8.4       10.1
+## 10 Plön                Landkreis    1998                8.9       10.1
+## # ... with 391 more rows</code></pre>
+<hr />
+</div>
+<div id="summarise" class="section level2">
+<h2>summarise()</h2>
+<p><code> summarise() </code> oder <code> summarize() </code> fasst alle Reihen zusammen und gibt eine Zusammenfassung dieser Reihen aus.</p>
+<pre class="r"><code>Arbeitslosenquote %&gt;% 
+  select(-Kennziffer) %&gt;% 
+  filter(Jahr == &quot;1998&quot;) %&gt;% 
+  group_by(Aggregat) %&gt;% 
+  summarise(Quote_Aggr = mean(Arbeitslosenquote))</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   Aggregat     Quote_Aggr
+##   &lt;chr&gt;             &lt;dbl&gt;
+## 1 krsfr. Stadt       12.4
+## 2 Landkreis          10.1</code></pre>
+<hr />
+</div>
+<div id="arrange" class="section level2">
+<h2>arrange()</h2>
+<p>Die Funktion <code> arrange() </code> sortiert die Daten in einer gewünschten Reihenfolge.</p>
+<pre class="r"><code>Arbeitslosenquote %&gt;% 
+  select(-Kennziffer) %&gt;% 
+  filter(Jahr == max(Jahr)) %&gt;% 
+  arrange(Arbeitslosenquote)</code></pre>
+<pre><code>## # A tibble: 401 x 4
+##    Raumeinheit          Aggregat  Jahr  Arbeitslosenquote
+##    &lt;chr&gt;                &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;
+##  1 Eichstätt            Landkreis 2017                1.5
+##  2 Erding               Landkreis 2017                1.8
+##  3 Pfaffenhofen a.d.Ilm Landkreis 2017                1.8
+##  4 Neumarkt i.d.OPf.    Landkreis 2017                1.9
+##  5 Regensburg           Landkreis 2017                1.9
+##  6 Unterallgäu          Landkreis 2017                1.9
+##  7 Donau-Ries           Landkreis 2017                1.9
+##  8 Ebersberg            Landkreis 2017                2  
+##  9 Erlangen-Höchstadt   Landkreis 2017                2  
+## 10 Main-Spessart        Landkreis 2017                2  
+## # ... with 391 more rows</code></pre>
+</div>
 </div>
 
 
@@ -456,7 +691,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -491,7 +726,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1",
+      selectors: "h1,h2",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
