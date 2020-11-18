@@ -20,25 +20,44 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 
 # Ziele der Sitzung
 
-* Grundverständnis von ggplo2
-* Visualisierung von Daten 
+* Grundverständnis von ggplot2
+* Grundlagen der Datenvisualisierung
+* Anpassungsmöglichkeiten in ggplot2
+* Erstellen publikationsrefier Plots
 
 
 ----
 
 # Was ist ggplot2?
 
+<code> ggplot2 </code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der "Grammar of Graphics" dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt. 
+
+Die "Grammar of Graphics" spezifiziert Bausteine, mit welchen Grafiken erstellt werden können. Diese beinhalten, in der Reihenfolge der Anwendung:
+
+1. Daten (*Was* soll dargestellt werden?)
+
+2. Mapping der Aesthetics (Was kommt auf die X- und die Y-Achse, etc.)
+
+3. Geometrisches Objekt (<code>geom</code>) (Wie sollen die Daten dargestellt werden? Linien, Punkte, Balken, etc.)
+
+4. Weitere <code>geoms</code> (z.B. Regressionslinie, etc.)
+
+5. Feinschliff der Axenbeschriftungen, Skalen, etc.
+
+Man sieht also, dass die "Grammar of Graphics" und damit auch <code>ggplot2</code> ein modulares Konzept verfolgen, wo Ebenen sukzessiv übereinander gelegt werden. 
+
+Der wichtigste Frage, die man vor jeder Datenvisualisierung beantworten sollte: Was soll dargestellt werden? Konkreter: Was soll verglichen werden?  
+
+!!Hier noch mehr zu generellen Punkten bei Datenvisualisierung!!!
+
+
 ```{r load_data}
 library(tidyverse)
 
 # Laden der Daten
-Arbeitslosenquote <- 
-  readxl::read_xls('daten_beispiele/Arbeitslosenquote.xls',
-                         skip = 1) %>% 
-  rename('Kennziffer' = '...1',
-         'Raumeinheit' = '...2',
-         'Aggregat' = '...3') %>% 
-  pivot_longer(!c(Kennziffer, Raumeinheit, Aggregat), 
-               names_to = 'Jahr', 
-               values_to = 'Arbeitslosenquote')
+data <-
+  read_csv('daten_beispiele/Landkreise_merged.csv')
+
+glimpse(data)
 ```
+# Bausteine von ggplot2

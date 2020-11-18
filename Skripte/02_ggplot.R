@@ -1,13 +1,13 @@
 library(tidyverse)
 
-# Funktionen für das Laden der Dateien im .csv oder .xls Format
+# Funktionen für das Laden der Dateien im .csv Format
 read_custom_csv <- function(path, value_name) {
   data <- 
     read_csv2(path,
               skip = 1) %>% 
-    rename('Kennziffer' = 'X1',
-           'Raumeinheit' = 'X2',
-           'Aggregat' = 'X3') %>% 
+    rename('Kennziffer' = 1,
+           'Raumeinheit' = 2,
+           'Aggregat' = 3) %>% 
     pivot_longer(!c(Kennziffer, Raumeinheit, Aggregat), 
                  names_to = 'Jahr', 
                  values_to = value_name) %>% 
@@ -15,6 +15,7 @@ read_custom_csv <- function(path, value_name) {
   return(data)
 }
 
+# Funktion für das Laden der Dateien im .xls Format
 read_custom_xls <- function(path, value_name) {
   data <- 
     readxl::read_xls(path,
@@ -44,21 +45,87 @@ Durchschnittsalter <-
   read_custom_csv('daten_beispiele/Durchschnittsalter_Kreise.csv',
                   value_name = 'Durchschnittsalter')
 
+BIP_Einwohner <- 
+  read_custom_xls('daten_beispiele/BIP_je_Einwohner.xls',
+                  value_name = 'BIP') %>% 
+  select(-c(Raumeinheit, Aggregat))
+
+Stadt_Land <- 
+  read_custom_xls('daten_beispiele/Stadt_Land.xls',
+                  value_name = 'Stadt_Land') %>% 
+  select(-c(Raumeinheit, Aggregat)) %>% 
+  mutate(Stadt_Land = Stadt_Land - 1)
+
+
 # Join der Daten in ein kohärentes tidy data frame
-data <-
+Landkreise <-
   Arbeitslosenquote %>% 
   left_join(Wahlbeteiligung, by = c("Kennziffer", "Jahr")) %>% 
   right_join(Durchschnittsalter, by = c("Kennziffer", "Jahr", 
-                                        "Raumeinheit", "Aggregat"))
+                                        "Raumeinheit", "Aggregat")) %>% 
+  left_join(BIP_Einwohner, by = c("Kennziffer", "Jahr")) %>% 
+  left_join(Stadt_Land, by = c("Kennziffer", "Jahr"))
+
+write_csv(Landkreise, 'daten_beispiele/Landkreise_merged.csv')
+
+theme_set(theme_minimal())
 
 # Scatter Plot
 data %>% 
   filter(Jahr == 2017) %>% 
   ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote)) +
-  geom_point() +
-  geom_smooth(method = "lm",
-              col = "grey40") +
-  theme_minimal()
+  geom_point()
+
+# aesthetics size
+data %>% 
+  filter(Jahr == 2017) %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             size = Durchschnittsalter)) +
+  geom_point()
+
+# aestetics color
+data %>% 
+  filter(Jahr == 2017) %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point()
+
+# geom point
+data %>% 
+  filter(Jahr == 2017) %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point()
+
+# geom line
+data %>% 
+  filter(Raumeinheit %in% c("Elbe-Elster", "Oberspreewald-Lausitz",
+                            "Prignitz", "Spree-Neiße", "Vogtlandkreis"),
+         Jahr > 1997) %>% 
+  ggplot(aes(x = Jahr,
+             y = Arbeitslosenquote,
+             col = Raumeinheit)) +
+  geom_line(size = 1.0)
+
+# geom bar
+data %>% 
+  filter(Raumeinheit %in% c("Elbe-Elster", "Oberspreewald-Lausitz",
+                            "Prignitz", "Spree-Neiße", "Vogtlandkreis"),
+         Jahr == 1998) %>% 
+  ggplot(aes(x = Raumeinheit,
+             y = Arbeitslosenquote)) +
+  geom_bar(stat = "identity")
+
+
+  
+
+
+
+
+
 
 # Facet scatter plot
 data %>% 

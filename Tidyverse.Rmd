@@ -24,7 +24,7 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 * Laden verschiedener Dateiformate
 * Bearbeiten von Daten
 * Verstädnnigs von Pipes (%>%)
-* Übergang in ggplot2 
+* Übergang in ggplot2
 
 ----
 

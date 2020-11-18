@@ -400,25 +400,48 @@ div.tocify {
 <div id="ziele-der-sitzung" class="section level1">
 <h1>Ziele der Sitzung</h1>
 <ul>
-<li>Grundverständnis von ggplo2</li>
-<li>Visualisierung von Daten</li>
+<li>Grundverständnis von ggplot2</li>
+<li>Grundlagen der Datenvisualisierung</li>
+<li>Anpassungsmöglichkeiten in ggplot2</li>
+<li>Erstellen publikationsrefier Plots</li>
 </ul>
 <hr />
 </div>
 <div id="was-ist-ggplot2" class="section level1">
 <h1>Was ist ggplot2?</h1>
+<p><code> ggplot2 </code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der “Grammar of Graphics” dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt.</p>
+<p>Die “Grammar of Graphics” spezifiziert Bausteine, mit welchen Grafiken erstellt werden können. Diese beinhalten, in der Reihenfolge der Anwendung:</p>
+<ol style="list-style-type: decimal">
+<li><p>Daten (<em>Was</em> soll dargestellt werden?)</p></li>
+<li><p>Mapping der Aesthetics (Was kommt auf die X- und die Y-Achse, etc.)</p></li>
+<li><p>Geometrisches Objekt (<code>geom</code>) (Wie sollen die Daten dargestellt werden? Linien, Punkte, Balken, etc.)</p></li>
+<li><p>Weitere <code>geoms</code> (z.B. Regressionslinie, etc.)</p></li>
+<li><p>Feinschliff der Axenbeschriftungen, Skalen, etc.</p></li>
+</ol>
+<p>Man sieht also, dass die “Grammar of Graphics” und damit auch <code>ggplot2</code> ein modulares Konzept verfolgen, wo Ebenen sukzessiv übereinander gelegt werden.</p>
+<p>Der wichtigste Frage, die man vor jeder Datenvisualisierung beantworten sollte: Was soll dargestellt werden? Konkreter: Was soll verglichen werden?</p>
+<p>!!Hier noch mehr zu generellen Punkten bei Datenvisualisierung!!!</p>
 <pre class="r"><code>library(tidyverse)
 
 # Laden der Daten
-Arbeitslosenquote &lt;- 
-  readxl::read_xls(&#39;daten_beispiele/Arbeitslosenquote.xls&#39;,
-                         skip = 1) %&gt;% 
-  rename(&#39;Kennziffer&#39; = &#39;...1&#39;,
-         &#39;Raumeinheit&#39; = &#39;...2&#39;,
-         &#39;Aggregat&#39; = &#39;...3&#39;) %&gt;% 
-  pivot_longer(!c(Kennziffer, Raumeinheit, Aggregat), 
-               names_to = &#39;Jahr&#39;, 
-               values_to = &#39;Arbeitslosenquote&#39;)</code></pre>
+data &lt;-
+  read_csv(&#39;daten_beispiele/Landkreise_merged.csv&#39;)
+
+glimpse(data)</code></pre>
+<pre><code>## Rows: 9,223
+## Columns: 9
+## $ Kennziffer         &lt;chr&gt; &quot;01001&quot;, &quot;01001&quot;, &quot;01001&quot;, &quot;01001&quot;, &quot;01001&quot;, &quot;01...
+## $ Raumeinheit        &lt;chr&gt; &quot;Flensburg, Stadt&quot;, &quot;Flensburg, Stadt&quot;, &quot;Flensbu...
+## $ Aggregat           &lt;chr&gt; &quot;krsfr. Stadt&quot;, &quot;krsfr. Stadt&quot;, &quot;krsfr. Stadt&quot;, ...
+## $ Jahr               &lt;dbl&gt; 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, ...
+## $ Arbeitslosenquote  &lt;dbl&gt; 14.6, 13.0, 11.8, 12.1, 12.1, 13.7, 14.0, 18.3, ...
+## $ Wahlbeteiligung    &lt;dbl&gt; 75.8, NA, NA, NA, 73.9, NA, NA, 72.0, NA, NA, NA...
+## $ Durchschnittsalter &lt;dbl&gt; 40.8, 40.9, 41.0, 41.0, 41.1, 41.2, 41.2, 41.2, ...
+## $ BIP                &lt;dbl&gt; NA, NA, 31.1, 31.3, 32.0, 32.1, 34.1, 35.0, 36.2...
+## $ Stadt_Land         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...</code></pre>
+</div>
+<div id="bausteine-von-ggplot2" class="section level1">
+<h1>Bausteine von ggplot2</h1>
 </div>
 
 
