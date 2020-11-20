@@ -22,7 +22,7 @@ set.seed(58008)
 )
 
 (pl <- soep_lebensz %>% 
-  select(persnr, jahr, bildung, anz_kind) %>% 
+  select(persnr, jahr, bildung, anz_kind, income) %>% 
   sample_frac(1L) %>% 
   mutate(bula = sample(1:16, 12922, replace = TRUE, prob = NULL)) %>% 
   mutate(region = sample(c("Stadt", "Stadt", "Land"), 12922, replace = TRUE, prob = NULL))
