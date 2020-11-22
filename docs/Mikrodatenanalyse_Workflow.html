@@ -499,19 +499,19 @@ phealth &lt;- read_dta(&quot;Beispielordner_Mikrodatenanalyse/data_in/phealth.dt
 ## 10 482355  2002 1 [weiblich]   648.
 ## # ... with 12,912 more rows</code></pre>
 <pre class="r"><code>pl</code></pre>
-<pre><code>## # A tibble: 12,922 x 6
-##    persnr  jahr bildung anz_kind  bula region
-##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
-##  1 294354  2001    10.5        0    11 Land  
-##  2 414129  2001    12          0     4 Stadt 
-##  3 417490  2002    10.5        2     2 Land  
-##  4 334726  2000     9          0    14 Stadt 
-##  5 569347  2001    11          2    15 Stadt 
-##  6 471291  2003    18          0    11 Land  
-##  7 663550  2004    11          0    15 Stadt 
-##  8 587268  2001    NA          0     6 Stadt 
-##  9  75033  2000    13          1    13 Stadt 
-## 10 180832  2003    12          0    13 Land  
+<pre><code>## # A tibble: 12,922 x 7
+##    persnr  jahr bildung anz_kind income  bula region
+##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
+##  1 294354  2001    10.5        0  2456.    11 Land  
+##  2 414129  2001    12          0  8143.     4 Stadt 
+##  3 417490  2002    10.5        2  1051.     2 Land  
+##  4 334726  2000     9          0  1276.    14 Stadt 
+##  5 569347  2001    11          2  7047.    15 Stadt 
+##  6 471291  2003    18          0  3711.    11 Land  
+##  7 663550  2004    11          0  1815.    15 Stadt 
+##  8 587268  2001    NA          0  3283.     6 Stadt 
+##  9  75033  2000    13          1  1927.    13 Stadt 
+## 10 180832  2003    12          0  1081.    13 Land  
 ## # ... with 12,912 more rows</code></pre>
 <pre class="r"><code>phealth</code></pre>
 <pre><code>## # A tibble: 12,276 x 6
@@ -598,8 +598,8 @@ saveRDS(object = arbeitsdatensatz, file = &quot;arbeitsdatensatz.rds&quot;)
 arbeitsdatensatz &lt;- readRDS(&quot;arbeitsdatensatz.rds&quot;)</code></pre>
 <p>Sollen alle bisher erstellten Obejekte gespeichert werden, geschieht dies mit <code>save.image</code>. Geladen wird mit dem Befehl <code>load</code>.</p>
 <pre class="r"><code># Gesamten Workspace speichern:
-save.image(file = &quot;arbeitsdatensatz.RData&quot;)
-# Und wieder laden
+save.image(file = &quot;arbeitsdatensatz.RData&quot;)</code></pre>
+<pre class="r"><code># Und wieder laden
 load(&quot;arbeitsdatensatz.RData&quot;)</code></pre>
 <hr />
 </div>
@@ -609,11 +609,81 @@ load(&quot;arbeitsdatensatz.RData&quot;)</code></pre>
 <p>Sollen lediglich aggregierte Werte, wie beispielsweise Mittelwerte, Quantile und Dispersionsmaße dargestellt werden, unterscheidet sich die Datenvisualisierung von Mikrodaten nicht von der von anderen Daten. Lediglich bei der Datenanalyse muss auf die Gewichtung der Daten geachtet werden.</p>
 <div id="gewichte-hochrechnungsfaktoren" class="section level3">
 <h3>Gewichte (Hochrechnungsfaktoren)</h3>
-<p>Der Umgang mit Häufigkeitsgewichten ist in <code>R</code> etwas anders als in anderen</p>
-<pre class="r"><code># arbeitsdatensatz %&gt;%
-#   filter(jahr == 2004) %&gt;%
-#   mutate(test = sum(income*weight)/sum(weight)) %&gt;%
-#   mutate(test2 = weighted.mean(income, w = weight))</code></pre>
+<p>Um für die Grundgesamtheit repräsentative Ergebnisse zu erhalten, müssen die Daten aus der Stichprobe gewichtet werden. Wie immer kann ein gewünschtes Ergebnis, hier zum Beispiel die durchschnittlichen Einkommen im Jahr 2004, <em>händisch</em> berechnet werden.</p>
+<pre class="r"><code>arbeitsdatensatz %&gt;%
+  filter(jahr == 2004) %&gt;%
+  summarise(income_mean_weighted = sum(income*weight)/sum(weight)) </code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   income_mean_weighted
+##                  &lt;dbl&gt;
+## 1               15372.</code></pre>
+<p>In der Regel hat sich jedoch schon jemand die Mühe gemacht und eine Funktion geschrieben:</p>
+<pre class="r"><code>arbeitsdatensatz %&gt;%
+  filter(jahr == 2004) %&gt;%
+  summarise(income_mean_weighted = weighted.mean(x = income, w = weight))</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   income_mean_weighted
+##                  &lt;dbl&gt;
+## 1               15372.</code></pre>
+<p>So bietet zum Beispiel das Paket <code>spatstat</code> Funktionen, die für die Berechnung deskriptiver, gewichteter Statistiken sinnvoll sind.</p>
+<pre class="r"><code>library(spatstat)
+ls(&quot;package:spatstat&quot;) %&gt;% 
+  as_tibble() %&gt;% 
+  filter(stringr::str_detect(value, &quot;weighted&quot;))</code></pre>
+<pre><code>## # A tibble: 4 x 1
+##   value             
+##   &lt;chr&gt;             
+## 1 weighted.median   
+## 2 weighted.quantile 
+## 3 weighted.var      
+## 4 weightedclosepairs</code></pre>
+<p>Die Anwendung dieser Funktionen funktioniert genau wie in unseren bisherigen Beispielen. Sind wir an der Entwicklung des gewichteten Medianeinkommens über die Zeit interessiert, bestimmen wir diese mit:</p>
+<pre class="r"><code>arbeitsdatensatz %&gt;% 
+  group_by(jahr) %&gt;% 
+  summarise(income_weighted_median = spatstat::weighted.median(income, weight, na.rm = T)) %&gt;% 
+  ungroup()</code></pre>
+<pre><code>## # A tibble: 5 x 2
+##    jahr income_weighted_median
+##   &lt;dbl&gt;                  &lt;dbl&gt;
+## 1  2000                  1971.
+## 2  2001                  2064.
+## 3  2002                  1964.
+## 4  2003                  1957.
+## 5  2004                  1993.</code></pre>
+<p>Als Visualisierung:</p>
+<pre class="r"><code>arbeitsdatensatz %&gt;% 
+  group_by(jahr) %&gt;% 
+  summarise(income_weighted_median = spatstat::weighted.median(income, weight, na.rm = T)) %&gt;% 
+  ggplot(aes(x = factor(jahr), y = income_weighted_median, group = 1)) +
+  geom_line(linetype = &quot;dashed&quot;) +
+  geom_point(aes(color = factor(jahr)), size = 5) </code></pre>
+<p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Insbesondere bei Daten mit vielen Beobachtungen kann es spannend sein, die Verteilung der Variblen von Interesse zu visualisieren. Ein Klassiker ist der Boxplot.</p>
+<pre class="r"><code>arbeitsdatensatz %&gt;% 
+  ggplot(aes(x = factor(jahr), y = lebensz_org, color = factor(jahr), weight = weight)) +
+  geom_boxplot()</code></pre>
+<p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Der klassiche Boxplot gibt zwar einige Hinweise auf die Verteilung der Daten, es geht aber auch schicker. Zum Beispiel mit <code>geom_jitter</code>.</p>
+<pre class="r"><code>arbeitsdatensatz %&gt;% 
+  ggplot(aes(x = factor(jahr), y = lebensz_org, color = factor(jahr), weight = weight)) +
+  geom_jitter(alpha = 0.3) +
+  geom_boxplot(alpha = 0.8, outlier.color = NA)</code></pre>
+<p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Oder mit <code>geom_violin</code>:</p>
+<pre class="r"><code>arbeitsdatensatz %&gt;% 
+  ggplot(aes(x = factor(jahr), y = income, color = factor(jahr), weight = weight)) +
+  geom_jitter(alpha = 0.3) +
+  geom_violin(alpha = 0.8, draw_quantiles = c(0.25, 0.5, 0.75)) +
+  ylim(1000, 10000)</code></pre>
+<p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>Eine weitere Option zur Visualisierung von Verteilungen ist <code>geom_density</code>.</p>
+<pre class="r"><code>arbeitsdatensatz %&gt;% 
+  filter(jahr == 2000) %&gt;% 
+  ggplot() +
+  geom_density(aes(x = income, weight = weight)) + #auch hier erlaubt weight eine Ausgabe gewichteter graphen
+  geom_density(aes(x = income), color = &quot;red&quot;) + #zum Vergleich der ungewichtete Graph
+  xlim(0,20000)</code></pre>
+<p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 </div>
 </div>

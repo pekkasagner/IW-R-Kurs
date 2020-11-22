@@ -13,7 +13,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
 ```
 
 ----
@@ -194,7 +194,7 @@ waldo::compare(arbeitsdatensatz, arbeitsdatensatz_mit_zwischenschritt)
 
 An dieser Stelle bietet es sich an, den Arbeitsdatensatz oder vielleicht sogar alle bisher geladenen und erstellten Objekte (z.B. Datensätze) abzuspeichern. Mit <code>saveRDS</code> kann ein einzelnes R-Objekt gespeichert werden. <code>readRDS</code> lädt dieses ein.
 
-```{r}
+```{r eval = FALSE}
 # Einzelnes Objekt speichern:
 saveRDS(object = arbeitsdatensatz, file = "arbeitsdatensatz.rds")
 # Einzelnes Objekt laden:
@@ -204,9 +204,12 @@ arbeitsdatensatz <- readRDS("arbeitsdatensatz.rds")
 
 Sollen alle bisher erstellten Obejekte gespeichert werden, geschieht dies mit <code>save.image</code>. Geladen wird mit dem Befehl <code>load</code>.
 
-```{r}
+```{r eval = FALSE}
 # Gesamten Workspace speichern:
 save.image(file = "arbeitsdatensatz.RData")
+```
+
+```{r eval = FALSE}
 # Und wieder laden
 load("arbeitsdatensatz.RData")
 ```
@@ -220,14 +223,86 @@ Die große Anzahl an Beobachtungen kann die (effiziente) Visualisierung von Mikr
 Sollen lediglich aggregierte Werte, wie beispielsweise Mittelwerte, Quantile und Dispersionsmaße dargestellt werden, unterscheidet sich die Datenvisualisierung von Mikrodaten nicht von der von anderen Daten. Lediglich bei der Datenanalyse muss auf die Gewichtung der Daten geachtet werden.
 
 ###Gewichte (Hochrechnungsfaktoren)
-Der Umgang mit Häufigkeitsgewichten ist in <code>R</code> etwas anders als in anderen
+Um für die Grundgesamtheit repräsentative Ergebnisse zu erhalten, müssen die Daten aus der Stichprobe gewichtet werden. Wie immer kann ein gewünschtes Ergebnis, hier zum Beispiel die durchschnittlichen Einkommen im Jahr 2004, *händisch* berechnet werden.
 
-```{r}
-# arbeitsdatensatz %>%
-#   filter(jahr == 2004) %>%
-#   mutate(test = sum(income*weight)/sum(weight)) %>%
-#   mutate(test2 = weighted.mean(income, w = weight))
+
+```{r include = TRUE}
+arbeitsdatensatz %>%
+  filter(jahr == 2004) %>%
+  summarise(income_mean_weighted = sum(income*weight)/sum(weight)) 
+```
+In der Regel hat sich jedoch schon jemand die Mühe gemacht und eine Funktion geschrieben:
+
+```{r include = TRUE}
+arbeitsdatensatz %>%
+  filter(jahr == 2004) %>%
+  summarise(income_mean_weighted = weighted.mean(x = income, w = weight))
 ```
 
+So bietet zum Beispiel das Paket <code>spatstat</code> Funktionen, die für die Berechnung deskriptiver, gewichteter Statistiken sinnvoll sind. 
+```{r}
+library(spatstat)
+ls("package:spatstat") %>% 
+  as_tibble() %>% 
+  filter(stringr::str_detect(value, "weighted"))
+```
+
+Die Anwendung dieser Funktionen funktioniert genau wie in unseren bisherigen Beispielen. Sind wir an der Entwicklung des gewichteten Medianeinkommens über die Zeit interessiert, bestimmen wir diese mit:
+
+```{r}
+arbeitsdatensatz %>% 
+  group_by(jahr) %>% 
+  summarise(income_weighted_median = spatstat::weighted.median(income, weight, na.rm = T)) %>% 
+  ungroup()
+```
+
+Als Visualisierung:
+
+```{r}
+arbeitsdatensatz %>% 
+  group_by(jahr) %>% 
+  summarise(income_weighted_median = spatstat::weighted.median(income, weight, na.rm = T)) %>% 
+  ggplot(aes(x = factor(jahr), y = income_weighted_median, group = 1)) +
+  geom_line(linetype = "dashed") +
+  geom_point(aes(color = factor(jahr)), size = 5) 
+```
+
+Insbesondere bei Daten mit vielen Beobachtungen kann es spannend sein, die Verteilung der Variblen von Interesse zu visualisieren. Ein Klassiker ist der Boxplot.
+
+```{r}
+arbeitsdatensatz %>% 
+  ggplot(aes(x = factor(jahr), y = lebensz_org, color = factor(jahr), weight = weight)) +
+  geom_boxplot()
+```
+
+Der klassiche Boxplot gibt zwar einige Hinweise auf die Verteilung der Daten, es geht aber auch schicker. Zum Beispiel mit <code>geom_jitter</code>. 
+
+```{r}
+arbeitsdatensatz %>% 
+  ggplot(aes(x = factor(jahr), y = lebensz_org, color = factor(jahr), weight = weight)) +
+  geom_jitter(alpha = 0.3) +
+  geom_boxplot(alpha = 0.8, outlier.color = NA)
+```
+
+Oder mit <code>geom_violin</code>:
+
+```{r}
+arbeitsdatensatz %>% 
+  ggplot(aes(x = factor(jahr), y = income, color = factor(jahr), weight = weight)) +
+  geom_jitter(alpha = 0.3) +
+  geom_violin(alpha = 0.8, draw_quantiles = c(0.25, 0.5, 0.75)) +
+  ylim(1000, 10000)
+```
+
+Eine weitere Option zur Visualisierung von Verteilungen ist <code>geom_density</code>. 
+
+```{r}
+arbeitsdatensatz %>% 
+  filter(jahr == 2000) %>% 
+  ggplot() +
+  geom_density(aes(x = income, weight = weight)) + #auch hier erlaubt weight eine Ausgabe gewichteter Graphen
+  geom_density(aes(x = income), color = "red") + #zum Vergleich der ungewichtete Graph
+  xlim(0,20000)
+```
 
 
