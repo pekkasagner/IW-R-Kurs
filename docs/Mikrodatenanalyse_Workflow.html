@@ -366,6 +366,9 @@ div.tocify {
   <a href="Mikrodatenanalyse_Workflow.html">Mikrodatenanalyse</a>
 </li>
 <li>
+  <a href="Karten.html">Karten und Geodaten</a>
+</li>
+<li>
   <a href="Links.html">Links</a>
 </li>
       </ul>
@@ -680,7 +683,7 @@ ls(&quot;package:spatstat&quot;) %&gt;%
 <pre class="r"><code>arbeitsdatensatz %&gt;% 
   filter(jahr == 2000) %&gt;% 
   ggplot() +
-  geom_density(aes(x = income, weight = weight)) + #auch hier erlaubt weight eine Ausgabe gewichteter graphen
+  geom_density(aes(x = income, weight = weight)) + #auch hier erlaubt weight eine Ausgabe gewichteter Graphen
   geom_density(aes(x = income), color = &quot;red&quot;) + #zum Vergleich der ungewichtete Graph
   xlim(0,20000)</code></pre>
 <p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>

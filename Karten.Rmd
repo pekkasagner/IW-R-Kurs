@@ -1,0 +1,59 @@
+---
+title: "Geodaten und Karten in R"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: true
+    number_sections: false
+    toc_depth: 2
+    #code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
+```
+
+----
+
+# Ziele der Sitzung
+
+* Visualisierung von räumlichen Daten
+* Erstellen von Karten im *printfähigen* Format
+
+----
+
+# Geodaten leicht gemacht
+
+Die Visualisierung von simplen Geoinformationen unterscheidet sich  nicht wesentlich von der Visualisierung anderer Daten. Bei Punktdaten im zweidimensionalen Raum bedarf es beispielsweise eines x-Wertes und eines y-Wertes, um diesen zu visualisieren. Übertragen auf die Erdkugel bedarf es eines Längen- und Breitengrades. Hinzu kommt eine *Projektion* vgl. z.B. [Mercator-Projektion](https://de.wikipedia.org/wiki/Mercator-Projektion). 
+
+Geodaten werden in vielerlei Formen bereitgestellt. Zu den häufig verwendeten gehört das Shapefile-Format von ESRI. In der <code>.shp</code>-Datei sind die Geometriedaten gespeichert. Eine Shapefile ist jedoch keine einzelne Datei, sonder besteht aus mindestens drei einzelnen Dateien, die im selben Ordner gespeichert werden sollten.
+
+Zum Einlesen von Shapefiles nutzen wir das Paket <code>sf</code>. Mit <code>st_read</code> lesen wir ein Shapefile ein.
+
+
+Daten zu Krankenhäusern stammen aus dieser Quelle: [GovData](https://www.govdata.de/web/guest/suchen/-/details/poi-krankenhauser)
+
+```{r}
+library(tidyverse) #
+library(sf)
+krankenhaeuser <- st_read("daten_beispiele/krankenhaeuser_ruhr/poi_krankenhaeuser.shp")
+
+```
+
+
+#Visualisierung von Geodaten
+Eine einfache, der Syntax von <code>ggplot2</code> folgende Visualisierung von Geodaten kann mit dem <code>geom_sf</code> erreicht werden.
+
+```{r}
+krankenhaeuser %>% 
+  ggplot(aes(geometry = geometry)) +
+  geom_sf()
+```
+
+
+Weiterführende Links:
+
+* [Drawing beautiful maps programmatically with R, sf and ggplot2](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html)
+
+
