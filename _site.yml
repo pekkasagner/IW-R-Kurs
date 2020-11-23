@@ -14,8 +14,6 @@ navbar:
       href: ggplot.html
     - text: "Mikrodatenanalyse"
       href: Mikrodatenanalyse_Workflow.html
-    - text: "Karten und Geodaten"
-      href: Karten.html      
     - text: "Links"
       href: Links.html
 output_dir: "docs"

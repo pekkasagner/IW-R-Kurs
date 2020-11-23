@@ -36,7 +36,7 @@ Das [tidyverse](https://www.tidyverse.org/) in R ist eine Sammlung von Paketen, 
 
 # Installation und Inhalt
 
-Das tidyverse kann über den Befehl <code> install.packages("tidyverse") </code> installiert werden. Wird die Bibilothek in mit <code> library(tidyverse) </code> in die Umgebung geladen, sind die folgenden Pakete direkt nutzbar:
+Das tidyverse kann über den Befehl <code>install.packages("tidyverse")</code> installiert werden. Wird die Bibilothek in mit <code>library(tidyverse) </code> in die Umgebung geladen, sind die folgenden Pakete direkt nutzbar:
 
 * [ggplot2](https://ggplot2.tidyverse.org), für Datenvisualisierung,
 * [dplyr](https://dplyr.tidyverse.org), für Datenbearbeitung,
@@ -47,7 +47,7 @@ Das tidyverse kann über den Befehl <code> install.packages("tidyverse") </code>
 * [stringr](https://github.com/tidyverse/stringr), für Strings,
 * [forcats](https://github.com/hadley/forcats), für Faktor-Variablen.
 
-Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code> install.packages("tidyverse") </code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code> library("Paketname") </code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:
+Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages("tidyverse")</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library("Paketname")</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:
 
 *   Für die Arbeit mit Daten mit zeitlichem Bezug:
 
@@ -81,7 +81,7 @@ Lädt man das tidyverse in die Arbeitsumgebung, wird folgende Nachricht angezeig
 
 </center>
 
-Einerseits werden hier unter "Attaching packages" die geladenen Pakete samt der jeweiligen Version angezeigt. Unter "Conflicts" gibt es zudem zwei Warnhinweise. Diese weisen auf mögliche Probleme bei der Nutzung verschiedener R-Pakete hin. Hier werden durch das Laden des tidyverse zwei Befehle aus der "stats-Bibliothek" maskiert, also überschrieben. Konkret bedeutet das, dass nachdem das tidyverse geladen wurde, die Befehle <code> filter() </code> und <code> lag() </code> ihre Funktionalität aus dem "dplyr-Paket" und nicht mehr von "stats" beziehen. Möchte man jetzt die <code> filter() </code> Funktion aus der stats-Bibliothek nutzen, kann man diesen folgendermaßen aufrufen <code> stats::filter() </code>.
+Einerseits werden hier unter "Attaching packages" die geladenen Pakete samt der jeweiligen Version angezeigt. Unter "Conflicts" gibt es zudem zwei Warnhinweise. Diese weisen auf mögliche Probleme bei der Nutzung verschiedener R-Pakete hin. Hier werden durch das Laden des tidyverse zwei Befehle aus der "stats-Bibliothek" maskiert, also überschrieben. Konkret bedeutet das, dass nachdem das tidyverse geladen wurde, die Befehle <code>filter()</code> und <code>lag()</code> ihre Funktionalität aus dem "dplyr-Paket" und nicht mehr von "stats" beziehen. Möchte man jetzt die <code>filter()</code> Funktion aus der stats-Bibliothek nutzen, kann man diesen folgendermaßen aufrufen <code>stats::filter()</code>.
 
 ```{r filter_explanation, eval=FALSE}
 # Lädt nur die filter() Funktion von dplyr
@@ -136,15 +136,18 @@ Arbeitslosenquote <-
          'Aggregat' = '...3') %>% 
   pivot_longer(!c(Kennziffer, Raumeinheit, Aggregat), 
                names_to = 'Jahr', 
-               values_to = 'Arbeitslosenquote')
+               values_to = 'Arbeitslosenquote') %>% 
+  mutate(Jahr = as.integer(Jahr)) 
 ```
-Hier wird zunächst mit <code> read_xls() </code> die .xls-Datei geladen. Da das Paket readxl zwar im tidyverse mit heruntergeladen aber nicht automatisch in die Arbeitsumgebung geladen wird, wird das Paket hier mit <code> readxl::read_xls() </code> direkt angesprochen. Der Zusatz <code> skip = 1 </code> überspringt die erste Zeile der .xls-Datei, da die Variabelnnamen auf zwei Spalten verteilt sind. 
+Hier wird zunächst mit <code>read_xls()</code> die .xls-Datei geladen. Da das Paket readxl zwar im tidyverse mit heruntergeladen aber nicht automatisch in die Arbeitsumgebung geladen wird, wird das Paket hier mit <code>readxl::read_xls()</code> direkt angesprochen. Der Zusatz <code>skip = 1</code> überspringt die erste Zeile der .xls-Datei, da die Variabelnnamen auf zwei Spalten verteilt sind. 
 
-Mit der Funktion <code> rename() </code> werden die fehlenden Variablennamen ergänzt. 
+Mit der Funktion <code>rename()</code> werden die fehlenden Variablennamen ergänzt. 
 
-Die letzte Funktion <code> pivot_longer() </code> überführt die restlichen Spalten vom wide ins long Format. Die Funktion wird im späteren Kursverlauf genauer erklärt. 
+Die letzte Funktion <code>pivot_longer()</code> überführt die restlichen Spalten vom wide ins long Format. Die Funktion wird im späteren Kursverlauf genauer erklärt. 
 
-Der daraus resultierende Datensatz kann mit <code> View(Arbeitslosenquote) </code> im Viewer von R-Studio betrachtet werden.
+Zuletzt wird die Variable "Jahr" in die <code>integer</code> Klasse überführt.
+
+Der daraus resultierende Datensatz kann mit <code>View(Arbeitslosenquote)</code> im Viewer von R-Studio betrachtet werden.
 
 <center>
 
@@ -177,15 +180,15 @@ Arbeitslosenquote %>%
 ```
 Vor allem in punkto Lesbarkeit und Kompaktheit bietet die Pipe gegenüber ihren Alternativen große Vorteile. Auch wird hier kein zusätzlicher Arbeitsspeicher verwendent, um Objekte zu speichern, die eigentlich gar nicht benötigt werden. Illustriert am obigen Beispiel, kann man die Pipe folgendermaßen verstehen: 
 
-1. Das aktuelle Datenobjekt wird immer in den nächsten Schritt weitergegeben. Hier wird das Objekt "Arbeitslosenquote" also direkt im auf <code> %>% </code> folgenden Befehl als Datenobjekt verwendet. So entfällt der Schritt, in jeder Funktion vom Format <code> filter(data, variable == "value") </code>, das Datenobjekt (data) mit anzugeben. 
+1. Das aktuelle Datenobjekt wird immer in den nächsten Schritt weitergegeben. Hier wird das Objekt "Arbeitslosenquote" also direkt im auf <code>%>%</code> folgenden Befehl als Datenobjekt verwendet. So entfällt der Schritt, in jeder Funktion vom Format <code>filter(data, variable == "value")</code>, das Datenobjekt (data) mit anzugeben. 
 
 2. Das bearbeitete Objekt wird immer in den nächsten Schritt weitergegeben, ohne dass es zwischengespeichert wird und werden muss. 
 
 Vereinfacht gesagt ist also 
 
-* <code> x %>% f </code> äquivalent zu <code> f(x) </code>
-* <code> x %>% f(y) </code> äquaivalent zu <code> f(x , y) </code> und
-* <code> x %>%  f %>%  g %>% h </code> äquivalent zu <code> h(g(f(x))) </code> 
+* <code>x %>% f</code> äquivalent zu <code>f(x)</code>
+* <code>x %>% f(y)</code> äquaivalent zu <code>f(x , y)</code> und
+* <code>x %>%  f %>%  g %>% h</code> äquivalent zu <code>h(g(f(x)))</code> 
  
 Vor allem in der explorativen Datenanalyse und beim Erstellen von Visualisierungen ist die Pipe sehr gut geeignet. Bei sehr komplizierten Datenstrukturen, oder sehr vielen Operationen sollte man allerdings auf andere Tools zurückgreifen. 
 
@@ -193,7 +196,7 @@ Vor allem in der explorativen Datenanalyse und beim Erstellen von Visualisierung
 
 ## filter()
 
-Die <code> filter() </code> ermöglicht, wie der Name impliziert, das filtern von Datensätzen nach festgelegten Kriterien. 
+Die <code>filter()</code> ermöglicht, wie der Name impliziert, das filtern von Datensätzen nach festgelegten Kriterien. 
 
 ```{r filter}
 # Filtern nach Aggregat und Arbeitslosenquote
@@ -207,7 +210,7 @@ Arbeitslosenquote %>%
 
 ## select()
 
-Mit der Funktion <code> select() </code> wählt man alle relevanten Spalten bzw. Variablen aus einem Datensatz aus. 
+Mit der Funktion <code>select()</code> wählt man alle relevanten Spalten bzw. Variablen aus einem Datensatz aus. 
 
 ```{r}
 Arbeitslosenquote %>% 
@@ -221,7 +224,7 @@ Arbeitslosenquote %>%
 
 ## mutate()
 
-Die Funktion <code> mutate() </code> erlaubt es, Spalten bzw. Variablen in einem Datensatz zu verändern oder neue Spalten zu erzeugen. 
+Die Funktion <code>mutate()</code> erlaubt es, Spalten bzw. Variablen in einem Datensatz zu verändern oder neue Spalten zu erzeugen. 
 
 ```{r mutate}
 Arbeitslosenquote %>% 
@@ -233,7 +236,7 @@ Arbeitslosenquote %>%
 
 ## group_by()
 
-<code> group_by() </code> gruppiert bestimmte Variablen in gewünschte Gruppen für nachfolgende Operationen. Viele Funktionen bauen auf <code> group_by </code> auf. 
+<code>group_by()</code> gruppiert bestimmte Variablen in gewünschte Gruppen für nachfolgende Operationen. Viele Funktionen bauen auf <code>group_by</code> auf. 
 
 ```{r group_by}
 Arbeitslosenquote %>% 
@@ -250,7 +253,7 @@ Arbeitslosenquote %>%
 
 ## summarise()
 
-<code> summarise() </code> oder <code> summarize() </code> fasst alle Reihen zusammen und gibt eine Zusammenfassung dieser Reihen aus.
+<code>summarise()</code> oder <code>summarize()</code> fasst alle Reihen zusammen und gibt eine Zusammenfassung dieser Reihen aus.
 
 ```{r summarise}
 Arbeitslosenquote %>% 
@@ -264,7 +267,7 @@ Arbeitslosenquote %>%
 
 ## arrange()
 
-Die Funktion <code> arrange() </code> sortiert die Daten in einer gewünschten Reihenfolge.
+Die Funktion <code>arrange()</code> sortiert die Daten in einer gewünschten Reihenfolge.
 
 ```{r arrange}
 Arbeitslosenquote %>% 
@@ -282,7 +285,6 @@ Eine beispielhafte erste Grafik, die die Arbeitslosenquote pro Jahr und Aggregat
 
 ```{r plot_1}
 Arbeitslosenquote %>% 
-  mutate(Jahr = as.double(Jahr)) %>% 
   group_by(Aggregat, Jahr) %>% 
   summarise(Arbeitslosenquote = mean(Arbeitslosenquote)) %>% 
   ggplot(aes(x = Jahr, 

@@ -8,3 +8,12 @@ purrr
 dplyr
 stringr
 forcats
+sf
+fs
+haven
+tidylog
+waldo
+spatstat.data
+nlme
+rpart
+spatstat
