@@ -401,25 +401,64 @@ div.tocify {
 <h1>Geodaten leicht gemacht</h1>
 <p>Die Visualisierung von simplen Geoinformationen unterscheidet sich nicht wesentlich von der Visualisierung anderer Daten. Bei Punktdaten im zweidimensionalen Raum bedarf es beispielsweise eines x-Wertes und eines y-Wertes, um diesen zu visualisieren. Übertragen auf die Erdkugel bedarf es eines Längen- und Breitengrades. Hinzu kommt eine <em>Projektion</em> vgl. z.B. <a href="https://de.wikipedia.org/wiki/Mercator-Projektion">Mercator-Projektion</a>.</p>
 <p>Geodaten werden in vielerlei Formen bereitgestellt. Zu den häufig verwendeten gehört das Shapefile-Format von ESRI. In der <code>.shp</code>-Datei sind die Geometriedaten gespeichert. Eine Shapefile ist jedoch keine einzelne Datei, sonder besteht aus mindestens drei einzelnen Dateien, die im selben Ordner gespeichert werden sollten.</p>
+<p>In der sozialwissenschaftlichen und ökonomischen Forschung werden in der Regel entweder Polygone oder Punktdaten visualisiert.</p>
 <p>Zum Einlesen von Shapefiles nutzen wir das Paket <code>sf</code>. Mit <code>st_read</code> lesen wir ein Shapefile ein.</p>
-<p>Daten zu Krankenhäusern stammen aus dieser Quelle: <a href="https://www.govdata.de/web/guest/suchen/-/details/poi-krankenhauser">GovData</a></p>
-<pre class="r"><code>library(tidyverse) #
-library(sf)
-krankenhaeuser &lt;- st_read(&quot;daten_beispiele/krankenhaeuser_ruhr/poi_krankenhaeuser.shp&quot;)</code></pre>
-<pre><code>## Reading layer `poi_krankenhaeuser&#39; from data source `C:\Users\psagner\Documents\GitHub\IW-R-Kurs\daten_beispiele\krankenhaeuser_ruhr\poi_krankenhaeuser.shp&#39; using driver `ESRI Shapefile&#39;
-## Simple feature collection with 554 features and 44 fields
-## geometry type:  POINT
-## dimension:      XY
-## bbox:           xmin: 309435.8 ymin: 5627418 xmax: 422184.5 ymax: 5739012
-## projected CRS:  ETRS89 / UTM zone 32N</code></pre>
+<pre class="r"><code>#Quelle Shapefile Bundesländer: https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::bundesl%C3%A4nder-2016-mit-einwohnerzahl?geometry=-31.360%2C46.270%2C52.268%2C55.886
+# library(tidyverse) 
+# library(sf)
+# bundeslaender &lt;- st_read(&quot;daten_beispiele/shapefiles_bundeslaender/Bundesländer_2016_ew.shp&quot;) </code></pre>
+<p>Beim Einlesen eines Shapefiles werden bereits wichtige Informationen zum Geometrietyp und der Projektion angezeigt.</p>
 </div>
 <div id="visualisierung-von-geodaten" class="section level1">
 <h1>Visualisierung von Geodaten</h1>
-<p>Eine einfache, der Syntax von <code>ggplot2</code> folgende Visualisierung von Geodaten kann mit dem <code>geom_sf</code> erreicht werden.</p>
-<pre class="r"><code>krankenhaeuser %&gt;% 
-  ggplot(aes(geometry = geometry)) +
-  geom_sf()</code></pre>
-<p><img src="Karten_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Eine einfache, der Syntax von <code>ggplot2</code> folgende Visualisierung von Geodaten kann mit dem <code>geom_sf</code> erreicht werden. Als <code>aesthetic</code> wird eine <code>geometry</code> benötigt. In diesem Fall heißt die entsprechende Spalte im Datensatz ebenfalls <em>geometry</em>.</p>
+<pre class="r"><code># bundeslaender %&gt;% 
+#   ggplot(aes(geometry = geometry)) +
+#   geom_sf()</code></pre>
+<p>Sollen die Polygone, in diesem Fall Bundesländer mit einem Farbwert, der auf einer Variabel basiert, gefüllt werden, so geschieht dies mit der <code>fill</code>-aesthetic. Der Datensatz enthält eine Spalte <code>EWZ</code> mit der Einwohnerzahl je Bundesland.</p>
+<pre class="r"><code># bundeslaender %&gt;% 
+#   ggplot(aes(geometry = geometry, fill = EWZ)) +
+#   geom_sf() +
+#   scale_fill_continuous(labels = function(x) format(x, big.mark = &quot;.&quot;, decimal.mark = &quot;,&quot;, scientific = FALSE)) #verhindert Exponentialnotation und stellt auf deutsche Kommas um</code></pre>
+<p>Das <em>Schichtprinzip</em> von ggplot2, nachdem einer Abbildung mit <code>+</code> weitere Schichten hinzugefügt werden können funktioniert bei der Visualisierung von Geodaten ebenfalls.</p>
+<p>Hier muss jedoch zusätzlich darauf geachtet werden, dass die verschiedenen Informationen, die übereinander dargestellt werden in derselben Projektion gespeichert wurden.</p>
+<p>Wir laden zunächst ein neues Shapefile, das Standorte von Krankenhäusern im Ruhrgebiet enthält. Die Daten zu Krankenhäusern stammen aus dieser Quelle: <a href="https://www.govdata.de/web/guest/suchen/-/details/poi-krankenhauser">GovData</a></p>
+<pre class="r"><code># krankenhaeuser &lt;- st_read(&quot;daten_beispiele/krankenhaeuser_ruhr/poi_krankenhaeuser.shp&quot;)</code></pre>
+<p>Die Visualisierung der Punktdaten unterscheidet sich in der Syntax nicht von der von Polygonen.</p>
+<pre class="r"><code># krankenhaeuser %&gt;% 
+#   ggplot(aes(geometry = geometry)) +
+#   geom_sf()</code></pre>
+<p>Eine Darstellung der Punktdaten ohne eine Grundkarte macht wenig Sinn. Wo liegen die Punkte? Um die Grundkarte der Bundesländer und die Standorte der Krankenhäuser gemeinsam darzustellen, überprüfen wir zunächst, ob diese dieselbe Projektion haben.</p>
+<p>Ein Vergleich der beiden Projektionen zeigt, dass diese nicht identisch sind*:</p>
+<pre class="r"><code># waldo::compare(bundeslaender %&gt;% sf::st_crs(), krankenhaeuser %&gt;% sf::st_crs())</code></pre>
+<p>*Anmerkung: Unterschiede sind nicht immer leicht zu erkennen und manchmal unterscheiden sich auch nur die Bezeichnungen (vgl. <a href="https://de.wikipedia.org/wiki/UTM-Koordinatensystem#:~:text=Die%20Arbeitsgemeinschaft%20der%20Vermessungsverwaltungen%20der,Lagebezugssystem%20f%C3%BCr%20ganz%20Deutschland%20beschlossen.">UTM-Koordinatensystem</a>)</p>
+<p>Das Paket <code>sf</code> bietet eine Vielzahl an Funktionen, um mit Geoinformationen zu arbeiten. Die Funktion <code>st_transform</code> erlaubt uns die Projektionen zu ändern.</p>
+<pre class="r"><code># bundeslaender_wgs84 &lt;- bundeslaender %&gt;% 
+#   st_transform(crs = 4326)</code></pre>
+<pre class="r"><code># krankenhaeuser_wgs84 &lt;- krankenhaeuser %&gt;% 
+#   st_transform(crs = 4326)</code></pre>
+<p>Nun haben die beiden Datensätze dieselbe Projektion...</p>
+<pre class="r"><code># waldo::compare(bundeslaender_wgs84 %&gt;% sf::st_crs(), krankenhaeuser_wgs84 %&gt;% sf::st_crs())</code></pre>
+<p>...und wir können sie gemeinsam grafisch darstellen:</p>
+<pre class="r"><code># ggplot() +
+#   geom_sf(data = bundeslaender_wgs84, aes(geometry = geometry)) +
+#   geom_sf(data = krankenhaeuser_wgs84, aes(geometry = geometry)) </code></pre>
+<p>Die Krankenhäuser liegen allesamt im Ruhrgebiet. Es könnte also sinnvoll sein, die Hintergrundkarte auf Nordrhein-Westfalen zu beschränken. Man kann Datensätze auch innerhalb eines ggplot-geoms filtern:</p>
+<pre class="r"><code># ggplot() +
+#   geom_sf(data = bundeslaender_wgs84 %&gt;% 
+#             filter(GEN == &quot;Nordrhein-Westfalen&quot;), aes(geometry = geometry)) +
+#   geom_sf(data = krankenhaeuser_wgs84, aes(geometry = geometry)) </code></pre>
+<p>Der Krankenhäuser-Datensatz bietet Informationen zu den verschiedenen Typen der Krankenhäuser in der Variable <code>coll_name</code>. Wie sind die verschiedenen Krankenhaustypen geografisch verteilt?</p>
+<p>Zunächst untersuchen wir, wie viele Krankenhaustypen es gibt und wie viele Krankenhäuser dem jeweiligen Typ angehören.</p>
+<pre class="r"><code># krankenhaeuser_wgs84 %&gt;% 
+#   as_tibble() %&gt;% #von sf-Objekt in tibble umwandeln
+#   count(coll_name) %&gt;% 
+#   arrange(desc(n))</code></pre>
+<p>Auf der Suche nach einem der 18 Krankenhäuser für Geriatrie im Ruhrgebiet? Natürlich, sind wir doch alle. Wo sind diese zu finden? Die Filterfunktionen innerhalb der ggplot-Befehle sind insbesondere für die schnelle Datenvisualisierung praktisch. Wir weisen der Farbe einen Indikator zu, der <code>TRUE</code> ist, wenn da Krankenhaus geriatrische Behandlungen anbietet und <code>FALSE</code> falls dem nicht so ist.</p>
+<pre class="r"><code># ggplot() +
+#   geom_sf(data = bundeslaender_wgs84 %&gt;% 
+#             filter(GEN == &quot;Nordrhein-Westfalen&quot;), aes(geometry = geometry)) +
+#   geom_sf(data = krankenhaeuser_wgs84, aes(geometry = geometry, color = coll_name %in% c(&quot;Geriatrie&quot;))) </code></pre>
 <p>Weiterführende Links:</p>
 <ul>
 <li><a href="https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html">Drawing beautiful maps programmatically with R, sf and ggplot2</a></li>

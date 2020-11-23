@@ -6,7 +6,7 @@ output:
     toc_float: true
     collapsed: true
     number_sections: false
-    toc_depth: 1
+    toc_depth: 2
     #code_folding: hide
 ---
 
