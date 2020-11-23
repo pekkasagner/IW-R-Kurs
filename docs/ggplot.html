@@ -25,6 +25,17 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -401,8 +412,8 @@ div.tocify {
 </div>
 <div id="was-ist-ggplot2" class="section level1">
 <h1>Was ist ggplot2?</h1>
-<p><code> ggplot2 </code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der &quot;Grammar of Graphics&quot; dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt.</p>
-<p>Die &quot;Grammar of Graphics&quot; spezifiziert Bausteine, mit welchen Grafiken erstellt werden können. Diese beinhalten, in der Reihenfolge der Anwendung:</p>
+<p><code> ggplot2 </code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der “Grammar of Graphics” dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt.</p>
+<p>Die “Grammar of Graphics” spezifiziert Bausteine, mit welchen Grafiken erstellt werden können. Diese beinhalten, in der Reihenfolge der Anwendung:</p>
 <ol style="list-style-type: decimal">
 <li><p>Daten (<em>Was</em> soll dargestellt werden?)</p></li>
 <li><p>Mapping der Aesthetics (Was kommt auf die X- und die Y-Achse, etc.)</p></li>
@@ -410,7 +421,7 @@ div.tocify {
 <li><p>Weitere <code>geoms</code> (z.B. Regressionslinie, etc.)</p></li>
 <li><p>Feinschliff der Axenbeschriftungen, Skalen, etc.</p></li>
 </ol>
-<p>Man sieht also, dass die &quot;Grammar of Graphics&quot; und damit auch <code>ggplot2</code> ein modulares Konzept verfolgen, wo Ebenen sukzessiv übereinander gelegt werden.</p>
+<p>Man sieht also, dass die “Grammar of Graphics” und damit auch <code>ggplot2</code> ein modulares Konzept verfolgen, wo Ebenen sukzessiv übereinander gelegt werden.</p>
 <p>Der wichtigste Frage, die man vor jeder Datenvisualisierung beantworten sollte: Was soll dargestellt werden? Konkreter: Was soll verglichen werden?</p>
 <p>!!Hier noch mehr zu generellen Punkten bei Datenvisualisierung!!!</p>
 <pre class="r"><code>library(tidyverse)
@@ -447,7 +458,7 @@ glimpse(data)</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
