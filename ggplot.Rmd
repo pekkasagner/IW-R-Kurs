@@ -30,7 +30,7 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 
 # Was ist ggplot2?
 
-<code> ggplot2 </code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der "Grammar of Graphics" dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt. 
+<code>ggplot2</code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der "Grammar of Graphics" dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt. 
 
 Die "Grammar of Graphics" spezifiziert Bausteine, mit welchen Grafiken erstellt werden können. Diese beinhalten, in der Reihenfolge der Anwendung:
 
@@ -55,9 +55,33 @@ Der wichtigste Frage, die man vor jeder Datenvisualisierung beantworten sollte: 
 library(tidyverse)
 
 # Laden der Daten
-data <-
-  read_csv('daten_beispiele/Landkreise_merged.csv')
+landkreise <-
+  read_csv('daten_beispiele/Landkreise_merged.csv') %>% 
+  filter(Jahr == 2017)
 
 glimpse(data)
 ```
 # Bausteine von ggplot2
+Die wichtigsten Bausteine von <code>ggplot2</code> sollen an einem Beispiel genauer erklärt werden.
+
+```{r build_plot}
+ggplot(data = landkreise,
+       mapping = aes(x = Wahlbeteiligung, 
+                     y = Arbeitslosenquote)) +
+geom_point()
+```
+Hier werden in einem einfachen Plot die ersten drei Bausteine angewandt, um einen Scatterplot vom Verhältnis der Wahlbeteiligung zur Arbeitslosenquote in den einzelnen Landkreise zu erstellen. 
+
+Das erste Argument in der <code>ggplot</code> Funktion <code>data</code> gibt an, welche Daten grafisch dargestellt werden sollen. Da die Daten immer in dem Format sein müssen, in welchem sie nachher im Plot erscheinen, sollte man vor erstellen des Plots darüber nachdenken, was genau dargestellt werden soll. Im Beispiel gegen wir die schon bearbeiteten Daten der <code>landkreise</code> an. 
+
+Der zweite Befehl umfasst das Mapping der Aesthetics. Aesthetics (<code>aes</code>) beschreiben wie die Variablen in den Daten zu visuellen Eigenschaften von <code>geoms</code> zugeordnet werden sollen. Im Beispiel sollen die Variable "Wahlbeteiligung" auf der x-Achse und die Variable "Arbeitslosenquote" auf der y-Achse dargestellt werden. Konkretere Beispiele verschiedener Aesthetics werden weiter unten erklärt. 
+
+Zuletzt gibt der Befehl <code>geom_point</code> an, in welcher Art die Daten dargestellt werden sollen bzw. welches geometrische Objekt genutzt werden soll. Hier gibt es eine sehr große Auswahl verschiedener <code>geom</code>, um etwa Balkendiagramme, Liniendiagramme, Boxplots, usw. zu plotten. 
+
+## Aesthetics
+
+
+
+
+
+

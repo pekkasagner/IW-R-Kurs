@@ -25,6 +25,17 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -407,17 +418,14 @@ div.tocify {
 library(tidyverse)
 library(sf)
 bundeslaender &lt;- st_read(&quot;daten_beispiele/shapefiles_bundeslaender/Bundesländer_2016_ew.shp&quot;)</code></pre>
-<pre><code>## Reading layer `BundeslÃ¤nder_2016_ew&#39; from data source `C:\Users\psagner\Documents\GitHub\IW-R-Kurs\daten_beispiele\shapefiles_bundeslaender\BundeslÃ¤nder_2016_ew.shp&#39; using driver `ESRI Shapefile&#39;
+<pre><code>## Reading layer `BundeslÃ¤nder_2016_ew&#39; from data source `C:\Users\amertens\IW-R-Kurs\daten_beispiele\shapefiles_bundeslaender\BundeslÃ¤nder_2016_ew.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 16 features and 21 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
 ## bbox:           xmin: 653028 ymin: 5986277 xmax: 1674447 ymax: 7373205
 ## projected CRS:  WGS 84 / Pseudo-Mercator</code></pre>
 <p>Beim Einlesen eines Shapefiles werden bereits wichtige Informationen zum Geometrietyp und der Projektion angezeigt.</p>
-</div>
-<div id="visualisierung-von-geodaten" class="section level1">
-<h1>Visualisierung von Geodaten</h1>
-<p>Eine einfache, der Syntax von <code>ggplot2</code> folgende Visualisierung von Geodaten kann mit dem <code>geom_sf</code> erreicht werden. Als <code>aesthetic</code> wird eine <code>geometry</code> benötigt. In diesem Fall heißt die entsprechende Spalte im Datensatz ebenfalls <em>geometry</em>.</p>
+<p>#Visualisierung von Geodaten Eine einfache, der Syntax von <code>ggplot2</code> folgende Visualisierung von Geodaten kann mit dem <code>geom_sf</code> erreicht werden. Als <code>aesthetic</code> wird eine <code>geometry</code> benötigt. In diesem Fall heißt die entsprechende Spalte im Datensatz ebenfalls <em>geometry</em>.</p>
 <pre class="r"><code>bundeslaender %&gt;%
   ggplot(aes(geometry = geometry)) +
   geom_sf()</code></pre>
@@ -432,7 +440,7 @@ bundeslaender &lt;- st_read(&quot;daten_beispiele/shapefiles_bundeslaender/Bunde
 <p>Hier muss jedoch zusätzlich darauf geachtet werden, dass die verschiedenen Informationen, die übereinander dargestellt werden in derselben Projektion gespeichert wurden.</p>
 <p>Wir laden zunächst ein neues Shapefile, das Standorte von Krankenhäusern im Ruhrgebiet enthält. Die Daten zu Krankenhäusern stammen aus dieser Quelle: <a href="https://www.govdata.de/web/guest/suchen/-/details/poi-krankenhauser">GovData</a></p>
 <pre class="r"><code>krankenhaeuser &lt;- st_read(&quot;daten_beispiele/krankenhaeuser_ruhr/poi_krankenhaeuser.shp&quot;)</code></pre>
-<pre><code>## Reading layer `poi_krankenhaeuser&#39; from data source `C:\Users\psagner\Documents\GitHub\IW-R-Kurs\daten_beispiele\krankenhaeuser_ruhr\poi_krankenhaeuser.shp&#39; using driver `ESRI Shapefile&#39;
+<pre><code>## Reading layer `poi_krankenhaeuser&#39; from data source `C:\Users\amertens\IW-R-Kurs\daten_beispiele\krankenhaeuser_ruhr\poi_krankenhaeuser.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 554 features and 44 fields
 ## geometry type:  POINT
 ## dimension:      XY
@@ -480,10 +488,10 @@ bundeslaender &lt;- st_read(&quot;daten_beispiele/shapefiles_bundeslaender/Bunde
   st_transform(crs = 4326)</code></pre>
 <pre class="r"><code>krankenhaeuser_wgs84 &lt;- krankenhaeuser %&gt;%
   st_transform(crs = 4326)</code></pre>
-<p>Nun haben die beiden Datensätze dieselbe Projektion...</p>
+<p>Nun haben die beiden Datensätze dieselbe Projektion…</p>
 <pre class="r"><code>waldo::compare(bundeslaender_wgs84 %&gt;% sf::st_crs(), krankenhaeuser_wgs84 %&gt;% sf::st_crs())</code></pre>
 <pre><code>## v No differences</code></pre>
-<p>...und wir können sie gemeinsam grafisch darstellen:</p>
+<p>…und wir können sie gemeinsam grafisch darstellen:</p>
 <pre class="r"><code>ggplot() +
   geom_sf(data = bundeslaender_wgs84, aes(geometry = geometry)) +
   geom_sf(data = krankenhaeuser_wgs84, aes(geometry = geometry))</code></pre>
@@ -537,7 +545,7 @@ bundeslaender &lt;- st_read(&quot;daten_beispiele/shapefiles_bundeslaender/Bunde
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

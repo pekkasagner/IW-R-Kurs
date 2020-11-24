@@ -68,6 +68,10 @@ Landkreise <-
 
 write_csv(Landkreise, 'daten_beispiele/Landkreise_merged.csv')
 
+
+
+data <- read_csv('daten_beispiele/Landkreise_merged.csv')
+
 theme_set(theme_minimal())
 
 # Scatter Plot
