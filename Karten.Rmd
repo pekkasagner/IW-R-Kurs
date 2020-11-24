@@ -32,6 +32,10 @@ Geodaten werden in vielerlei Formen bereitgestellt. Zu den häufig verwendeten g
 
 In der sozialwissenschaftlichen und ökonomischen Forschung werden in der Regel entweder Polygone oder Punktdaten visualisiert.
 
+----
+
+##Einlesen von Geodaten
+
 Zum Einlesen von Shapefiles nutzen wir das Paket <code>sf</code>. Mit <code>st_read</code> lesen wir ein Shapefile ein.
 
 
@@ -44,7 +48,10 @@ bundeslaender <- st_read("daten_beispiele/shapefiles_bundeslaender/Bundesländer
 ```
 Beim Einlesen eines Shapefiles werden bereits wichtige Informationen zum Geometrietyp und der Projektion angezeigt.
 
-#Visualisierung von Geodaten
+
+----
+## Visualisierung von Geodaten
+
 Eine einfache, der Syntax von <code>ggplot2</code> folgende Visualisierung von Geodaten kann mit dem <code>geom_sf</code> erreicht werden. Als <code>aesthetic</code> wird eine <code>geometry</code> benötigt. In diesem Fall heißt die entsprechende Spalte im Datensatz ebenfalls *geometry*.
 
 ```{r}
@@ -61,6 +68,10 @@ bundeslaender %>%
   geom_sf() +
   scale_fill_continuous(labels = function(x) format(x, big.mark = ".", decimal.mark = ",", scientific = FALSE)) #verhindert Exponentialnotation und stellt auf deutsche Kommas um
 ```
+
+----
+## Verschiedene Geodaten kombinieren
+
 
 Das *Schichtprinzip* von ggplot2, nachdem einer Abbildung mit <code>+</code> weitere Schichten hinzugefügt werden können funktioniert bei der Visualisierung von Geodaten ebenfalls.
 
@@ -144,6 +155,99 @@ ggplot() +
   geom_sf(data = krankenhaeuser_wgs84, aes(geometry = geometry, color = coll_name %in% c("Geriatrie")))
 ```
 
+----
+
+#Praxisbeispiel
+
+##Fragestellung / Ziel
+
+Wie viele Schulen gibt es in den Kölner Stadtteilen? Wo liegen diese? Eine Visualisierung
+
+## Genutzte Daten
+
+[Shapefile der Kölner Stadtteile](https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::stadtteile-k%C3%B6ln)
+
+[Shapefile der Kölner Schulen](https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::schulen-k%C3%B6ln)
+
+## Daten einlesen
+
+```{r}
+library(tidyverse)
+library(sf)
+stadtteile_koeln <- st_read("daten_beispiele/stadtteile_koeln/Stadtteile.shp")
+
+schulen_koeln <- st_read("daten_beispiele/schulen_koeln/Schulen.shp")
+```
+
+##Vergleich der Projektionen
+```{r}
+library(waldo)
+waldo::compare(schulen_koeln %>% sf::st_crs(), stadtteile_koeln %>% sf::st_crs())
+```
+--> Identisch!
+
+##Erste Visualisierung
+
+```{r}
+ggplot() +
+  geom_sf(data = stadtteile_koeln) +
+  geom_sf(data = schulen_koeln) #bei einer eindeutigen Geometrie-Spalte kommt geom_sf auch ohne Spezifikation von aesthetics aus
+```
+
+##Schulen je Stadtteil
+
+Mittels <code>geom_sf</code> lassen sich Geoberechnungen durchführen. Wir möchten im Folgenden die Zahl der Schulen je Stadtteil bestimmen. Hierfür nutzen wir einen *Spatial-Join*, um den Beobachtungen der Schulen die entsprechenden Informationen aus dem Datensatz mit den Stadtteilen hinzuzufügen. In der Funktion <code>st_join</code> nutzen wir die Option <code>st_within</code>.
+
+```{r}
+stadtteile_schulen_merged <- st_join(x = schulen_koeln, y = stadtteile_koeln,
+                             join = st_within)
+
+stadtteile_schulen_merged 
+```
+
+Antwort auf die erste Frage:
+
+```{r}
+stadtteile_schulen_merged_counted <- stadtteile_schulen_merged %>% 
+  as_tibble() %>% 
+  count(NAME) %>% 
+  rename(Anzahl_Schulen = n) %>% 
+  arrange(desc(Anzahl_Schulen)) 
+
+stadtteile_schulen_merged_counted
+```
+
+Die meisten Schulen gibt es also in der Altstadt/Süd und Mülheim. Für den nächsten Visualisierungsschritt fügen wir die Zahl der Schulen je Stadtteil unserem gemergten Datensatz hinzu.
+
+```{r}
+schulen_je_stadtteil <- stadtteile_koeln %>% 
+  left_join(stadtteile_schulen_merged_counted, by = "NAME") 
+  
+schulen_je_stadtteil
+```
+
+
+##Visualisierung
+
+```{r}
+library(ggthemes) #für theme_map() Einfacher Weg, Koordinatensystem und Co loszuwerden, bietet außerdem jede Menge Farbschemen
+
+ggplot() +
+  geom_sf(data = schulen_je_stadtteil, aes(fill = Anzahl_Schulen,
+                                           label = NAME)) + #label dient hier nur für das Mouseover im nächsten Schritt
+  geom_sf(data = schulen_koeln, color = "lightgray") +
+  scale_fill_viridis_c() +
+  ggthemes::theme_map()
+```
+
+Statische Abbildung wie die obige sind die Regel in der Wissenschaftskommunikation. Für die eigene explorative Datenanalyse und für Websites sind *interaktive* Grafiken hilfreich. Eine einfache Methode, dies zu erreichen bietet das Paket <code>plotly</code>. 
+
+Näheres und weitere Optionen diskutieren wir im Kapitel Animationen und interaktive Abbildungen.
+
+```{r}
+library(plotly)
+ggplotly()
+```
 
 Weiterführende Links:
 

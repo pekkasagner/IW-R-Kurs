@@ -25,17 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -427,7 +416,10 @@ div.tocify {
 <div id="das-layout-von-r-studio" class="section level2">
 <h2>Das Layout von R-Studio</h2>
 <center>
-<p><img src="images/einführung_1_fenster.png" style="width:75.0%" /></p>
+<div class="figure">
+<img src="images/einführung_1_fenster.png" style="width:75.0%" />
+
+</div>
 </center>
 <p>Das Grundlayout von R-Studio besteht aus vier Fenstern. Diese sind wie oben angeordnet und können funktional folgendermaßen unterschieden werden:</p>
 <ul>
@@ -442,14 +434,17 @@ div.tocify {
 <div id="erweiterte-einstellungen" class="section level2">
 <h2>Erweiterte Einstellungen</h2>
 <p>Wenn man R-Studio das erste mal benutzt, macht es Sinn, einige Einstellungen zu verändern, die standardmäßig eingestellt sind.</p>
-<p>Hier macht es Sinn, sich unter ‘Tools &gt; Global Options’ einmal die verschiedenen Optionen anzuschauen.</p>
+<p>Hier macht es Sinn, sich unter 'Tools &gt; Global Options' einmal die verschiedenen Optionen anzuschauen.</p>
 <center>
-<p><img src="images/einführung_2_einstellungen.png" style="width:50.0%" /></p>
+<div class="figure">
+<img src="images/einführung_2_einstellungen.png" style="width:50.0%" />
+
+</div>
 </center>
 <p>Zwei wichtige Einstellungen sind (unserer Meinung nach):</p>
 <ol style="list-style-type: decimal">
-<li>den Haken bei “Restore .RData into workspace at start-up” zu entfernen und</li>
-<li>die Option bei “Save workspace to .RData on exit” auf “Never” zu setzen.</li>
+<li>den Haken bei &quot;Restore .RData into workspace at start-up&quot; zu entfernen und</li>
+<li>die Option bei &quot;Save workspace to .RData on exit&quot; auf &quot;Never&quot; zu setzen.</li>
 </ol>
 <p>In Einzelfällen kann es sinnvoll sein, Daten und Zuweisungen aus der letzten Sitzung automatisch in der nächsten Sitzung zu importieren. Öfter kann dies aber zu Verwirrung oder sogar zu Fehlern führen. Vor allem schulen die Einstellungen darin, alle Ergebnisse reprozudiertbar in Skripten zu speichern.</p>
 <p>Des Weiteren macht es Sinn, sich unter <code>Tools &gt; Global Options &gt; Appearance</code> mit den verfügbaren Optionen auseinanderzusetzen. Hier lassen sich etwa Schriftart und -größe sowie das generelle Theme von R-Studio einstellen. Wenn man längere Zeit vor R-Studio sitzt (was durchaus zu empfehlen ist), kann es Sinn machen, einen Darkmode zu nutzen, um die Augen zu schonen.</p>
@@ -535,15 +530,24 @@ div.tocify {
 <p>Dies hat den Nachteil, dass so ein absoulter Dateiffad festegesetzt wird. Verschiebt man den Ordner, kann dieser Dateipfad schnell ungeültig werden. Noch wichtiger ist allerdings der Umstand, dass bei Teilen des Ordners oder bei kollaborativem Arbeiten an einem Projekt niemand außer dem Autor des Skripts den korrekten Pfad gespeichert hat. Deshalb gilt: wer seinem zukünftigen Ich und anderen einen Gefallen tun will, nutzt R-Studio Projekte.</p>
 <p>Projekte können unter <code>File &gt; New Project</code> erstellt werden.</p>
 <center>
-<p><img src="images/einführung_3_project.png" style="width:50.0%" /></p>
+<div class="figure">
+<img src="images/einführung_3_project.png" style="width:50.0%" />
+
+</div>
 </center>
 <p>Im dann erscheinenden Fenster besteht die Möglichkeit, für ein Projekt einen neuen Ordner anzulegen, einen schon bestehnden Ordner zu verwenden oder ein Projekt mit Versionskontrolle (z.B. git zu benutzen). Generell empfiehlt sich hier zunächst, einen neuen Ordner für jedes Projekt anzulegen.</p>
 <center>
-<p><img src="images/einführung_4_project.png" style="width:50.0%" /></p>
+<div class="figure">
+<img src="images/einführung_4_project.png" style="width:50.0%" />
+
+</div>
 </center>
-<p>Im nächsten Fenster wählt man noch einmal die Option ‘New Project’. Hier bestehen zudem noch die Option ein neues R-Paket oder eine Shiny App zu erstellen.</p>
+<p>Im nächsten Fenster wählt man noch einmal die Option 'New Project'. Hier bestehen zudem noch die Option ein neues R-Paket oder eine Shiny App zu erstellen.</p>
 <center>
-<p><img src="images/einführung_5_project.png" style="width:50.0%" /></p>
+<div class="figure">
+<img src="images/einführung_5_project.png" style="width:50.0%" />
+
+</div>
 </center>
 <p>Im letzten Schritt gibt man den Namen des Ordners / des Projektes sowie den Pfad des Ordners an. Arbeitet man mit Versionskontrolle, besteht hier zudem die Möglichkeit, das Projekte bzw. den Ordner direkt mit git zu initialisieren.</p>
 <p>Im nächsten Kapitel sollen die Vorteile von R-Studio Projekten anhand von Beispielen deutlich gemacht werden.</p>
@@ -570,7 +574,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

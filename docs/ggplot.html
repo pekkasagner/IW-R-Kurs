@@ -25,17 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -412,8 +401,8 @@ div.tocify {
 </div>
 <div id="was-ist-ggplot2" class="section level1">
 <h1>Was ist ggplot2?</h1>
-<p><code>ggplot2</code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der “Grammar of Graphics” dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt.</p>
-<p>Die “Grammar of Graphics” spezifiziert Bausteine, mit welchen Grafiken erstellt werden können. Diese beinhalten, in der Reihenfolge der Anwendung:</p>
+<p><code>ggplot2</code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der &quot;Grammar of Graphics&quot; dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt.</p>
+<p>Die &quot;Grammar of Graphics&quot; spezifiziert Bausteine, mit welchen Grafiken erstellt werden können. Diese beinhalten, in der Reihenfolge der Anwendung:</p>
 <ol style="list-style-type: decimal">
 <li><p>Daten (<em>Was</em> soll dargestellt werden?)</p></li>
 <li><p>Mapping der Aesthetics (Was kommt auf die X- und die Y-Achse, etc.)</p></li>
@@ -421,7 +410,7 @@ div.tocify {
 <li><p>Weitere <code>geoms</code> (z.B. Regressionslinie, etc.)</p></li>
 <li><p>Feinschliff der Axenbeschriftungen, Skalen, etc.</p></li>
 </ol>
-<p>Man sieht also, dass die “Grammar of Graphics” und damit auch <code>ggplot2</code> ein modulares Konzept verfolgen, wo Ebenen sukzessiv übereinander gelegt werden.</p>
+<p>Man sieht also, dass die &quot;Grammar of Graphics&quot; und damit auch <code>ggplot2</code> ein modulares Konzept verfolgen, wo Ebenen sukzessiv übereinander gelegt werden.</p>
 <p>Der wichtigste Frage, die man vor jeder Datenvisualisierung beantworten sollte: Was soll dargestellt werden? Konkreter: Was soll verglichen werden?</p>
 <p>!!Hier noch mehr zu generellen Punkten bei Datenvisualisierung!!!</p>
 <pre class="r"><code>library(tidyverse)
@@ -444,7 +433,7 @@ glimpse(data)</code></pre>
 geom_point()</code></pre>
 <p><img src="ggplot_files/figure-html/build_plot-1.png" width="672" /> Hier werden in einem einfachen Plot die ersten drei Bausteine angewandt, um einen Scatterplot vom Verhältnis der Wahlbeteiligung zur Arbeitslosenquote in den einzelnen Landkreise zu erstellen.</p>
 <p>Das erste Argument in der <code>ggplot</code> Funktion <code>data</code> gibt an, welche Daten grafisch dargestellt werden sollen. Da die Daten immer in dem Format sein müssen, in welchem sie nachher im Plot erscheinen, sollte man vor erstellen des Plots darüber nachdenken, was genau dargestellt werden soll. Im Beispiel gegen wir die schon bearbeiteten Daten der <code>landkreise</code> an.</p>
-<p>Der zweite Befehl umfasst das Mapping der Aesthetics. Aesthetics (<code>aes</code>) beschreiben wie die Variablen in den Daten zu visuellen Eigenschaften von <code>geoms</code> zugeordnet werden sollen. Im Beispiel sollen die Variable “Wahlbeteiligung” auf der x-Achse und die Variable “Arbeitslosenquote” auf der y-Achse dargestellt werden. Konkretere Beispiele verschiedener Aesthetics werden weiter unten erklärt.</p>
+<p>Der zweite Befehl umfasst das Mapping der Aesthetics. Aesthetics (<code>aes</code>) beschreiben wie die Variablen in den Daten zu visuellen Eigenschaften von <code>geoms</code> zugeordnet werden sollen. Im Beispiel sollen die Variable &quot;Wahlbeteiligung&quot; auf der x-Achse und die Variable &quot;Arbeitslosenquote&quot; auf der y-Achse dargestellt werden. Konkretere Beispiele verschiedener Aesthetics werden weiter unten erklärt.</p>
 <p>Zuletzt gibt der Befehl <code>geom_point</code> an, in welcher Art die Daten dargestellt werden sollen bzw. welches geometrische Objekt genutzt werden soll. Hier gibt es eine sehr große Auswahl verschiedener <code>geom</code>, um etwa Balkendiagramme, Liniendiagramme, Boxplots, usw. zu plotten.</p>
 <div id="aesthetics" class="section level2">
 <h2>Aesthetics</h2>
@@ -462,7 +451,7 @@ geom_point()</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

@@ -25,17 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -429,7 +418,7 @@ div.tocify {
 <p><img src="images/Workflow_Datenanalyse.png" /> Quelle: Vgl. <a href="https://bookdown.org/asmundhreinn/r4ds-master/wrangle-intro.html">R4DS</a></p>
 <p>In der Praxis geht es meist nicht so geradlinig zu. Insbesondere bei großen Datensätzen kann es sinnvol sein, einige Zwischenschritte einzubauen.</p>
 <p>Bei der Arbeit mit Mikrodatensätzen müssen in der Regel verschiedene Datensätze zu einem Arbeitsdatensatz zusammengeführt werden.</p>
-<p>Das Zusammenführen der Daten kann, je nach Größe der Datensätze einige Zeit in Anspruch nehmen. Um zu Vermeiden, den Arbeitsdatensatz ständig auf’s Neue zusammenzufügen, sollte ein Arbeitsdatensatz gespeichert werden.</p>
+<p>Das Zusammenführen der Daten kann, je nach Größe der Datensätze einige Zeit in Anspruch nehmen. Um zu Vermeiden, den Arbeitsdatensatz ständig auf's Neue zusammenzufügen, sollte ein Arbeitsdatensatz gespeichert werden.</p>
 <p>An diesem sollten, außer dem Zusammenführen der Daten, noch keine Änderungen vergenommen worden sein. Das Verändern der Daten erfolgt erst in einem späteren Schritt. Geht im Verlaufe der Datenanalyse etwas schief und der Arbeitsdatensatz wird ausversehen überschrieben, kann schnell die Erstversion wiederhergestellt werden. Ein erneutes Zusammenstellen der Daten wird vermieden.</p>
 <p>Ein effizienter Workflow bei der Analyse großer Datenmengen aus verschiedenen Quellen könnte also so aussehen:</p>
 <p><img src="images/Workflow_Datenanalyse_Mikrodaten.png" /> Quelle: Adaptiert von <a href="https://bookdown.org/asmundhreinn/r4ds-master/wrangle-intro.html">R4DS</a></p>
@@ -445,12 +434,14 @@ div.tocify {
 ## |   +-- phealth.dta
 ## |   +-- pl.sav
 ## |   \-- ppathl.dta
+## +-- data_out
+## +-- graphs_out
 ## \-- Projekt_Mikrodatenanalyse.Rproj</code></pre>
 <p>Der Projektordner <code> Beispielordner_Mikrodatenanalyse </code> enthält alle relevanten Dateien. In der ersten Ebene liegt die .Rproj-Datei (<code>Projekt_Mikrodatenanalyse.Rproj</code>), .R-Dateien und Unterordner.</p>
 <p>Ausgehend vom Projektordner, in dem die .Rproj-Datei liegt, können beliebige Unterordner gebildet werden. Alternativ zur obigen Struktur könnten die .R-Dateien auch in einen eigenen Ordner verschoben werden.</p>
 <p>Andere Beispiele für Ordnerstrukturen finden sich zum Beispiel hier:</p>
 <ul>
-<li><p><a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner&#39;s-guide/">RStudio Projects and Working Directories: A Beginner’s Guide</a></p></li>
+<li><p><a href="https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner&#39;s-guide/">RStudio Projects and Working Directories: A Beginner's Guide</a></p></li>
 <li><p><a href="https://bookdown.org/lyzhang10/lzhang_r_tips_book/how-to-organize-a-project-folder.html">Bookdown: How to organize a project folder</a></p></li>
 <li><p><a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio: Using Projects</a></p></li>
 </ul>
@@ -464,7 +455,9 @@ div.tocify {
 <div id="problem" class="section level3">
 <h3>Problem:</h3>
 <p>Mikrodaten werden in der Regel (noch) nicht in einem R-Datenformat ausgeliefert. Häufig sind zunächst nur dta-Dateien (Stata) oder sav-Dateien (SPSS) verfügbar.</p>
-<p>###Lösung:</p>
+</div>
+<div id="lösung" class="section level3">
+<h3>Lösung:</h3>
 <p>Das Paket <code>haven</code> ermöglicht das Einlesen <em>fremder</em> Dateitypen.</p>
 <pre class="r"><code>#Einmalig installieren
 install.packages(&quot;haven&quot;)</code></pre>
@@ -538,7 +531,7 @@ phealth &lt;- read_dta(&quot;Beispielordner_Mikrodatenanalyse/data_in/phealth.dt
 ##  9 544752  2001 4 [Gut]              0.567  6 [6 Zufrieden: Skala 0~     -0.659 
 ## 10 152915  2000 5 [Sehr_gut]         1.60   7 [7 Zufrieden: Skala 0~     -0.0909
 ## # ... with 12,266 more rows</code></pre>
-<p>Ein Teil der Variablen ist vom Typ <code>haven_labelled</code>, angezeigt durch <code>&lt;dbl+lbl&gt;</code>. Für Statanutzer ist dies nichts Neues. Dies bedeutet lediglich, dass die Variablen neben dem eigentlichen Variablennamen noch eine Kurzbeschreibung tragen. <code>&lt;dbl+lbl&gt;</code> zeigt an, dass die Variable numerisch ist (<code><dbl></code>) und ein Label trägt <code>&lt;+lbl&gt;</code>.</p>
+<p>Ein Teil der Variablen ist vom Typ <code>haven_labelled</code>, angezeigt durch <code><dbl+lbl></code>. Für Statanutzer ist dies nichts Neues. Dies bedeutet lediglich, dass die Variablen neben dem eigentlichen Variablennamen noch eine Kurzbeschreibung tragen. <code><dbl+lbl></code> zeigt an, dass die Variable numerisch ist (<code><dbl></code>) und ein Label trägt <code>&lt;+lbl&gt;</code>.</p>
 <p>Um die drei Datensätze zusammenzufügen nutzen wir die beiden Matching-Variablen <code>persnr</code> und <code>jahr</code>.</p>
 <p>Optional: Standardmäßig zeigt R keine Änderungen an Datensätzen in der Konsole an. Wer gerne Feedback für Datenmanipulationen und auch Mergevorgänge möchte, der kann hierfür das Paket <code>tidylog</code> nutzen. Das Paket bietet Informationen für eine Vielzahl an Datenmanipulationsfunktionen aus dem tidyverse.</p>
 <pre class="r"><code>library(tidyverse)
@@ -566,18 +559,26 @@ ls(&quot;package:tidylog&quot;)</code></pre>
 </div>
 <div id="datensätze-zusammenführen" class="section level2">
 <h2>Datensätze zusammenführen</h2>
-<p><img src="images/Joins_1.png" /></p>
+<div class="figure">
+<img src="images/Joins_1.png" />
+
+</div>
 <p>Um Datensätze zusammenzuführen werden die <code>Mutating Joins</code>-Funktionen genutzt. Die vier Funktionen aus dem Paket <code>dplyr</code> welches Teil des <code>tidyverse</code> ist, sind:</p>
 <ul>
-<li><p><code>Neuer_Datensatz &lt;- left_join(Datensatz1, Datensatz2, by = c(“Matchingvariable1”, “Matchingvariable2”))</code>: Datensatz1 bleibt komplett erhalten und wird um Spalten von Datensatz2 ergänzt.</p></li>
-<li><p><code>Neuer_Datensatz &lt;- right_join(Datensatz1, Datensatz2, by = c(“Matchingvariable1”, “Matchingvariable2”))</code>: Datensatz2 bleibt komplett erhalten und wird um Spalten von Datensatz1 ergänzt.</p></li>
-<li><p><code>Neuer_Datensatz &lt;- inner_join(Datensatz1, Datensatz2, by = c(“Matchingvariable1”, “Matchingvariable2”))</code>: Nur die Beobachtungen behalten, bei denen dieselben Matchingvariablen in beiden Datensätzen auftauchen.</p></li>
-<li><p><code>Neuer_Datensatz &lt;- full_join(Datensatz1, Datensatz2, by = c(“Matchingvariable1”, “Matchingvariable2”))</code>: Neuer Datensatz enthält sowohl Beobachtungen, die in beiden Datensätzen vorkommen als auch Einzelbeobachtungen, die nicht gematcht wurden.</p></li>
+<li><p><code>Neuer_Datensatz &lt;- left_join(Datensatz1, Datensatz2, by = c(&quot;Matchingvariable1&quot;, &quot;Matchingvariable2&quot;))</code>: Datensatz1 bleibt komplett erhalten und wird um Spalten von Datensatz2 ergänzt.</p></li>
+<li><p><code>Neuer_Datensatz &lt;- right_join(Datensatz1, Datensatz2, by = c(&quot;Matchingvariable1&quot;, &quot;Matchingvariable2&quot;))</code>: Datensatz2 bleibt komplett erhalten und wird um Spalten von Datensatz1 ergänzt.</p></li>
+<li><p><code>Neuer_Datensatz &lt;- inner_join(Datensatz1, Datensatz2, by = c(&quot;Matchingvariable1&quot;, &quot;Matchingvariable2&quot;))</code>: Nur die Beobachtungen behalten, bei denen dieselben Matchingvariablen in beiden Datensätzen auftauchen.</p></li>
+<li><p><code>Neuer_Datensatz &lt;- full_join(Datensatz1, Datensatz2, by = c(&quot;Matchingvariable1&quot;, &quot;Matchingvariable2&quot;))</code>: Neuer Datensatz enthält sowohl Beobachtungen, die in beiden Datensätzen vorkommen als auch Einzelbeobachtungen, die nicht gematcht wurden.</p></li>
 </ul>
-<p><img src="images/Joins_2.png" /></p>
+<div class="figure">
+<img src="images/Joins_2.png" />
+
+</div>
 <p>Quelle: <a href="%22https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf%22">Data Wrangling Cheat Sheet</a></p>
 <hr />
-<p>##Reihenfolge des Zusammenfügens bei Mikrodatensätzen</p>
+</div>
+<div id="reihenfolge-des-zusammenfügens-bei-mikrodatensätzen" class="section level2">
+<h2>Reihenfolge des Zusammenfügens bei Mikrodatensätzen</h2>
 <p>Bei der Arbeit mit Mikrodatensätzen beginnt man in der Regel mit einem Basisdatensatz, in unserem Fall <code>ppathl</code>. Dieser enthält in der Regel alle Beobachtungen. Aufbauend auf diesem Datensatz werden weitere Informationen hinzugefügt. Wir wissen also, dass wir an <code>ppathl</code> alle anderen Datensätze dranspielen können. In unserem finalen Datensatz sind alle Zeilen aus <code>ppathl</code> enthalten, ergänzt um weitere Variablen aus den anderen Datensätzen. Wir nutzen also den <code>left_join</code>.</p>
 <p>Um einen Arbeitsdatensatz aus mehreren Datensätzen zu erstellen, kann man schrittweise vorgehen:</p>
 <pre class="r"><code>#1. Schritt
@@ -604,10 +605,14 @@ save.image(file = &quot;arbeitsdatensatz.RData&quot;)</code></pre>
 <pre class="r"><code># Und wieder laden
 load(&quot;arbeitsdatensatz.RData&quot;)</code></pre>
 <hr />
-<p>##Analyse von Mikrodaten</p>
+</div>
+<div id="analyse-von-mikrodaten" class="section level2">
+<h2>Analyse von Mikrodaten</h2>
 <p>Die große Anzahl an Beobachtungen kann die (effiziente) Visualisierung von Mikrodaten erschweren und einige Visualisierungsformen bieten sich mehr an als andere. Entscheidend ist der Datentyp, der visualisiert werden soll.</p>
 <p>Sollen lediglich aggregierte Werte, wie beispielsweise Mittelwerte, Quantile und Dispersionsmaße dargestellt werden, unterscheidet sich die Datenvisualisierung von Mikrodaten nicht von der von anderen Daten. Lediglich bei der Datenanalyse muss auf die Gewichtung der Daten geachtet werden.</p>
-<p>###Gewichte (Hochrechnungsfaktoren) Um für die Grundgesamtheit repräsentative Ergebnisse zu erhalten, müssen die Daten aus der Stichprobe gewichtet werden. Wie immer kann ein gewünschtes Ergebnis, hier zum Beispiel die durchschnittlichen Einkommen im Jahr 2004, <em>händisch</em> berechnet werden.</p>
+<div id="gewichte-hochrechnungsfaktoren" class="section level3">
+<h3>Gewichte (Hochrechnungsfaktoren)</h3>
+<p>Um für die Grundgesamtheit repräsentative Ergebnisse zu erhalten, müssen die Daten aus der Stichprobe gewichtet werden. Wie immer kann ein gewünschtes Ergebnis, hier zum Beispiel die durchschnittlichen Einkommen im Jahr 2004, <em>händisch</em> berechnet werden.</p>
 <pre class="r"><code>arbeitsdatensatz %&gt;%
   filter(jahr == 2004) %&gt;%
   summarise(income_mean_weighted = sum(income*weight)/sum(weight)) </code></pre>
@@ -684,6 +689,7 @@ ls(&quot;package:spatstat&quot;) %&gt;%
 <p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 </div>
+</div>
 
 
 
@@ -696,7 +702,7 @@ ls(&quot;package:spatstat&quot;) %&gt;%
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
