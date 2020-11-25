@@ -93,7 +93,8 @@ data %>%
   filter(Jahr == 2017) %>% 
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote,
-             color = Durchschnittsalter)) +
+             shape = Aggregat,
+             color = Aggregat)) +
   geom_point()
 
 # geom point

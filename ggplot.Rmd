@@ -25,6 +25,24 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 * Anpassungsmöglichkeiten in ggplot2
 * Erstellen publikationsrefier Plots
 
+```{r echo=FALSE, fig.align="center"}
+data <- read_csv('daten_beispiele/Landkreise_merged.csv')
+
+data %>% 
+  filter(!is.na(Wahlbeteiligung)) %>% 
+  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote,
+             col = Durchschnittsalter)) + 
+  geom_point() +
+  scale_color_viridis_c(direction = -1) +
+  facet_wrap(~Jahr) +
+  labs(title = "Verhältnis von Wahlbeteiligung, Arbeitslosenquote und Durchschnittsalter",
+       subtitle = "Deutsche Landkreise und kreisfreie Städte (1998-2017)",
+       x = "\nWahlbeteiligung",
+       y = "Arbeitslosenquote\n") +
+  theme_minimal() +
+  theme(plot.title.position = 'plot')
+```
+
 
 ----
 
@@ -62,14 +80,16 @@ landkreise <-
 glimpse(data)
 ```
 # Bausteine von ggplot2
+
 Die wichtigsten Bausteine von <code>ggplot2</code> sollen an einem Beispiel genauer erklärt werden.
 
-```{r build_plot}
+```{r build_plot, fig.align="center", out.width = "60%"}
 ggplot(data = landkreise,
        mapping = aes(x = Wahlbeteiligung, 
                      y = Arbeitslosenquote)) +
 geom_point()
 ```
+
 Hier werden in einem einfachen Plot die ersten drei Bausteine angewandt, um einen Scatterplot vom Verhältnis der Wahlbeteiligung zur Arbeitslosenquote in den einzelnen Landkreise zu erstellen. 
 
 Das erste Argument in der <code>ggplot</code> Funktion <code>data</code> gibt an, welche Daten grafisch dargestellt werden sollen. Da die Daten immer in dem Format sein müssen, in welchem sie nachher im Plot erscheinen, sollte man vor erstellen des Plots darüber nachdenken, was genau dargestellt werden soll. Im Beispiel gegen wir die schon bearbeiteten Daten der <code>landkreise</code> an. 
@@ -80,8 +100,52 @@ Zuletzt gibt der Befehl <code>geom_point</code> an, in welcher Art die Daten dar
 
 ## Aesthetics
 
+In den aesthetics <code>aes()</code> in <code>ggplot2</code> muss festgelegt werden, welche Variablen aus den Daten wie im Plot dargestellt werden sollen. 
 
+### Size
 
+Zunächst soll die Größe (size) der Punkte, dem jeweiligen Wert der Variable "BIP" - also des BIP per capita pro Landkreis - entsprechen. Dafür wird in <code>aes()</code> neben den Variablen, die auf der x- bzw. der y-Achse dargestellt werden sollen auch die <code>size = BIP</code> gesetzt. 
+
+Im Unterschied zum Code oben werden hier die Daten mit der <code>%>%</code> in das ggplot-Objekt weitergegeben. Das hat den Vorteil, dass etwaige Datentransformationen vorgenommen und dann direkt in <code>ggplot</code> überführt werden können. 
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             size = BIP)) +
+  geom_point()
+```
+
+### Color
+
+Auch die Farbe (color) kann durch Variablenwerte bestimmt werden.
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point()
+```
+
+### Shape
+
+Zuletzt wird Beispielhaft die Form (shape) der Objekte durch die Variable "Aggregat" festegelt. Hier sieht man auch, dass weitere Aesthetics darüber gelagert werden können. Hier werden shape und color festgelegt.
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             shape = Aggregat,
+             color = Aggregat)) +
+  geom_point()
+```
+
+In <code>ggplot2</code> gibt es eine Reihe weiterer Aesthetics, die festgelegt werden können (siehe [hier](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)). Hier ist zunächst wichtig, zu verstehen, dass alle
+
+----
+
+## Geoms
 
 
 
