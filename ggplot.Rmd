@@ -147,5 +147,99 @@ In <code>ggplot2</code> gibt es eine Reihe weiterer Aesthetics, die festgelegt w
 
 ## Geoms
 
+<code>geoms</code> können in <code>ggplot2</code> als Ebenen (Layers) über das vorhandene ggplot-Objekt gelegt werden. Gibt man innerhalb der <code>geoms</code> keine weiteren Aesthetics an, werden die Aesthetics aus der <code>ggplot()</code> Hauptfunktion übernommen. 
 
+### geom_point()
+
+Im Beispiel von oben gibt <code>geom_point()</code> an, dass die Mappings in einem Scatterplot (in Punkten) dargestellt werden sollen.
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point()
+```
+
+### geom_line()
+
+Mit <code>geom_line()</code> können gewöhnliche Liniendiagramme erstellt werden. Im unten dargestellten Plot werden beispielthaft fünf Landkreise ausgewählt.
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  filter(Raumeinheit %in% c("Elbe-Elster",
+                            "Oberspreewald-Lausitz",
+                            "Prignitz", "Spree-Neiße",
+                            "Vogtlandkreis"),
+         !is.na(Arbeitslosenquote)) %>% 
+  ggplot(aes(x = Jahr,
+             y = Arbeitslosenquote,
+             col = Raumeinheit)) +
+  geom_line(size = 1.0)
+```
+
+### geom_bar()
+
+Auch ein Balkendiagramm lässt sich einfach mit dem <code>geom</code> <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat="bin"</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat="identity"</code>, dass der Wert aus den Daten gemapped werden soll. 
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  filter(Raumeinheit %in% c("Elbe-Elster",
+                            "Oberspreewald-Lausitz",
+                            "Prignitz", "Spree-Neiße",
+                            "Vogtlandkreis"),
+         Jahr == 1998) %>% 
+  ggplot(aes(x = Raumeinheit,
+             y = Arbeitslosenquote)) +
+  geom_bar(stat = "identity")
+```
+
+### geom_boxplot()
+
+Ein letztes Beispiel zeigt die Erstellung eines Boxplots mit <code>geom_boxplot()</code>. Hier wird die Arbeitslosenquote pro Jahr dargetellt.
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  ggplot(aes(x = Jahr, y = Arbeitslosenquote,
+             group = Jahr)) +
+  geom_boxplot()
+```
+
+### Weitere geoms
+
+Innerhalb der <code>ggplot2</code> Umgebung lassen sich ein Vielzahl verschiedener <code>geoms</code> implementieren. [Hier](https://ggplot2.tidyverse.org/reference/) findet man eine Übersicht über die wichtigsten <code>geoms</code>.
+
+----
+
+## Kombinieren von geoms
+
+In einem mit <code>ggplot2</code> erstelltem Plot lassen sich weitere <code>geoms</code> einfach übereinander darstellen. Wichtig hierbei ist, dass jeder weitere Ebene die weiter unten liegenden Ebenen potenziell überlagert. 
+
+Im folgenden Beispiel wird über einen gewöhnlichen mit <code>geom_point()</code> erstellten Scatterplot mit einem weiteren <code>geom</code>, <code>geom_smooth()</code> ein Regressionlinie abgebildet. In dem Befehl <code>method = "lm"</code> steht "lm" für "linear model", das eine lineare Regressionslinie umschreibt. 
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  filter(Jahr == 2017) %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              color = "black")
+```
+
+Die Verbindung mehrerer <code>geoms</code> kann auch mit weiteren Aesthetics kombiniert werden. Das Beispiel unten zeigt etwa jeweils eingefärbte Punkte und Regressionslinien für kreisfreie Städte und Landkreise.
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  filter(Jahr == 2017) %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             group = Aggregat,
+             col = Aggregat)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+---- 
 

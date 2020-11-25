@@ -488,6 +488,85 @@ geom_point()</code></pre>
 </div>
 <div id="geoms" class="section level2">
 <h2>Geoms</h2>
+<p><code>geoms</code> können in <code>ggplot2</code> als Ebenen (Layers) über das vorhandene ggplot-Objekt gelegt werden. Gibt man innerhalb der <code>geoms</code> keine weiteren Aesthetics an, werden die Aesthetics aus der <code>ggplot()</code> Hauptfunktion übernommen.</p>
+<div id="geom_point" class="section level3">
+<h3>geom_point()</h3>
+<p>Im Beispiel von oben gibt <code>geom_point()</code> an, dass die Mappings in einem Scatterplot (in Punkten) dargestellt werden sollen.</p>
+<pre class="r"><code>data %&gt;% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point()</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-5-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="geom_line" class="section level3">
+<h3>geom_line()</h3>
+<p>Mit <code>geom_line()</code> können gewöhnliche Liniendiagramme erstellt werden. Im unten dargestellten Plot werden beispielthaft fünf Landkreise ausgewählt.</p>
+<pre class="r"><code>data %&gt;% 
+  filter(Raumeinheit %in% c(&quot;Elbe-Elster&quot;,
+                            &quot;Oberspreewald-Lausitz&quot;,
+                            &quot;Prignitz&quot;, &quot;Spree-Neiße&quot;,
+                            &quot;Vogtlandkreis&quot;),
+         !is.na(Arbeitslosenquote)) %&gt;% 
+  ggplot(aes(x = Jahr,
+             y = Arbeitslosenquote,
+             col = Raumeinheit)) +
+  geom_line(size = 1.0)</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-6-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="geom_bar" class="section level3">
+<h3>geom_bar()</h3>
+<p>Auch ein Balkendiagramm lässt sich einfach mit dem <code>geom</code> <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat=“bin”</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat=“identity”</code>, dass der Wert aus den Daten gemapped werden soll.</p>
+<pre class="r"><code>data %&gt;% 
+  filter(Raumeinheit %in% c(&quot;Elbe-Elster&quot;,
+                            &quot;Oberspreewald-Lausitz&quot;,
+                            &quot;Prignitz&quot;, &quot;Spree-Neiße&quot;,
+                            &quot;Vogtlandkreis&quot;),
+         Jahr == 1998) %&gt;% 
+  ggplot(aes(x = Raumeinheit,
+             y = Arbeitslosenquote)) +
+  geom_bar(stat = &quot;identity&quot;)</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-7-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="geom_boxplot" class="section level3">
+<h3>geom_boxplot()</h3>
+<p>Ein letztes Beispiel zeigt die Erstellung eines Boxplots mit <code>geom_boxplot()</code>. Hier wird die Arbeitslosenquote pro Jahr dargetellt.</p>
+<pre class="r"><code>data %&gt;% 
+  filter(!is.na(Arbeitslosenquote)) %&gt;% 
+  ggplot(aes(x = Jahr, y = Arbeitslosenquote,
+             group = Jahr)) +
+  geom_boxplot()</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="weitere-geoms" class="section level3">
+<h3>Weitere geoms</h3>
+<p>Innerhalb der <code>ggplot2</code> Umgebung lassen sich ein Vielzahl verschiedener <code>geoms</code> implementieren. <a href="https://ggplot2.tidyverse.org/reference/">Hier</a> findet man eine Übersicht über die wichtigsten <code>geoms</code>.</p>
+<hr />
+</div>
+</div>
+<div id="kombinieren-von-geoms" class="section level2">
+<h2>Kombinieren von geoms</h2>
+<p>In einem mit <code>ggplot2</code> erstelltem Plot lassen sich weitere <code>geoms</code> einfach übereinander darstellen. Wichtig hierbei ist, dass jeder weitere Ebene die weiter unten liegenden Ebenen potenziell überlagert.</p>
+<p>Im folgenden Beispiel wird über einen gewöhnlichen mit <code>geom_point()</code> erstellten Scatterplot mit einem weiteren <code>geom</code>, <code>geom_smooth()</code> ein Regressionlinie abgebildet. In dem Befehl <code>method = “lm”</code> steht “lm” für “linear model”, das eine lineare Regressionslinie umschreibt.</p>
+<pre class="r"><code>data %&gt;% 
+  filter(Jahr == 2017) %&gt;% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;,
+              color = &quot;black&quot;)</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-9-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Die Verbindung mehrerer <code>geoms</code> kann auch mit weiteren Aesthetics kombiniert werden. Das Beispiel unten zeigt etwa jeweils eingefärbte Punkte und Regressionslinien für kreisfreie Städte und Landkreise.</p>
+<pre class="r"><code>data %&gt;% 
+  filter(Jahr == 2017) %&gt;% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             group = Aggregat,
+             col = Aggregat)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;)</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-10-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<hr />
 </div>
 </div>
 

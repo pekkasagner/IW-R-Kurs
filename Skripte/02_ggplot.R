@@ -125,8 +125,20 @@ data %>%
   geom_bar(stat = "identity")
 
 
+data %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  ggplot(aes(x = Jahr, y = Arbeitslosenquote,
+             group = Jahr)) +
+  geom_boxplot()
   
-
+data %>% 
+  filter(Jahr == 2017) %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             group = Aggregat,
+             col = Aggregat)) +
+  geom_point() +
+  geom_smooth(method = "lm")
 
 
 
