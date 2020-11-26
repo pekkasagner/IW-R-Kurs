@@ -268,6 +268,65 @@ data %>%
 
 ## Themes
 
+Themes in <code>ggplot2</code> beziehen sich auf alles in einem Plot, was nichts mit den Daten zu tun hat. Über <code>theme_set()</code> kann ein Theme entweder global festgelegt werden oder innerhalb eines <code>ggplot</code> Codes festgelegt werden. 
+
+<code>ggplot2</code> beinhaltet vorinstalliert eininge Themes, die sofot genutzt werden können. Diese sind etwa <code>theme_classic()</code>:
+
+```{r, fig.align="center", out.width = "75%"}
+landkreise %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point() +
+  theme_classic()
+```
+
+<code>theme_bw()</code>
+
+```{r, fig.align="center", out.width = "75%"}
+landkreise %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point() +
+  theme_bw()
+```
+
+oder <code>theme_minimal</code>
+
+```{r, fig.align="center", out.width = "75%"}
+landkreise %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point() +
+  theme_minimal()
+```
+
+Weitere vorinstallierte Themes findet man [hier](https://ggplot2.tidyverse.org/reference/ggtheme.html). 
+
+Es besteht zudem die Möglichkeit, Themes selbst nach den eigenen Vorstellungen anzupassen. Hier lassen sich alle vorstellbaren Elemente anpassen. Eine Übersicht über die jeweiligen Befehle findet sich hier [hier](https://ggplot2.tidyverse.org/reference/theme.html).
+
+Im Beispiel unten werden neben der Schriftgröße (<code>base_size = 14</code>) mit dem zusätzlichen Befehl <code>theme()</code> weitere Anpassungen vorgenommen. Wichtig hierbei ist, dass mehrere <code>theme</code> Befehle sich gegenseitig überlagern können. 
+
+
+```{r, fig.align="center", out.width = "75%"}
+landkreise %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point(size = 2) +
+  theme_minimal(base_size = 14) +
+  # plot.background setzt den Hintergrund hinter dem Plot fest
+  theme(plot.background = element_rect(fill = "grey80", color = "grey80"),
+        # Hier werden die gridlines entfernt
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        # Hier wird die Legende entfernt
+        legend.position = "none")
+```
+
+
 ## Titel und Achsenbeschriftungen
 
 ## Text
