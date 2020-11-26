@@ -589,6 +589,48 @@ geom_point()</code></pre>
 </div>
 <div id="themes" class="section level2">
 <h2>Themes</h2>
+<p>Themes in <code>ggplot2</code> beziehen sich auf alles in einem Plot, was nichts mit den Daten zu tun hat. Über <code>theme_set()</code> kann ein Theme entweder global festgelegt werden oder innerhalb eines <code>ggplot</code> Codes festgelegt werden.</p>
+<p><code>ggplot2</code> beinhaltet vorinstalliert eininge Themes, die sofot genutzt werden können. Diese sind etwa <code>theme_classic()</code>:</p>
+<pre class="r"><code>landkreise %&gt;% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point() +
+  theme_classic()</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-13-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><code>theme_bw()</code></p>
+<pre class="r"><code>landkreise %&gt;% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point() +
+  theme_bw()</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-14-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>oder <code>theme_minimal</code></p>
+<pre class="r"><code>landkreise %&gt;% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point() +
+  theme_minimal()</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-15-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Weitere vorinstallierte Themes findet man <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">hier</a>.</p>
+<p>Es besteht zudem die Möglichkeit, Themes selbst nach den eigenen Vorstellungen anzupassen. Hier lassen sich alle vorstellbaren Elemente anpassen. Eine Übersicht über die jeweiligen Befehle findet sich hier <a href="https://ggplot2.tidyverse.org/reference/theme.html">hier</a>.</p>
+<p>Im Beispiel unten werden neben der Schriftgröße (<code>base_size = 14</code>) mit dem zusätzlichen Befehl <code>theme()</code> weitere Anpassungen vorgenommen. Wichtig hierbei ist, dass mehrere <code>theme</code> Befehle sich gegenseitig überlagern können.</p>
+<pre class="r"><code>landkreise %&gt;% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote,
+             color = Durchschnittsalter)) +
+  geom_point(size = 2) +
+  theme_minimal(base_size = 14) +
+  # plot.background setzt den Hintergrund hinter dem Plot fest
+  theme(plot.background = element_rect(fill = &quot;grey80&quot;, color = &quot;grey80&quot;),
+        # Hier werden die gridlines entfernt
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        # Hier wird die Legende entfernt
+        legend.position = &quot;none&quot;)</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-16-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="titel-und-achsenbeschriftungen" class="section level2">
 <h2>Titel und Achsenbeschriftungen</h2>
