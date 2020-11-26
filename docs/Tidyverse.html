@@ -25,17 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -380,6 +369,9 @@ div.tocify {
   <a href="Karten.html">Karten und Geodaten</a>
 </li>
 <li>
+  <a href="Interaktive_Abbildungen.html">Animationen und interaktive Abbildungen</a>
+</li>
+<li>
   <a href="Links.html">Links</a>
 </li>
       </ul>
@@ -413,12 +405,12 @@ div.tocify {
 </div>
 <div id="was-ist-das-tidyverse" class="section level1">
 <h1>Was ist das tidyverse?</h1>
-<p>Das <a href="https://www.tidyverse.org/">tidyverse</a> in R ist eine Sammlung von Paketen, denen dieselbe Repräsentation von Daten (<a href="https://vita.had.co.nz/papers/tidy-data.pdf">tidy data</a>) zu Grunde liegen und die ein gemeinsames API Design nutzen. “Tidy data” umschreibt “aufgeräumte” bzw. “saubere” Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Die Pakete und Funktionen des tidyverse können die oft sperrigen und schwer verständlichen Base-R Funktionen fast vollständig ersetzen und bieten einen intuitiven Einstieg in die Analyse und Visualisierung von Daten.</p>
+<p>Das <a href="https://www.tidyverse.org/">tidyverse</a> in R ist eine Sammlung von Paketen, denen dieselbe Repräsentation von Daten (<a href="https://vita.had.co.nz/papers/tidy-data.pdf">tidy data</a>) zu Grunde liegen und die ein gemeinsames API Design nutzen. &quot;Tidy data&quot; umschreibt &quot;aufgeräumte&quot; bzw. &quot;saubere&quot; Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Die Pakete und Funktionen des tidyverse können die oft sperrigen und schwer verständlichen Base-R Funktionen fast vollständig ersetzen und bieten einen intuitiven Einstieg in die Analyse und Visualisierung von Daten.</p>
 <hr />
 </div>
 <div id="installation-und-inhalt" class="section level1">
 <h1>Installation und Inhalt</h1>
-<p>Das tidyverse kann über den Befehl <code>install.packages(“tidyverse”)</code> installiert werden. Wird die Bibilothek in mit <code>library(tidyverse) </code> in die Umgebung geladen, sind die folgenden Pakete direkt nutzbar:</p>
+<p>Das tidyverse kann über den Befehl <code>install.packages(&quot;tidyverse&quot;)</code> installiert werden. Wird die Bibilothek in mit <code>library(tidyverse) </code> in die Umgebung geladen, sind die folgenden Pakete direkt nutzbar:</p>
 <ul>
 <li><a href="https://ggplot2.tidyverse.org">ggplot2</a>, für Datenvisualisierung,</li>
 <li><a href="https://dplyr.tidyverse.org">dplyr</a>, für Datenbearbeitung,</li>
@@ -429,7 +421,7 @@ div.tocify {
 <li><a href="https://github.com/tidyverse/stringr">stringr</a>, für Strings,</li>
 <li><a href="https://github.com/hadley/forcats">forcats</a>, für Faktor-Variablen.</li>
 </ul>
-<p>Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages(“tidyverse”)</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library(“Paketname”)</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:</p>
+<p>Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages(&quot;tidyverse&quot;)</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library(&quot;Paketname&quot;)</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:</p>
 <ul>
 <li><p>Für die Arbeit mit Daten mit zeitlichem Bezug:</p>
 <ul>
@@ -456,9 +448,12 @@ div.tocify {
 <h2>Mögliche Probleme</h2>
 <p>Lädt man das tidyverse in die Arbeitsumgebung, wird folgende Nachricht angezeigt:</p>
 <center>
-<p><img src="images/tidyverse_1_load.png" style="width:75.0%" /></p>
+<div class="figure">
+<img src="images/tidyverse_1_load.png" style="width:75.0%" />
+
+</div>
 </center>
-<p>Einerseits werden hier unter “Attaching packages” die geladenen Pakete samt der jeweiligen Version angezeigt. Unter “Conflicts” gibt es zudem zwei Warnhinweise. Diese weisen auf mögliche Probleme bei der Nutzung verschiedener R-Pakete hin. Hier werden durch das Laden des tidyverse zwei Befehle aus der “stats-Bibliothek” maskiert, also überschrieben. Konkret bedeutet das, dass nachdem das tidyverse geladen wurde, die Befehle <code>filter()</code> und <code>lag()</code> ihre Funktionalität aus dem “dplyr-Paket” und nicht mehr von “stats” beziehen. Möchte man jetzt die <code>filter()</code> Funktion aus der stats-Bibliothek nutzen, kann man diesen folgendermaßen aufrufen <code>stats::filter()</code>.</p>
+<p>Einerseits werden hier unter &quot;Attaching packages&quot; die geladenen Pakete samt der jeweiligen Version angezeigt. Unter &quot;Conflicts&quot; gibt es zudem zwei Warnhinweise. Diese weisen auf mögliche Probleme bei der Nutzung verschiedener R-Pakete hin. Hier werden durch das Laden des tidyverse zwei Befehle aus der &quot;stats-Bibliothek&quot; maskiert, also überschrieben. Konkret bedeutet das, dass nachdem das tidyverse geladen wurde, die Befehle <code>filter()</code> und <code>lag()</code> ihre Funktionalität aus dem &quot;dplyr-Paket&quot; und nicht mehr von &quot;stats&quot; beziehen. Möchte man jetzt die <code>filter()</code> Funktion aus der stats-Bibliothek nutzen, kann man diesen folgendermaßen aufrufen <code>stats::filter()</code>.</p>
 <pre class="r"><code># Lädt nur die filter() Funktion von dplyr
 dplyr::filter()
 
@@ -470,11 +465,11 @@ filter()</code></pre>
 </div>
 <div id="datenmanagement-im-tidyverse" class="section level1">
 <h1>Datenmanagement im tidyverse</h1>
-<p>Das tidyverse bietet ein kohärentes Framework, in welchem Daten intuitiv in ein gewünschtes Format übertragen werden können. Zunächst wird das Konzept von “Tidy Data” erklärt und anschließen ein Beispieldatensatz von Arbeitslosenzaheln in deutschen Landkreisen geladen.</p>
+<p>Das tidyverse bietet ein kohärentes Framework, in welchem Daten intuitiv in ein gewünschtes Format übertragen werden können. Zunächst wird das Konzept von &quot;Tidy Data&quot; erklärt und anschließen ein Beispieldatensatz von Arbeitslosenzaheln in deutschen Landkreisen geladen.</p>
 <hr />
 <div id="tidy-data" class="section level2">
 <h2>Tidy Data</h2>
-<p>“Tidy data” umschreibt “aufgeräumte” bzw. “saubere” Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Es ist wichtig, das Konuzept von tidy data zu verstehen, da alle Pakete im tidyverse darauf basieren. Im tidy data Format sollte ein Datensatz von den folgenden, zusammenhängenden Regeln beschrieben werden können:</p>
+<p>&quot;Tidy data&quot; umschreibt &quot;aufgeräumte&quot; bzw. &quot;saubere&quot; Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Es ist wichtig, das Konuzept von tidy data zu verstehen, da alle Pakete im tidyverse darauf basieren. Im tidy data Format sollte ein Datensatz von den folgenden, zusammenhängenden Regeln beschrieben werden können:</p>
 <ol style="list-style-type: decimal">
 <li>Jede Variable muss in einer eigenen Spalte sein</li>
 <li>Jede Beobachtung muss eine eigene Zeile haben</li>
@@ -487,9 +482,12 @@ filter()</code></pre>
 <h2>Laden der Daten</h2>
 <p>In ihrer ursprünglichen Form sehen die Daten folgendermaßen aus:</p>
 <center>
-<p><img src="images/tidyverse_3_data_horrible_data.png" style="width:100.0%" /></p>
+<div class="figure">
+<img src="images/tidyverse_3_data_horrible_data.png" style="width:100.0%" />
+
+</div>
 </center>
-<p>Hier sieht man, dass sich die obene genannten Regeln für tidy data nicht anwenden lassen. Während die Variablen “Kennziffer”, “Raumeinheit” und “Aggregat” korrekt in einer Spalte gespeichert wurden, wurden die Variablen “Arbeitslosenquote” und “Jahr” auf mehrere Spalten (ins wide format) aufgeteilt. Dadurch hat jede Beobachtung (also die Arbeitslosenquote einer Raumeinheit pro Jahr) auch nicht eine eigene Zeile. Der folgende R-Code lädt die Daten und überführt sie in ein tidy data Format.</p>
+<p>Hier sieht man, dass sich die obene genannten Regeln für tidy data nicht anwenden lassen. Während die Variablen &quot;Kennziffer&quot;, &quot;Raumeinheit&quot; und &quot;Aggregat&quot; korrekt in einer Spalte gespeichert wurden, wurden die Variablen &quot;Arbeitslosenquote&quot; und &quot;Jahr&quot; auf mehrere Spalten (ins wide format) aufgeteilt. Dadurch hat jede Beobachtung (also die Arbeitslosenquote einer Raumeinheit pro Jahr) auch nicht eine eigene Zeile. Der folgende R-Code lädt die Daten und überführt sie in ein tidy data Format.</p>
 <pre class="r"><code>library(tidyverse)
 
 # Laden der Daten
@@ -506,16 +504,19 @@ Arbeitslosenquote &lt;-
 <p>Hier wird zunächst mit <code>read_xls()</code> die .xls-Datei geladen. Da das Paket readxl zwar im tidyverse mit heruntergeladen aber nicht automatisch in die Arbeitsumgebung geladen wird, wird das Paket hier mit <code>readxl::read_xls()</code> direkt angesprochen. Der Zusatz <code>skip = 1</code> überspringt die erste Zeile der .xls-Datei, da die Variabelnnamen auf zwei Spalten verteilt sind.</p>
 <p>Mit der Funktion <code>rename()</code> werden die fehlenden Variablennamen ergänzt.</p>
 <p>Die letzte Funktion <code>pivot_longer()</code> überführt die restlichen Spalten vom wide ins long Format. Die Funktion wird im späteren Kursverlauf genauer erklärt.</p>
-<p>Zuletzt wird die Variable “Jahr” in die <code>integer</code> Klasse überführt.</p>
+<p>Zuletzt wird die Variable &quot;Jahr&quot; in die <code>integer</code> Klasse überführt.</p>
 <p>Der daraus resultierende Datensatz kann mit <code>View(Arbeitslosenquote)</code> im Viewer von R-Studio betrachtet werden.</p>
 <center>
-<p><img src="images/tidyverse_2_data_clean.png" style="width:80.0%" /></p>
+<div class="figure">
+<img src="images/tidyverse_2_data_clean.png" style="width:80.0%" />
+
+</div>
 </center>
 <hr />
 </div>
 <div id="magrittr-pipe" class="section level2">
 <h2>magrittr-Pipe (%&gt;%)</h2>
-<p>Das tidyverse lädt automatisch die sogenannte “Pipe” aus dem magrittr-Paket. Die Pipe erlaubt es, Code zu schreiben der einfacher verstehen und zu lesen ist. Wollen wir etwa die fünf kreisfreien Städte mit der höchsten Arbeitslosenquote im aktuellsten Jahr gibt es mehrere Möglichkeiten, diese darzustellen. Eine Möglichkeit wäre, die notwendigen Operationen in neue Objekte zu speichern und diese dann weiterzu bearbeiten.</p>
+<p>Das tidyverse lädt automatisch die sogenannte &quot;Pipe&quot; aus dem magrittr-Paket. Die Pipe erlaubt es, Code zu schreiben der einfacher verstehen und zu lesen ist. Wollen wir etwa die fünf kreisfreien Städte mit der höchsten Arbeitslosenquote im aktuellsten Jahr gibt es mehrere Möglichkeiten, diese darzustellen. Eine Möglichkeit wäre, die notwendigen Operationen in neue Objekte zu speichern und diese dann weiterzu bearbeiten.</p>
 <pre class="r"><code>Arbeitslosenquote_1 &lt;- filter(Arbeitslosenquote, Aggregat == &quot;krsfr. Stadt&quot;)
 Arbeitslosenquote_2 &lt;- filter(Arbeitslosenquote_1, Jahr == max(Jahr))
 Arbeitslosenquote_3 &lt;- top_n(Arbeitslosenquote_2, 5)
@@ -545,7 +546,7 @@ Arbeitslosenquote_4</code></pre>
 ## 5 05916      Herne, Stadt         krsfr. Stadt 2017               12.1</code></pre>
 <p>Vor allem in punkto Lesbarkeit und Kompaktheit bietet die Pipe gegenüber ihren Alternativen große Vorteile. Auch wird hier kein zusätzlicher Arbeitsspeicher verwendent, um Objekte zu speichern, die eigentlich gar nicht benötigt werden. Illustriert am obigen Beispiel, kann man die Pipe folgendermaßen verstehen:</p>
 <ol style="list-style-type: decimal">
-<li><p>Das aktuelle Datenobjekt wird immer in den nächsten Schritt weitergegeben. Hier wird das Objekt “Arbeitslosenquote” also direkt im auf <code>%&gt;%</code> folgenden Befehl als Datenobjekt verwendet. So entfällt der Schritt, in jeder Funktion vom Format <code>filter(data, variable == “value”)</code>, das Datenobjekt (data) mit anzugeben.</p></li>
+<li><p>Das aktuelle Datenobjekt wird immer in den nächsten Schritt weitergegeben. Hier wird das Objekt &quot;Arbeitslosenquote&quot; also direkt im auf <code>%&gt;%</code> folgenden Befehl als Datenobjekt verwendet. So entfällt der Schritt, in jeder Funktion vom Format <code>filter(data, variable == &quot;value&quot;)</code>, das Datenobjekt (data) mit anzugeben.</p></li>
 <li><p>Das bearbeitete Objekt wird immer in den nächsten Schritt weitergegeben, ohne dass es zwischengespeichert wird und werden muss.</p></li>
 </ol>
 <p>Vereinfacht gesagt ist also</p>
@@ -702,7 +703,7 @@ Arbeitslosenquote %&gt;%
   geom_line(size = 1.0) +
   theme_minimal()</code></pre>
 <p><img src="Tidyverse_files/figure-html/plot_1-1.png" width="672" /></p>
-<p>Ausführliche Informationen zu Datenvisualisierung in R mit ggplot2 gibt es im anschließenden Kapitel unter “Visualisierung”.</p>
+<p>Ausführliche Informationen zu Datenvisualisierung in R mit ggplot2 gibt es im anschließenden Kapitel unter &quot;Visualisierung&quot;.</p>
 <hr />
 </div>
 <div id="weiterführende-informationen" class="section level1">
@@ -726,7 +727,7 @@ Arbeitslosenquote %&gt;%
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
