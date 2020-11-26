@@ -109,7 +109,7 @@ Zunächst soll die Größe (size) der Punkte, dem jeweiligen Wert der Variable "
 Im Unterschied zum Code oben werden hier die Daten mit der <code>%>%</code> in das ggplot-Objekt weitergegeben. Das hat den Vorteil, dass etwaige Datentransformationen vorgenommen und dann direkt in <code>ggplot</code> überführt werden können. 
 
 ```{r, fig.align="center", out.width = "75%"}
-data %>% 
+landkreise %>% 
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote,
              size = BIP)) +
@@ -121,7 +121,7 @@ data %>%
 Auch die Farbe (color) kann durch Variablenwerte bestimmt werden.
 
 ```{r, fig.align="center", out.width = "75%"}
-data %>% 
+landkreise %>%
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote,
              color = Durchschnittsalter)) +
@@ -133,7 +133,7 @@ data %>%
 Zuletzt wird Beispielhaft die Form (shape) der Objekte durch die Variable "Aggregat" festegelt. Hier sieht man auch, dass weitere Aesthetics darüber gelagert werden können. Hier werden shape und color festgelegt.
 
 ```{r, fig.align="center", out.width = "75%"}
-data %>% 
+landkreise %>% 
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote,
              shape = Aggregat,
@@ -142,6 +142,27 @@ data %>%
 ```
 
 In <code>ggplot2</code> gibt es eine Reihe weiterer Aesthetics, die festgelegt werden können (siehe [hier](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)). Hier ist zunächst wichtig, zu verstehen, dass alle
+
+### Aesthetics setzen
+
+Neben der Option, Aesthetics über den <code>aes()</code> Befehl zu mappen, kann man aesthetics auch statisch festsetzen. Im Beispiel unten wird hier die Farbe für *alle* Punkte im Diagramm festgelegt. Hier wird die Farbe also nicht von den Daten auf die Punkte gemapped sondern vom Anwender konkret festgelegt. 
+
+```{r, fig.align="center", out.width = "75%"}
+landkreise %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote)) +
+  geom_point(color = "#2e4964")
+```
+Im gleichen Stil können auch andere Aesthetics statisch festgelegt werden.
+
+```{r, fig.align="center", out.width = "75%"}
+landkreise %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote)) +
+  geom_point(color = "#2e4964",
+             size = 2,
+             shape = 17)
+```
 
 ----
 
@@ -154,7 +175,7 @@ In <code>ggplot2</code> gibt es eine Reihe weiterer Aesthetics, die festgelegt w
 Im Beispiel von oben gibt <code>geom_point()</code> an, dass die Mappings in einem Scatterplot (in Punkten) dargestellt werden sollen.
 
 ```{r, fig.align="center", out.width = "75%"}
-data %>% 
+landkreise %>% 
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote,
              color = Durchschnittsalter)) +
@@ -241,5 +262,14 @@ data %>%
   geom_smooth(method = "lm")
 ```
 
----- 
+----
 
+## Facets
+
+## Themes
+
+## Titel und Achsenbeschriftungen
+
+## Text
+
+## Speichern von Grafiken

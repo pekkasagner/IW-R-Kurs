@@ -455,7 +455,7 @@ geom_point()</code></pre>
 <h3>Size</h3>
 <p>Zunächst soll die Größe (size) der Punkte, dem jeweiligen Wert der Variable “BIP” - also des BIP per capita pro Landkreis - entsprechen. Dafür wird in <code>aes()</code> neben den Variablen, die auf der x- bzw. der y-Achse dargestellt werden sollen auch die <code>size = BIP</code> gesetzt.</p>
 <p>Im Unterschied zum Code oben werden hier die Daten mit der <code>%&gt;%</code> in das ggplot-Objekt weitergegeben. Das hat den Vorteil, dass etwaige Datentransformationen vorgenommen und dann direkt in <code>ggplot</code> überführt werden können.</p>
-<pre class="r"><code>data %&gt;% 
+<pre class="r"><code>landkreise %&gt;% 
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote,
              size = BIP)) +
@@ -465,7 +465,7 @@ geom_point()</code></pre>
 <div id="color" class="section level3">
 <h3>Color</h3>
 <p>Auch die Farbe (color) kann durch Variablenwerte bestimmt werden.</p>
-<pre class="r"><code>data %&gt;% 
+<pre class="r"><code>landkreise %&gt;%
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote,
              color = Durchschnittsalter)) +
@@ -475,7 +475,7 @@ geom_point()</code></pre>
 <div id="shape" class="section level3">
 <h3>Shape</h3>
 <p>Zuletzt wird Beispielhaft die Form (shape) der Objekte durch die Variable “Aggregat” festegelt. Hier sieht man auch, dass weitere Aesthetics darüber gelagert werden können. Hier werden shape und color festgelegt.</p>
-<pre class="r"><code>data %&gt;% 
+<pre class="r"><code>landkreise %&gt;% 
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote,
              shape = Aggregat,
@@ -483,6 +483,22 @@ geom_point()</code></pre>
   geom_point()</code></pre>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-4-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>In <code>ggplot2</code> gibt es eine Reihe weiterer Aesthetics, die festgelegt werden können (siehe <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">hier</a>). Hier ist zunächst wichtig, zu verstehen, dass alle</p>
+</div>
+<div id="aesthetics-setzen" class="section level3">
+<h3>Aesthetics setzen</h3>
+<p>Neben der Option, Aesthetics über den <code>aes()</code> Befehl zu mappen, kann man aesthetics auch statisch festsetzen. Im Beispiel unten wird hier die Farbe für <em>alle</em> Punkte im Diagramm festgelegt. Hier wird die Farbe also nicht von den Daten auf die Punkte gemapped sondern vom Anwender konkret festgelegt.</p>
+<pre class="r"><code>landkreise %&gt;% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote)) +
+  geom_point(color = &quot;#2e4964&quot;)</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-5-1.png" width="75%" style="display: block; margin: auto;" /> Im gleichen Stil können auch andere Aesthetics statisch festgelegt werden.</p>
+<pre class="r"><code>landkreise %&gt;% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote)) +
+  geom_point(color = &quot;#2e4964&quot;,
+             size = 2,
+             shape = 17)</code></pre>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-6-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 </div>
@@ -492,12 +508,12 @@ geom_point()</code></pre>
 <div id="geom_point" class="section level3">
 <h3>geom_point()</h3>
 <p>Im Beispiel von oben gibt <code>geom_point()</code> an, dass die Mappings in einem Scatterplot (in Punkten) dargestellt werden sollen.</p>
-<pre class="r"><code>data %&gt;% 
+<pre class="r"><code>landkreise %&gt;% 
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote,
              color = Durchschnittsalter)) +
   geom_point()</code></pre>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-5-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-7-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geom_line" class="section level3">
 <h3>geom_line()</h3>
@@ -512,7 +528,7 @@ geom_point()</code></pre>
              y = Arbeitslosenquote,
              col = Raumeinheit)) +
   geom_line(size = 1.0)</code></pre>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-6-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geom_bar" class="section level3">
 <h3>geom_bar()</h3>
@@ -526,7 +542,7 @@ geom_point()</code></pre>
   ggplot(aes(x = Raumeinheit,
              y = Arbeitslosenquote)) +
   geom_bar(stat = &quot;identity&quot;)</code></pre>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-7-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-9-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geom_boxplot" class="section level3">
 <h3>geom_boxplot()</h3>
@@ -536,7 +552,7 @@ geom_point()</code></pre>
   ggplot(aes(x = Jahr, y = Arbeitslosenquote,
              group = Jahr)) +
   geom_boxplot()</code></pre>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-10-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="weitere-geoms" class="section level3">
 <h3>Weitere geoms</h3>
@@ -555,7 +571,7 @@ geom_point()</code></pre>
   geom_point() +
   geom_smooth(method = &quot;lm&quot;,
               color = &quot;black&quot;)</code></pre>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-9-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-11-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Die Verbindung mehrerer <code>geoms</code> kann auch mit weiteren Aesthetics kombiniert werden. Das Beispiel unten zeigt etwa jeweils eingefärbte Punkte und Regressionslinien für kreisfreie Städte und Landkreise.</p>
 <pre class="r"><code>data %&gt;% 
   filter(Jahr == 2017) %&gt;% 
@@ -565,8 +581,23 @@ geom_point()</code></pre>
              col = Aggregat)) +
   geom_point() +
   geom_smooth(method = &quot;lm&quot;)</code></pre>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-10-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-12-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <hr />
+</div>
+<div id="facets" class="section level2">
+<h2>Facets</h2>
+</div>
+<div id="themes" class="section level2">
+<h2>Themes</h2>
+</div>
+<div id="titel-und-achsenbeschriftungen" class="section level2">
+<h2>Titel und Achsenbeschriftungen</h2>
+</div>
+<div id="text" class="section level2">
+<h2>Text</h2>
+</div>
+<div id="speichern-von-grafiken" class="section level2">
+<h2>Speichern von Grafiken</h2>
 </div>
 </div>
 
