@@ -264,8 +264,6 @@ data %>%
 
 ----
 
-## Facets
-
 ## Themes
 
 Themes in <code>ggplot2</code> beziehen sich auf alles in einem Plot, was nichts mit den Daten zu tun hat. Über <code>theme_set()</code> kann ein Theme entweder global festgelegt werden oder innerhalb eines <code>ggplot</code> Codes festgelegt werden. 
@@ -328,7 +326,32 @@ landkreise %>%
 
 
 ## Titel und Achsenbeschriftungen
+Auch Titel, Untertitel und Achsenbeschriftungen von Plots lassen sich in <code>ggplot2</code> einfach festelegen. Hier wird zunächst wie oben das Theme definiert. Mit dem Befehl <code>theme_update()</code> wird das aktuelle Theme weiter angepasst. Hier werden die Abstände der X- und Y-Achsenbeschriftung leicht erhöht und die Position der Überschrift auf ganz links im Plot festgelegt.
+
+```{r}
+theme_set(theme_minimal()) 
+theme_update(axis.title.y = 
+               element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)),
+             axis.title.x = 
+               element_text(margin = margin(t = 10, r = 0, b = 0, l = 0)),
+             plot.title.position = 'plot')
+```
+
+Über den <code>labs</code> Befehl lassen sich dann <code>x</code>-Achse <code>y</code>-Achse <code>title</code> und <code>subtitle</code> definieren.
+
+```{r}
+landkreise %>% 
+  ggplot(aes(x = Wahlbeteiligung, 
+             y = Arbeitslosenquote)) +
+  geom_point(color = "#2e4964") +
+  labs(x = "Wahlbeteiligung (in%)",
+       y = "Arbeitslosenquote (in %)",
+       title = "Verhältnis von Arbeitslosigkeit und Wahlbeteiligung",
+       subtitle = "Kreisfreie Städte und Landkreise in Deutschland (2017)")
+```
 
 ## Text
+
+## Facets
 
 ## Speichern von Grafiken

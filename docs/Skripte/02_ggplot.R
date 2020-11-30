@@ -72,13 +72,41 @@ write_csv(Landkreise, 'daten_beispiele/Landkreise_merged.csv')
 
 data <- read_csv('daten_beispiele/Landkreise_merged.csv')
 
-theme_set(theme_minimal())
+library(ggthemes)
+
+theme_set(theme_minimal()) 
+theme_update(axis.title.y = 
+               element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)),
+             axis.title.x = 
+               element_text(margin = margin(t = 10, r = 0, b = 0, l = 0)),
+             plot.title.position = 'plot')
 
 # Scatter Plot
 data %>% 
   filter(Jahr == 2017) %>% 
   ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote)) +
-  geom_point()
+  geom_point(color = "grey80",
+             size = 2.0) +
+  geom_point(data = subset(data,
+                           BIP > 100 & Jahr == 2017),
+             color = "#2e4964",
+             size = 2.0) +
+  ggrepel::geom_text_repel(data = subset(data,
+                                         BIP > 100 & Jahr == 2017),
+                           aes(label = Raumeinheit),
+                           size = 3.5) +
+  labs(x = "Wahlbeteiligung (in%)",
+       y = "Arbeitslosenquote (in %)",
+       title = "Verhältnis von Arbeitslosigkeit und Wahlbeteiligung",
+       subtitle = "Kreisfreie Städte und Landkreise in Deutschland (2017)")
+
+
+
+
+
+
+
+
 
 # aesthetics size
 data %>% 
