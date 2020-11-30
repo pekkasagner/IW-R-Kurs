@@ -102,6 +102,16 @@ data %>%
 
 
 
+data %>% 
+  filter(Jahr == 2017) %>% 
+  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote)) +
+  geom_point(color = "grey80",
+             size = 2.0) +
+  labs(x = "Wahlbeteiligung (in%)",
+       y = "Arbeitslosenquote (in %)",
+       title = "Verhältnis von Arbeitslosigkeit und Wahlbeteiligung",
+       subtitle = "Kreisfreie Städte und Landkreise in Deutschland (2017)")
+
 
 
 
