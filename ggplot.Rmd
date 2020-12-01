@@ -26,6 +26,8 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 * Erstellen publikationsrefier Plots
 
 ```{r echo=FALSE, fig.align="center"}
+library(tidyverse)
+
 data <- read_csv('daten_beispiele/Landkreise_merged.csv')
 
 data %>% 
@@ -328,18 +330,16 @@ landkreise %>%
 ## Titel und Achsenbeschriftungen
 Auch Titel, Untertitel und Achsenbeschriftungen von Plots lassen sich in <code>ggplot2</code> einfach festelegen. Hier wird zunächst wie oben das Theme definiert. Mit dem Befehl <code>theme_update()</code> wird das aktuelle Theme weiter angepasst. Hier werden die Abstände der X- und Y-Achsenbeschriftung leicht erhöht und die Position der Überschrift auf ganz links im Plot festgelegt.
 
-```{r}
+Über den <code>labs</code> Befehl lassen sich dann <code>x</code>-Achse <code>y</code>-Achse <code>title</code> und <code>subtitle</code> definieren.
+
+```{r, fig.align="center", out.width = "75%"}
 theme_set(theme_minimal()) 
 theme_update(axis.title.y = 
                element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)),
              axis.title.x = 
                element_text(margin = margin(t = 10, r = 0, b = 0, l = 0)),
              plot.title.position = 'plot')
-```
 
-Über den <code>labs</code> Befehl lassen sich dann <code>x</code>-Achse <code>y</code>-Achse <code>title</code> und <code>subtitle</code> definieren.
-
-```{r}
 landkreise %>% 
   ggplot(aes(x = Wahlbeteiligung, 
              y = Arbeitslosenquote)) +
@@ -351,6 +351,45 @@ landkreise %>%
 ```
 
 ## Text
+
+Auch Textdaten lassen sich in <code>ggplot2</code> einfach darstellten. Hier werden mit <code>geom_text()</code> die Namen der jeweiligen Landkreise und kreisfreien Städte geplottet. 
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  filter(Jahr == 2017) %>% 
+  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote, label = Raumeinheit)) +
+  geom_text() +
+  labs(x = "Wahlbeteiligung (in%)",
+       y = "Arbeitslosenquote (in %)",
+       title = "Verhältnis von Arbeitslosigkeit und Wahlbeteiligung",
+       subtitle = "Kreisfreie Städte und Landkreise in Deutschland (2017)")
+```
+
+Zu viel Text gleichzeitig darzustellen ist allerdings nicht immer sinnvoll, da es so schnell unübersichtlich wird. Hier macht es meist mehr Sinn, Textelemente selektiver zu nutzen. Im Beispiel unten werden die fünf Städte mit dem höchsten BIP pro Kopf hervorgehoben und mit einem Label namentlich genannt.
+
+Hier lassen sich auch die verschiedenen Ebenen von <code>ggplot2</code> noch einmal verdeutlichen, die übereinander gelegt werden. Hier werden zunächst alle Städte und Landkreise in grau (<code>"grey80"</code) geplottet, um dann mit <code>subset</code> ein Subset der Daten (solche Beobachtanugen mit einem BIP größer 92.5) farbig darüber zu legen. 
+
+Der Befehl <code>geom_text_repel()</code> aus der <code>ggrepel</code> Bibilothek plottet dann die Label für dieses Subset. Durch den Beisatz "repel" werden die Label hier so dargestellt, dass sie nicht den eigentlichen Punkt überlagern. 
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  filter(Jahr == 2017) %>% 
+  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote)) +
+  geom_point(color = "grey80",
+             size = 2.0) +
+  geom_point(data = subset(data,
+                           BIP > 92.5 & Jahr == 2017),
+             color = "#2e4964",
+             size = 2.0) +
+  ggrepel::geom_text_repel(data = subset(data,
+                                         BIP > 92.5 & Jahr == 2017),
+                           aes(label = Raumeinheit),
+                           size = 3.5) +
+  labs(x = "Wahlbeteiligung (in%)",
+       y = "Arbeitslosenquote (in %)",
+       title = "Verhältnis von Arbeitslosigkeit und Wahlbeteiligung",
+       subtitle = "Kreisfreie Städte und Landkreise in Deutschland (2017)")
+```
 
 ## Facets
 

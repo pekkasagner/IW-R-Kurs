@@ -88,11 +88,11 @@ data %>%
   geom_point(color = "grey80",
              size = 2.0) +
   geom_point(data = subset(data,
-                           BIP > 100 & Jahr == 2017),
+                           BIP > 92.5 & Jahr == 2017),
              color = "#2e4964",
              size = 2.0) +
   ggrepel::geom_text_repel(data = subset(data,
-                                         BIP > 100 & Jahr == 2017),
+                                         BIP > 92.5 & Jahr == 2017),
                            aes(label = Raumeinheit),
                            size = 3.5) +
   labs(x = "Wahlbeteiligung (in%)",
@@ -104,9 +104,8 @@ data %>%
 
 data %>% 
   filter(Jahr == 2017) %>% 
-  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote)) +
-  geom_point(color = "grey80",
-             size = 2.0) +
+  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote, label = Raumeinheit)) +
+  geom_text() +
   labs(x = "Wahlbeteiligung (in%)",
        y = "Arbeitslosenquote (in %)",
        title = "Verhältnis von Arbeitslosigkeit und Wahlbeteiligung",
