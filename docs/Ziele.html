@@ -15,40 +15,12 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
 
 
@@ -113,33 +85,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 51px;
+  padding-top: 45px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 50px;
+  margin-top: -50px;
 }
 .section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 50px;
+  margin-top: -50px;
 }
 .section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 50px;
+  margin-top: -50px;
 }
 .section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 50px;
+  margin-top: -50px;
 }
 .section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 50px;
+  margin-top: -50px;
 }
 .section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
+  padding-top: 50px;
+  margin-top: -50px;
 }
 .dropdown-submenu {
   position: relative;
@@ -303,8 +275,20 @@ $(document).ready(function () {
 <li>
   <a href="Karten.html">Karten und Geodaten</a>
 </li>
-<li>
-  <a href="Interaktive_Abbildungen.html">Animationen und interaktive Abbildungen</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Animationen und interaktive Abbildungen
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Animationen.html">Animationen</a>
+    </li>
+    <li>
+      <a href="Interaktive_Abbildungen.html">Interaktive Abbildungen</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="Links.html">Links</a>
@@ -344,14 +328,17 @@ $(document).ready(function () {
 <li><p><strong>Wie R funktioniert:</strong> R gibt es schon recht lange und basiert auf der Programmiersprache S <a href="https://www.r-project.org/about.html">(mehr)</a>. R ist eine Programmiersprache und kostenfreie Software mit dem Fokus auf statistische Berechnungen. Der Kurs gibt eine nicht-technische Einführung in die Grundstruktur. Wir arbeiten mit dem <em>tidyvese</em> <a href="https://www.tidyverse.org/">(mehr)</a>. Das tidyverse ist eine Sammlung von R-Paketen, die einer gemeinsamen Struktur und Logik folgen. Wichtiger ist: das Coding im tidyverse ist sehr intuitiv.</p></li>
 <li><p><strong>Wie R-Studio funktioniert:</strong> R-Studio ist eine Entwicklungsumgebung und grafische Benutzeroberfläche für R. Wenn R der Motor ist, dann ist R-Studio das Cockpit <a href="https://rstudio.com/">(mehr)</a>.</p></li>
 <li><p><strong>Wie die Datenanalyse funktioniert:</strong> Der Fokus des Kurses liegt zwar auf der Datenvisualisierung, um Daten jedoch visualisieren zu können, müssen wir den ein oder anderen Schritt dahin gehen. Dabei werden das Fundament für die Datenanalyse mit R erklärt.</p></li>
-<li><p><strong>Wie die Datenvisualisierung funktioniert:</strong> Mit R lassen sich schicke Abbildungen erstellen. Im Kurs wird die “Grammar of Graphics (gg)” genutzt, um einfache und weniger einfache Abbildungen zu erstellen <a href="https://ggplot2.tidyverse.org/">(mehr)</a>.</p></li>
+<li><p><strong>Wie die Datenvisualisierung funktioniert:</strong> Mit R lassen sich schicke Abbildungen erstellen. Im Kurs wird die &quot;Grammar of Graphics (gg)&quot; genutzt, um einfache und weniger einfache Abbildungen zu erstellen <a href="https://ggplot2.tidyverse.org/">(mehr)</a>.</p></li>
 <li><p><strong>Wie Animationen funktionieren:</strong> Abbildungen sind zweidimensional: langweilig! Wir erstellen zwar keine aus dem Bildschirm springenden Abbildungen. Allerdings lassen sich Abbildungen durch Animationen eine spannende dritte Dimension geben <a href="https://gganimate.com/articles/gganimate.html">(mehr)</a>.</p></li>
 <li><p><strong>Bonus:</strong> Es gibt ein R-Paket, mit dem Grafiken im IW Corporate Design erstellen kann. Wir zeigen, was es kann und wie man es benutzt.</p></li>
 </ol>
 </div>
 <div class="col-sm-6">
 <h3 id="viel-spaß-beim-lernen">Viel Spaß beim Lernen!</h3>
-<p><img src="images/Intro.gif" /></p>
+<div class="figure">
+<img src="images/Intro.gif" />
+
+</div>
 </div>
 
 
@@ -363,7 +350,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

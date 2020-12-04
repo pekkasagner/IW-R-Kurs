@@ -1,0 +1,64 @@
+---
+title: "Animationen"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: true
+    number_sections: false
+    toc_depth: 2
+    #code_folding: hide
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
+```
+
+----
+
+# Ziele der Sitzung
+
+* Erstellen von Animationen
+
+Die Visualisierung von Daten ist ein wichtiges Instrument in der Kommunikation von Forschungsergebnissen. Statische Abbildungen sind in 99 % der Arbeit der angebrachte Weg. Wissenschaftliche Papiere sind eben immer noch weitestgehend für das Papierformat gedacht. Schon lange weden Forschungsergebnisse jedoch auch online veröffentlicht. Für die Einbettung auf Websites und insbesondere auch in Social-Media-Kanälen bieten animierte Abbildungen eine alternative zu statischen Abbildungen.
+
+* Warum Animationen?
+
+Mit animierten Abbildungen lassen sich insbesondere *Zustandsveränderungen* eindrucksvoll darstellen.
+
+*Zustandsveränderungen* können zum Beispiel Veränderungen einer Variable über die Zeit sein. 
+
+Ein weiteres Beispiel könnte die Visualisierung einer Regression sein, in der die Gruppenzugehörigkeit für ein Individuum geschätzt wird. Die Animation könnte Differenzen zwischen tatsächlicher und im Modell geschätzter Zugehörigkeit visualisieren. 
+
+Auch Simulationsergebnissen könnten in spannender Weise visualisiert werden. Eine Animation könnte die Simulationsergebnisse für verschiedene Modellparameter darstellen. 
+
+Wie bei der Visualisierung statischer Abbildungen, setzt auch bei Animationen lediglich die Fantasie die Grenzen, solange einige Grundprinzipien in der Datenstruktur beachtet werden.
+
+* Grundidee
+
+![](images/Erstellung_Animationen.png)
+
+Die Grundidee bei der Erstellung von Animationen ist die, dass für jeden Animationszustand, zum Beispiel Zeitpunkt, eine eigene Abbildung erstellt wird. Grundvoraussetzung dafür ist, lediglich ein sauberes Datenformat. Soll beispielsweise der Zusammenhang von BIP pro Kopf und Arbeitslosenquote im Zeitverlauf für verschiedene Länder dargestellt werden braucht es genau vier Spalten: (1) BIP pro Kopf (2) Arbeitslosenquote (3) Jahr <-- *Animationszustand* (4) Land.
+
+Die Wahl des <code>geom</code> entspricht dabei in der Regel der Wahl, wenn nur eine statische Abbildung für einen Zeitpunkt erstellt würde.
+
+
+----
+
+
+### Benötigte Pakete
+
+```{r}
+library(tidyverse)
+library(gganimate)
+```
+
+----
+
+### Daten laden
+
+```{r}
+
+```
+

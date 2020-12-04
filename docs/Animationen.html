@@ -11,7 +11,7 @@
 
 
 
-<title>Einführung in RStudio</title>
+<title>Animationen</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -446,7 +446,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Einführung in RStudio</h1>
+<h1 class="title toc-ignore">Animationen</h1>
 
 </div>
 
@@ -455,175 +455,36 @@ div.tocify {
 <div id="ziele-der-sitzung" class="section level1">
 <h1>Ziele der Sitzung</h1>
 <ul>
-<li>Verständnis der Grundfunktion von RStudio</li>
-<li>Erweiterte Einstellungen</li>
-<li>Erstellung eines Projektes</li>
-<li>Gutes Setup für Datenanalyse und Datenvisualisierung mit R</li>
+<li>Erstellen von Animationen</li>
 </ul>
-<hr />
-</div>
-<div id="r-und-rstudio-installieren" class="section level1">
-<h1>R und RStudio installieren</h1>
-<p>Wenn IW-Laptops benutzt werden, sollten R und RStudio bereits von der IT installiert bzw. aktualisiert worden sein. Auf privaten Laptops müssen R und RStudio selbst installiert werden. Falls sich schon ältere Versionen auf den Laptops befinden, sollten diese auf die untenstehnden Versionen aktualisiert werden:</p>
+<p>Die Visualisierung von Daten ist ein wichtiges Instrument in der Kommunikation von Forschungsergebnissen. Statische Abbildungen sind in 99 % der Arbeit der angebrachte Weg. Wissenschaftliche Papiere sind eben immer noch weitestgehend für das Papierformat gedacht. Schon lange weden Forschungsergebnisse jedoch auch online veröffentlicht. Für die Einbettung auf Websites und insbesondere auch in Social-Media-Kanälen bieten animierte Abbildungen eine alternative zu statischen Abbildungen.</p>
 <ul>
-<li>Für <strong>R</strong> wird <strong>Version 4.0.3</strong> (Bunny-Wunnies Freak Out) verwendet (<a href="https://ftp.fau.de/cran/">Link</a>)</li>
-<li>Für <strong>RStudio</strong> sollte <strong>Version 1.3.1093</strong> verwendet werden (<a href="https://rstudio.com/products/rstudio/download/#download">Link</a>)</li>
+<li>Warum Animationen?</li>
 </ul>
-<p>Die Kursinhalte können ggf. auch mit älteren Version bearbeitet werden. Für eine Minimierung möglicher Fehler macht es aber Sinn, dass alle Kursteilnehmer mit den gleichen Versionen arbeiten.</p>
-<hr />
-</div>
-<div id="rstudio-verstehen" class="section level1">
-<h1>RStudio verstehen</h1>
-<p><a href="https://rstudio.com/">RStudio</a> ist ein integrierte Entwicklungsumgebung (IDE) und graphische Benutzeroberflächer für R. Rstudio ist als lokale Desktop-Version, als Server Version und auch in der Cloud verfügbar. Auch wenn R und R-Skripte über die Konsole gestartet werden können, bietet R-Studio gerade für Anfänger einige Komfortfunktionen, die die Datenanalyse vereinfachen. Diese Funktionen umfassen unter anderem die Organisation von Analysen und Daten in Projekten (siehe unten), die Möglichkeit Datensätze interaktiv zu betrachten, die Visualisierung von Daten und die direkte Integration von Versionsverwaltung mit <a href="https://git-scm.com/">Git</a>.</p>
-<hr />
-<div id="das-layout-von-r-studio" class="section level2">
-<h2>Das Layout von R-Studio</h2>
-<center>
-<div class="figure">
-<img src="images/einführung_1_fenster.png" style="width:75.0%" />
-
-</div>
-</center>
-<p>Das Grundlayout von R-Studio besteht aus vier Fenstern. Diese sind wie oben angeordnet und können funktional folgendermaßen unterschieden werden:</p>
+<p>Mit animierten Abbildungen lassen sich insbesondere <em>Zustandsveränderungen</em> eindrucksvoll darstellen.</p>
+<p><em>Zustandsveränderungen</em> können zum Beispiel Veränderungen einer Variable über die Zeit sein.</p>
+<p>Ein weiteres Beispiel könnte die Visualisierung einer Regression sein, in der die Gruppenzugehörigkeit für ein Individuum geschätzt wird. Die Animation könnte Differenzen zwischen tatsächlicher und im Modell geschätzter Zugehörigkeit visualisieren.</p>
+<p>Auch Simulationsergebnissen könnten in spannender Weise visualisiert werden. Eine Animation könnte die Simulationsergebnisse für verschiedene Modellparameter darstellen.</p>
+<p>Wie bei der Visualisierung statischer Abbildungen, setzt auch bei Animationen lediglich die Fantasie die Grenzen, solange einige Grundprinzipien in der Datenstruktur beachtet werden.</p>
 <ul>
-<li><p>Fenster 1: Das Fenster enthält das Hauptskript oder ggf. den Viewer (hiermit können Datensätze (ohne Schreibfunktion) betrachtet werden)</p></li>
-<li><p>Fenster 2: Beinhaltet die Umgebungsübersicht. Alle Objekte und Variablen die erstellt wurden, können hier betrachtet werden.</p></li>
-<li><p>Fenster 3: Hier befindet sich die Konsole.</p></li>
-<li><p>Fenster 4: Beinhaltet ein Übersicht über alle Dateien im Ordner / Plots / Pakete / oder die Hilfe.</p></li>
+<li>Grundidee</li>
 </ul>
-<p>Über <code>Tools &gt; Global Options &gt; Pane Layout</code> können diese Fenster nach belieben angeordnet und ein- bzw. ausgeblendet werden.</p>
-<hr />
-</div>
-<div id="erweiterte-einstellungen" class="section level2">
-<h2>Erweiterte Einstellungen</h2>
-<p>Wenn man R-Studio das erste mal benutzt, macht es Sinn, einige Einstellungen zu verändern, die standardmäßig eingestellt sind.</p>
-<p>Hier macht es Sinn, sich unter 'Tools &gt; Global Options' einmal die verschiedenen Optionen anzuschauen.</p>
-<center>
 <div class="figure">
-<img src="images/einführung_2_einstellungen.png" style="width:50.0%" />
+<img src="images/Erstellung_Animationen.png" />
 
 </div>
-</center>
-<p>Zwei wichtige Einstellungen sind (unserer Meinung nach):</p>
-<ol style="list-style-type: decimal">
-<li>den Haken bei &quot;Restore .RData into workspace at start-up&quot; zu entfernen und</li>
-<li>die Option bei &quot;Save workspace to .RData on exit&quot; auf &quot;Never&quot; zu setzen.</li>
-</ol>
-<p>In Einzelfällen kann es sinnvoll sein, Daten und Zuweisungen aus der letzten Sitzung automatisch in der nächsten Sitzung zu importieren. Öfter kann dies aber zu Verwirrung oder sogar zu Fehlern führen. Vor allem schulen die Einstellungen darin, alle Ergebnisse reprozudiertbar in Skripten zu speichern.</p>
-<p>Des Weiteren macht es Sinn, sich unter <code>Tools &gt; Global Options &gt; Appearance</code> mit den verfügbaren Optionen auseinanderzusetzen. Hier lassen sich etwa Schriftart und -größe sowie das generelle Theme von R-Studio einstellen. Wenn man längere Zeit vor R-Studio sitzt (was durchaus zu empfehlen ist), kann es Sinn machen, einen Darkmode zu nutzen, um die Augen zu schonen.</p>
+<p>Die Grundidee bei der Erstellung von Animationen ist die, dass für jeden Animationszustand, zum Beispiel Zeitpunkt, eine eigene Abbildung erstellt wird. Grundvoraussetzung dafür ist, lediglich ein sauberes Datenformat. Soll beispielsweise der Zusammenhang von BIP pro Kopf und Arbeitslosenquote im Zeitverlauf für verschiedene Länder dargestellt werden braucht es genau vier Spalten: (1) BIP pro Kopf (2) Arbeitslosenquote (3) Jahr &lt;-- <em>Animationszustand</em> (4) Land.</p>
+<p>Die Wahl des <code>geom</code> entspricht dabei in der Regel der Wahl, wenn nur eine statische Abbildung für einen Zeitpunkt erstellt würde.</p>
+<hr />
+<div id="benötigte-pakete" class="section level3">
+<h3>Benötigte Pakete</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(gganimate)</code></pre></div>
 <hr />
 </div>
-<div id="r-studio-shortcuts" class="section level2">
-<h2>R-Studio Shortcuts</h2>
-<p>In R-Studio gibt es eine ganze Reihe an Shortcuts, die das Coden deutlich vereinfachen und beschleunigen können. Eine relativ umfrangreiche Übersicht gibt es <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">hier</a>. Folgende Shortcuts sind unserer Meinung nach unerlässlich für den alltäglichen Gebrauch von R-Studio. Diese Auswahl kann aber nach Belieben erweitert werden.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Beschreibung</th>
-<th align="left">Shortcut (Windows)</th>
-<th align="left">Shortcut (Mac)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Bewegen des Cursors zur Konsole</td>
-<td align="left">Ctrl+2</td>
-<td align="left">Ctrl+2</td>
-</tr>
-<tr class="even">
-<td align="left">Leeren der Konsole</td>
-<td align="left">Ctrl+L</td>
-<td align="left">Ctrl+L</td>
-</tr>
-<tr class="odd">
-<td align="left">Abbrechen des momentan ausge-</td>
-<td align="left">Esc</td>
-<td align="left">Esc</td>
-</tr>
-<tr class="even">
-<td align="left">führten Befehls</td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left">Neues Skript</td>
-<td align="left">Ctrl+Shift+N</td>
-<td align="left">Cmd+Shift+N</td>
-</tr>
-<tr class="even">
-<td align="left">Speichern des aktiven Dokuments</td>
-<td align="left">Ctrl+S</td>
-<td align="left">Ctrl+S</td>
-</tr>
-<tr class="odd">
-<td align="left">Assignment Operator</td>
-<td align="left">Alt+-</td>
-<td align="left">Option+-</td>
-</tr>
-<tr class="even">
-<td align="left">Pipe Operator</td>
-<td align="left">Ctrl+Shift+M</td>
-<td align="left">Cmd+Shift+M</td>
-</tr>
-<tr class="odd">
-<td align="left">Autocompletion</td>
-<td align="left">Tab</td>
-<td align="left">Tab</td>
-</tr>
-<tr class="even">
-<td align="left">Shortcut Übersicht</td>
-<td align="left">Alt+Shift+K</td>
-<td align="left">Option+Shift+K</td>
-</tr>
-<tr class="odd">
-<td align="left">Neustart der R Session</td>
-<td align="left">Ctrl+Shift+F10</td>
-<td align="left">Ctrl+Shift+F10</td>
-</tr>
-</tbody>
-</table>
-<hr />
+<div id="daten-laden" class="section level3">
+<h3>Daten laden</h3>
 </div>
-</div>
-<div id="erstellung-von-projekten" class="section level1">
-<h1>Erstellung von Projekten</h1>
-<p>Ein allgemeine Empfehlung besteht in der Erstellung eines neuen Projektes für jedes Analysvorhaben. Projekte bieten die Möglichkeit, alle wichtigen Dateien, Skripte und Ergebnisse an einem Ort zu organisieren. Der wichtigste Vorteils eines R-Studio-Projekts besteht aber darin, dass die automatisch erstellte .RProj-Datei den relativen Dateipfad festsetzt, von der aus alle Dateien abgerufen werden können.</p>
-<p>Generell kann das Working Directory auch durch <code>setwd()</code> festgelet werden.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&#39;C:/Users/amertens/IW-R-Kurs/)</span></code></pre></div>
-<p>Dies hat den Nachteil, dass so ein absoulter Dateiffad festegesetzt wird. Verschiebt man den Ordner, kann dieser Dateipfad schnell ungeültig werden. Noch wichtiger ist allerdings der Umstand, dass bei Teilen des Ordners oder bei kollaborativem Arbeiten an einem Projekt niemand außer dem Autor des Skripts den korrekten Pfad gespeichert hat. Deshalb gilt: wer seinem zukünftigen Ich und anderen einen Gefallen tun will, nutzt R-Studio Projekte.</p>
-<p>Projekte können unter <code>File &gt; New Project</code> erstellt werden.</p>
-<center>
-<div class="figure">
-<img src="images/einführung_3_project.png" style="width:50.0%" />
-
-</div>
-</center>
-<p>Im dann erscheinenden Fenster besteht die Möglichkeit, für ein Projekt einen neuen Ordner anzulegen, einen schon bestehnden Ordner zu verwenden oder ein Projekt mit Versionskontrolle (z.B. git zu benutzen). Generell empfiehlt sich hier zunächst, einen neuen Ordner für jedes Projekt anzulegen.</p>
-<center>
-<div class="figure">
-<img src="images/einführung_4_project.png" style="width:50.0%" />
-
-</div>
-</center>
-<p>Im nächsten Fenster wählt man noch einmal die Option 'New Project'. Hier bestehen zudem noch die Option ein neues R-Paket oder eine Shiny App zu erstellen.</p>
-<center>
-<div class="figure">
-<img src="images/einführung_5_project.png" style="width:50.0%" />
-
-</div>
-</center>
-<p>Im letzten Schritt gibt man den Namen des Ordners / des Projektes sowie den Pfad des Ordners an. Arbeitet man mit Versionskontrolle, besteht hier zudem die Möglichkeit, das Projekte bzw. den Ordner direkt mit git zu initialisieren.</p>
-<p>Im nächsten Kapitel sollen die Vorteile von R-Studio Projekten anhand von Beispielen deutlich gemacht werden.</p>
-<hr />
-</div>
-<div id="weiterführende-informationen" class="section level1">
-<h1>Weiterführende Informationen</h1>
-<p>Hier werden eine Reihe von Links mit weiterführenden Informationen zu RStudio-Projekten aufgeführt. Wenn man plant, R und Rstudio häufiger zu nutzen, macht es Sinn, sich vor allem am Anfang mit den Grundlagen vernünftiger Projekt- und Ordnerverwaltung auseinander zu setzten. Einmal erlernte suboptimale Vorgehensweise sind später oft schwieriger zu korrigieren. Die folgenden Links können dabei helfen:</p>
-<ul>
-<li><p><a href="https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/">Chris von Csefalvay - Structuring R Projects</a></p></li>
-<li><p><a href="https://www.r-bloggers.com/2020/01/rstudio-projects-and-working-directories-a-beginners-guide/">Martin Chan - RStudio Projects and Working Directories - A Beginners Guide</a></p></li>
-<li><p><a href="https://r4ds.had.co.nz/workflow-projects.html">R4DS - Workflow: projects</a></p></li>
-</ul>
 </div>
 
 

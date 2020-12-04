@@ -1,5 +1,5 @@
 ---
-title: "Interaktive Abbildungen und Animationen"
+title: "Interaktive Abbildungen"
 output:
   html_document:
     toc: true

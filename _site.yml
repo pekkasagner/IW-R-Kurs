@@ -17,7 +17,15 @@ navbar:
     - text: "Karten und Geodaten"
       href: Karten.html 
     - text: "Animationen und interaktive Abbildungen"
-      href: Interaktive_Abbildungen.html 
+      menu:
+      - text: "Animationen"
+        href: Animationen.html
+      - text: "Interaktive Abbildungen"
+        href: Interaktive_Abbildungen.html 
     - text: "Links"
       href: Links.html
 output_dir: "docs"
+output:
+  html_document:
+    theme: yeti
+    highlight: tango
