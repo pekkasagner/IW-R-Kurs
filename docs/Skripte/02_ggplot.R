@@ -114,7 +114,18 @@ data %>%
 
 
 
-
+data %>% 
+  filter(!is.na(Wahlbeteiligung)) %>% 
+  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote)) + 
+  geom_point() +
+#  scale_color_viridis_c(direction = -1) +
+  facet_wrap(~Jahr) +
+  labs(title = "Verhältnis von Wahlbeteiligung, Arbeitslosenquote und Durchschnittsalter",
+       subtitle = "Deutsche Landkreise und kreisfreie Städte (1998-2017)",
+       x = "\nWahlbeteiligung",
+       y = "Arbeitslosenquote\n") +
+  theme_minimal() +
+  theme(plot.title.position = 'plot')
 
 
 # aesthetics size

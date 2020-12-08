@@ -367,7 +367,7 @@ data %>%
 
 Zu viel Text gleichzeitig darzustellen ist allerdings nicht immer sinnvoll, da es so schnell unübersichtlich wird. Hier macht es meist mehr Sinn, Textelemente selektiver zu nutzen. Im Beispiel unten werden die fünf Städte mit dem höchsten BIP pro Kopf hervorgehoben und mit einem Label namentlich genannt.
 
-Hier lassen sich auch die verschiedenen Ebenen von <code>ggplot2</code> noch einmal verdeutlichen, die übereinander gelegt werden. Hier werden zunächst alle Städte und Landkreise in grau (<code>"grey80"</code) geplottet, um dann mit <code>subset</code> ein Subset der Daten (solche Beobachtanugen mit einem BIP größer 92.5) farbig darüber zu legen. 
+Hier lassen sich auch die verschiedenen Ebenen von <code>ggplot2</code> noch einmal verdeutlichen, die übereinander gelegt werden. Hier werden zunächst alle Städte und Landkreise in grau (<code>"grey80"</code>) geplottet, um dann mit <code>subset</code> ein Subset der Daten (solche Beobachtanugen mit einem BIP größer 92.5) farbig darüber zu legen. 
 
 Der Befehl <code>geom_text_repel()</code> aus der <code>ggrepel</code> Bibilothek plottet dann die Label für dieses Subset. Durch den Beisatz "repel" werden die Label hier so dargestellt, dass sie nicht den eigentlichen Punkt überlagern. 
 
@@ -392,5 +392,53 @@ data %>%
 ```
 
 ## Facets
+
+Oft gelingt es nicht, die gewünschten Informationen in einen einzelnen Plot 
+unterzubringen. Hier bietet es sich an, Multi-Panel Plots zu erstellen. Hierfür
+gibt es mehere Möglichkeiten, an dieser Stelle soll der <code>facet_wrap()</code>
+diskutiert werden. In diesem Befehl können mit einem Tilde (<code>~</code>) die 
+jeweiligen Variablen übergeben werden, die in verschiedenen Panels innerhalb
+eines Plots dargestellt werden sollen.
+
+Im folgenden Beispiel wird die Wahlbeteiligung so nicht nur für ein Jahr 
+dargestellt, sondern für alle im Datensatz verfügbaren Wahljahre. Mit dem Befehl
+<code>facet_wrap(~Jahr)</code> wird also für jedes Wahljahr ein eigenes Panel
+erzeugt.
+
+```{r, fig.align="center", out.width = "75%"}
+data %>% 
+  filter(!is.na(Wahlbeteiligung)) %>% 
+  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote)) + 
+  geom_point() +
+  facet_wrap(~Jahr) +
+  labs(title = "Verhältnis von Wahlbeteiligung, Arbeitslosenquote und Durchschnittsalter",
+       subtitle = "Deutsche Landkreise und kreisfreie Städte (1998-2017)",
+       x = "\nWahlbeteiligung",
+       y = "Arbeitslosenquote\n") +
+  theme_minimal() +
+  theme(plot.title.position = 'plot')
+```
+
+Auch hier können wieder weitere Aestheitcs angepasst werden. Um die Grafik vom
+Anfang zu erzeugen, wird zusätzlich noch das Durchschnittsalter als Farbe 
+übergeben. Der Befehel <code>scale_color_viridis_c()</code> gibt eine 
+Farbpalette an, mit welcher die Punkte je nach Wert gefüllt werden sollen.
+
+
+```{r, , fig.align="center", out.width = "75%"}
+data %>% 
+  filter(!is.na(Wahlbeteiligung)) %>% 
+  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote,
+             col = Durchschnittsalter)) + 
+  geom_point() +
+  scale_color_viridis_c(direction = -1) +
+  facet_wrap(~Jahr) +
+  labs(title = "Verhältnis von Wahlbeteiligung, Arbeitslosenquote und Durchschnittsalter",
+       subtitle = "Deutsche Landkreise und kreisfreie Städte (1998-2017)",
+       x = "\nWahlbeteiligung",
+       y = "Arbeitslosenquote\n") +
+  theme_minimal() +
+  theme(plot.title.position = 'plot')
+```
 
 ## Speichern von Grafiken
