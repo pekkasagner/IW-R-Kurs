@@ -474,6 +474,7 @@ div.tocify {
 
 </div>
 <p>Die Grundidee bei der Erstellung von Animationen ist die, dass für jeden Animationszustand, zum Beispiel Zeitpunkt, eine eigene Abbildung erstellt wird. Grundvoraussetzung dafür ist, lediglich ein sauberes Datenformat. Soll beispielsweise der Zusammenhang von BIP pro Kopf und Arbeitslosenquote im Zeitverlauf für verschiedene Länder dargestellt werden braucht es genau vier Spalten: (1) BIP pro Kopf (2) Arbeitslosenquote (3) Jahr &lt;-- <em>Animationszustand</em> (4) Land.</p>
+<p>Das Paket <code>gganimate</code> übernimmt das (fast) alles.</p>
 <p>Die Wahl des <code>geom</code> entspricht dabei in der Regel der Wahl, wenn nur eine statische Abbildung für einen Zeitpunkt erstellt würde.</p>
 <hr />
 <div id="benötigte-pakete" class="section level3">
@@ -484,6 +485,49 @@ div.tocify {
 </div>
 <div id="daten-laden" class="section level3">
 <h3>Daten laden</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
+(Landkreise_merged &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;daten_beispiele/Landkreise_merged.csv&quot;</span>)
+)</code></pre></div>
+<pre><code>## # A tibble: 9,223 x 9
+##    Kennziffer Raumeinheit Aggregat  Jahr Arbeitslosenquo~ Wahlbeteiligung
+##    &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;    &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+##  1 01001      Flensburg,~ krsfr. ~  1998             14.6            75.8
+##  2 01001      Flensburg,~ krsfr. ~  1999             13              NA  
+##  3 01001      Flensburg,~ krsfr. ~  2000             11.8            NA  
+##  4 01001      Flensburg,~ krsfr. ~  2001             12.1            NA  
+##  5 01001      Flensburg,~ krsfr. ~  2002             12.1            73.9
+##  6 01001      Flensburg,~ krsfr. ~  2003             13.7            NA  
+##  7 01001      Flensburg,~ krsfr. ~  2004             14              NA  
+##  8 01001      Flensburg,~ krsfr. ~  2005             18.3            72  
+##  9 01001      Flensburg,~ krsfr. ~  2006             15.4            NA  
+## 10 01001      Flensburg,~ krsfr. ~  2007             12.5            NA  
+## # ... with 9,213 more rows, and 3 more variables: Durchschnittsalter &lt;dbl&gt;,
+## #   BIP &lt;dbl&gt;, Stadt_Land &lt;dbl&gt;</code></pre>
+<p>Wir animieren die Entwicklung der Beziehung zwischen Arbeitslosenquote und BIP über die Zeit in den 401 Kreisen. Eigentlich reihen wir also die gleiche Abbildung für verschiedene Jahre hintereinander. Statisch also:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Jahr)</code></pre></div>
+<p><img src="Animationen_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>In der Minimalversion müssen wir nur eine Zeile ändern. In <code>transition_states</code> wird der <em>Animationszustand</em> eingefügt, in unserem Fall die Beobachtungsjahre.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) </code></pre></div>
+<p><img src="Animationen_files/figure-html/unnamed-chunk-4-1.gif" /><!-- --></p>
+<p>AHA! Es bewegt sich was! Wir wissen allerdings nicht wirklich, was sich tut. Um besser zu verstehen, was die verschiedenen Zustände darstellen, können wir <bold>dynamische labels</bold> verwenden.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) </code></pre></div>
+<p><img src="Animationen_files/figure-html/unnamed-chunk-5-1.gif" /><!-- --></p>
 </div>
 </div>
 

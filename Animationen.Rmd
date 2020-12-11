@@ -41,8 +41,9 @@ Wie bei der Visualisierung statischer Abbildungen, setzt auch bei Animationen le
 
 Die Grundidee bei der Erstellung von Animationen ist die, dass für jeden Animationszustand, zum Beispiel Zeitpunkt, eine eigene Abbildung erstellt wird. Grundvoraussetzung dafür ist, lediglich ein sauberes Datenformat. Soll beispielsweise der Zusammenhang von BIP pro Kopf und Arbeitslosenquote im Zeitverlauf für verschiedene Länder dargestellt werden braucht es genau vier Spalten: (1) BIP pro Kopf (2) Arbeitslosenquote (3) Jahr <-- *Animationszustand* (4) Land.
 
-Die Wahl des <code>geom</code> entspricht dabei in der Regel der Wahl, wenn nur eine statische Abbildung für einen Zeitpunkt erstellt würde.
+Das Paket <code>gganimate</code> übernimmt das (fast) alles.
 
+Die Wahl des <code>geom</code> entspricht dabei in der Regel der Wahl, wenn nur eine statische Abbildung für einen Zeitpunkt erstellt würde.
 
 ----
 
@@ -59,6 +60,43 @@ library(gganimate)
 ### Daten laden
 
 ```{r}
-
+library(readr)
+(Landkreise_merged <- read_csv("daten_beispiele/Landkreise_merged.csv")
+)
 ```
+
+Wir animieren die Entwicklung der Beziehung zwischen Arbeitslosenquote und BIP über die Zeit in den 401 Kreisen. Eigentlich reihen wir also die gleiche Abbildung für verschiedene Jahre hintereinander. Statisch also:
+
+```{r}
+Landkreise_merged %>% 
+  filter(!is.na(BIP)) %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  ggplot(aes(x = BIP, y = Arbeitslosenquote)) +
+  geom_point() +
+  facet_wrap(~Jahr)
+```
+
+In der Minimalversion müssen wir nur eine Zeile ändern. In <code>transition_states</code> wird der *Animationszustand* eingefügt, in unserem Fall die Beobachtungsjahre.
+
+```{r}
+Landkreise_merged %>% 
+  filter(!is.na(BIP)) %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  ggplot(aes(x = BIP, y = Arbeitslosenquote)) +
+  geom_point() +
+  transition_states(states = Jahr) 
+```
+
+AHA! Es bewegt sich was! Wir wissen allerdings nicht wirklich, was sich tut. Um besser zu verstehen, was die verschiedenen Zustände darstellen, können wir <bold>dynamische labels</bold> verwenden.
+
+```{r}
+Landkreise_merged %>% 
+  filter(!is.na(BIP)) %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  ggplot(aes(x = BIP, y = Arbeitslosenquote)) +
+  geom_point() +
+  transition_states(states = Jahr) +
+  labs(subtitle = "Jahr: {closest_state}") 
+```
+
 
