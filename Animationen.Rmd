@@ -76,6 +76,8 @@ Landkreise_merged %>%
   facet_wrap(~Jahr)
 ```
 
+<code>transition_states(</code>)
+
 In der Minimalversion müssen wir nur eine Zeile ändern. In <code>transition_states</code> wird der *Animationszustand* eingefügt, in unserem Fall die Beobachtungsjahre.
 
 ```{r}
@@ -87,7 +89,7 @@ Landkreise_merged %>%
   transition_states(states = Jahr) 
 ```
 
-AHA! Es bewegt sich was! Wir wissen allerdings nicht wirklich, was sich tut. Um besser zu verstehen, was die verschiedenen Zustände darstellen, können wir <bold>dynamische labels</bold> verwenden.
+AHA! Es bewegt sich was! Wir wissen allerdings nicht wirklich, was sich tut. Um besser zu verstehen, was die verschiedenen Zustände darstellen, können wir dynamische Labels verwenden. Innerhalb der geschweiften Klammern wird dann der jeweilige *Animationszustand* angezeigt. <code>{closest_state}</code> kann zum Beispiel in die (Unter)überschrift einer Abbildung eingefügt werden.
 
 ```{r}
 Landkreise_merged %>% 
@@ -96,7 +98,33 @@ Landkreise_merged %>%
   ggplot(aes(x = BIP, y = Arbeitslosenquote)) +
   geom_point() +
   transition_states(states = Jahr) +
-  labs(subtitle = "Jahr: {closest_state}") 
+  labs(subtitle = "Jahr: {closest_state}") #<--nimmt Werte aus states-Argument vom transition_states()
 ```
 
+Das schöne an <code>gganimate</code> ist es, dass die <code>ggplot</code> weitestgehend übernommen werden kann.
+
+# ```{r}
+# Landkreise_merged %>% 
+#   filter(!is.na(BIP)) %>% 
+#   filter(!is.na(Arbeitslosenquote)) %>% 
+#   ggplot(aes(x = BIP, y = Arbeitslosenquote, color = Aggregat)) +
+#   geom_point() +
+#   facet_wrap(~Aggregat) +
+#   transition_states(states = Jahr) +
+#   labs(subtitle = "Jahr: {closest_state}") #<--nimmt Werte aus states-Argument vom transition_states()
+# ```
+
+Die Übergänge sind noch etwas zittrig. Die Übergangszeiten lassen sich als Argumente von <code>transtion_states()</code> anpassen. <code>transtion_length</code> gibt die relative Zeit der Animation an, die für Übergänge verwendet werden soll und <code>transtion_lenth</code> die Zeit, die für die Zustände verwendet wird.
+
+```{r}
+Landkreise_merged %>% 
+  filter(!is.na(BIP)) %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  ggplot(aes(x = BIP, y = Arbeitslosenquote)) +
+  geom_point() +
+  transition_states(states = Jahr,
+                    transition_length = 9, 
+                    state_length = 1) +
+  labs(subtitle = "Jahr: {closest_state}") #<--nimmt Werte aus states-Argument vom transition_states()
+```
 

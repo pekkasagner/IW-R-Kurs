@@ -511,6 +511,7 @@ div.tocify {
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Jahr)</code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><code>transition_states(</code>)</p>
 <p>In der Minimalversion müssen wir nur eine Zeile ändern. In <code>transition_states</code> wird der <em>Animationszustand</em> eingefügt, in unserem Fall die Beobachtungsjahre.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -519,16 +520,31 @@ div.tocify {
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) </code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-4-1.gif" /><!-- --></p>
-<p>AHA! Es bewegt sich was! Wir wissen allerdings nicht wirklich, was sich tut. Um besser zu verstehen, was die verschiedenen Zustände darstellen, können wir <bold>dynamische labels</bold> verwenden.</p>
+<p>AHA! Es bewegt sich was! Wir wissen allerdings nicht wirklich, was sich tut. Um besser zu verstehen, was die verschiedenen Zustände darstellen, können wir dynamische Labels verwenden. Innerhalb der geschweiften Klammern wird dann der jeweilige <em>Animationszustand</em> angezeigt. <code>{closest_state}</code> kann zum Beispiel in die (Unter)überschrift einer Abbildung eingefügt werden.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) </code></pre></div>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-5-1.gif" /><!-- --></p>
+<p>Das schöne an <code>gganimate</code> ist es, dass die <code>ggplot</code> weitestgehend übernommen werden kann.</p>
 </div>
+</div>
+<div id="r-landkreise_merged-filteris.nabip-filteris.naarbeitslosenquote-ggplotaesx-bip-y-arbeitslosenquote-color-aggregat-geom_point-facet_wrapaggregat-transition_statesstates-jahr-labssubtitle-jahr-closest_state---nimmt-werte-aus-states-argument-vom-transition_states" class="section level1">
+<h1><code>{r} # Landkreise_merged %&gt;%  #   filter(!is.na(BIP)) %&gt;%  #   filter(!is.na(Arbeitslosenquote)) %&gt;%  #   ggplot(aes(x = BIP, y = Arbeitslosenquote, color = Aggregat)) + #   geom_point() + #   facet_wrap(~Aggregat) + #   transition_states(states = Jahr) + #   labs(subtitle = &quot;Jahr: {closest_state}&quot;) #&lt;--nimmt Werte aus states-Argument vom transition_states() #</code></h1>
+<p>Die Übergänge sind noch etwas zittrig. Die Übergangszeiten lassen sich als Argumente von <code>transtion_states()</code> anpassen. <code>transtion_length</code> gibt die relative Zeit der Animation an, die für Übergänge verwendet werden soll und <code>transtion_lenth</code> die Zeit, die für die Zustände verwendet wird.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr,
+                    <span class="dt">transition_length =</span> <span class="dv">9</span>, 
+                    <span class="dt">state_length =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></code></pre></div>
+<p><img src="Animationen_files/figure-html/unnamed-chunk-6-1.gif" /><!-- --></p>
 </div>
 
 
