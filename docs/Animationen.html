@@ -605,11 +605,9 @@ div.tocify {
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">transition_reveal</span>(<span class="dt">along =</span> Jahr) </code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-10-1.gif" /><!-- --></p>
-<ul>
-<li><ol start="3" style="list-style-type: decimal">
-<li>Unterschiede zwischen Gruppen mit <code>transition_filter()</code></li>
-</ol></li>
-</ul>
+</div>
+<div id="unterschiede-zwischen-gruppen-mit-transition_filter" class="section level1">
+<h1>(3) Unterschiede zwischen Gruppen mit <code>transition_filter()</code></h1>
 <p><code>transition_filter()</code> lässt uns dynamische Übergänge zwischen Gruppen darstellen. Auch hier können wir wieder dynamische Labels nutzen, um Überblick über die dargestellten Gruppen zu behalten. <code>{closest_filter}</code> übernimmt die Gruppen, die wir in <code>transition_filter()</code> definieren.</p>
 <p>Im Folgenden stellen wir den Zusammenhang zwischen Durchschnittsalter und Arbeitslosenquote im Jahr 2017 entlang dreier Gruppen dar. Die Gruppen ergeben sich aus der Wahlbeteiligung.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
@@ -637,7 +635,7 @@ div.tocify {
                     <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter() </span>
 <span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">100</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span>
-<span class="st">  </span><span class="kw">exit_fly</span>( <span class="dt">x_loc =</span> <span class="dv">100</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></code></pre></div>
+<span class="st">  </span><span class="kw">exit_fly</span>(<span class="dt">x_loc =</span> <span class="dv">100</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-12-1.gif" /><!-- --></p>
 </div>
 </div>
@@ -655,7 +653,7 @@ div.tocify {
 <span class="st">    </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter() </span>
 <span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span>
 <span class="st">  </span><span class="kw">exit_fly</span>(<span class="dt">x_loc =</span> <span class="dv">60</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></code></pre></div>
-<p>Danach passen wir noch einige Details der Animation an. Mit <code>nframes</code> bestimmen wir die Gesamtzahl der Frames und mit <code>fps</code> die Frames pro Sekunde. Aus der Kombination der beiden ergibt sich die Gesamtdauer der Animation</p>
+<p>Danach passen wir noch einige Details der Animation an. Mit <code>nframes</code> bestimmen wir die Gesamtzahl der Frames und mit <code>fps</code> die Frames pro Sekunde. Aus der Kombination der beiden ergibt sich die Gesamtdauer der Animation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># adjust the animation settings </span>
 <span class="kw">animate</span>(super_fancy_animation, 
         <span class="dt">width =</span> <span class="dv">600</span>, <span class="co"># 600px breit</span>

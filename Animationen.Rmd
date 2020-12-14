@@ -188,7 +188,7 @@ Landkreise_merged %>%
   transition_reveal(along = Jahr) 
 ```
 
-* (3) Unterschiede zwischen Gruppen mit <code>transition_filter()</code>
+# (3) Unterschiede zwischen Gruppen mit <code>transition_filter()</code>
 
 <code>transition_filter()</code> lässt uns dynamische Übergänge zwischen Gruppen darstellen. Auch hier können wir wieder dynamische Labels nutzen, um Überblick über die dargestellten Gruppen zu behalten. <code>{closest_filter}</code> übernimmt die Gruppen, die wir in <code>transition_filter()</code> definieren.
 
@@ -248,7 +248,7 @@ super_fancy_animation <- Landkreise_merged %>%
   exit_fly(x_loc = 60, y_loc = 0) # Verschwinden: rausfliegen nach rechts unten
 ```
 
-Danach passen wir noch einige Details der Animation an. Mit <code>nframes</code> bestimmen wir die Gesamtzahl der Frames und mit <code>fps</code> die Frames pro Sekunde. Aus der Kombination der beiden ergibt sich die Gesamtdauer der Animation
+Danach passen wir noch einige Details der Animation an. Mit <code>nframes</code> bestimmen wir die Gesamtzahl der Frames und mit <code>fps</code> die Frames pro Sekunde. Aus der Kombination der beiden ergibt sich die Gesamtdauer der Animation.
 
 ```{r, eval = FALSE}
 # adjust the animation settings 
