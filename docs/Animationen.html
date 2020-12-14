@@ -515,8 +515,6 @@ div.tocify {
 </div>
 <div id="zustände-mit-transition_states" class="section level1">
 <h1>(1) <em>Zustände</em> mit <code>transition_states()</code></h1>
-<div id="minimalbeispiel" class="section level2">
-<h2>Minimalbeispiel</h2>
 <p>In der Minimalversion müssen wir nur eine Zeile ändern. In <code>transition_states</code> wird der <em>Animationszustand</em> eingefügt, in unserem Fall die Beobachtungsjahre.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -525,7 +523,6 @@ div.tocify {
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) </code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-4-1.gif" /><!-- --></p>
-</div>
 <div id="dynamische-beschriftungen-mit-closest_state" class="section level2">
 <h2>Dynamische Beschriftungen mit <code>{closest_state}</code></h2>
 <p>AHA! Es bewegt sich was! Wir wissen allerdings nicht wirklich, was sich tut. Um besser zu verstehen, was die verschiedenen Zustände darstellen, können wir dynamische Labels verwenden. Innerhalb der geschweiften Klammern wird dann der jeweilige <em>Animationszustand</em> angezeigt. <code>{closest_state}</code> kann zum Beispiel in die (Unter)überschrift einer Abbildung eingefügt werden. Das Schöne an <code>gganimate</code> ist es, dass die <code>ggplot</code> weitestgehend übernommen werden kann.</p>
@@ -562,10 +559,111 @@ div.tocify {
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ease_aes</span>(<span class="st">&quot;elastic-in-out&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ease_aes</span>(<span class="st">&quot;elastic-in&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># hüpfgummiartiges Verhalten</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-7-1.gif" /><!-- --></p>
 </div>
+<div id="vorherige-datenpunkte-anzeigen-mit-shadow_" class="section level2">
+<h2>Vorherige Datenpunkte anzeigen mit <code>shadow_</code></h2>
+<p>Um die Übergänge zwischen den Zuständen für die einzelnen Beobachtungen noch deutlicher zu machen, kann eine Art <em>Spur</em> vom alten <em>Animationszustand</em> zum neuen gezeichnet werden, die mit der Zeit verlischt.</p>
+<p>Neben der Standardoption (kein <em>Spur</em>) gibt es drei <code>shadow_</code>-Optionen:</p>
+<ul>
+<li><code>shadow_null()</code>: Standard, keine Spur.</li>
+<li><code>shadow_mark()</code>: Zeigt einzelne Animationszustände. Sowohl vergangene als auch zukünftige Zustände können angezeigt werden.</li>
+<li><code>shadow_trail()</code>: Zeigt die Spur zwischen den Animationszuständen brotkrumenartig an. Der Weg wird durch einzelne Frames nachgezeichnet.</li>
+<li><code>shadow_wake()</code>: Die Punkte ziehen auf dem Weg zwischen den Animationszustände eine Heckwelle hinter sich her. Sieht am ehesten aus wie ein Schatten.</li>
+</ul>
+<p>Die verschiedenen <code>shadow_</code>-Optionen enthalten wiederum eine Vielzahl an Anpassungsmöglichkeiten.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">2017</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Start und Endjahr filtern</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span>
+<span class="st">  </span><span class="kw">shadow_wake</span>(<span class="dt">wake_length =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span><span class="co"># &quot;Schatten&quot;&quot; zwischen Animationszuständen</span>
+<span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></code></pre></div>
+<p><img src="Animationen_files/figure-html/unnamed-chunk-8-1.gif" /><!-- --></p>
+</div>
+</div>
+<div id="datenpunkte-aufdecken-mit-transition_reveal" class="section level1">
+<h1>(2) Datenpunkte <em>Aufdecken</em> mit <code>transition_reveal()</code></h1>
+<p>Mit <code>transition_reveal()</code> lassen sich Datenpunkte über die Zeit aufdecken und somit klassiche Liniendiagramme mit der Zeit auf der x-Achse animieren. Wir zeigen das mit der Entwicklung der Arbeitslosenquote in den sieben größten deutschen Städten. Statisch:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Berlin, Stadt&quot;</span>, <span class="st">&quot;Stuttgart, Stadt&quot;</span>, <span class="st">&quot;Düsseldorf, Stadt&quot;</span>, <span class="st">&quot;Hamburg, Stadt&quot;</span>, <span class="st">&quot;Frankfurt am Main, Stadt&quot;</span>, <span class="st">&quot;München, Stadt&quot;</span>, <span class="st">&quot;Köln, Stadt&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Raumeinheit =</span> <span class="kw">gsub</span>(<span class="st">&quot;(.*),.*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Raumeinheit)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#Text ab Komma entfernen, optional</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Raumeinheit)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() </code></pre></div>
+<p><img src="Animationen_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Um die Werte nach und nach aufzudecken braucht es nur einer zusätzlichen Zeile. Hier wird lediglich <em>Jahr</em> als Option angegeben, entlang derer die Datenpunkte aufgedeckt werden sollen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Berlin, Stadt&quot;</span>, <span class="st">&quot;Stuttgart, Stadt&quot;</span>, <span class="st">&quot;Düsseldorf, Stadt&quot;</span>, <span class="st">&quot;Hamburg, Stadt&quot;</span>, <span class="st">&quot;Frankfurt am Main, Stadt&quot;</span>, <span class="st">&quot;München, Stadt&quot;</span>, <span class="st">&quot;Köln, Stadt&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Raumeinheit =</span> <span class="kw">gsub</span>(<span class="st">&quot;(.*),.*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Raumeinheit)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#Text ab Komma entfernen, optional</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Raumeinheit)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">transition_reveal</span>(<span class="dt">along =</span> Jahr) </code></pre></div>
+<p><img src="Animationen_files/figure-html/unnamed-chunk-10-1.gif" /><!-- --></p>
+<ul>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Unterschiede zwischen Gruppen mit <code>transition_filter()</code></li>
+</ol></li>
+</ul>
+<p><code>transition_filter()</code> lässt uns dynamische Übergänge zwischen Gruppen darstellen. Auch hier können wir wieder dynamische Labels nutzen, um Überblick über die dargestellten Gruppen zu behalten. <code>{closest_filter}</code> übernimmt die Gruppen, die wir in <code>transition_filter()</code> definieren.</p>
+<p>Im Folgenden stellen wir den Zusammenhang zwischen Durchschnittsalter und Arbeitslosenquote im Jahr 2017 entlang dreier Gruppen dar. Die Gruppen ergeben sich aus der Wahlbeteiligung.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Jahr 2017 filtern</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Durchschnittsalter, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Wahlbeteiligung)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span><span class="st"> </span><span class="co">#ein bisschen Farbe</span>
+<span class="st">  </span><span class="kw">transition_filter</span>(<span class="st">&quot;hoher Wahlbeteilung (&gt; 75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span>,
+                    <span class="st">&quot;mittlerer Wahlbeteiligung (70-75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>Wahlbeteiligung <span class="op">&gt;=</span><span class="st"> </span><span class="dv">70</span>,
+                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter()</span></code></pre></div>
+<p><img src="Animationen_files/figure-html/unnamed-chunk-11-1.gif" /><!-- --></p>
+<div id="erscheinen-und-verschwinden-mit-enter_-und-exit_" class="section level2">
+<h2>Erscheinen und Verschwinden mit <code>enter_</code> und <code>exit_</code></h2>
+<p>Wir haben die obigen Gruppen exklusiv definiert. Kein Kreis taucht doppelt auf. In solchen Fällen bietet es sich an, diese Trennung durch Übergänge klarer zu machen.</p>
+<p>Das Erscheinen und Verschwinden wird mit den <code>enter_</code> und <code>exit_</code>-Varianten definiert. Beispiele sind <code>enter_grow()</code> oder <code>enter_recolor()</code> und die jeweiligen Partnerversionen für das Verschwinden.</p>
+<p>Die verschiedenen Optionen lassen sich fast beliebig kombinieren.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Jahr 2017 filtern</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Durchschnittsalter, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Wahlbeteiligung)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span><span class="st"> </span><span class="co">#ein bisschen Farbe</span>
+<span class="st">  </span><span class="kw">transition_filter</span>(<span class="st">&quot;hoher Wahlbeteilung (&gt; 75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span>,
+                    <span class="st">&quot;mittlerer Wahlbeteiligung (70-75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>Wahlbeteiligung <span class="op">&gt;=</span><span class="st"> </span><span class="dv">70</span>,
+                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter() </span>
+<span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">100</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span>
+<span class="st">  </span><span class="kw">exit_fly</span>( <span class="dt">x_loc =</span> <span class="dv">100</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></code></pre></div>
+<p><img src="Animationen_files/figure-html/unnamed-chunk-12-1.gif" /><!-- --></p>
+</div>
+</div>
+<div id="speichern-einer-animation" class="section level1">
+<h1>Speichern einer Animation</h1>
+<p>Um eine Animation zu speichern, weisen wir zunächst unsere Animation einem <code>gganimate</code>-Objekt zu.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">super_fancy_animation &lt;-<span class="st"> </span>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Jahr 2017 filtern</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Durchschnittsalter, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Wahlbeteiligung)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span><span class="st"> </span><span class="co">#ein bisschen Farbe</span>
+<span class="st">  </span><span class="kw">transition_filter</span>(<span class="st">&quot;hoher Wahlbeteilung (&gt; 75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span>,
+                    <span class="st">&quot;mittlerer Wahlbeteiligung (70-75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>Wahlbeteiligung <span class="op">&gt;=</span><span class="st"> </span><span class="dv">70</span>,
+                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter() </span>
+<span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span>
+<span class="st">  </span><span class="kw">exit_fly</span>(<span class="dt">x_loc =</span> <span class="dv">60</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></code></pre></div>
+<p>Danach passen wir noch einige Details der Animation an. Mit <code>nframes</code> bestimmen wir die Gesamtzahl der Frames und mit <code>fps</code> die Frames pro Sekunde. Aus der Kombination der beiden ergibt sich die Gesamtdauer der Animation</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># adjust the animation settings </span>
+<span class="kw">animate</span>(super_fancy_animation, 
+        <span class="dt">width =</span> <span class="dv">600</span>, <span class="co"># 600px breit</span>
+        <span class="dt">height =</span> <span class="dv">400</span>, <span class="co"># 400px hoch</span>
+        <span class="dt">nframes =</span> <span class="dv">150</span>, <span class="co"># insgesamt 100 Frames</span>
+        <span class="dt">fps =</span> <span class="dv">10</span>) <span class="co"># 10 Frames pro Sekunde --&gt; Gesamte Laufzeit: 15 Sekunden</span></code></pre></div>
+<p>Mit <code>anim_save()</code> speichern wir schließlich die letzte Animation und geben der Datei einen Namen. Und dann? Ab auf Twitter &amp; Co. damit!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anim_save</span>(<span class="st">&quot;meine_super_fancy_animation.gif&quot;</span>)</code></pre></div>
 </div>
 
 

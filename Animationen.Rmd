@@ -76,9 +76,8 @@ Landkreise_merged %>%
   facet_wrap(~Jahr)
 ```
 
-# (1) *Zustände* mit <code>transition_states()</code>
 
-## Minimalbeispiel
+# (1) *Zustände* mit <code>transition_states()</code>
 
 In der Minimalversion müssen wir nur eine Zeile ändern. In <code>transition_states</code> wird der *Animationszustand* eingefügt, in unserem Fall die Beobachtungsjahre.
 
@@ -135,12 +134,134 @@ Landkreise_merged %>%
   ggplot(aes(x = BIP, y = Arbeitslosenquote)) +
   geom_point() +
   transition_states(states = Jahr) +
-  ease_aes("elastic-in-out") +
+  ease_aes("elastic-in") + # hüpfgummiartiges Verhalten
   labs(subtitle = "Jahr: {closest_state}") #<--nimmt Werte aus states-Argument vom transition_states()
 ```
 
+## Vorherige Datenpunkte anzeigen mit <code>shadow_</code>
+
+Um die Übergänge zwischen den Zuständen für die einzelnen Beobachtungen noch deutlicher zu machen, kann eine Art *Spur* vom alten *Animationszustand* zum neuen gezeichnet werden, die mit der Zeit verlischt.
+
+Neben der Standardoption (kein *Spur*) gibt es drei <code>shadow_</code>-Optionen:
+
+* <code>shadow_null()</code>: Standard, keine Spur.
+* <code>shadow_mark()</code>: Zeigt einzelne Animationszustände. Sowohl vergangene als auch zukünftige Zustände können angezeigt werden.
+* <code>shadow_trail()</code>: Zeigt die Spur zwischen den Animationszuständen brotkrumenartig an. Der Weg wird durch einzelne Frames nachgezeichnet.
+* <code>shadow_wake()</code>: Die Punkte ziehen auf dem Weg zwischen den Animationszustände eine Heckwelle hinter sich her. Sieht am ehesten aus wie ein Schatten.
+
+Die verschiedenen <code>shadow_</code>-Optionen enthalten wiederum eine Vielzahl an Anpassungsmöglichkeiten.
+
+```{r}
+Landkreise_merged %>% 
+  filter(Jahr %in% c(2000, 2017)) %>% #nur auf Start und Endjahr filtern
+  ggplot(aes(x = BIP, y = Arbeitslosenquote)) +
+  geom_point() +
+  transition_states(states = Jahr) +
+  shadow_wake(wake_length = 0.2) + # "Schatten"" zwischen Animationszuständen
+labs(subtitle = "Jahr: {closest_state}") #<--nimmt Werte aus states-Argument vom transition_states()
+```
+
+# (2) Datenpunkte *Aufdecken* mit <code>transition_reveal()</code>
+
+Mit <code>transition_reveal()</code> lassen sich Datenpunkte über die Zeit aufdecken und somit klassiche Liniendiagramme mit der Zeit auf der x-Achse animieren. Wir zeigen das mit der Entwicklung der Arbeitslosenquote in den sieben größten deutschen Städten. Statisch:
+
+```{r}
+Landkreise_merged %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  filter(Raumeinheit %in% c("Berlin, Stadt", "Stuttgart, Stadt", "Düsseldorf, Stadt", "Hamburg, Stadt", "Frankfurt am Main, Stadt", "München, Stadt", "Köln, Stadt")) %>% 
+  mutate(Raumeinheit = gsub("(.*),.*", "\\1", Raumeinheit)) %>% #Text ab Komma entfernen, optional
+  ggplot(aes(x = Jahr, y = Arbeitslosenquote, color = Raumeinheit)) +
+  geom_line() +
+  geom_point() 
+```
+
+Um die Werte nach und nach aufzudecken braucht es nur einer zusätzlichen Zeile. Hier wird lediglich *Jahr* als Option angegeben, entlang derer die Datenpunkte aufgedeckt werden sollen.
+
+```{r}
+Landkreise_merged %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  filter(Raumeinheit %in% c("Berlin, Stadt", "Stuttgart, Stadt", "Düsseldorf, Stadt", "Hamburg, Stadt", "Frankfurt am Main, Stadt", "München, Stadt", "Köln, Stadt")) %>% 
+  mutate(Raumeinheit = gsub("(.*),.*", "\\1", Raumeinheit)) %>% #Text ab Komma entfernen, optional
+  ggplot(aes(x = Jahr, y = Arbeitslosenquote, color = Raumeinheit)) +
+  geom_line() +
+  geom_point() +
+  transition_reveal(along = Jahr) 
+```
+
+* (3) Unterschiede zwischen Gruppen mit <code>transition_filter()</code>
+
+<code>transition_filter()</code> lässt uns dynamische Übergänge zwischen Gruppen darstellen. Auch hier können wir wieder dynamische Labels nutzen, um Überblick über die dargestellten Gruppen zu behalten. <code>{closest_filter}</code> übernimmt die Gruppen, die wir in <code>transition_filter()</code> definieren.
+
+Im Folgenden stellen wir den Zusammenhang zwischen Durchschnittsalter und Arbeitslosenquote im Jahr 2017 entlang dreier Gruppen dar. Die Gruppen ergeben sich aus der Wahlbeteiligung.
 
 
+```{r}
+Landkreise_merged %>% 
+  filter(Jahr == 2017) %>% #nur auf Jahr 2017 filtern
+  ggplot(aes(x = Durchschnittsalter, y = Arbeitslosenquote, color = Wahlbeteiligung)) +
+  geom_point() +
+  scale_color_viridis_c() + #ein bisschen Farbe
+  transition_filter("hoher Wahlbeteilung (> 75 %)" = Wahlbeteiligung > 75,
+                    "mittlerer Wahlbeteiligung (70-75 %)" = Wahlbeteiligung <= 75 & Wahlbeteiligung >= 70,
+                    "niedriger Wahlbeteilung (< 70 %)" = Wahlbeteiligung < 70) +
+  labs(subtitle = "Gruppe der Kreise mit {closest_filter}") #<--nimmt Werte aus states-Argument vom transition_filter()
+```
+
+## Erscheinen und Verschwinden mit <code>enter_</code> und <code>exit_</code>
+
+Wir haben die obigen Gruppen exklusiv definiert. Kein Kreis taucht doppelt auf. In solchen Fällen bietet es sich an, diese Trennung durch Übergänge klarer zu machen.
+
+Das Erscheinen und Verschwinden wird mit den <code>enter_</code> und <code>exit_</code>-Varianten definiert. Beispiele sind <code>enter_grow()</code> oder <code>enter_recolor()</code> und die jeweiligen Partnerversionen für das Verschwinden.
+
+Die verschiedenen Optionen lassen sich fast beliebig kombinieren.
+
+```{r}
+Landkreise_merged %>% 
+  filter(Jahr == 2017) %>% #nur auf Jahr 2017 filtern
+  ggplot(aes(x = Durchschnittsalter, y = Arbeitslosenquote, color = Wahlbeteiligung)) +
+  geom_point() +
+  scale_color_viridis_c() + #ein bisschen Farbe
+  transition_filter("hoher Wahlbeteilung (> 75 %)" = Wahlbeteiligung > 75,
+                    "mittlerer Wahlbeteiligung (70-75 %)" = Wahlbeteiligung <= 75 & Wahlbeteiligung >= 70,
+                    "niedriger Wahlbeteilung (< 70 %)" = Wahlbeteiligung < 70) +
+    labs(subtitle = "Gruppe der Kreise mit {closest_filter}") + #<--nimmt Werte aus states-Argument vom transition_filter() 
+  enter_fly(x_loc = 0, y_loc = 100) + # Erscheinen: einfliegen von links oben
+  exit_fly(x_loc = 100, y_loc = 0) # Verschwinden: rausfliegen nach rechts unten
+```
 
 
+# Speichern einer Animation
+
+Um eine Animation zu speichern, weisen wir zunächst unsere Animation einem <code>gganimate</code>-Objekt zu.
+
+```{r, eval = FALSE}
+super_fancy_animation <- Landkreise_merged %>% 
+  filter(Jahr == 2017) %>% #nur auf Jahr 2017 filtern
+  ggplot(aes(x = Durchschnittsalter, y = Arbeitslosenquote, color = Wahlbeteiligung)) +
+  geom_point() +
+  scale_color_viridis_c() + #ein bisschen Farbe
+  transition_filter("hoher Wahlbeteilung (> 75 %)" = Wahlbeteiligung > 75,
+                    "mittlerer Wahlbeteiligung (70-75 %)" = Wahlbeteiligung <= 75 & Wahlbeteiligung >= 70,
+                    "niedriger Wahlbeteilung (< 70 %)" = Wahlbeteiligung < 70) +
+    labs(subtitle = "Gruppe der Kreise mit {closest_filter}") + #<--nimmt Werte aus states-Argument vom transition_filter() 
+  enter_fly(x_loc = 0, y_loc = 20) + # Erscheinen: einfliegen von links oben
+  exit_fly(x_loc = 60, y_loc = 0) # Verschwinden: rausfliegen nach rechts unten
+```
+
+Danach passen wir noch einige Details der Animation an. Mit <code>nframes</code> bestimmen wir die Gesamtzahl der Frames und mit <code>fps</code> die Frames pro Sekunde. Aus der Kombination der beiden ergibt sich die Gesamtdauer der Animation
+
+```{r, eval = FALSE}
+# adjust the animation settings 
+animate(super_fancy_animation, 
+        width = 600, # 600px breit
+        height = 400, # 400px hoch
+        nframes = 150, # insgesamt 100 Frames
+        fps = 10) # 10 Frames pro Sekunde --> Gesamte Laufzeit: 15 Sekunden
+```
+
+Mit <code>anim_save()</code> speichern wir schließlich die letzte Animation und geben der Datei einen Namen. Und dann? Ab auf Twitter & Co. damit!
+
+```{r, eval = FALSE}
+anim_save("meine_super_fancy_animation.gif")
+```
 
