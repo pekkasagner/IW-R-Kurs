@@ -442,3 +442,54 @@ data %>%
 ```
 
 ## Speichern von Grafiken
+
+Mit <code>ggplot2</code> erstellte Plots können am einfachsten über die 
+<code>ggsave()</code> Funktion erstellt werden. Hierfür geht man folgendermaßen
+vor:
+
+```{r, , fig.align="center", out.width = "75%"}
+data %>% 
+  filter(!is.na(Wahlbeteiligung)) %>% 
+  ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote,
+             col = Durchschnittsalter)) + 
+  geom_point() +
+  scale_color_viridis_c(direction = -1) +
+  facet_wrap(~Jahr) +
+  labs(title = "Verhältnis von Wahlbeteiligung, Arbeitslosenquote und Durchschnittsalter",
+       subtitle = "Deutsche Landkreise und kreisfreie Städte (1998-2017)",
+       x = "\nWahlbeteiligung",
+       y = "Arbeitslosenquote\n") +
+  theme_minimal() +
+  theme(plot.title.position = 'plot')
+
+# Speichern des Plots
+ggsave("Wahlbeteiligung.pdf")
+```
+Der <code>ggsave()</code> Befehl übernimmt dabei automatisch den zuletzt 
+erzeugten Plot als Objekt. Um sicherzugehen, dass der gewünschte Plot auch 
+tatsächlich übergeben wird, kann dieser auch zunächst in einem Objekt 
+zwischengespeichert werden und dann mit 
+<code>ggsave(plot_object, "plot_name.pdf")</code> gespeichert werden. Möchte man
+den Plot in einem anderen (Datei)Format speichern, bietet <code>ggsave()</code>
+verschiedene Optionen:
+```{r, , eval=FALSE}
+# Einfaches Speichern eines Plots
+ggsave("Wahlbeteiligung.pdf")
+
+# Verändern des Dateiformats
+ggsave("Wahlbeteiligung.png")
+
+# Verändern des Formats
+ggsave("Wahlbeteiligung.png",
+       width = 200,
+       height = 120,
+       units = "mm")
+
+# Verändern der Pixeldichte
+ggsave("Wahlbeteiligung.png",
+       dpi = 300)
+
+```
+Mit RStudio lassen sich Plots alternativ auch im Plotsfenster unter "Export" 
+in einem gewünschten Dateiformat und einer gewünschten Größe exportieren. 
+Für spätere Reproduzierbarkeit sollte man diese Option aber selten nutzen. 

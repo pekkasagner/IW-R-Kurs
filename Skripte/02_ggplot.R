@@ -102,6 +102,7 @@ data %>%
 
 
 
+
 data %>% 
   filter(Jahr == 2017) %>% 
   ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote, label = Raumeinheit)) +
@@ -112,9 +113,22 @@ data %>%
        subtitle = "Kreisfreie Städte und Landkreise in Deutschland (2017)")
 
 
+ggsave(filename = "lankreise.pdf",
+       device = cairo_pdf,
+       dpi = 300)
+
+ggsave(landkreise_plot, 
+       filename = "lankreise.pdf")
+
+ggsave(landkreise_plot, 
+       filename = "lankreise.pdf",
+       dpi = 300,
+       width = 300,
+       height = 150,
+       units = "mm")
 
 
-data %>% 
+  data %>% 
   filter(!is.na(Wahlbeteiligung)) %>% 
   ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote)) + 
   geom_point() +

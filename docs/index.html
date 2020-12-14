@@ -20,6 +20,18 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 
@@ -310,10 +322,8 @@ $(document).ready(function () {
 </div>
 
 
-<div id="website-zum-iw-r-kurs" class="section level1">
-<h1>Website zum IW-R-Kurs</h1>
+<p>#Website zum IW-R-Kurs</p>
 <p>Diese Website begleitet den IW-R-Kurs. Fragen gerne an <a href="mailto:armin.mertens@iwkoeln.de?subject=%5BIW-R-Kurs%5D">Armin Mertens</a> und <a href="mailto:sagner@iwkoeln.de?subject=%5BIW-R-Kurs%5D">Pekka Sagner</a>.</p>
-</div>
 
 
 
@@ -324,7 +334,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
