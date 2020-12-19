@@ -10,9 +10,8 @@ output:
     #code_folding: hide
 ---
 
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
+knitr::opts_chunk$set(message=FALSE,warning=FALSE,cache=F)
 ```
 
 ----
@@ -53,6 +52,10 @@ Die Wahl des <code>geom</code> entspricht dabei in der Regel der Wahl, wenn nur 
 ```{r}
 library(tidyverse)
 library(gganimate)
+
+#Eventuell muss vor der Nutzung von gganimate noch das Paket gifski installiert werden
+#install.packages(gifski)
+#Siehe: https://stackoverflow.com/questions/58991580/gganimate-returns-png-files-but-no-animated-object
 ```
 
 ----

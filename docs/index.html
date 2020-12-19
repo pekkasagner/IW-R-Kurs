@@ -20,18 +20,6 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
 
 
 
@@ -270,30 +258,30 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="Ziele.html">Ziele</a>
-</li>
-<li>
-  <a href="Einführung.html">Einführung</a>
-</li>
-<li>
-  <a href="Tidyverse.html">Tidyverse</a>
-</li>
-<li>
-  <a href="ggplot.html">ggplot2</a>
-</li>
-<li>
-  <a href="Mikrodatenanalyse_Workflow.html">Mikrodatenanalyse</a>
-</li>
-<li>
-  <a href="Karten.html">Karten und Geodaten</a>
+  <a href="Before_We_get_Started.html">Vorab</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Animationen und interaktive Abbildungen
+    Kursinhalte
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Einführung.html">Einführung</a>
+    </li>
+    <li>
+      <a href="Tidyverse.html">Tidyverse</a>
+    </li>
+    <li>
+      <a href="ggplot.html">ggplot2</a>
+    </li>
+    <li>
+      <a href="Mikrodatenanalyse_Workflow.html">Mikrodatenanalyse</a>
+    </li>
+    <li>
+      <a href="Karten.html">Karten und Geodaten</a>
+    </li>
     <li>
       <a href="Animationen.html">Animationen</a>
     </li>
@@ -322,8 +310,40 @@ $(document).ready(function () {
 </div>
 
 
-<p>#Website zum IW-R-Kurs</p>
+<style type="text/css">
+.title {
+  display: none;
+}
+
+#getting-started img {
+  margin-right: 10px;
+}
+
+</style>
+<div style="padding-top: 30px;">
+<h1 id="website-zum-iw-r-kurs">Website zum IW-R-Kurs</h1>
 <p>Diese Website begleitet den IW-R-Kurs. Fragen gerne an <a href="mailto:armin.mertens@iwkoeln.de?subject=%5BIW-R-Kurs%5D">Armin Mertens</a> und <a href="mailto:sagner@iwkoeln.de?subject=%5BIW-R-Kurs%5D">Pekka Sagner</a>.</p>
+</div>
+<div class="row" style="padding-top: 30px;">
+<div class="col-sm-6">
+<h1 id="ziele-des-r-kurses-im-iw"><strong>Ziele des R-Kurses im IW</strong></h1>
+<p>Jeder Teilnehmer verfolgt sicher seine eigenen Ziele. Was die Teilnehmer aus der Kursteilnahme mitnehmen könnten:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Wie R funktioniert:</strong> R gibt es schon recht lange und basiert auf der Programmiersprache S <a href="https://www.r-project.org/about.html">(mehr)</a>. R ist eine Programmiersprache und kostenfreie Software mit dem Fokus auf statistische Berechnungen. Der Kurs gibt eine nicht-technische Einführung in die Grundstruktur. Wir arbeiten mit dem <em>tidyvese</em> <a href="https://www.tidyverse.org/">(mehr)</a>. Das tidyverse ist eine Sammlung von R-Paketen, die einer gemeinsamen Struktur und Logik folgen. Wichtiger ist: das Coding im tidyverse ist sehr intuitiv.</p></li>
+<li><p><strong>Wie R-Studio funktioniert:</strong> R-Studio ist eine Entwicklungsumgebung und grafische Benutzeroberfläche für R. Wenn R der Motor ist, dann ist R-Studio das Cockpit <a href="https://rstudio.com/">(mehr)</a>.</p></li>
+<li><p><strong>Wie die Datenanalyse funktioniert:</strong> Der Fokus des Kurses liegt zwar auf der Datenvisualisierung, um Daten jedoch visualisieren zu können, müssen wir den ein oder anderen Schritt dahin gehen. Dabei werden das Fundament für die Datenanalyse mit R erklärt.</p></li>
+<li><p><strong>Wie die Datenvisualisierung funktioniert:</strong> Mit R lassen sich schicke Abbildungen erstellen. Im Kurs wird die &quot;Grammar of Graphics (gg)&quot; genutzt, um einfache und weniger einfache Abbildungen zu erstellen <a href="https://ggplot2.tidyverse.org/">(mehr)</a>.</p></li>
+<li><p><strong>Wie Animationen funktionieren:</strong> Abbildungen sind zweidimensional: langweilig! Wir erstellen zwar keine aus dem Bildschirm springenden Abbildungen. Allerdings lassen sich Abbildungen durch Animationen eine spannende dritte Dimension geben <a href="https://gganimate.com/articles/gganimate.html">(mehr)</a>.</p></li>
+<li><p><strong>Bonus:</strong> Es gibt ein R-Paket, mit dem Grafiken im IW Corporate Design erstellen kann. Wir zeigen, was es kann und wie man es benutzt.</p></li>
+</ol>
+</div>
+<div class="col-sm-6">
+<h3 id="viel-spaß-beim-lernen">Viel Spaß beim Lernen!</h3>
+<div class="figure">
+<img src="images/Intro.gif" />
+
+</div>
+</div>
 
 
 
@@ -334,7 +354,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

@@ -4,20 +4,20 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Ziele"
-      href: Ziele.html
-    - text: "Einführung"
-      href: Einführung.html
-    - text: "Tidyverse"
-      href: Tidyverse.html
-    - text: "ggplot2"
-      href: ggplot.html
-    - text: "Mikrodatenanalyse"
-      href: Mikrodatenanalyse_Workflow.html
-    - text: "Karten und Geodaten"
-      href: Karten.html 
-    - text: "Animationen und interaktive Abbildungen"
+    - text: "Vorab"
+      href: Before_We_get_Started.html
+    - text: "Kursinhalte"
       menu:
+      - text: "Einführung"
+        href: Einführung.html
+      - text: "Tidyverse"
+        href: Tidyverse.html
+      - text: "ggplot2"
+        href: ggplot.html
+      - text: "Mikrodatenanalyse"
+        href: Mikrodatenanalyse_Workflow.html
+      - text: "Karten und Geodaten"
+        href: Karten.html 
       - text: "Animationen"
         href: Animationen.html
       - text: "Interaktive Abbildungen"
@@ -29,3 +29,4 @@ output:
   html_document:
     theme: yeti
     highlight: tango
+anchor_sections: false

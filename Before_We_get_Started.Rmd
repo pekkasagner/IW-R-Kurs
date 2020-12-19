@@ -1,0 +1,44 @@
+---
+title: "Installation und Setup von R und R-Studio"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: true
+    number_sections: false
+    toc_depth: 2
+    #code_folding: hide
+---
+
+# R installieren
+
+**R** kann hier heruntergeladen werden: [R-Project](https://cran.r-project.org)
+
+Dort einfach das Betriebssystem auswählen und die aktuelle Version herunterladen.
+
+*Falls ein IW-Laptop benutzt wird, unterstützt die IT.*
+
+# R-Studio installieren
+
+**R-Studio** kann hier heruntergeladen werden: [R-Studio](https://rstudio.com/products/rstudio/)
+
+RStudio Desktop auswählen und den Installationsanweisungen folgen.
+
+*Falls ein IW-Laptop benutzt wird, unterstützt die IT.*
+
+# Setup testen
+
+R-Studio öffnen.
+
+Kommando-Fenster (unten links) <code>1+2</code> eingeben.
+
+Im Skriptfenster <code>mean()</code> eingeben und mit dem Cursor direkt daneben die F1-Taste drücken. Unten rechts sollte sich das Hilfe-Fenster öffnen. Alternativ im Kommando-Fenster ?mean eingeben und mit Enter bestätigen.
+
+# Erste Schritte und Ressourcen
+
+Ein guter Anlauf für Tips, wie man den Einstieg in R gestalten kann finden sich hier: [Getting Started with R](https://support.rstudio.com/hc/en-us/articles/201141096-Getting-Started-with-R)
+
+
+
+
+
