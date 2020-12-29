@@ -23,45 +23,73 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 
 </style>
 <script>
@@ -469,29 +497,26 @@ div.tocify {
 <ul>
 <li>Grundidee</li>
 </ul>
-<div class="figure">
-<img src="images/Erstellung_Animationen.png" />
-
-</div>
-<p>Die Grundidee bei der Erstellung von Animationen ist die, dass für jeden Animationszustand, zum Beispiel Zeitpunkt, eine eigene Abbildung erstellt wird. Grundvoraussetzung dafür ist, lediglich ein sauberes Datenformat. Soll beispielsweise der Zusammenhang von BIP pro Kopf und Arbeitslosenquote im Zeitverlauf für verschiedene Länder dargestellt werden braucht es genau vier Spalten: (1) BIP pro Kopf (2) Arbeitslosenquote (3) Jahr &lt;-- <em>Animationszustand</em> (4) Land.</p>
+<p><img src="images/Erstellung_Animationen.png" /></p>
+<p>Die Grundidee bei der Erstellung von Animationen ist die, dass für jeden Animationszustand, zum Beispiel Zeitpunkt, eine eigene Abbildung erstellt wird. Grundvoraussetzung dafür ist, lediglich ein sauberes Datenformat. Soll beispielsweise der Zusammenhang von BIP pro Kopf und Arbeitslosenquote im Zeitverlauf für verschiedene Länder dargestellt werden braucht es genau vier Spalten: (1) BIP pro Kopf (2) Arbeitslosenquote (3) Jahr &lt;– <em>Animationszustand</em> (4) Land.</p>
 <p>Das Paket <code>gganimate</code> übernimmt das (fast) alles.</p>
 <p>Die Wahl des <code>geom</code> entspricht dabei in der Regel der Wahl, wenn nur eine statische Abbildung für einen Zeitpunkt erstellt würde.</p>
 <hr />
 <div id="benötigte-pakete" class="section level3">
 <h3>Benötigte Pakete</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(gganimate)
-
-<span class="co">#Eventuell muss vor der Nutzung von gganimate noch das Paket gifski installiert werden</span>
-<span class="co">#install.packages(gifski)</span>
-<span class="co">#Siehe: https://stackoverflow.com/questions/58991580/gganimate-returns-png-files-but-no-animated-object</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(gganimate)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#Eventuell muss vor der Nutzung von gganimate noch das Paket gifski installiert werden</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#install.packages(gifski)</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#Siehe: https://stackoverflow.com/questions/58991580/gganimate-returns-png-files-but-no-animated-object</span></span></code></pre></div>
 <hr />
 </div>
 <div id="daten-laden" class="section level3">
 <h3>Daten laden</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
-(Landkreise_merged &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;daten_beispiele/Landkreise_merged.csv&quot;</span>)
-)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>(Landkreise_merged &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;daten_beispiele/Landkreise_merged.csv&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 9,223 x 9
 ##    Kennziffer Raumeinheit Aggregat  Jahr Arbeitslosenquo~ Wahlbeteiligung
 ##    &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;    &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
@@ -508,45 +533,45 @@ div.tocify {
 ## # ... with 9,213 more rows, and 3 more variables: Durchschnittsalter &lt;dbl&gt;,
 ## #   BIP &lt;dbl&gt;, Stadt_Land &lt;dbl&gt;</code></pre>
 <p>Wir animieren die Entwicklung der Beziehung zwischen Arbeitslosenquote und BIP über die Zeit in den 401 Kreisen. Eigentlich reihen wir also die gleiche Abbildung für verschiedene Jahre hintereinander. Statisch also:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Jahr)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Jahr)</span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 </div>
 <div id="zustände-mit-transition_states" class="section level1">
 <h1>(1) <em>Zustände</em> mit <code>transition_states()</code></h1>
 <p>In der Minimalversion müssen wir nur eine Zeile ändern. In <code>transition_states</code> wird der <em>Animationszustand</em> eingefügt, in unserem Fall die Beobachtungsjahre.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) </code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) </span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-4-1.gif" /><!-- --></p>
 <div id="dynamische-beschriftungen-mit-closest_state" class="section level2">
 <h2>Dynamische Beschriftungen mit <code>{closest_state}</code></h2>
 <p>AHA! Es bewegt sich was! Wir wissen allerdings nicht wirklich, was sich tut. Um besser zu verstehen, was die verschiedenen Zustände darstellen, können wir dynamische Labels verwenden. Innerhalb der geschweiften Klammern wird dann der jeweilige <em>Animationszustand</em> angezeigt. <code>{closest_state}</code> kann zum Beispiel in die (Unter)überschrift einer Abbildung eingefügt werden. Das Schöne an <code>gganimate</code> ist es, dass die <code>ggplot</code> weitestgehend übernommen werden kann.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(BIP)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-5-1.gif" /><!-- --></p>
 <p>Die Übergänge sind noch etwas zittrig. Die Übergangszeiten lassen sich als Argumente von <code>transtion_states()</code> anpassen. <code>transtion_length</code> gibt die relative Zeit der Animation an, die für Übergänge verwendet werden soll und <code>transtion_lenth</code> die Zeit, die für die Zustände verwendet wird. Deutlich wird die Funktionsweise, wenn wir weniger <em>Zustände</em> nutzen.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">2017</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Start und Endjahr filtern</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr,
-                    <span class="dt">transition_length =</span> <span class="dv">9</span>, <span class="co">#9/10 der Zeit für Übergänge</span>
-                    <span class="dt">state_length =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="co">#1/10 für Zustände</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">2017</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Start und Endjahr filtern</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr,</span>
+<span id="cb7-6"><a href="#cb7-6"></a>                    <span class="dt">transition_length =</span> <span class="dv">9</span>, <span class="co">#9/10 der Zeit für Übergänge</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>                    <span class="dt">state_length =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="co">#1/10 für Zustände</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-6-1.gif" /><!-- --></p>
 </div>
 <div id="übergänge-gestalten-mit-ease_aes" class="section level2">
@@ -558,13 +583,13 @@ div.tocify {
 <li><code>-out</code> Umgekehrtes Verhalten.</li>
 <li><code>-in-out</code> In der ersten Hälfte des Übergangs Standardfall, in der zweiten umgekehrt.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">2017</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Start und Endjahr filtern</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ease_aes</span>(<span class="st">&quot;elastic-in&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># hüpfgummiartiges Verhalten</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">2017</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Start und Endjahr filtern</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw">ease_aes</span>(<span class="st">&quot;elastic-in&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># hüpfgummiartiges Verhalten</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-7-1.gif" /><!-- --></p>
 </div>
 <div id="vorherige-datenpunkte-anzeigen-mit-shadow_" class="section level2">
@@ -578,94 +603,94 @@ div.tocify {
 <li><code>shadow_wake()</code>: Die Punkte ziehen auf dem Weg zwischen den Animationszustände eine Heckwelle hinter sich her. Sieht am ehesten aus wie ein Schatten.</li>
 </ul>
 <p>Die verschiedenen <code>shadow_</code>-Optionen enthalten wiederum eine Vielzahl an Anpassungsmöglichkeiten.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">2017</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Start und Endjahr filtern</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span>
-<span class="st">  </span><span class="kw">shadow_wake</span>(<span class="dt">wake_length =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span><span class="co"># &quot;Schatten&quot;&quot; zwischen Animationszuständen</span>
-<span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">2017</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Start und Endjahr filtern</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> BIP, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) <span class="op">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw">shadow_wake</span>(<span class="dt">wake_length =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span><span class="co"># &quot;Schatten&quot;&quot; zwischen Animationszuständen</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-8-1.gif" /><!-- --></p>
 </div>
 </div>
 <div id="datenpunkte-aufdecken-mit-transition_reveal" class="section level1">
 <h1>(2) Datenpunkte <em>Aufdecken</em> mit <code>transition_reveal()</code></h1>
 <p>Mit <code>transition_reveal()</code> lassen sich Datenpunkte über die Zeit aufdecken und somit klassiche Liniendiagramme mit der Zeit auf der x-Achse animieren. Wir zeigen das mit der Entwicklung der Arbeitslosenquote in den sieben größten deutschen Städten. Statisch:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Berlin, Stadt&quot;</span>, <span class="st">&quot;Stuttgart, Stadt&quot;</span>, <span class="st">&quot;Düsseldorf, Stadt&quot;</span>, <span class="st">&quot;Hamburg, Stadt&quot;</span>, <span class="st">&quot;Frankfurt am Main, Stadt&quot;</span>, <span class="st">&quot;München, Stadt&quot;</span>, <span class="st">&quot;Köln, Stadt&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Raumeinheit =</span> <span class="kw">gsub</span>(<span class="st">&quot;(.*),.*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Raumeinheit)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#Text ab Komma entfernen, optional</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Raumeinheit)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() </code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Berlin, Stadt&quot;</span>, <span class="st">&quot;Stuttgart, Stadt&quot;</span>, <span class="st">&quot;Düsseldorf, Stadt&quot;</span>, <span class="st">&quot;Hamburg, Stadt&quot;</span>, <span class="st">&quot;Frankfurt am Main, Stadt&quot;</span>, <span class="st">&quot;München, Stadt&quot;</span>, <span class="st">&quot;Köln, Stadt&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Raumeinheit =</span> <span class="kw">gsub</span>(<span class="st">&quot;(.*),.*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Raumeinheit)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#Text ab Komma entfernen, optional</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Raumeinheit)) <span class="op">+</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="st">  </span><span class="kw">geom_point</span>() </span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Um die Werte nach und nach aufzudecken braucht es nur einer zusätzlichen Zeile. Hier wird lediglich <em>Jahr</em> als Option angegeben, entlang derer die Datenpunkte aufgedeckt werden sollen.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Berlin, Stadt&quot;</span>, <span class="st">&quot;Stuttgart, Stadt&quot;</span>, <span class="st">&quot;Düsseldorf, Stadt&quot;</span>, <span class="st">&quot;Hamburg, Stadt&quot;</span>, <span class="st">&quot;Frankfurt am Main, Stadt&quot;</span>, <span class="st">&quot;München, Stadt&quot;</span>, <span class="st">&quot;Köln, Stadt&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Raumeinheit =</span> <span class="kw">gsub</span>(<span class="st">&quot;(.*),.*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Raumeinheit)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#Text ab Komma entfernen, optional</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Raumeinheit)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">transition_reveal</span>(<span class="dt">along =</span> Jahr) </code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Berlin, Stadt&quot;</span>, <span class="st">&quot;Stuttgart, Stadt&quot;</span>, <span class="st">&quot;Düsseldorf, Stadt&quot;</span>, <span class="st">&quot;Hamburg, Stadt&quot;</span>, <span class="st">&quot;Frankfurt am Main, Stadt&quot;</span>, <span class="st">&quot;München, Stadt&quot;</span>, <span class="st">&quot;Köln, Stadt&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Raumeinheit =</span> <span class="kw">gsub</span>(<span class="st">&quot;(.*),.*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Raumeinheit)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#Text ab Komma entfernen, optional</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Raumeinheit)) <span class="op">+</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="st">  </span><span class="kw">transition_reveal</span>(<span class="dt">along =</span> Jahr) </span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-10-1.gif" /><!-- --></p>
 </div>
 <div id="unterschiede-zwischen-gruppen-mit-transition_filter" class="section level1">
 <h1>(3) Unterschiede zwischen Gruppen mit <code>transition_filter()</code></h1>
 <p><code>transition_filter()</code> lässt uns dynamische Übergänge zwischen Gruppen darstellen. Auch hier können wir wieder dynamische Labels nutzen, um Überblick über die dargestellten Gruppen zu behalten. <code>{closest_filter}</code> übernimmt die Gruppen, die wir in <code>transition_filter()</code> definieren.</p>
 <p>Im Folgenden stellen wir den Zusammenhang zwischen Durchschnittsalter und Arbeitslosenquote im Jahr 2017 entlang dreier Gruppen dar. Die Gruppen ergeben sich aus der Wahlbeteiligung.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Jahr 2017 filtern</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Durchschnittsalter, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Wahlbeteiligung)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span><span class="st"> </span><span class="co">#ein bisschen Farbe</span>
-<span class="st">  </span><span class="kw">transition_filter</span>(<span class="st">&quot;hoher Wahlbeteilung (&gt; 75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span>,
-                    <span class="st">&quot;mittlerer Wahlbeteiligung (70-75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>Wahlbeteiligung <span class="op">&gt;=</span><span class="st"> </span><span class="dv">70</span>,
-                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter()</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Jahr 2017 filtern</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Durchschnittsalter, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Wahlbeteiligung)) <span class="op">+</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="st">  </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span><span class="st"> </span><span class="co">#ein bisschen Farbe</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="st">  </span><span class="kw">transition_filter</span>(<span class="st">&quot;hoher Wahlbeteilung (&gt; 75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span>,</span>
+<span id="cb12-7"><a href="#cb12-7"></a>                    <span class="st">&quot;mittlerer Wahlbeteiligung (70-75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>Wahlbeteiligung <span class="op">&gt;=</span><span class="st"> </span><span class="dv">70</span>,</span>
+<span id="cb12-8"><a href="#cb12-8"></a>                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter()</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-11-1.gif" /><!-- --></p>
 <div id="erscheinen-und-verschwinden-mit-enter_-und-exit_" class="section level2">
 <h2>Erscheinen und Verschwinden mit <code>enter_</code> und <code>exit_</code></h2>
 <p>Wir haben die obigen Gruppen exklusiv definiert. Kein Kreis taucht doppelt auf. In solchen Fällen bietet es sich an, diese Trennung durch Übergänge klarer zu machen.</p>
 <p>Das Erscheinen und Verschwinden wird mit den <code>enter_</code> und <code>exit_</code>-Varianten definiert. Beispiele sind <code>enter_grow()</code> oder <code>enter_recolor()</code> und die jeweiligen Partnerversionen für das Verschwinden.</p>
 <p>Die verschiedenen Optionen lassen sich fast beliebig kombinieren.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Jahr 2017 filtern</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Durchschnittsalter, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Wahlbeteiligung)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span><span class="st"> </span><span class="co">#ein bisschen Farbe</span>
-<span class="st">  </span><span class="kw">transition_filter</span>(<span class="st">&quot;hoher Wahlbeteilung (&gt; 75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span>,
-                    <span class="st">&quot;mittlerer Wahlbeteiligung (70-75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>Wahlbeteiligung <span class="op">&gt;=</span><span class="st"> </span><span class="dv">70</span>,
-                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter() </span>
-<span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">100</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span>
-<span class="st">  </span><span class="kw">exit_fly</span>(<span class="dt">x_loc =</span> <span class="dv">100</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Jahr 2017 filtern</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Durchschnittsalter, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Wahlbeteiligung)) <span class="op">+</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="st">  </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span><span class="st"> </span><span class="co">#ein bisschen Farbe</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="st">  </span><span class="kw">transition_filter</span>(<span class="st">&quot;hoher Wahlbeteilung (&gt; 75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span>,</span>
+<span id="cb13-7"><a href="#cb13-7"></a>                    <span class="st">&quot;mittlerer Wahlbeteiligung (70-75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>Wahlbeteiligung <span class="op">&gt;=</span><span class="st"> </span><span class="dv">70</span>,</span>
+<span id="cb13-8"><a href="#cb13-8"></a>                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter() </span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">100</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="st">  </span><span class="kw">exit_fly</span>(<span class="dt">x_loc =</span> <span class="dv">100</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-12-1.gif" /><!-- --></p>
 </div>
 </div>
 <div id="speichern-einer-animation" class="section level1">
 <h1>Speichern einer Animation</h1>
 <p>Um eine Animation zu speichern, weisen wir zunächst unsere Animation einem <code>gganimate</code>-Objekt zu.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">super_fancy_animation &lt;-<span class="st"> </span>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Jahr 2017 filtern</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Durchschnittsalter, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Wahlbeteiligung)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span><span class="st"> </span><span class="co">#ein bisschen Farbe</span>
-<span class="st">  </span><span class="kw">transition_filter</span>(<span class="st">&quot;hoher Wahlbeteilung (&gt; 75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span>,
-                    <span class="st">&quot;mittlerer Wahlbeteiligung (70-75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>Wahlbeteiligung <span class="op">&gt;=</span><span class="st"> </span><span class="dv">70</span>,
-                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter() </span>
-<span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span>
-<span class="st">  </span><span class="kw">exit_fly</span>(<span class="dt">x_loc =</span> <span class="dv">60</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>super_fancy_animation &lt;-<span class="st"> </span>Landkreise_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#nur auf Jahr 2017 filtern</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Durchschnittsalter, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">color =</span> Wahlbeteiligung)) <span class="op">+</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="st">  </span><span class="kw">scale_color_viridis_c</span>() <span class="op">+</span><span class="st"> </span><span class="co">#ein bisschen Farbe</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="st">  </span><span class="kw">transition_filter</span>(<span class="st">&quot;hoher Wahlbeteilung (&gt; 75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&gt;</span><span class="st"> </span><span class="dv">75</span>,</span>
+<span id="cb14-7"><a href="#cb14-7"></a>                    <span class="st">&quot;mittlerer Wahlbeteiligung (70-75 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;=</span><span class="st"> </span><span class="dv">75</span> <span class="op">&amp;</span><span class="st"> </span>Wahlbeteiligung <span class="op">&gt;=</span><span class="st"> </span><span class="dv">70</span>,</span>
+<span id="cb14-8"><a href="#cb14-8"></a>                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter() </span></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="st">  </span><span class="kw">exit_fly</span>(<span class="dt">x_loc =</span> <span class="dv">60</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></span></code></pre></div>
 <p>Danach passen wir noch einige Details der Animation an. Mit <code>nframes</code> bestimmen wir die Gesamtzahl der Frames und mit <code>fps</code> die Frames pro Sekunde. Aus der Kombination der beiden ergibt sich die Gesamtdauer der Animation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># adjust the animation settings </span>
-<span class="kw">animate</span>(super_fancy_animation, 
-        <span class="dt">width =</span> <span class="dv">600</span>, <span class="co"># 600px breit</span>
-        <span class="dt">height =</span> <span class="dv">400</span>, <span class="co"># 400px hoch</span>
-        <span class="dt">nframes =</span> <span class="dv">150</span>, <span class="co"># insgesamt 100 Frames</span>
-        <span class="dt">fps =</span> <span class="dv">10</span>) <span class="co"># 10 Frames pro Sekunde --&gt; Gesamte Laufzeit: 15 Sekunden</span></code></pre></div>
-<p>Mit <code>anim_save()</code> speichern wir schließlich die letzte Animation und geben der Datei einen Namen. Und dann? Ab auf Twitter &amp; Co. damit!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anim_save</span>(<span class="st">&quot;meine_super_fancy_animation.gif&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># adjust the animation settings </span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">animate</span>(super_fancy_animation, </span>
+<span id="cb15-3"><a href="#cb15-3"></a>        <span class="dt">width =</span> <span class="dv">600</span>, <span class="co"># 600px breit</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>        <span class="dt">height =</span> <span class="dv">400</span>, <span class="co"># 400px hoch</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>        <span class="dt">nframes =</span> <span class="dv">150</span>, <span class="co"># insgesamt 100 Frames</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>        <span class="dt">fps =</span> <span class="dv">10</span>) <span class="co"># 10 Frames pro Sekunde --&gt; Gesamte Laufzeit: 15 Sekunden</span></span></code></pre></div>
+<p>Mit <code>anim_save()</code> speichern wir schließlich die letzte Animation und geben der Datei einen Namen. Und dann? Ab auf Twitter &amp; Co. damit!</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">anim_save</span>(<span class="st">&quot;meine_super_fancy_animation.gif&quot;</span>)</span></code></pre></div>
 </div>
 
 

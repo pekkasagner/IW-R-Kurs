@@ -19,9 +19,140 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
 
 # Ziele der Sitzung
 
-* Erstellen von Animationen
-* Erstellen von html-widgets
+* Überblick über verschiedene interaktive Darstellungsmöglichkeiten
+* Erstellen von simplen interaktiven Abbildungen
 
 ----
 
-# 
+# <code>htmlwidgets</code>
+
+JavaScript ist eine weit verbreitete Skriptsprache. Sie wird für dynamische Webseiten (html) genutzt. Mit dem <code>htmlwidgets</code>-Paket können <code>R</code>-Befehle mit zahlreichen interaktiven JavaScript-Bibliotheken verbunden werden. 
+
+Es gibt eine Vielzahl an JavaScript-Bibliotheken, die interaktive Komponenten, in unserem Fall Abbildungen, sogenannte <code>widgets</code> erstellen. In der [htmlwidgets for R-gallery](http://gallery.htmlwidgets.org/) sind diese gesammelt.
+
+Interaktive Abbildungen können zum Beispiel
+
+* für die explorative Datenanalyse genutzt,
+* in R-Markdown-Reports eingebettet,
+* als eigenständige Webseiten gespeichert,
+* oder in bestehende Webseiten eingebettet werden.
+
+
+# <code>plotly</code>
+
+Wir arbeiten zunächst mit dem Paket <code>plotly</code>. Dieses verbindet <code>R</code>-Befehle mit der [Plotly JavaScript Open Source Graphing Library
+](https://plotly.com/javascript/). 
+
+In der [Plotly R Open Source Graphing Library](https://plotly.com/r/) finden sich zahlreiche Beispiele und <code>R</code>-Code-Schnippsel.
+
+### Benötigte Pakete
+
+```{r}
+library(tidyverse)
+library(plotly)
+```
+
+### Daten laden
+
+```{r}
+library(readr)
+(Landkreise_merged <- read_csv("daten_beispiele/Landkreise_merged.csv")
+)
+```
+
+## Statische Abbildung
+
+Wir erstellen zunächst wieder unsere statische Abbildung, aus der wir eine interaktive Abbildung machen wollen. Wir weisen diese einem R-Objekt zu.
+
+```{r}
+(statische_Abbildung <- Landkreise_merged %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  filter(Raumeinheit %in% c("Berlin, Stadt", "Stuttgart, Stadt", "Düsseldorf, Stadt", "Hamburg, Stadt", "Frankfurt am Main, Stadt", "München, Stadt", "Köln, Stadt")) %>% 
+  mutate(Raumeinheit = gsub("(.*),.*", "\\1", Raumeinheit)) %>% #Text ab Komma entfernen, optional
+  ggplot(aes(x = Jahr, y = Arbeitslosenquote, color = Raumeinheit)) +
+  geom_line() +
+  geom_point() 
+)
+```
+
+Um aus der statischen Abbildung eine interaktive zu machen, braucht es lediglich eines Befehls. Der Befehl <code>ggplotly()</code> übernimmt die Eigenschaften des statischen Plots und versieht diese mit einer Benutzeroberfläche, Mouseover, etc.
+
+```{r}
+ggplotly(statische_Abbildung)
+```
+
+#Slider
+
+```{r}
+ggplotly(statische_Abbildung) %>% 
+  rangeslider(start = 2010, end = 2017)
+```
+
+
+
+
+
+
+
+# Animationen mit <code>plotly</code>
+
+Animation mit Slider
+
+```{r}
+(statische_Abbildung_frames <- Landkreise_merged %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  filter(Raumeinheit %in% c("Berlin, Stadt", "Stuttgart, Stadt", "Düsseldorf, Stadt", "Hamburg, Stadt", "Frankfurt am Main, Stadt", "München, Stadt", "Köln, Stadt")) %>% 
+  mutate(Raumeinheit = gsub("(.*),.*", "\\1", Raumeinheit)) %>% #Text ab Komma entfernen, optional
+  ggplot(aes(x = Jahr, 
+             y = Arbeitslosenquote)) +
+  geom_line(aes(group = Raumeinheit)) +
+  geom_line(aes(frame = Raumeinheit), color = "red")
+)
+```
+
+```{r}
+ggplotly(statische_Abbildung_frames) 
+```
+
+Animation mit Filter
+
+
+```{r}
+daten <- Landkreise_merged %>% 
+  filter(!is.na(Arbeitslosenquote)) %>% 
+  as_tibble()
+```
+
+```{r}
+library(crosstalk)
+library(htmlwidgets)
+```
+
+
+```{r}
+tx <- SharedData$new(daten)
+
+widgets <- bscols(widths = c(12),
+  filter_select("Raumeinheit", "Stadt", tx, ~Raumeinheit))
+```
+
+```{r}
+bscols(
+  widths = c(12, 12), widgets, 
+  plot_ly(tx, x = ~Jahr, y = ~Arbeitslosenquote, showlegend = FALSE) %>% 
+    add_lines(color = ~Raumeinheit, colors = "black") %>% 
+    add_markers(color = ~Raumeinheit, colors = "black") 
+)
+```
+
+# Speichern eines widgets
+
+```{r}
+#final <- ggplotly(statische_Abbildung_frames)  
+```
+
+
+```{r}
+#saveWidget(final, "final.html", selfcontained = T)
+```
+
