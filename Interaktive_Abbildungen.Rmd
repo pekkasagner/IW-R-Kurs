@@ -45,24 +45,30 @@ Wir arbeiten zunächst mit dem Paket <code>plotly</code>. Dieses verbindet <code
 
 In der [Plotly R Open Source Graphing Library](https://plotly.com/r/) finden sich zahlreiche Beispiele und <code>R</code>-Code-Schnippsel.
 
+Grundsätzlich gibt es zwei Herangehensweisen, um mit <code>plotly</code> in <code>R</code> zu arbeiten:
+
+1) Transformieren eines <code>ggplot2</code>-Objekts in ein <code>plotly</code>-Objekt mit <code>ggplotly()</code> oder
+
+2) Direktes Erstellen eines <code>plotly</code>-Objekts via <code>plot_ly()</code>, <code>plot_geo()</code> oder <code>plot_mapbox()</code>.
+
 ### Benötigte Pakete
 
 ```{r}
 library(tidyverse)
-library(plotly)
+library(readr) #Daten einlesen
+library(plotly) 
 ```
 
 ### Daten laden
 
 ```{r}
-library(readr)
 (Landkreise_merged <- read_csv("daten_beispiele/Landkreise_merged.csv")
 )
 ```
 
 ## Statische Abbildung
 
-Wir erstellen zunächst wieder unsere statische Abbildung, aus der wir eine interaktive Abbildung machen wollen. Wir weisen diese einem R-Objekt zu.
+Wir erstellen zunächst wieder eine statische Abbildung, aus der wir eine interaktive Abbildung machen wollen. Wir weisen diese einem R-Objekt zu.
 
 ```{r}
 (statische_Abbildung <- Landkreise_merged %>% 
@@ -75,13 +81,15 @@ Wir erstellen zunächst wieder unsere statische Abbildung, aus der wir eine inte
 )
 ```
 
-Um aus der statischen Abbildung eine interaktive zu machen, braucht es lediglich eines Befehls. Der Befehl <code>ggplotly()</code> übernimmt die Eigenschaften des statischen Plots und versieht diese mit einer Benutzeroberfläche, Mouseover, etc.
+Um aus der statischen Abbildung eine interaktive zu machen, braucht es lediglich eines Befehls. Der Befehl <code>ggplotly()</code> übernimmt die Eigenschaften des statischen Plots und versieht diese mit einer Benutzeroberfläche, Mouseover, etc. Wird kein Objekt innerhalb <code>ggplotly()</code> angegeben, so wird das zuletzt erstellte <code>ggplot2</code>-Objekt in ein <code>plotly</code>-Objekt überführt.
 
 ```{r}
 ggplotly(statische_Abbildung)
 ```
 
-#Slider
+# Erweiterungen
+
+## Slider
 
 ```{r}
 ggplotly(statische_Abbildung) %>% 
@@ -90,13 +98,9 @@ ggplotly(statische_Abbildung) %>%
 
 
 
-
-
-
-
 # Animationen mit <code>plotly</code>
 
-Animation mit Slider
+Statische Abbildung:
 
 ```{r}
 (statische_Abbildung_frames <- Landkreise_merged %>% 
@@ -110,11 +114,27 @@ Animation mit Slider
 )
 ```
 
+Interaktive Abbildung:
+
 ```{r}
 ggplotly(statische_Abbildung_frames) 
 ```
 
-Animation mit Filter
+Der Titel für die Frames kann angepasst werden:
+
+```{r}
+statische_Abbildung_frames %>% 
+    ggplotly() %>% 
+    animation_slider(
+    currentvalue = list(prefix = "Ausgewählte Stadt: ", font = list(color="red")))
+
+```
+
+
+
+# Weitere
+
+## Animation mit Filter
 
 
 ```{r}
@@ -156,3 +176,8 @@ bscols(
 #saveWidget(final, "final.html", selfcontained = T)
 ```
 
+# Links
+
+* [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/index.html)
+
+* [Leaflet for R](http://rstudio.github.io/leaflet/)
