@@ -14,7 +14,8 @@ output:
 
 **R** kann hier heruntergeladen werden: [R-Project](https://cran.r-project.org)
 
-Dort einfach das Betriebssystem auswählen und die aktuelle Version herunterladen.
+Dort einfach das Betriebssystem auswählen und die aktuelle Version 
+herunterladen.
 
 *Falls ein IW-Laptop benutzt wird, unterstützt die IT.*
 
@@ -36,9 +37,127 @@ Im Skriptfenster <code>mean()</code> eingeben und mit dem Cursor direkt daneben 
 
 # Erste Schritte und Ressourcen
 
-Ein guter Anlauf für Tips, wie man den Einstieg in R gestalten kann finden sich hier: [Getting Started with R](https://support.rstudio.com/hc/en-us/articles/201141096-Getting-Started-with-R)
+Ein guter Anlauf für Tips, wie man den Einstieg in R gestalten kann finden sich hier: [Getting Started with R](https://support.rstudio.com/hc/en-us/articles/201141096-Getting-Started-with-R).
 
+----
 
+# Grundlagen der Programmierung in R
 
+Hier werden ausgewählte Grundlagen der Programmierung in R kurz erklärt. Auch 
+wenn in dieser Einführung keine Vorkenntnisse in R vorausgesetzt werden, 
+empfiehlt es sich, sich mit den Fundamenten der Programmiersprache R vor Beginn
+des Kurses auseinanderzusetzten. So bekommt man ein Gefühl dafür, wie R 
+funktioniert und kann in vielen Situationen flexibler auf eventuelle Probleme 
+und eigene Anpassungswünsche reagieren. 
+
+## Coding Grundlagen
+
+R kann wie ein gewöhnlicher Taschenrechner benutzt werden.
+
+```{r calc_1}
+1 / 10 * 90
+```
+
+```{r calc_2}
+sin(pi / 2)
+```
+Neue Objekte können mit dem "assignment operator" <code> <- </code> erzeugt 
+werden. Alternativ kann für das Assignment auch <code> = </code> verwendent. 
+Aus konventionellen Gründen der besseren Lesbarkeit wird in R für die Zuweisung
+von Objekten aber der <code> <- </code> Operator verwendent. 
+
+```{r}
+a <- 5
+b <- 6
+a * b
+```
+## Objektnamen
+
+Objektnamen müssen in R mit einem Buchstaben beginnen und können nur Buchstaben,
+<code>_</code> oder <code>.</code> enthalten. 
+
+```{r}
+beispiel_name <- "Hans"
+anderes_beispiel <- "Peter"
+```
+
+## Funktionen
+
+In R gibt es eine große Anzahl an Funktionen, die in Base-R enthalten sind und 
+direkt genutzt werden können. Ein typischer Aufrauf einer Funktion sieht 
+folgendermaßen aus:
+
+```{r eval=FALSE}
+function_name(arg1 = val1, arg2 = val2, ...)
+```
+
+Eine solche Funktion ist etwa <code>mean()</code>, die das arithmetische Mittel
+der eingegebenen Werte ausgibt oder <code>seq()</code>, die eine Sequenz aus 
+einem Start- und Endpunkt erzeugen kann.
+
+```{r}
+mean(c(5,34,57))
+```
+
+```{r}
+seq(1,10, length.out = 5)
+```
+Setzt man dem Namen der jeweiligen Funktion ein <code>?</code> voran, kann die
+Hilfe-Seite der Funktion direkt in R-Studio angezeigt werden.
+
+```{r}
+?seq
+```
+
+## Vektoren
+
+In R gibt es zwei Typen von Vektoren
+
+1. **Atomic** Vektoren mit den Typen **logical**, **integer**, **double**, **charachter**,
+**complex** und **raw**. Integer und double werden dabei häufig kollektiv als 
+**numeric** bezeichnet. 
+
+2. **Listen**, die manchmal auch als rekursive Vektoren bezeichnet werden, da
+Listen weitere Listen beinhalten können. 
+
+Der Unterschied zwischen atomic Vektoren und Listen ist der, dass atomic 
+Vektoren immer homogen sein müssen, also nur Objekte des gleichen Typs enthalten
+können, während Listen heterogen sind. 
+
+### Typen von Vektoren
+
+1. Logical
+
+Können nur drei mögliche Werte annehmen: <code>TRUE</code>, <code>FALSE</code> 
+oder <code>NA</code>
+
+```{r}
+1:10 %% 3 == 0
+
+c(TRUE, TRUE, FALSE, NA)
+```
+
+2. Numeric
+
+Integer und double Vektoren werden in R unter numeric gefasst. Zahlen sind in R
+standardmäßig doubles, um einen integer Vektor zu erstellen muss hinter die Zahl
+ein <code>L</code> angehängt werden.
+
+```{r}
+typeof(1)
+```
+
+```{r}
+typeof(1L)
+```
+3. Character
+
+Character Vektoren können eine beliebige Anzahl sogenannter Strings (
+eine zusammenhängende Folge von Zeichen) enthalten.
+
+```{r}
+x <- "Das ist ein String"
+x
+```
 
 
