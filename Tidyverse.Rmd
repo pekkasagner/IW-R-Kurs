@@ -194,9 +194,9 @@ Vor allem in der explorativen Datenanalyse und beim Erstellen von Visualisierung
 
 ----
 
-## filter()
+## dplyr::filter()
 
-Die <code>filter()</code> ermöglicht, wie der Name impliziert, das filtern von Datensätzen nach festgelegten Kriterien. 
+Die <code>filter()</code> Funktion ermöglicht, wie der Name impliziert, das filtern von Datensätzen nach festgelegten Kriterien. 
 
 ```{r filter}
 # Filtern nach Aggregat und Arbeitslosenquote
@@ -208,7 +208,7 @@ Arbeitslosenquote %>%
 
 ----
 
-## select()
+## dplyr::select()
 
 Mit der Funktion <code>select()</code> wählt man alle relevanten Spalten bzw. Variablen aus einem Datensatz aus. 
 
@@ -222,7 +222,7 @@ Arbeitslosenquote %>%
 ----
 
 
-## mutate()
+## dplyr::mutate()
 
 Die Funktion <code>mutate()</code> erlaubt es, Spalten bzw. Variablen in einem Datensatz zu verändern oder neue Spalten zu erzeugen. 
 
@@ -234,7 +234,7 @@ Arbeitslosenquote %>%
 ```
 ----
 
-## group_by()
+## dplyr::group_by()
 
 <code>group_by()</code> gruppiert bestimmte Variablen in gewünschte Gruppen für nachfolgende Operationen. Viele Funktionen bauen auf <code>group_by</code> auf. 
 
@@ -243,11 +243,9 @@ Arbeitslosenquote %>%
   select(-Kennziffer) %>% 
   filter(Jahr == "1998") %>% 
   group_by(Aggregat) %>% 
-  mutate(Quote_Aggr = mean(Arbeitslosenquote))
+  mutate(Quote_Aggr = mean(Arbeitslosenquote)) %>% 
+  ungroup()
 ```
-
-
-
 
 ----
 
@@ -260,7 +258,8 @@ Arbeitslosenquote %>%
   select(-Kennziffer) %>% 
   filter(Jahr == "1998") %>% 
   group_by(Aggregat) %>% 
-  summarise(Quote_Aggr = mean(Arbeitslosenquote))
+  summarise(Quote_Aggr = mean(Arbeitslosenquote)) %>% 
+  ungroup()
 ```
 
 ----
