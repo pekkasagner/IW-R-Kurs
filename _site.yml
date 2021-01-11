@@ -22,8 +22,8 @@ navbar:
         href: Animationen.html
       - text: "Interaktive Abbildungen"
         href: Interaktive_Abbildungen.html 
-    - text: "Links"
-      href: Links.html
+    - text: "Beispiele"
+      href: Codebeispiele.html
 output_dir: "docs"
 output:
   html_document:
