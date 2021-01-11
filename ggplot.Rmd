@@ -1,5 +1,5 @@
 ---
-title: "Datenvisualisierung mit ggplot2"
+title: "**Datenvisualisierung mit ggplot2**"
 output:
   html_document:
     toc: true
@@ -203,7 +203,7 @@ data %>%
 
 ### geom_bar()
 
-Auch ein Balkendiagramm lässt sich einfach mit dem <code>geom</code> <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat="bin"</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat="identity"</code>, dass der Wert aus den Daten gemapped werden soll. 
+Auch ein Balkendiagramm lässt sich einfach mit dem <code>geom</code> <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat="bin"</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat="identity"</code> an, dass der Wert aus den Daten gemapped werden soll. 
 
 ```{r, fig.align="center", out.width = "75%"}
 data %>% 
@@ -377,12 +377,14 @@ data %>%
   ggplot(aes(x = Wahlbeteiligung, y = Arbeitslosenquote)) +
   geom_point(color = "grey80",
              size = 2.0) +
-  geom_point(data = subset(data,
-                           BIP > 92.5 & Jahr == 2017),
+  geom_point(data = (data %>% 
+                       filter(BIP > 92.5,
+                              Jahr == 2017)),
              color = "#2e4964",
              size = 2.0) +
-  ggrepel::geom_text_repel(data = subset(data,
-                                         BIP > 92.5 & Jahr == 2017),
+  ggrepel::geom_text_repel(data = (data %>% 
+                                     filter(BIP > 92.5,
+                                            Jahr == 2017)),
                            aes(label = Raumeinheit),
                            size = 3.5) +
   labs(x = "Wahlbeteiligung (in%)",
