@@ -1,5 +1,5 @@
 ---
-title: "Einführung in RStudio"
+title: "**Einführung in RStudio**"
 output:
   html_document:
     toc: true
@@ -34,7 +34,7 @@ Wenn IW-Laptops benutzt werden, sollten R und RStudio bereits von der IT install
 * Für **R** wird **Version 4.0.3** (Bunny-Wunnies Freak Out) verwendet ([Link](https://ftp.fau.de/cran/))
 * Für **RStudio** sollte **Version 1.3.1093** verwendet werden ([Link](https://rstudio.com/products/rstudio/download/#download))
 
-Die Kursinhalte können ggf. auch mit älteren Version bearbeitet werden. Für eine Minimierung möglicher Fehler macht es aber Sinn, dass alle Kursteilnehmer mit den gleichen Versionen arbeiten. 
+Die Kursinhalte können ggf. auch mit älteren Versionen bearbeitet werden. Für eine Minimierung möglicher Fehler macht es aber Sinn, dass alle Kursteilnehmer mit den gleichen Versionen arbeiten. 
 
 ----
 
@@ -93,19 +93,18 @@ Des Weiteren macht es Sinn, sich unter <code>Tools > Global Options > Appearance
 
 In R-Studio gibt es eine ganze Reihe an Shortcuts, die das Coden deutlich vereinfachen und beschleunigen können. Eine relativ umfrangreiche Übersicht gibt es [hier](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts). Folgende Shortcuts sind unserer Meinung nach unerlässlich für den alltäglichen Gebrauch von R-Studio. Diese Auswahl kann aber nach Belieben erweitert werden.
 
-Beschreibung                      Shortcut (Windows)  Shortcut (Mac) 
---------------------------------  ------------------- ---------------
-Bewegen des Cursors zur Konsole   Ctrl+2              Ctrl+2
-Leeren der Konsole                Ctrl+L              Ctrl+L
-Abbrechen des momentan ausge-     Esc                 Esc
-führten Befehls  
-Neues Skript                      Ctrl+Shift+N        Cmd+Shift+N
-Speichern des aktiven Dokuments   Ctrl+S              Ctrl+S
-Assignment Operator               Alt+-               Option+-
-Pipe Operator                     Ctrl+Shift+M        Cmd+Shift+M
-Autocompletion                    Tab                 Tab
-Shortcut Übersicht                Alt+Shift+K         Option+Shift+K
-Neustart der R Session            Ctrl+Shift+F10      Ctrl+Shift+F10
+Beschreibung                          Shortcut (Windows)  Shortcut (Mac) 
+--------------------------------      ------------------- ---------------
+Bewegen des Cursors zur Konsole       Ctrl+2              Ctrl+2
+Leeren der Konsole                    Ctrl+L              Ctrl+L
+Abbrechen des ausgeführten Befehls    Esc                 Esc
+Neues Skript                          Ctrl+Shift+N        Cmd+Shift+N
+Speichern des aktiven Dokuments       Ctrl+S              Ctrl+S
+Assignment Operator                   Alt+-               Option+-
+Pipe Operator                         Ctrl+Shift+M        Cmd+Shift+M
+Autocompletion                        Tab                 Tab
+Shortcut Übersicht                    Alt+Shift+K         Option+Shift+K
+Neustart der R Session                Ctrl+Shift+F10      Ctrl+Shift+F10
 
 ----
 
