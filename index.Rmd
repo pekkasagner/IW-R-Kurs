@@ -16,9 +16,10 @@ output: html_document
 
 
 <div style="padding-top: 30px;">
-#Website zum IW-R-Kurs
 
-Diese Website begleitet den IW-R-Kurs. Fragen gerne an [Armin Mertens](mailto:armin.mertens@iwkoeln.de?subject=[IW-R-Kurs]) und [Pekka Sagner](mailto:sagner@iwkoeln.de?subject=[IW-R-Kurs]).
+# **Website zum IW-R-Kurs**
+
+Diese Website begleitet den R-Kurs für Datenanalyse und -Visualisierung im IW. Fragen gerne an [Armin Mertens](mailto:armin.mertens@iwkoeln.de?subject=[IW-R-Kurs]) und [Pekka Sagner](mailto:sagner@iwkoeln.de?subject=[IW-R-Kurs]).
 
 </div>
 
@@ -28,7 +29,7 @@ Diese Website begleitet den IW-R-Kurs. Fragen gerne an [Armin Mertens](mailto:ar
 
 Jeder Teilnehmer verfolgt sicher seine eigenen Ziele. Was die Teilnehmer aus der Kursteilnahme mitnehmen könnten:
 
-1. **Wie R funktioniert:** R gibt es schon recht lange und basiert auf der Programmiersprache S [(mehr)](https://www.r-project.org/about.html). R ist eine Programmiersprache und kostenfreie Software mit dem Fokus auf statistische Berechnungen. Der Kurs gibt eine nicht-technische Einführung in die Grundstruktur. Wir arbeiten mit dem *tidyvese* [(mehr)](https://www.tidyverse.org/). Das tidyverse ist eine Sammlung von R-Paketen, die einer gemeinsamen Struktur und Logik folgen. Wichtiger ist: das Coding im tidyverse ist sehr intuitiv.
+1. **Wie R funktioniert:** [R](https://www.r-project.org/about.html) ist eine Programmiersprache und kostenfreie Software mit dem Fokus auf statistischen Berechnungen. Der Kurs gibt eine nicht-technische Einführung in die Grundstruktur des *tidyvese* [(mehr)](https://www.tidyverse.org/). Das tidyverse ist eine Sammlung von R-Paketen, die einer gemeinsamen Struktur und Logik folgen. Wichtiger ist: das Coding im tidyverse ist sehr intuitiv.
 
 2. **Wie R-Studio funktioniert:** R-Studio ist eine Entwicklungsumgebung und grafische Benutzeroberfläche für R. Wenn R der Motor ist, dann ist R-Studio das Cockpit [(mehr)](https://rstudio.com/). 
 
