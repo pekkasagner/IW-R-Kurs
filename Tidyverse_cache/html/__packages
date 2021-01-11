@@ -17,3 +17,8 @@ spatstat.data
 nlme
 rpart
 spatstat
+gganimate
+plotly
+crosstalk
+htmlwidgets
+ggthemes

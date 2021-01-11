@@ -484,7 +484,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Datenvisualisierung mit ggplot2</h1>
+<h1 class="title toc-ignore"><strong>Datenvisualisierung mit ggplot2</strong></h1>
 
 </div>
 
@@ -622,7 +622,7 @@ div.tocify {
 </div>
 <div id="geom_bar" class="section level3">
 <h3>geom_bar()</h3>
-<p>Auch ein Balkendiagramm lässt sich einfach mit dem <code>geom</code> <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat=“bin”</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat=“identity”</code>, dass der Wert aus den Daten gemapped werden soll.</p>
+<p>Auch ein Balkendiagramm lässt sich einfach mit dem <code>geom</code> <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat=“bin”</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat=“identity”</code> an, dass der Wert aus den Daten gemapped werden soll.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Elbe-Elster&quot;</span>,</span>
 <span id="cb11-3"><a href="#cb11-3"></a>                            <span class="st">&quot;Oberspreewald-Lausitz&quot;</span>,</span>
@@ -760,18 +760,20 @@ div.tocify {
 <span id="cb21-3"><a href="#cb21-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
 <span id="cb21-4"><a href="#cb21-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>,</span>
 <span id="cb21-5"><a href="#cb21-5"></a>             <span class="dt">size =</span> <span class="fl">2.0</span>) <span class="op">+</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(data,</span>
-<span id="cb21-7"><a href="#cb21-7"></a>                           BIP <span class="op">&gt;</span><span class="st"> </span><span class="fl">92.5</span> <span class="op">&amp;</span><span class="st"> </span>Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>),</span>
-<span id="cb21-8"><a href="#cb21-8"></a>             <span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>,</span>
-<span id="cb21-9"><a href="#cb21-9"></a>             <span class="dt">size =</span> <span class="fl">2.0</span>) <span class="op">+</span></span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="st">  </span>ggrepel<span class="op">::</span><span class="kw">geom_text_repel</span>(<span class="dt">data =</span> <span class="kw">subset</span>(data,</span>
-<span id="cb21-11"><a href="#cb21-11"></a>                                         BIP <span class="op">&gt;</span><span class="st"> </span><span class="fl">92.5</span> <span class="op">&amp;</span><span class="st"> </span>Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>),</span>
-<span id="cb21-12"><a href="#cb21-12"></a>                           <span class="kw">aes</span>(<span class="dt">label =</span> Raumeinheit),</span>
-<span id="cb21-13"><a href="#cb21-13"></a>                           <span class="dt">size =</span> <span class="fl">3.5</span>) <span class="op">+</span></span>
-<span id="cb21-14"><a href="#cb21-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wahlbeteiligung (in%)&quot;</span>,</span>
-<span id="cb21-15"><a href="#cb21-15"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote (in %)&quot;</span>,</span>
-<span id="cb21-16"><a href="#cb21-16"></a>       <span class="dt">title =</span> <span class="st">&quot;Verhältnis von Arbeitslosigkeit und Wahlbeteiligung&quot;</span>,</span>
-<span id="cb21-17"><a href="#cb21-17"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Kreisfreie Städte und Landkreise in Deutschland (2017)&quot;</span>)</span></code></pre></div>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> (data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="st">                       </span><span class="kw">filter</span>(BIP <span class="op">&gt;</span><span class="st"> </span><span class="fl">92.5</span>,</span>
+<span id="cb21-8"><a href="#cb21-8"></a>                              Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>)),</span>
+<span id="cb21-9"><a href="#cb21-9"></a>             <span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>,</span>
+<span id="cb21-10"><a href="#cb21-10"></a>             <span class="dt">size =</span> <span class="fl">2.0</span>) <span class="op">+</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="st">  </span>ggrepel<span class="op">::</span><span class="kw">geom_text_repel</span>(<span class="dt">data =</span> (data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb21-12"><a href="#cb21-12"></a><span class="st">                                     </span><span class="kw">filter</span>(BIP <span class="op">&gt;</span><span class="st"> </span><span class="fl">92.5</span>,</span>
+<span id="cb21-13"><a href="#cb21-13"></a>                                            Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>)),</span>
+<span id="cb21-14"><a href="#cb21-14"></a>                           <span class="kw">aes</span>(<span class="dt">label =</span> Raumeinheit),</span>
+<span id="cb21-15"><a href="#cb21-15"></a>                           <span class="dt">size =</span> <span class="fl">3.5</span>) <span class="op">+</span></span>
+<span id="cb21-16"><a href="#cb21-16"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wahlbeteiligung (in%)&quot;</span>,</span>
+<span id="cb21-17"><a href="#cb21-17"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote (in %)&quot;</span>,</span>
+<span id="cb21-18"><a href="#cb21-18"></a>       <span class="dt">title =</span> <span class="st">&quot;Verhältnis von Arbeitslosigkeit und Wahlbeteiligung&quot;</span>,</span>
+<span id="cb21-19"><a href="#cb21-19"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Kreisfreie Städte und Landkreise in Deutschland (2017)&quot;</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-19-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="facets" class="section level2">

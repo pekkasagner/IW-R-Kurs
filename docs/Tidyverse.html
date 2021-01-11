@@ -647,9 +647,9 @@ div.tocify {
 <p>Vor allem in der explorativen Datenanalyse und beim Erstellen von Visualisierungen ist die Pipe sehr gut geeignet. Bei sehr komplizierten Datenstrukturen, oder sehr vielen Operationen sollte man allerdings auf andere Tools zurückgreifen.</p>
 <hr />
 </div>
-<div id="filter" class="section level2">
-<h2>filter()</h2>
-<p>Die <code>filter()</code> ermöglicht, wie der Name impliziert, das filtern von Datensätzen nach festgelegten Kriterien.</p>
+<div id="dplyrfilter" class="section level2">
+<h2>dplyr::filter()</h2>
+<p>Die <code>filter()</code> Funktion ermöglicht, wie der Name impliziert, das filtern von Datensätzen nach festgelegten Kriterien.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Filtern nach Aggregat und Arbeitslosenquote</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">filter</span>(Aggregat <span class="op">==</span><span class="st"> &quot;Landkreis&quot;</span>,</span>
@@ -670,8 +670,8 @@ div.tocify {
 ## # ... with 1,138 more rows</code></pre>
 <hr />
 </div>
-<div id="select" class="section level2">
-<h2>select()</h2>
+<div id="dplyrselect" class="section level2">
+<h2>dplyr::select()</h2>
 <p>Mit der Funktion <code>select()</code> wählt man alle relevanten Spalten bzw. Variablen aus einem Datensatz aus.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">select</span>(Raumeinheit, Jahr, Arbeitslosenquote)</span></code></pre></div>
@@ -691,8 +691,8 @@ div.tocify {
 ## # ... with 8,010 more rows</code></pre>
 <hr />
 </div>
-<div id="mutate" class="section level2">
-<h2>mutate()</h2>
+<div id="dplyrmutate" class="section level2">
+<h2>dplyr::mutate()</h2>
 <p>Die Funktion <code>mutate()</code> erlaubt es, Spalten bzw. Variablen in einem Datensatz zu verändern oder neue Spalten zu erzeugen.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">select</span>(Raumeinheit, Jahr, Arbeitslosenquote) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -714,28 +714,28 @@ div.tocify {
 ## # ... with 391 more rows</code></pre>
 <hr />
 </div>
-<div id="group_by" class="section level2">
-<h2>group_by()</h2>
+<div id="dplyrgroup_by" class="section level2">
+<h2>dplyr::group_by()</h2>
 <p><code>group_by()</code> gruppiert bestimmte Variablen in gewünschte Gruppen für nachfolgende Operationen. Viele Funktionen bauen auf <code>group_by</code> auf.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Kennziffer) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> &quot;1998&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb13-4"><a href="#cb13-4"></a><span class="st">  </span><span class="kw">group_by</span>(Aggregat) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Quote_Aggr =</span> <span class="kw">mean</span>(Arbeitslosenquote))</span></code></pre></div>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Quote_Aggr =</span> <span class="kw">mean</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 401 x 5
-## # Groups:   Aggregat [2]
-##    Raumeinheit         Aggregat     Jahr  Arbeitslosenquote Quote_Aggr
-##    &lt;chr&gt;               &lt;chr&gt;        &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt;
-##  1 Flensburg, Stadt    krsfr. Stadt 1998               14.6       12.4
-##  2 Kiel, Stadt         krsfr. Stadt 1998               13.9       12.4
-##  3 Lübeck, Stadt       krsfr. Stadt 1998               13.4       12.4
-##  4 Neumünster, Stadt   krsfr. Stadt 1998               13.4       12.4
-##  5 Dithmarschen        Landkreis    1998               10.7       10.1
-##  6 Herzogtum Lauenburg Landkreis    1998                8.3       10.1
-##  7 Nordfriesland       Landkreis    1998                9.2       10.1
-##  8 Ostholstein         Landkreis    1998               10.2       10.1
-##  9 Pinneberg           Landkreis    1998                8.4       10.1
-## 10 Plön                Landkreis    1998                8.9       10.1
+##    Raumeinheit         Aggregat      Jahr Arbeitslosenquote Quote_Aggr
+##    &lt;chr&gt;               &lt;chr&gt;        &lt;int&gt;             &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Flensburg, Stadt    krsfr. Stadt  1998              14.6       12.4
+##  2 Kiel, Stadt         krsfr. Stadt  1998              13.9       12.4
+##  3 Lübeck, Stadt       krsfr. Stadt  1998              13.4       12.4
+##  4 Neumünster, Stadt   krsfr. Stadt  1998              13.4       12.4
+##  5 Dithmarschen        Landkreis     1998              10.7       10.1
+##  6 Herzogtum Lauenburg Landkreis     1998               8.3       10.1
+##  7 Nordfriesland       Landkreis     1998               9.2       10.1
+##  8 Ostholstein         Landkreis     1998              10.2       10.1
+##  9 Pinneberg           Landkreis     1998               8.4       10.1
+## 10 Plön                Landkreis     1998               8.9       10.1
 ## # ... with 391 more rows</code></pre>
 <hr />
 </div>
@@ -746,7 +746,8 @@ div.tocify {
 <span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Kennziffer) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> &quot;1998&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb15-4"><a href="#cb15-4"></a><span class="st">  </span><span class="kw">group_by</span>(Aggregat) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Quote_Aggr =</span> <span class="kw">mean</span>(Arbeitslosenquote))</span></code></pre></div>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Quote_Aggr =</span> <span class="kw">mean</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   Aggregat     Quote_Aggr
 ##   &lt;chr&gt;             &lt;dbl&gt;
