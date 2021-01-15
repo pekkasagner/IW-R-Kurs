@@ -1,0 +1,48 @@
+---
+title: ""
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: true
+    number_sections: false
+    toc_depth: 2
+    #code_folding: hide
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+```
+# Zeitplan
+
+```{r, include=FALSE}
+library(tidyverse)
+library(kableExtra)
+
+test <- tibble(Zeit = c("8:30 Uhr - 9:30 Uhr", "9:40 - 10:40 Uhr", "10:50-"), 
+" " = c("Einführung", "Tidyverse", "Datenvisualisierung mit ggplot2", "Mikrodatenanalyse mit R", "Karten und Geodaten", "Animationen"), 
+"Ziele und Inhalte der Sitzung" =  c("Verständnis der Grundfunktion von RStudio, Erweiterte Einstellungen, Erstellung eines Projektes, 
+Gutes Setup für Datenanalyse und Datenvisualisierung mit R", 
+"Grundverständnis des tidyverse, Laden verschiedener Dateiformate, Bearbeiten von Daten, Verständnis von Pipes (%>%), Übergang in ggplot2", 
+"Grundverständnis von ggplot2, Grundlagen der Datenvisualisierung, Anpassungsmöglichkeiten in ggplot2, Erstellen publikationsreifer Plots", 
+"Setup eines effizienten Workflows für die Analyse von großen (Mikro-)Datensätzen,  Mergen aus verschiedenen Datensätzen, Erstellen eines Arbeitsdatensatzes, Deskriptive Statistiken (numerisch und grafisch), Gewichtete Statistiken", 
+"Visualisierung von räumlichen Daten, einfache Geocomputationen,
+Erstellen von Karten im printfähigen Format", 
+"Erstellen von Animationen, Grundverständnis für die Arbeit mit dem Paket gganimate, Einblick in die Funktionsweise des Pakets plotly für interaktive Abbildungen")) 
+
+```
+
+
+```{r, echo=FALSE}
+
+test %>% 
+  kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
+    pack_rows("Tag 1: 17.02.2021", 1, 3) %>% 
+    pack_rows("Tag 2: 03.03.2021", 4, 6) 
+
+
+```
+

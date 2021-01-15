@@ -4,6 +4,8 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Zeitplan"
+      href: Zeitplan.html
     - text: "Vorab"
       href: Before_We_get_Started.html
     - text: "Kursinhalte"
