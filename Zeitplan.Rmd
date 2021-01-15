@@ -1,19 +1,14 @@
 ---
-title: "Zeiplan"
+title: "Zeitplan und Kursinhalte"
 output:
   html_document:
-    toc: true
-    toc_float: true
-    collapsed: true
-    number_sections: false
-    toc_depth: 2
+    toc: false
     #code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
 ```
-# Zeitplan und Kursinhalte
 
 ```{r, include=FALSE}
 library(tidyverse)
