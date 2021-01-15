@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Zeiplan"
 output:
   html_document:
     toc: true
@@ -10,18 +10,16 @@ output:
     #code_folding: hide
 ---
 
-
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
 ```
-# Zeitplan
+# Zeitplan und Kursinhalte
 
 ```{r, include=FALSE}
 library(tidyverse)
 library(kableExtra)
 
-test <- tibble(Zeit = c("8:30 Uhr - 9:30 Uhr", "9:40 - 10:40 Uhr", "10:50-"), 
+test <- tibble(Zeit = c("9:00 - 10:00 Uhr", "10:10 - 11:10 Uhr", "11:20 - 12:20 Uhr", "9:00 - 10:00 Uhr", "10:10 - 11:10 Uhr", "11:20 - 12:20 Uhr"), 
 " " = c("Einführung", "Tidyverse", "Datenvisualisierung mit ggplot2", "Mikrodatenanalyse mit R", "Karten und Geodaten", "Animationen"), 
 "Ziele und Inhalte der Sitzung" =  c("Verständnis der Grundfunktion von RStudio, Erweiterte Einstellungen, Erstellung eines Projektes, 
 Gutes Setup für Datenanalyse und Datenvisualisierung mit R", 
