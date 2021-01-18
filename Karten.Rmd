@@ -34,7 +34,7 @@ In der sozialwissenschaftlichen und ökonomischen Forschung werden in der Regel 
 
 ----
 
-##Einlesen von Geodaten
+## Einlesen von Geodaten
 
 Zum Einlesen von Shapefiles nutzen wir das Paket <code>sf</code>. Mit <code>st_read</code> lesen wir ein Shapefile ein.
 
@@ -50,6 +50,7 @@ Beim Einlesen eines Shapefiles werden bereits wichtige Informationen zum Geometr
 
 
 ----
+
 ## Visualisierung von Geodaten
 
 Eine einfache, der Syntax von <code>ggplot2</code> folgende Visualisierung von Geodaten kann mit dem <code>geom_sf</code> erreicht werden. Als <code>aesthetic</code> wird eine <code>geometry</code> benötigt. In diesem Fall heißt die entsprechende Spalte im Datensatz ebenfalls *geometry*.
@@ -60,7 +61,7 @@ bundeslaender %>%
   geom_sf()
 ```
 
-Sollen die Polygone, in diesem Fall Bundesländer mit einem Farbwert, der auf einer Variabel basiert, gefüllt werden, so geschieht dies mit der <code>fill</code>-aesthetic. Der Datensatz enthält eine Spalte <code>EWZ</code> mit der Einwohnerzahl je Bundesland. 
+Sollen die Polygone, in diesem Fall Bundesländer mit einem Farbwert, der auf einer Variable basiert, gefüllt werden, so geschieht dies mit der <code>fill</code>-aesthetic. Der Datensatz enthält eine Spalte <code>EWZ</code> mit der Einwohnerzahl je Bundesland. 
 
 ```{r}
 bundeslaender %>%
@@ -70,6 +71,7 @@ bundeslaender %>%
 ```
 
 ----
+
 ## Verschiedene Geodaten kombinieren
 
 
@@ -94,13 +96,15 @@ krankenhaeuser %>%
 Eine Darstellung der Punktdaten ohne eine Grundkarte macht wenig Sinn. Wo liegen die Punkte? Um die Grundkarte der Bundesländer und die Standorte der Krankenhäuser gemeinsam darzustellen, überprüfen wir zunächst, ob diese dieselbe Projektion haben.
 
 Ein Vergleich der beiden Projektionen zeigt, dass diese nicht identisch sind*:
+
 ```{r}
-waldo::compare(bundeslaender %>% sf::st_crs(), krankenhaeuser %>% sf::st_crs())
+waldo::compare(bundeslaender %>% sf::st_crs(), 
+               krankenhaeuser %>% sf::st_crs())
 ```
 
 *Anmerkung: Unterschiede sind nicht immer leicht zu erkennen und manchmal unterscheiden sich auch nur die Bezeichnungen (vgl. [UTM-Koordinatensystem](https://de.wikipedia.org/wiki/UTM-Koordinatensystem#:~:text=Die%20Arbeitsgemeinschaft%20der%20Vermessungsverwaltungen%20der,Lagebezugssystem%20f%C3%BCr%20ganz%20Deutschland%20beschlossen.))
 
-Das Paket <code>sf</code> bietet eine Vielzahl an Funktionen, um mit Geoinformationen zu arbeiten. Die Funktion <code>st_transform</code> erlaubt uns die Projektionen zu ändern.
+Das Paket <code>sf</code> bietet eine Vielzahl an Funktionen, um mit Geoinformationen zu arbeiten. Die Funktion <code>st_transform</code> erlaubt uns, die Projektionen zu vereinheitlichen.
 
 ```{r}
 bundeslaender_wgs84 <- bundeslaender %>%
@@ -116,7 +120,8 @@ krankenhaeuser_wgs84 <- krankenhaeuser %>%
 Nun haben die beiden Datensätze dieselbe Projektion...
 
 ```{r}
-waldo::compare(bundeslaender_wgs84 %>% sf::st_crs(), krankenhaeuser_wgs84 %>% sf::st_crs())
+waldo::compare(bundeslaender_wgs84 %>% sf::st_crs(), 
+               krankenhaeuser_wgs84 %>% sf::st_crs())
 ```
 
 ...und wir können sie gemeinsam grafisch darstellen:
@@ -157,11 +162,11 @@ ggplot() +
 
 ----
 
-#Praxisbeispiel
+# Weiteres Praxisbeispiel
 
-##Fragestellung / Ziel
+## Fragestellung / Ziel
 
-Wie viele Schulen gibt es in den Kölner Stadtteilen? Wo liegen diese? Eine Visualisierung
+Wie viele Schulen gibt es in den Kölner Stadtteilen? Wo liegen diese? Eine Visualisierung.
 
 ## Genutzte Daten
 
@@ -179,14 +184,15 @@ stadtteile_koeln <- st_read("daten_beispiele/stadtteile_koeln/Stadtteile.shp")
 schulen_koeln <- st_read("daten_beispiele/schulen_koeln/Schulen.shp")
 ```
 
-##Vergleich der Projektionen
+## Vergleich der Projektionen
 ```{r}
 library(waldo)
-waldo::compare(schulen_koeln %>% sf::st_crs(), stadtteile_koeln %>% sf::st_crs())
+waldo::compare(schulen_koeln %>% sf::st_crs(), 
+               stadtteile_koeln %>% sf::st_crs())
 ```
 --> Identisch!
 
-##Erste Visualisierung
+## Erste Visualisierung
 
 ```{r}
 ggplot() +
@@ -194,7 +200,7 @@ ggplot() +
   geom_sf(data = schulen_koeln) #bei einer eindeutigen Geometrie-Spalte kommt geom_sf auch ohne Spezifikation von aesthetics aus
 ```
 
-##Schulen je Stadtteil
+## Schulen je Stadtteil
 
 Mittels <code>geom_sf</code> lassen sich Geoberechnungen durchführen. Wir möchten im Folgenden die Zahl der Schulen je Stadtteil bestimmen. Hierfür nutzen wir einen *Spatial-Join*, um den Beobachtungen der Schulen die entsprechenden Informationen aus dem Datensatz mit den Stadtteilen hinzuzufügen. In der Funktion <code>st_join</code> nutzen wir die Option <code>st_within</code>.
 
@@ -227,7 +233,7 @@ schulen_je_stadtteil
 ```
 
 
-##Visualisierung
+## Visualisierung
 
 ```{r}
 library(ggthemes) #für theme_map() Einfacher Weg, Koordinatensystem und Co loszuwerden, bietet außerdem jede Menge Farbschemen
