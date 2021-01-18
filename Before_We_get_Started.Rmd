@@ -33,24 +33,26 @@ R-Studio öffnen.
 
 Kommando-Fenster (unten links) <code>1+2</code> eingeben.
 
-Im Skriptfenster <code>mean()</code> eingeben und mit dem Cursor direkt daneben die F1-Taste drücken. Unten rechts sollte sich das Hilfe-Fenster öffnen. Alternativ im Kommando-Fenster ?mean eingeben und mit Enter bestätigen.
+Im Skriptfenster <code>mean()</code> eingeben und mit dem Cursor direkt daneben die F1-Taste drücken. Unten rechts sollte sich das Hilfe-Fenster öffnen. Alternativ im Kommando-Fenster <code>?mean</code> eingeben und mit Enter bestätigen.
 
 # Erste Schritte und Ressourcen
 
-Auch wenn dieser Kurs für Einsteiger geeignet ist, werden die Grundlagen der Programmiersprache nicht noch einmal wiederholt. Die meisten Teilnehmer haben schon erste Erfahrungen mit R sammeln können, sollte dies nicht der Fall sein, kann es eventuell Sinn machen, sich ein im Vorhinein ein wenig mit R als Programmiersprache auseinanderzusetzen. Ein guter Anlauf für Tipps, wie man den Einstieg in R gestalten kann, findet sich hier: [Getting Started with R](https://support.rstudio.com/hc/en-us/articles/201141096-Getting-Started-with-R). Eine erste Einführung in detuscher Sprache gibt es hier: [Einführung in R](https://tu-dresden.de/gsw/phil/iso/mes/ressourcen/dateien/prof/lehre/freieS/Dateien/Einfuehrung_R.pdf?lang=de). Die Auseinandersetzung damit ist aber keine Vorraussetzung, um dem Kurs folgen zu können. 
+Auch wenn dieser Kurs für Einsteiger geeignet ist, werden die Grundlagen der Programmiersprache nicht noch einmal wiederholt. Die meisten Teilnehmer haben schon erste Erfahrungen mit R sammeln können, sollte dies nicht der Fall sein, kann es eventuell Sinn machen, sich ein im Vorhinein ein wenig mit R als Programmiersprache auseinanderzusetzen. 
+
+Ein guter Anlauf für Tipps, wie man den Einstieg in R gestalten kann, findet sich hier: [Getting Started with R](https://support.rstudio.com/hc/en-us/articles/201141096-Getting-Started-with-R). Eine erste Einführung in deutscher Sprache gibt es hier: [Einführung in R](https://tu-dresden.de/gsw/phil/iso/mes/ressourcen/dateien/prof/lehre/freieS/Dateien/Einfuehrung_R.pdf?lang=de). Die Auseinandersetzung damit ist aber keine Vorraussetzung, um dem Kurs folgen zu können. 
 
 
 # Daten 
 
-```{r eval=T, include=F}
+Wir nutzen im Kurs öffentlich zugängliche Daten aus verschiedenen Quellen. Bitte ladet die Daten unten als zip-Datei herunter. Sollte der Button nicht funktionieren, dann findet ihr die Daten auch [hier]("https://github.com/pekkasagner/IW-R-Kurs/raw/master/daten_beispiele/Daten-IW-R-Kurs.zip").
+
+```{r echo = FALSE, warning=FALSE}
 library(downloadthis)
 
-
-## Link in Github repo
 download_link(
-  link = "https://github.com/pekkasagner/IW-R-Kurs/tree/master/daten_beispiele/Daten-IW-R-Kurs.zip",
-  button_label = "Download pdf file",
-  button_type = "danger",
+  link = "https://github.com/pekkasagner/IW-R-Kurs/raw/master/daten_beispiele/Daten-IW-R-Kurs.zip",
+  button_label = "Daten herunterladen",
+  button_type = "success",
   has_icon = TRUE,
   icon = "fa fa-save",
   self_contained = FALSE
