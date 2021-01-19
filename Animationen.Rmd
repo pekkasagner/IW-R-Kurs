@@ -54,7 +54,7 @@ library(tidyverse)
 library(gganimate)
 
 #Eventuell muss vor der Nutzung von gganimate noch das Paket gifski installiert werden
-#install.packages(gifski)
+#install.packages("gifski")
 #Siehe: https://stackoverflow.com/questions/58991580/gganimate-returns-png-files-but-no-animated-object
 ```
 
@@ -63,7 +63,6 @@ library(gganimate)
 ### Daten laden
 
 ```{r}
-library(readr)
 (Landkreise_merged <- read_csv("daten_beispiele/Landkreise_merged.csv")
 )
 ```
@@ -79,6 +78,7 @@ Landkreise_merged %>%
   facet_wrap(~Jahr)
 ```
 
+----
 
 # (1) *Zustände* mit <code>transition_states()</code>
 
@@ -93,6 +93,7 @@ Landkreise_merged %>%
   transition_states(states = Jahr) 
 ```
 
+----
 
 ## Dynamische Beschriftungen mit <code>{closest_state}</code>
 
@@ -121,6 +122,8 @@ Landkreise_merged %>%
   labs(subtitle = "Jahr: {closest_state}") #<--nimmt Werte aus states-Argument vom transition_states()
 ```
 
+----
+
 ## Übergänge gestalten mit <code>ease_aes()</code>
 
 Mit <code>ease_aes()</code> lassen sich Übergänge noch ansprechender gestalten. Standardmäßig sind die Übergänge <code>linear</code>. Es stehen aber zahlreiche andere Optionen zur Verfügung, wie z.B. <code>elastic</code>, <code>bounce</code> oder <code>exponential</code>. 
@@ -140,6 +143,8 @@ Landkreise_merged %>%
   ease_aes("elastic-in") + # hüpfgummiartiges Verhalten
   labs(subtitle = "Jahr: {closest_state}") #<--nimmt Werte aus states-Argument vom transition_states()
 ```
+
+----
 
 ## Vorherige Datenpunkte anzeigen mit <code>shadow_</code>
 
@@ -163,6 +168,8 @@ Landkreise_merged %>%
   shadow_wake(wake_length = 0.2) + # "Schatten"" zwischen Animationszuständen
 labs(subtitle = "Jahr: {closest_state}") #<--nimmt Werte aus states-Argument vom transition_states()
 ```
+
+----
 
 # (2) Datenpunkte *Aufdecken* mit <code>transition_reveal()</code>
 
@@ -191,6 +198,8 @@ Landkreise_merged %>%
   transition_reveal(along = Jahr) 
 ```
 
+----
+
 # (3) Unterschiede zwischen Gruppen mit <code>transition_filter()</code>
 
 <code>transition_filter()</code> lässt uns dynamische Übergänge zwischen Gruppen darstellen. Auch hier können wir wieder dynamische Labels nutzen, um Überblick über die dargestellten Gruppen zu behalten. <code>{closest_filter}</code> übernimmt die Gruppen, die wir in <code>transition_filter()</code> definieren.
@@ -209,6 +218,8 @@ Landkreise_merged %>%
                     "niedriger Wahlbeteilung (< 70 %)" = Wahlbeteiligung < 70) +
   labs(subtitle = "Gruppe der Kreise mit {closest_filter}") #<--nimmt Werte aus states-Argument vom transition_filter()
 ```
+
+----
 
 ## Erscheinen und Verschwinden mit <code>enter_</code> und <code>exit_</code>
 
@@ -232,6 +243,7 @@ Landkreise_merged %>%
   exit_fly(x_loc = 100, y_loc = 0) # Verschwinden: rausfliegen nach rechts unten
 ```
 
+----
 
 # Speichern einer Animation
 
@@ -254,11 +266,10 @@ super_fancy_animation <- Landkreise_merged %>%
 Danach passen wir noch einige Details der Animation an. Mit <code>nframes</code> bestimmen wir die Gesamtzahl der Frames und mit <code>fps</code> die Frames pro Sekunde. Aus der Kombination der beiden ergibt sich die Gesamtdauer der Animation.
 
 ```{r, eval = FALSE}
-# adjust the animation settings 
 animate(super_fancy_animation, 
         width = 600, # 600px breit
         height = 400, # 400px hoch
-        nframes = 150, # insgesamt 100 Frames
+        nframes = 150, # insgesamt 150 Frames
         fps = 10) # 10 Frames pro Sekunde --> Gesamte Laufzeit: 15 Sekunden
 ```
 

@@ -150,21 +150,21 @@ ls("package:tidylog")
 
 Um Datensätze zusammenzuführen werden die <code>Mutating Joins</code>-Funktionen genutzt. Die vier Funktionen aus dem Paket <code>dplyr</code> welches Teil des <code>tidyverse</code> ist, sind:
 
-* <code>Neuer_Datensatz <- left_join(Datensatz1, Datensatz2, by = c("Matchingvariable1", "Matchingvariable2"))</code>: Datensatz1 bleibt komplett erhalten und wird um Spalten von Datensatz2 ergänzt.
+* <code>Neuer_Datensatz <- left_join(Datensatz_a, Datensatz_b, by = c("Matchingvariable1", "Matchingvariable2"))</code>: Datensatz1 bleibt komplett erhalten und wird um Spalten von Datensatz2 ergänzt.
 
-* <code>Neuer_Datensatz <- right_join(Datensatz1, Datensatz2, by = c("Matchingvariable1", "Matchingvariable2"))</code>: Datensatz2 bleibt komplett erhalten und wird um Spalten von Datensatz1 ergänzt.
+* <code>Neuer_Datensatz <- right_join(Datensatz_a, Datensatz_b, by = c("Matchingvariable1", "Matchingvariable2"))</code>: Datensatz2 bleibt komplett erhalten und wird um Spalten von Datensatz1 ergänzt.
 
-* <code>Neuer_Datensatz <- inner_join(Datensatz1, Datensatz2, by = c("Matchingvariable1", "Matchingvariable2"))</code>: Nur die Beobachtungen behalten, bei denen dieselben Matchingvariablen in beiden Datensätzen auftauchen.
+* <code>Neuer_Datensatz <- inner_join(Datensatz_a, Datensatz_b, by = c("Matchingvariable1", "Matchingvariable2"))</code>: Nur die Beobachtungen behalten, bei denen dieselben Matchingvariablen in beiden Datensätzen auftauchen.
 
-* <code>Neuer_Datensatz <- full_join(Datensatz1, Datensatz2, by = c("Matchingvariable1", "Matchingvariable2"))</code>: Neuer Datensatz enthält sowohl Beobachtungen, die in beiden Datensätzen vorkommen als auch Einzelbeobachtungen, die nicht gematcht wurden.
+* <code>Neuer_Datensatz <- full_join(Datensatz_a, Datensatz_b, by = c("Matchingvariable1", "Matchingvariable2"))</code>: Neuer Datensatz enthält sowohl Beobachtungen, die in beiden Datensätzen vorkommen als auch Einzelbeobachtungen, die nicht gematcht wurden.
 
 ![](images/Joins_2.png)
 
-Quelle: [Data Wrangling Cheat Sheet]("https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf")
+Quelle: [Data Wrangling Cheat Sheet](https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 
 ----
 
-##Reihenfolge des Zusammenfügens bei Mikrodatensätzen
+## Reihenfolge des Zusammenfügens bei Mikrodatensätzen
 
 Bei der Arbeit mit Mikrodatensätzen beginnt man in der Regel mit einem Basisdatensatz, in unserem Fall <code>ppathl</code>. Dieser enthält in der Regel alle Beobachtungen. Aufbauend auf diesem Datensatz werden weitere Informationen hinzugefügt. Wir wissen also, dass wir an  <code>ppathl</code> alle anderen Datensätze dranspielen können. In unserem finalen Datensatz sind alle Zeilen aus <code>ppathl</code> enthalten, ergänzt um weitere Variablen aus den anderen Datensätzen. Wir nutzen also den <code>left_join</code>. 
 
@@ -178,7 +178,7 @@ zwischendatensatz1 <- left_join(ppathl, pl, by = c("persnr", "jahr"))
 #2. Schritt
 arbeitsdatensatz_mit_zwischenschritt <- left_join(zwischendatensatz1, phealth, by = c("persnr", "jahr"))
 ```
-Wer sich sicher fühlt  nutzt den Pipe-Befehl und kombiniert die beiden Schritte. 
+Besser natürlich alles hintereinander mit Pipes:
 ```{r}
 library(tidyverse)
 arbeitsdatensatz <- ppathl %>% #Ausgangsdatensatz ppathl
@@ -216,13 +216,14 @@ load("arbeitsdatensatz.RData")
 
 ----
 
-##Analyse von Mikrodaten
+## Analyse von Mikrodaten
 
 Die große Anzahl an Beobachtungen kann die (effiziente) Visualisierung von Mikrodaten erschweren und einige Visualisierungsformen bieten sich mehr an als andere. Entscheidend ist der Datentyp, der visualisiert werden soll.
 
 Sollen lediglich aggregierte Werte, wie beispielsweise Mittelwerte, Quantile und Dispersionsmaße dargestellt werden, unterscheidet sich die Datenvisualisierung von Mikrodaten nicht von der von anderen Daten. Lediglich bei der Datenanalyse muss auf die Gewichtung der Daten geachtet werden.
 
 ###Gewichte (Hochrechnungsfaktoren)
+
 Um für die Grundgesamtheit repräsentative Ergebnisse zu erhalten, müssen die Daten aus der Stichprobe gewichtet werden. Wie immer kann ein gewünschtes Ergebnis, hier zum Beispiel die durchschnittlichen Einkommen im Jahr 2004, *händisch* berechnet werden.
 
 
@@ -240,6 +241,7 @@ arbeitsdatensatz %>%
 ```
 
 So bietet zum Beispiel das Paket <code>spatstat</code> Funktionen, die für die Berechnung deskriptiver, gewichteter Statistiken sinnvoll sind. 
+
 ```{r}
 library(spatstat)
 ls("package:spatstat") %>% 
@@ -267,21 +269,31 @@ arbeitsdatensatz %>%
   geom_point(aes(color = factor(jahr)), size = 5) 
 ```
 
-Insbesondere bei Daten mit vielen Beobachtungen kann es spannend sein, die Verteilung der Variblen von Interesse zu visualisieren. Ein Klassiker ist der Boxplot.
+Insbesondere bei Daten mit vielen Beobachtungen kann es spannend sein, die Verteilung der Variablen von Interesse zu visualisieren. Ein Klassiker ist der Boxplot.
 
 ```{r}
 arbeitsdatensatz %>% 
-  ggplot(aes(x = factor(jahr), y = lebensz_org, color = factor(jahr), weight = weight)) +
+  ggplot(aes(x = factor(jahr), y = income, color = factor(jahr), weight = weight)) +
   geom_boxplot()
+```
+
+Wie wir sehen, scheinen wir einige Ausreißer in den Daten zu haben. Wir könnten diese entweder aus dem Datensatz entfernen, oder die Skalierung anpassen. 
+
+```{r}
+arbeitsdatensatz %>% 
+  ggplot(aes(x = factor(jahr), y = income, color = factor(jahr), weight = weight)) +
+  geom_boxplot() +
+  ylim(750, 5000)
 ```
 
 Der klassiche Boxplot gibt zwar einige Hinweise auf die Verteilung der Daten, es geht aber auch schicker. Zum Beispiel mit <code>geom_jitter</code>. 
 
 ```{r}
 arbeitsdatensatz %>% 
-  ggplot(aes(x = factor(jahr), y = lebensz_org, color = factor(jahr), weight = weight)) +
+  ggplot(aes(x = factor(jahr), y = income, color = factor(jahr), weight = weight)) +
   geom_jitter(alpha = 0.3) +
-  geom_boxplot(alpha = 0.8, outlier.color = NA)
+  geom_boxplot(alpha = 0.8, outlier.color = NA) +
+    ylim(750, 5000)
 ```
 
 Oder mit <code>geom_violin</code>:
@@ -291,18 +303,28 @@ arbeitsdatensatz %>%
   ggplot(aes(x = factor(jahr), y = income, color = factor(jahr), weight = weight)) +
   geom_jitter(alpha = 0.3) +
   geom_violin(alpha = 0.8, draw_quantiles = c(0.25, 0.5, 0.75)) +
-  ylim(1000, 10000)
+  ylim(0, 10000)
 ```
 
-Eine weitere Option zur Visualisierung von Verteilungen ist <code>geom_density</code>. 
+Eine weitere Option zur Visualisierung von Verteilungen ist <code>geom_density</code>.
 
 ```{r}
 arbeitsdatensatz %>% 
-  filter(jahr == 2000) %>% 
   ggplot() +
   geom_density(aes(x = income, weight = weight)) + #auch hier erlaubt weight eine Ausgabe gewichteter Graphen
-  geom_density(aes(x = income), color = "red") + #zum Vergleich der ungewichtete Graph
-  xlim(0,20000)
+  geom_density(aes(x = income), color = "red") + #zum Vergleich der ungewichtete Graph, macht in diesem dummy-Beispiel kaum einen Unterschied
+  xlim(0,20000) +
+  facet_wrap(~jahr)
 ```
 
+Neben den direkten Visualisierungsmöglichkeiten mit "gewichteten Abbildungen" unterscheidet sich die Visualisierung von Mikrodaten sonst nicht.
 
+```{r}
+arbeitsdatensatz %>% 
+  group_by(jahr, lebensz_org) %>% 
+  summarise(weighted_median_income = spatstat::weighted.median(income, w = weight)) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = lebensz_org, y = weighted_median_income)) +
+  geom_col() +
+  facet_wrap(~jahr)
+```

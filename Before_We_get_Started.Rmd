@@ -17,7 +17,7 @@ output:
 Dort einfach das Betriebssystem auswählen und die aktuelle Version 
 herunterladen.
 
-*Falls ein IW-Laptop benutzt wird, unterstützt die IT.*
+*Falls ein IW-Computer benutzt wird, unterstützt die IT.*
 
 # R-Studio installieren
 
@@ -25,7 +25,7 @@ herunterladen.
 
 RStudio Desktop auswählen und den Installationsanweisungen folgen.
 
-*Falls ein IW-Laptop benutzt wird, unterstützt die IT.*
+*Falls ein IW-Computer benutzt wird, unterstützt die IT.*
 
 # Setup testen
 
@@ -37,7 +37,7 @@ Im Skriptfenster <code>mean()</code> eingeben und mit dem Cursor direkt daneben 
 
 # Erste Schritte und Ressourcen
 
-Auch wenn dieser Kurs für Einsteiger geeignet ist, werden die Grundlagen der Programmiersprache nicht noch einmal wiederholt. Die meisten Teilnehmer haben schon erste Erfahrungen mit R sammeln können, sollte dies nicht der Fall sein, kann es eventuell Sinn machen, sich ein im Vorhinein ein wenig mit R als Programmiersprache auseinanderzusetzen. 
+Auch wenn dieser Kurs für Einsteiger geeignet ist, werden die Grundlagen der Programmiersprache nicht noch einmal wiederholt. Die meisten Teilnehmer konnten schon erste Erfahrungen mit R sammeln. Sollte dies nicht der Fall sein, kann es eventuell Sinn machen, sich im Vorhinein ein wenig mit R als Programmiersprache auseinanderzusetzen. 
 
 Ein guter Anlauf für Tipps, wie man den Einstieg in R gestalten kann, findet sich hier: [Getting Started with R](https://support.rstudio.com/hc/en-us/articles/201141096-Getting-Started-with-R). Eine erste Einführung in deutscher Sprache gibt es hier: [Einführung in R](https://tu-dresden.de/gsw/phil/iso/mes/ressourcen/dateien/prof/lehre/freieS/Dateien/Einfuehrung_R.pdf?lang=de). Die Auseinandersetzung damit ist aber keine Voraussetzung, um dem Kurs folgen zu können. 
 

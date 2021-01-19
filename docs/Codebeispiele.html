@@ -504,8 +504,8 @@ div.tocify {
 
 
 <hr />
-<div id="racing-bar-chart" class="section level2">
-<h2>Racing Bar Chart</h2>
+<div id="racing-bar-chart" class="section level1">
+<h1>Racing Bar Chart</h1>
 <p>Hier wird ein sogenannter “Racing Bar Chart” gezeigt, bei dem sich Veränderungen der Rangfolge zwischen Untersuchungseinheiten über die Zeit darstellten lassen. Der Code sieht auf den ersten Blick relativ umständlich aus, lässt sich aber in weiten Teilen übernehmen und individuell anpassen. Der hier verwendete Trick besteht darin, den Datensatz zu erweitern und zwischen ganzen Jahren Zwischenschritte zu erzeugen und die fehlenden Daten der darzustellenden Variable zu interpolieren. Im konkreten Anwendungsfall werden hierfür zwischen den Ausprägungen der Jahresvariable (2000, 2001, 2002, etc.) in 0.1er Schritten (2000.1, 2000.2, 2000.3, …) Werte für das BIP interpoliert, die in der Animation flüssigere Übergänge erzeugen.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Laden der Pakete</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(tidyverse)</span>
@@ -588,6 +588,95 @@ div.tocify {
 <span id="cb1-79"><a href="#cb1-79"></a><span class="kw">animate</span>(plot, <span class="dt">fps =</span> <span class="dv">20</span>, <span class="dt">width =</span> <span class="dv">750</span>, <span class="dt">height =</span> <span class="dv">450</span>, <span class="dt">nframes =</span> <span class="dv">400</span>)</span>
 <span id="cb1-80"><a href="#cb1-80"></a><span class="kw">anim_save</span>(<span class="st">&#39;BIP.gif&#39;</span>, <span class="dt">animation =</span> <span class="kw">last_animation</span>(), <span class="dt">path =</span> <span class="st">&quot;../Desktop/&quot;</span>)</span></code></pre></div>
 <p><img src="images/BIP.gif" /></p>
+<hr />
+</div>
+<div id="statische-karten" class="section level1">
+<h1>Statische Karten</h1>
+<p>Hier visualisieren wir die Arbeitslosenquote in den 401 deutschen Kreisen und kreisfreien Städten.</p>
+<div id="kontinuierlich" class="section level2">
+<h2>Kontinuierlich</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Laden der Pakete</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">library</span>(ggthemes)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">library</span>(sf)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">library</span>(Hmisc)</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># Einlesen und Gruppieren der Daten</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;daten_beispiele/Landkreise_merged.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#Einlesen des Shapefiles</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>shapefile &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp&quot;</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#Daten und Shapefile zusammenführen</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>data_merged &lt;-<span class="st"> </span>shapefile <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="st">  </span><span class="kw">left_join</span>(data, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;RS&quot;</span> =<span class="st"> &quot;Kennziffer&quot;</span>)) </span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#Plot erstellen:</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>    </span>
+<span id="cb2-20"><a href="#cb2-20"></a>data_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Arbeitslosenquote<span class="op">/</span><span class="dv">100</span>)) <span class="op">+</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="st">  </span><span class="kw">scale_fill_gradient</span>(<span class="dt">low =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">high =</span> <span class="st">&quot;#2e4964&quot;</span>, <span class="dt">guide =</span> <span class="st">&quot;colorbar&quot;</span>, <span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(<span class="dt">accuracy =</span> <span class="dv">2</span>)) <span class="op">+</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="st">  </span><span class="kw">theme_map</span>() <span class="op">+</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb2-26"><a href="#cb2-26"></a>        <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">1.1</span>, <span class="fl">0.3</span>),</span>
+<span id="cb2-27"><a href="#cb2-27"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="st">   </span><span class="kw">labs</span>(<span class="dt">title=</span> <span class="st">&quot;Arbeitslosenquote in Deutschland&quot;</span>,</span>
+<span id="cb2-29"><a href="#cb2-29"></a>         <span class="dt">subtitle =</span> <span class="st">&quot;2017, in Prozent&quot;</span>)</span>
+<span id="cb2-30"><a href="#cb2-30"></a></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="co">#Speichern des Plots</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="kw">ggsave</span>(<span class="st">&quot;images/Arbeitslosenquote_2017_kontinuierlich.png&quot;</span>)</span></code></pre></div>
+<p><img src="images/Arbeitslosenquote_2017_kontinuierlich.png" /></p>
+</div>
+<div id="gruppiert" class="section level2">
+<h2>Gruppiert</h2>
+<p>In der gruppierten Variante teilen wir die 401 Kreise in 6 Gruppen, die wir dann ensprechend visualisieren. Im Unterschied zum vorherigen Beispiel müssen wir lediglich einige Strings manipulieren, um die entsprechenden Gruppen zu erstellen und die deutsche Kommaregel zu beachten.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Laden der Pakete</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">library</span>(ggthemes)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">library</span>(sf)</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="kw">library</span>(Hmisc)</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># Einlesen und Gruppieren der Daten</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;daten_beispiele/Landkreise_merged.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Gruppen_Arbeitslosenquote =</span> Hmisc<span class="op">::</span><span class="kw">cut2</span>(Arbeitslosenquote, <span class="dt">g =</span> <span class="dv">6</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Gruppen_Arbeitslosenquote =</span> <span class="kw">str_replace_all</span>(Gruppen_Arbeitslosenquote, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">,&quot;</span>, <span class="st">&quot; -&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Gruppen_Arbeitslosenquote =</span> <span class="kw">str_replace_all</span>(Gruppen_Arbeitslosenquote, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">,&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="st">  </span><span class="kw">group_by</span>(Gruppen_Arbeitslosenquote) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">observations =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Gruppenbezeichnung =</span> <span class="kw">paste</span>(Gruppen_Arbeitslosenquote, <span class="st">&quot;, n = &quot;</span>, observations, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#Einlesen des Shapefiles</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>shapefile &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp&quot;</span>)</span>
+<span id="cb3-20"><a href="#cb3-20"></a></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#Daten und Shapefile zusammenführen</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>data_merged &lt;-<span class="st"> </span>shapefile <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="st">  </span><span class="kw">left_join</span>(data, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;RS&quot;</span> =<span class="st"> &quot;Kennziffer&quot;</span>)) </span>
+<span id="cb3-24"><a href="#cb3-24"></a></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#Plot erstellen:</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a>  <span class="co">#IW-Farbschema </span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>    meine_IW_Farben &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#ca9c4d&quot;</span>, <span class="st">&quot;#e0c599&quot;</span>, <span class="st">&quot;#f3e2c5&quot;</span>, <span class="st">&quot;#93a7bb&quot;</span>, <span class="st">&quot;#748a9d&quot;</span>, <span class="st">&quot;#2e4964&quot;</span>)</span>
+<span id="cb3-28"><a href="#cb3-28"></a>    </span>
+<span id="cb3-29"><a href="#cb3-29"></a>data_merged <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> Gruppenbezeichnung)) <span class="op">+</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a><span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> meine_IW_Farben) <span class="op">+</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a><span class="st">  </span><span class="kw">theme_map</span>() <span class="op">+</span></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb3-35"><a href="#cb3-35"></a>        <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">1.1</span>, <span class="fl">0.3</span>),</span>
+<span id="cb3-36"><a href="#cb3-36"></a>        <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;top&quot;</span>)) <span class="op">+</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="st">   </span><span class="kw">labs</span>(<span class="dt">title=</span> <span class="st">&quot;Arbeitslosenquote in Deutschland&quot;</span>,</span>
+<span id="cb3-38"><a href="#cb3-38"></a>         <span class="dt">subtitle =</span> <span class="st">&quot;2017, in Prozent&quot;</span>)</span>
+<span id="cb3-39"><a href="#cb3-39"></a></span>
+<span id="cb3-40"><a href="#cb3-40"></a><span class="co">#Speichern des Plots</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a><span class="kw">ggsave</span>(<span class="st">&quot;images/Arbeitslosenquote_gruppiert_2017.png&quot;</span>)</span></code></pre></div>
+</div>
+<div id="section" class="section level2">
+<h2><img src="images/Arbeitslosenquote_gruppiert_2017.png" /></h2>
+</div>
 </div>
 
 

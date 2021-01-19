@@ -511,15 +511,14 @@ div.tocify {
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(gganimate)</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="co">#Eventuell muss vor der Nutzung von gganimate noch das Paket gifski installiert werden</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#install.packages(gifski)</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#install.packages(&quot;gifski&quot;)</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="co">#Siehe: https://stackoverflow.com/questions/58991580/gganimate-returns-png-files-but-no-animated-object</span></span></code></pre></div>
 <hr />
 </div>
 <div id="daten-laden" class="section level3">
 <h3>Daten laden</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(readr)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>(Landkreise_merged &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;daten_beispiele/Landkreise_merged.csv&quot;</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>(Landkreise_merged &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;daten_beispiele/Landkreise_merged.csv&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 9,223 x 9
 ##    Kennziffer Raumeinheit Aggregat  Jahr Arbeitslosenquo~ Wahlbeteiligung
 ##    &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;    &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
@@ -543,6 +542,7 @@ div.tocify {
 <span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Jahr)</span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<hr />
 </div>
 </div>
 <div id="zustände-mit-transition_states" class="section level1">
@@ -555,6 +555,7 @@ div.tocify {
 <span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw">transition_states</span>(<span class="dt">states =</span> Jahr) </span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-4-1.gif" /><!-- --></p>
+<hr />
 <div id="dynamische-beschriftungen-mit-closest_state" class="section level2">
 <h2>Dynamische Beschriftungen mit <code>{closest_state}</code></h2>
 <p>AHA! Es bewegt sich was! Wir wissen allerdings nicht wirklich, was sich tut. Um besser zu verstehen, was die verschiedenen Zustände darstellen, können wir dynamische Labels verwenden. Innerhalb der geschweiften Klammern wird dann der jeweilige <em>Animationszustand</em> angezeigt. <code>{closest_state}</code> kann zum Beispiel in die (Unter)überschrift einer Abbildung eingefügt werden. Das Schöne an <code>gganimate</code> ist es, dass die <code>ggplot</code> weitestgehend übernommen werden kann.</p>
@@ -576,6 +577,7 @@ div.tocify {
 <span id="cb7-7"><a href="#cb7-7"></a>                    <span class="dt">state_length =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="co">#1/10 für Zustände</span></span>
 <span id="cb7-8"><a href="#cb7-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-6-1.gif" /><!-- --></p>
+<hr />
 </div>
 <div id="übergänge-gestalten-mit-ease_aes" class="section level2">
 <h2>Übergänge gestalten mit <code>ease_aes()</code></h2>
@@ -594,6 +596,7 @@ div.tocify {
 <span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw">ease_aes</span>(<span class="st">&quot;elastic-in&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># hüpfgummiartiges Verhalten</span></span>
 <span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-7-1.gif" /><!-- --></p>
+<hr />
 </div>
 <div id="vorherige-datenpunkte-anzeigen-mit-shadow_" class="section level2">
 <h2>Vorherige Datenpunkte anzeigen mit <code>shadow_</code></h2>
@@ -614,6 +617,7 @@ div.tocify {
 <span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw">shadow_wake</span>(<span class="dt">wake_length =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span><span class="co"># &quot;Schatten&quot;&quot; zwischen Animationszuständen</span></span>
 <span id="cb9-7"><a href="#cb9-7"></a><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Jahr: {closest_state}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_states()</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-8-1.gif" /><!-- --></p>
+<hr />
 </div>
 </div>
 <div id="datenpunkte-aufdecken-mit-transition_reveal" class="section level1">
@@ -637,6 +641,7 @@ div.tocify {
 <span id="cb11-7"><a href="#cb11-7"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb11-8"><a href="#cb11-8"></a><span class="st">  </span><span class="kw">transition_reveal</span>(<span class="dt">along =</span> Jahr) </span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-10-1.gif" /><!-- --></p>
+<hr />
 </div>
 <div id="unterschiede-zwischen-gruppen-mit-transition_filter" class="section level1">
 <h1>(3) Unterschiede zwischen Gruppen mit <code>transition_filter()</code></h1>
@@ -652,6 +657,7 @@ div.tocify {
 <span id="cb12-8"><a href="#cb12-8"></a>                    <span class="st">&quot;niedriger Wahlbeteilung (&lt; 70 %)&quot;</span> =<span class="st"> </span>Wahlbeteiligung <span class="op">&lt;</span><span class="st"> </span><span class="dv">70</span>) <span class="op">+</span></span>
 <span id="cb12-9"><a href="#cb12-9"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;Gruppe der Kreise mit {closest_filter}&quot;</span>) <span class="co">#&lt;--nimmt Werte aus states-Argument vom transition_filter()</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-11-1.gif" /><!-- --></p>
+<hr />
 <div id="erscheinen-und-verschwinden-mit-enter_-und-exit_" class="section level2">
 <h2>Erscheinen und Verschwinden mit <code>enter_</code> und <code>exit_</code></h2>
 <p>Wir haben die obigen Gruppen exklusiv definiert. Kein Kreis taucht doppelt auf. In solchen Fällen bietet es sich an, diese Trennung durch Übergänge klarer zu machen.</p>
@@ -669,6 +675,7 @@ div.tocify {
 <span id="cb13-10"><a href="#cb13-10"></a><span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">100</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span></span>
 <span id="cb13-11"><a href="#cb13-11"></a><span class="st">  </span><span class="kw">exit_fly</span>(<span class="dt">x_loc =</span> <span class="dv">100</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></span></code></pre></div>
 <p><img src="Animationen_files/figure-html/unnamed-chunk-12-1.gif" /><!-- --></p>
+<hr />
 </div>
 </div>
 <div id="speichern-einer-animation" class="section level1">
@@ -686,12 +693,11 @@ div.tocify {
 <span id="cb14-10"><a href="#cb14-10"></a><span class="st">  </span><span class="kw">enter_fly</span>(<span class="dt">x_loc =</span> <span class="dv">0</span>, <span class="dt">y_loc =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span><span class="co"># Erscheinen: einfliegen von links oben</span></span>
 <span id="cb14-11"><a href="#cb14-11"></a><span class="st">  </span><span class="kw">exit_fly</span>(<span class="dt">x_loc =</span> <span class="dv">60</span>, <span class="dt">y_loc =</span> <span class="dv">0</span>) <span class="co"># Verschwinden: rausfliegen nach rechts unten</span></span></code></pre></div>
 <p>Danach passen wir noch einige Details der Animation an. Mit <code>nframes</code> bestimmen wir die Gesamtzahl der Frames und mit <code>fps</code> die Frames pro Sekunde. Aus der Kombination der beiden ergibt sich die Gesamtdauer der Animation.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># adjust the animation settings </span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">animate</span>(super_fancy_animation, </span>
-<span id="cb15-3"><a href="#cb15-3"></a>        <span class="dt">width =</span> <span class="dv">600</span>, <span class="co"># 600px breit</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a>        <span class="dt">height =</span> <span class="dv">400</span>, <span class="co"># 400px hoch</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a>        <span class="dt">nframes =</span> <span class="dv">150</span>, <span class="co"># insgesamt 100 Frames</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a>        <span class="dt">fps =</span> <span class="dv">10</span>) <span class="co"># 10 Frames pro Sekunde --&gt; Gesamte Laufzeit: 15 Sekunden</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">animate</span>(super_fancy_animation, </span>
+<span id="cb15-2"><a href="#cb15-2"></a>        <span class="dt">width =</span> <span class="dv">600</span>, <span class="co"># 600px breit</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>        <span class="dt">height =</span> <span class="dv">400</span>, <span class="co"># 400px hoch</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>        <span class="dt">nframes =</span> <span class="dv">150</span>, <span class="co"># insgesamt 150 Frames</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>        <span class="dt">fps =</span> <span class="dv">10</span>) <span class="co"># 10 Frames pro Sekunde --&gt; Gesamte Laufzeit: 15 Sekunden</span></span></code></pre></div>
 <p>Mit <code>anim_save()</code> speichern wir schließlich die letzte Animation und geben der Datei einen Namen. Und dann? Ab auf Twitter &amp; Co. damit!</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">anim_save</span>(<span class="st">&quot;meine_super_fancy_animation.gif&quot;</span>)</span></code></pre></div>
 </div>

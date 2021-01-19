@@ -10,7 +10,6 @@ output:
     #code_folding: hide
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
 ```
@@ -37,6 +36,7 @@ Interaktive Abbildungen können zum Beispiel
 * als eigenständige Webseiten gespeichert,
 * oder in bestehende Webseiten eingebettet werden.
 
+----
 
 # <code>plotly</code>
 
@@ -51,7 +51,9 @@ Grundsätzlich gibt es zwei Herangehensweisen, um mit <code>plotly</code> in <co
 
 2) Direktes Erstellen eines <code>plotly</code>-Objekts via <code>plot_ly()</code>, <code>plot_geo()</code> oder <code>plot_mapbox()</code>.
 
-### Benötigte Pakete
+----
+
+## Benötigte Pakete
 
 ```{r}
 library(tidyverse)
@@ -59,12 +61,16 @@ library(readr) #Daten einlesen
 library(plotly) 
 ```
 
-### Daten laden
+----
+
+## Daten laden
 
 ```{r}
 (Landkreise_merged <- read_csv("daten_beispiele/Landkreise_merged.csv")
 )
 ```
+
+----
 
 ## Statische Abbildung
 
@@ -96,9 +102,9 @@ ggplotly(statische_Abbildung) %>%
   rangeslider(start = 2010, end = 2017)
 ```
 
+----
 
-
-# Animationen mit <code>plotly</code>
+## Animationen mit <code>plotly</code>
 
 Statische Abbildung:
 
@@ -114,7 +120,7 @@ Statische Abbildung:
 )
 ```
 
-Interaktive Abbildung:
+Interaktive animierte Abbildung:
 
 ```{r}
 ggplotly(statische_Abbildung_frames) 
@@ -126,55 +132,34 @@ Der Titel für die Frames kann angepasst werden:
 statische_Abbildung_frames %>% 
     ggplotly() %>% 
     animation_slider(
-    currentvalue = list(prefix = "Ausgewählte Stadt: ", font = list(color="red")))
+    currentvalue = list(prefix = "Stadt: ", font = list(color="red")))
 
 ```
 
-
-
-# Weitere
-
-## Animation mit Filter
-
-
-```{r}
-daten <- Landkreise_merged %>% 
-  filter(!is.na(Arbeitslosenquote)) %>% 
-  as_tibble()
-```
-
-```{r}
-library(crosstalk)
-library(htmlwidgets)
-```
-
-
-```{r}
-tx <- SharedData$new(daten)
-
-widgets <- bscols(widths = c(12),
-  filter_select("Raumeinheit", "Stadt", tx, ~Raumeinheit))
-```
-
-```{r}
-bscols(
-  widths = c(12, 12), widgets, 
-  plot_ly(tx, x = ~Jahr, y = ~Arbeitslosenquote, showlegend = FALSE) %>% 
-    add_lines(color = ~Raumeinheit, colors = "black") %>% 
-    add_markers(color = ~Raumeinheit, colors = "black") 
-)
-```
+----
 
 # Speichern eines widgets
 
-```{r}
-#final <- ggplotly(statische_Abbildung_frames)  
-```
+Wir speichern diese interaktive Animation als html-Datei. Dazu wird zunächst ein Objekt erstellt.
 
 
-```{r}
-#saveWidget(final, "final.html", selfcontained = T)
+```{r eval=F}
+final <- statische_Abbildung_frames %>% 
+    ggplotly() %>% 
+  animation_slider(
+    currentvalue = list(prefix = "Stadt: ", font = list(color="red")))
 ```
+
+Und mit dem Befehl <code>saveWidget()</code> aus dem Paket <code>htmlwidgets</code> gespeichert.
+
+```{r eval=F}
+#install.packages("htmlwidgets")
+library(htmlwidgets)
+
+htmlwidgets::saveWidget(final, "final.html", selfcontained = T)
+```
+
+----
 
 # Links
 

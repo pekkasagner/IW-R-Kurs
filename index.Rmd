@@ -39,8 +39,6 @@ Jeder Teilnehmer verfolgt sicher seine eigenen Ziele. Was die Teilnehmer aus der
 
 5. **Wie Animationen funktionieren:** Abbildungen sind zweidimensional: langweilig! Wir erstellen zwar keine aus dem Bildschirm springenden Abbildungen. Allerdings lassen sich Abbildungen durch Animationen eine spannende dritte Dimension geben [(mehr)](https://gganimate.com/articles/gganimate.html).
 
-6. **Bonus:** Es gibt ein R-Paket, mit dem Grafiken im IW Corporate Design erstellen kann. Wir zeigen, was es kann und wie man es benutzt.
-
 </div>
 <div class="col-sm-6">
 

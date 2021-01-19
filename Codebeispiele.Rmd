@@ -18,7 +18,7 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 
 ---- 
 
-## Racing Bar Chart
+# Racing Bar Chart
 
 Hier wird ein sogenannter "Racing Bar Chart" gezeigt, bei dem sich Veränderungen
 der Rangfolge zwischen Untersuchungseinheiten über die Zeit darstellten lassen.
@@ -115,3 +115,100 @@ anim_save('BIP.gif', animation = last_animation(), path = "../Desktop/")
 ```
 
 ![](images/BIP.gif)
+
+---- 
+
+# Statische Karten
+
+Hier visualisieren wir die Arbeitslosenquote in den 401 deutschen Kreisen und kreisfreien Städten.
+
+## Kontinuierlich
+
+```{r eval=FALSE}
+# Laden der Pakete
+library(tidyverse)
+library(ggthemes)
+library(sf)
+library(Hmisc)
+
+# Einlesen und Gruppieren der Daten
+data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>% 
+  filter(Jahr == 2017)
+
+#Einlesen des Shapefiles
+shapefile <- st_read("daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp")
+
+#Daten und Shapefile zusammenführen
+data_merged <- shapefile %>% 
+  left_join(data, by = c("RS" = "Kennziffer")) 
+
+#Plot erstellen:
+    
+data_merged %>% 
+  ggplot(aes(fill = Arbeitslosenquote/100)) +
+  geom_sf() +
+  scale_fill_gradient(low = "white", high = "#2e4964", guide = "colorbar", labels = scales::percent_format(accuracy = 2)) +
+  theme_map() +
+  theme(legend.title = element_blank(),
+        legend.position = c(1.1, 0.3),
+        legend.justification = c("right", "top")) +
+   labs(title= "Arbeitslosenquote in Deutschland",
+         subtitle = "2017, in Prozent")
+
+#Speichern des Plots
+ggsave("images/Arbeitslosenquote_2017_kontinuierlich.png")
+
+```
+![](images/Arbeitslosenquote_2017_kontinuierlich.png)
+
+
+## Gruppiert
+
+In der gruppierten Variante teilen wir die 401 Kreise in 6 Gruppen, die wir dann ensprechend visualisieren. Im Unterschied zum vorherigen Beispiel müssen wir lediglich einige Strings manipulieren, um die entsprechenden Gruppen zu erstellen und die deutsche Kommaregel zu beachten.
+
+```{r eval=FALSE}
+# Laden der Pakete
+library(tidyverse)
+library(ggthemes)
+library(sf)
+library(Hmisc)
+
+# Einlesen und Gruppieren der Daten
+data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>% 
+  filter(Jahr == 2017) %>% 
+  mutate(Gruppen_Arbeitslosenquote = Hmisc::cut2(Arbeitslosenquote, g = 6)) %>% 
+  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\,", " -")) %>% 
+  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\.", "\\,")) %>% 
+  group_by(Gruppen_Arbeitslosenquote) %>% 
+  mutate(observations = n()) %>% 
+  ungroup() %>% 
+  mutate(Gruppenbezeichnung = paste(Gruppen_Arbeitslosenquote, ", n = ", observations, sep = ""))
+
+#Einlesen des Shapefiles
+shapefile <- st_read("daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp")
+
+#Daten und Shapefile zusammenführen
+data_merged <- shapefile %>% 
+  left_join(data, by = c("RS" = "Kennziffer")) 
+
+#Plot erstellen:
+  #IW-Farbschema 
+    meine_IW_Farben <- c("#ca9c4d", "#e0c599", "#f3e2c5", "#93a7bb", "#748a9d", "#2e4964")
+    
+data_merged %>% 
+  ggplot(aes(fill = Gruppenbezeichnung)) +
+  geom_sf() +
+  scale_fill_manual(values = meine_IW_Farben) +
+  theme_map() +
+  theme(legend.title = element_blank(),
+        legend.position = c(1.1, 0.3),
+        legend.justification = c("right", "top")) +
+   labs(title= "Arbeitslosenquote in Deutschland",
+         subtitle = "2017, in Prozent")
+
+#Speichern des Plots
+ggsave("images/Arbeitslosenquote_gruppiert_2017.png")
+
+```
+![](images/Arbeitslosenquote_gruppiert_2017.png)
+---- 

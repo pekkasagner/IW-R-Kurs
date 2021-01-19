@@ -38,16 +38,15 @@ In der sozialwissenschaftlichen und ökonomischen Forschung werden in der Regel 
 
 Zum Einlesen von Shapefiles nutzen wir das Paket <code>sf</code>. Mit <code>st_read</code> lesen wir ein Shapefile ein.
 
-
+Das Shapefile für die Bundesländer stammt aus dieser Quelle: [Shapefiles Bundesländer](https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::bundesl%C3%A4nder-2016-mit-einwohnerzahl?geometry=-31.360%2C46.270%2C52.268%2C55.886)
 
 ```{r}
-#Quelle Shapefile Bundesländer: https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::bundesl%C3%A4nder-2016-mit-einwohnerzahl?geometry=-31.360%2C46.270%2C52.268%2C55.886
 library(tidyverse)
 library(sf)
 bundeslaender <- st_read("daten_beispiele/shapefiles_bundeslaender/Bundesländer_2016_ew.shp")
 ```
-Beim Einlesen eines Shapefiles werden bereits wichtige Informationen zum Geometrietyp und der Projektion angezeigt.
 
+Beim Einlesen eines Shapefiles werden bereits wichtige Informationen zum Geometrietyp und der Projektion angezeigt.
 
 ----
 
@@ -75,11 +74,11 @@ bundeslaender %>%
 ## Verschiedene Geodaten kombinieren
 
 
-Das *Schichtprinzip* von ggplot2, nachdem einer Abbildung mit <code>+</code> weitere Schichten hinzugefügt werden können funktioniert bei der Visualisierung von Geodaten ebenfalls.
+Das *Schichtprinzip* von ggplot2, nachdem einer Abbildung mit <code>+</code> weitere Schichten hinzugefügt werden können, funktioniert bei der Visualisierung von Geodaten ebenfalls.
 
-Hier muss jedoch zusätzlich darauf geachtet werden, dass die verschiedenen Informationen, die übereinander dargestellt werden in derselben Projektion gespeichert wurden.
+Hier muss jedoch zusätzlich darauf geachtet werden, dass die verschiedenen Informationen, die übereinander dargestellt werden sollen in derselben Projektion gespeichert wurden.
 
-Wir laden zunächst ein neues Shapefile, das Standorte von Krankenhäusern im Ruhrgebiet enthält. Die Daten zu Krankenhäusern stammen aus dieser Quelle: [GovData](https://www.govdata.de/web/guest/suchen/-/details/poi-krankenhauser)
+Wir laden zunächst ein neues Shapefile, das Standorte von Krankenhäusern im Ruhrgebiet enthält. Die Daten zu Krankenhäusern stammen aus dieser Quelle: [Shapefiles Krankenhäuser](https://www.govdata.de/web/guest/suchen/-/details/poi-krankenhauser)
 
 ```{r}
 krankenhaeuser <- st_read("daten_beispiele/krankenhaeuser_ruhr/poi_krankenhaeuser.shp")
@@ -166,13 +165,18 @@ ggplot() +
 
 ## Fragestellung / Ziel
 
+
 Wie viele Schulen gibt es in den Kölner Stadtteilen? Wo liegen diese? Eine Visualisierung.
+
+----
 
 ## Genutzte Daten
 
 [Shapefile der Kölner Stadtteile](https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::stadtteile-k%C3%B6ln)
 
 [Shapefile der Kölner Schulen](https://opendata-esri-de.opendata.arcgis.com/datasets/esri-de-content::schulen-k%C3%B6ln)
+
+----
 
 ## Daten einlesen
 
@@ -192,6 +196,8 @@ waldo::compare(schulen_koeln %>% sf::st_crs(),
 ```
 --> Identisch!
 
+----
+
 ## Erste Visualisierung
 
 ```{r}
@@ -199,6 +205,7 @@ ggplot() +
   geom_sf(data = stadtteile_koeln) +
   geom_sf(data = schulen_koeln) #bei einer eindeutigen Geometrie-Spalte kommt geom_sf auch ohne Spezifikation von aesthetics aus
 ```
+----
 
 ## Schulen je Stadtteil
 
@@ -232,6 +239,7 @@ schulen_je_stadtteil <- stadtteile_koeln %>%
 schulen_je_stadtteil
 ```
 
+----
 
 ## Visualisierung
 
