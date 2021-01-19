@@ -205,6 +205,7 @@ ggplot() +
   geom_sf(data = stadtteile_koeln) +
   geom_sf(data = schulen_koeln) #bei einer eindeutigen Geometrie-Spalte kommt geom_sf auch ohne Spezifikation von aesthetics aus
 ```
+
 ----
 
 ## Schulen je Stadtteil
