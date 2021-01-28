@@ -18,7 +18,47 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 
 ---- 
 
-# Racing Bar Chart
+# Balkendiagramme
+
+## Statisches Balkendiagramm
+
+Hier sieht man ein gewöhnliches Balkendiagramm mit vertauschten Axen.
+
+```{r eval=FALSE}
+library(tidyverse)
+
+data <- read_csv("../Desktop/Landkreise_merged.csv")
+
+data %>%
+    filter(Jahr == 2017) %>%
+    top_n(10, Arbeitslosenquote) %>%
+    ggplot(aes(x = fct_reorder(Raumeinheit,
+                               Arbeitslosenquote),
+               y = Arbeitslosenquote)) +
+    geom_bar(stat = "identity",
+             fill = "#2e4964") +
+    geom_text(aes(y = Arbeitslosenquote,
+                  label = paste0(format(Arbeitslosenquote,
+                                        big.mark = ".",
+                                        decimal.mark = ","), "%")),
+              nudge_y = 0.65,
+              size = 3.2) +
+    coord_flip() +
+    labs(x = "",
+         y = "",
+         title = "Arbeitslosenquote in Deutschland",
+         subtitle = "Landkreise und kreisfreie Städte mit der höchsten 
+                     Arbeitslosenquote (2017)") +
+    theme_minimal() +
+    theme(plot.title.position = "plot")
+```
+
+
+![](images/Barchart_static.png){width=85%}
+
+
+
+## Racing Bar Chart (animiert)
 
 Hier wird ein sogenannter "Racing Bar Chart" gezeigt, bei dem sich Veränderungen
 der Rangfolge zwischen Untersuchungseinheiten über die Zeit darstellten lassen.
@@ -32,70 +72,44 @@ den Ausprägungen der Jahresvariable (2000, 2001, 2002, etc.) in 0.1er Schritten
 Animation flüssigere Übergänge erzeugen.
 
 ```{r eval=FALSE}
-# Laden der Pakete
 library(tidyverse)
 library(gganimate)
 
-# Einlesen der Beispieldaten
 data <- read_csv("../Desktop/Landkreise_merged.csv")
 
-# Set Theme
 theme_set(theme_void())
 
 plot <-
     data %>%
     select(Kennziffer, Raumeinheit, Jahr, BIP) %>%
-    # Filtern der Top 15 Landkreise nach BIP im Jahr 2017
     filter(!is.na(BIP),
            Raumeinheit %in% (data %>%
                                  filter(Jahr == max(Jahr)) %>%
                                  top_n(15, BIP) %>%
                                  pull(Raumeinheit))) %>%
     group_by(Jahr) %>%
-    # Erstellen einer Rangfolgevariable
     mutate(rank = min_rank(-BIP) * 1) %>%
-    # Hier wird der Datensatz erweitert, um in der Animation flüssigere
-    # Übergänge zu erzeugen.
-    # Dafür wird zünächst die Jahresvariable um jeweils 0.1 erweitert und die
-    # fehlenden Werte des BIP zwischen den vorhanden Werten interpoliert
     group_by(Raumeinheit) %>%
     complete(Jahr = full_seq(Jahr, .1)) %>%
-    # Spline Interpolation für das BIP
     mutate(BIP = spline(x = Jahr, y = BIP, xout = Jahr)$y) %>%
     # Approx Interpolation für die Rangvariable (spline ist hier zu sprunghaft)
     mutate(rank = approx(x = Jahr, y = rank, xout = Jahr)$y) %>%
     ungroup() %>%
-    # Übergabe der Daten in ggplot
-    ggplot(aes(rank,
-               group = Raumeinheit,
-               fill = as.factor(Raumeinheit),
+    ggplot(aes(rank, group = Raumeinheit, fill = as.factor(Raumeinheit),
                color = as.factor(Raumeinheit))) +
-    geom_tile(aes(y = BIP / 2,
-                  height = BIP,
-                  width = 0.9),
-              alpha = 0.8,
-              color = NA) +
-    # Label der Balken (rechts)
-    geom_text(aes(y = BIP,
-                  label = paste0(format(round(BIP*1000,0),
-                                        big.mark = ".",
-                                        decimal.mark = ","), "€")),
-              hjust = 0,
-              nudge_y = 2) +
-    # Label der Balken (links)
-    geom_text(aes(y = 0,
-                  label = paste(Raumeinheit, " ")),
-              vjust = 0.2,
-              hjust = 1) +
-    coord_flip(clip = "off",
-               expand = FALSE) +
+    geom_tile(aes(y = BIP / 2, height = BIP, width = 0.9),
+              alpha = 0.8, color = NA) +
+    geom_text(aes(y = BIP, label = paste0(format(round(BIP*1000,0), 
+                                                 big.mark = ".", 
+                                                 decimal.mark = ","), "€")),
+              hjust = 0, nudge_y = 2) +
+    geom_text(aes(y = 0, label = paste(Raumeinheit, " ")),
+              vjust = 0.2, hjust = 1) +
+    coord_flip(clip = "off", expand = FALSE) +
     scale_x_reverse() +
-    guides(color = FALSE,
-           fill = FALSE) +
-    # Ändern der Standardfarben
+    guides(color = FALSE, fill = FALSE) +
     scale_fill_viridis_d() +
     scale_color_viridis_d() +
-    # Hinzfügen des Titel (dynamische Angabe des jeweiligen Jahres)
     labs(title='BIP pro Landkreis {round(frame_time,0)}',
          subtitle = " ",
          x = "", y = "BIP (je Einwohner)") +
@@ -108,7 +122,6 @@ plot <-
     exit_shrink() +
     ease_aes('cubic-in-out')
 
-# Speichern der Animation
 # nframes verlangsamt den Plot
 animate(plot, fps = 20, width = 750, height = 450, nframes = 400)
 anim_save('BIP.gif', animation = last_animation(), path = "../Desktop/")
@@ -125,24 +138,19 @@ Hier visualisieren wir die Arbeitslosenquote in den 401 deutschen Kreisen und kr
 ## Kontinuierlich
 
 ```{r eval=FALSE}
-# Laden der Pakete
 library(tidyverse)
 library(ggthemes)
 library(sf)
 library(Hmisc)
 
-# Einlesen und Gruppieren der Daten
 data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>% 
   filter(Jahr == 2017)
 
-#Einlesen des Shapefiles
 shapefile <- st_read("daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp")
 
 #Daten und Shapefile zusammenführen
 data_merged <- shapefile %>% 
   left_join(data, by = c("RS" = "Kennziffer")) 
-
-#Plot erstellen:
     
 data_merged %>% 
   ggplot(aes(fill = Arbeitslosenquote/100)) +
@@ -155,25 +163,22 @@ data_merged %>%
    labs(title= "Arbeitslosenquote in Deutschland",
          subtitle = "2017, in Prozent")
 
-#Speichern des Plots
 ggsave("images/Arbeitslosenquote_2017_kontinuierlich.png")
 
 ```
 
-![](images/Arbeitslosenquote_2017_kontinuierlich.png)
+![](images/Arbeitslosenquote_2017_kontinuierlich.png){width=70%}
 
 ## Gruppiert
 
 In der gruppierten Variante teilen wir die 401 Kreise in 6 Gruppen, die wir dann ensprechend visualisieren. Im Unterschied zum vorherigen Beispiel müssen wir lediglich einige Strings manipulieren, um die entsprechenden Gruppen zu erstellen und die deutsche Kommaregel zu beachten.
 
 ```{r eval=FALSE}
-# Laden der Pakete
 library(tidyverse)
 library(ggthemes)
 library(sf)
 library(Hmisc)
 
-# Einlesen und Gruppieren der Daten
 data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>% 
   filter(Jahr == 2017) %>% 
   mutate(Gruppen_Arbeitslosenquote = Hmisc::cut2(Arbeitslosenquote, g = 6)) %>% 
@@ -184,16 +189,13 @@ data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>%
   ungroup() %>% 
   mutate(Gruppenbezeichnung = paste(Gruppen_Arbeitslosenquote, ", n = ", observations, sep = ""))
 
-#Einlesen des Shapefiles
 shapefile <- st_read("daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp")
 
-#Daten und Shapefile zusammenführen
 data_merged <- shapefile %>% 
   left_join(data, by = c("RS" = "Kennziffer")) 
 
-#Plot erstellen:
-  #IW-Farbschema 
-    meine_IW_Farben <- c("#ca9c4d", "#e0c599", "#f3e2c5", "#93a7bb", "#748a9d", "#2e4964")
+#IW-Farbschema 
+meine_IW_Farben <- c("#ca9c4d", "#e0c599", "#f3e2c5", "#93a7bb", "#748a9d", "#2e4964")
     
 data_merged %>% 
   ggplot(aes(fill = Gruppenbezeichnung)) +
@@ -206,8 +208,7 @@ data_merged %>%
    labs(title= "Arbeitslosenquote in Deutschland",
          subtitle = "2017, in Prozent")
 
-#Speichern des Plots
 ggsave("images/Arbeitslosenquote_gruppiert_2017.png")
 ```
 
-![](images/Arbeitslosenquote_gruppiert_2017.png)
+![](images/Arbeitslosenquote_gruppiert_2017.png){width=70%}
