@@ -52,9 +52,9 @@ data %>%
     theme_minimal() +
     theme(plot.title.position = "plot")
 ```
-
-
-![](images/Barchart_static.png){width=85%}
+<center>
+![](images/Barchart_static.png){width=70%}
+</center>
 
 
 
@@ -127,9 +127,74 @@ animate(plot, fps = 20, width = 750, height = 450, nframes = 400)
 anim_save('BIP.gif', animation = last_animation(), path = "../Desktop/")
 ```
 
+<center>
 ![](images/BIP.gif)
+</center>
 
 ---- 
+
+# Boxplot
+
+Von der Strutkur her ähnlich wie Balkendiagramme lassen sich mit <code>geom_boxplot()</code> einfach Boxplots erstellen, die häufig 
+aussagekräftiger sind als Balkendiagramme. 
+
+## Gewöhnlicher Boxplot
+
+```{r eval=FALSE}
+library(tidyverse)
+
+# Einlesen der Beispieldaten
+data <- read_csv("../Desktop/Landkreise_merged.csv")
+
+data %>%
+    filter(Jahr == 2017) %>%
+    ggplot(aes(x = Aggregat, y = Durchschnittsalter,
+               fill = Aggregat)) +
+    geom_boxplot() +
+    labs(x = "",
+         y = "",
+         title = "Durchschnittsalter in deutschen Landkreisen und kreisfreien Städten",
+         subtitle = "N = 401; Jahr = 2017") +
+    theme_minimal() +
+    scale_fill_manual(values = c("#93a7bb", "#e0c599")) +
+     theme(plot.title.position = "plot",
+          legend.position = "none")
+
+```
+<center>
+![](images/Boxplot.png){width=70%}
+</center>
+
+## Violinen-Plot
+
+Eine Alternative zu Boxplots können Violinenplots darstellen, da hier auch 
+die Verteilung der jeweiligen Variable dargestellt wird.
+
+```{r eval=FALSE}
+library(tidyverse)
+
+# Einlesen der Beispieldaten
+data <- read_csv("../Desktop/Landkreise_merged.csv")
+
+data %>%
+    filter(Jahr == 2017) %>%
+    ggplot(aes(x = Aggregat, y = Durchschnittsalter,
+               fill = Aggregat)) +
+    geom_violin() +
+    labs(x = "",
+         y = "",
+         title = "Durchschnittsalter in deutschen Landkreisen und kreisfreien Städten",
+         subtitle = "N = 401; Jahr = 2017") +
+    theme_minimal() +
+    scale_fill_manual(values = c("#93a7bb", "#e0c599")) +
+     theme(plot.title.position = "plot",
+          legend.position = "none")
+
+```
+<center>
+![](images/Violin.png){width=70%}
+</center>
+
 
 # Statische Karten
 
@@ -167,7 +232,9 @@ ggsave("images/Arbeitslosenquote_2017_kontinuierlich.png")
 
 ```
 
+<center>
 ![](images/Arbeitslosenquote_2017_kontinuierlich.png){width=70%}
+</center>
 
 ## Gruppiert
 
@@ -211,4 +278,6 @@ data_merged %>%
 ggsave("images/Arbeitslosenquote_gruppiert_2017.png")
 ```
 
+<center>
 ![](images/Arbeitslosenquote_gruppiert_2017.png){width=70%}
+</center>
