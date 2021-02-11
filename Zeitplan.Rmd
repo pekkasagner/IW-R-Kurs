@@ -14,16 +14,17 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
 library(tidyverse)
 library(kableExtra)
 
-test <- tibble(Zeit = c("9:00 - 10:00 Uhr", "10:10 - 11:10 Uhr", "11:20 - 12:20 Uhr", "9:00 - 10:00 Uhr", "10:10 - 11:10 Uhr", "11:20 - 12:20 Uhr"), 
-" " = c("Einführung", "Tidyverse", "Datenvisualisierung mit ggplot2", "Mikrodatenanalyse mit R", "Karten und Geodaten", "Animationen"), 
+test <- tibble(Zeit = c("9:00 - 10:00 Uhr", "10:10 - 11:10 Uhr", "11:20 - 12:20 Uhr", "12:20 - 13:00 Uhr", "9:00 - 10:00 Uhr", "10:10 - 11:10 Uhr", "11:20 - 12:20 Uhr", "12:20 - 13:00 Uhr"), 
+" " = c("Einführung", "Tidyverse", "Datenvisualisierung mit ggplot2",
+      "Zeitpuffer / Fragen",  "Mikrodatenanalyse mit R", "Karten und Geodaten", "Animationen", "Zeitpuffer / Fragen"), 
 "Ziele und Inhalte der Sitzung" =  c("Verständnis der Grundfunktion von RStudio, Erweiterte Einstellungen, Erstellung eines Projektes, 
 Gutes Setup für Datenanalyse und Datenvisualisierung mit R", 
 "Grundverständnis des tidyverse, Laden verschiedener Dateiformate, Bearbeiten von Daten, Verständnis von Pipes (%>%), Übergang in ggplot2", 
-"Grundverständnis von ggplot2, Grundlagen der Datenvisualisierung, Anpassungsmöglichkeiten in ggplot2, Erstellen publikationsreifer Plots", 
+"Grundverständnis von ggplot2, Grundlagen der Datenvisualisierung, Anpassungsmöglichkeiten in ggplot2, Erstellen publikationsreifer Plots",  "Zeit für Fragen",
 "Setup eines effizienten Workflows für die Analyse von großen (Mikro-)Datensätzen,  Mergen aus verschiedenen Datensätzen, Erstellen eines Arbeitsdatensatzes, Deskriptive Statistiken (numerisch und grafisch), Gewichtete Statistiken", 
 "Visualisierung von räumlichen Daten, einfache Geocomputationen,
 Erstellen von Karten im printfähigen Format", 
-"Erstellen von Animationen, Grundverständnis für die Arbeit mit dem Paket gganimate, Einblick in die Funktionsweise des Pakets plotly für interaktive Abbildungen")) 
+"Erstellen von Animationen, Grundverständnis für die Arbeit mit dem Paket gganimate, Einblick in die Funktionsweise des Pakets plotly für interaktive Abbildungen", "Zeit für Fragen")) 
 
 ```
 
@@ -33,8 +34,8 @@ Erstellen von Karten im printfähigen Format",
 test %>% 
   kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
-    pack_rows("Tag 1: 17.02.2021", 1, 3) %>% 
-    pack_rows("Tag 2: 03.03.2021", 4, 6) 
+    pack_rows("Tag 1: 17.02.2021", 1, 4) %>% 
+    pack_rows("Tag 2: 03.03.2021", 5, 7) 
 
 
 ```

@@ -24,15 +24,6 @@
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
 
 
 
@@ -62,7 +53,6 @@ h6 {
   text-align: left;
 }
 </style>
-
 
 
 
@@ -340,7 +330,7 @@ Ziele und Inhalte der Sitzung
 </tr>
 </thead>
 <tbody>
-<tr grouplength="3">
+<tr grouplength="4">
 <td colspan="3" style="border-bottom: 1px solid;">
 <strong>Tag 1: 17.02.2021</strong>
 </td>
@@ -376,6 +366,17 @@ Datenvisualisierung mit ggplot2
 </td>
 <td style="text-align:left;">
 Grundverständnis von ggplot2, Grundlagen der Datenvisualisierung, Anpassungsmöglichkeiten in ggplot2, Erstellen publikationsreifer Plots
+</td>
+</tr>
+<tr>
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
+12:20 - 13:00 Uhr
+</td>
+<td style="text-align:left;">
+Zeitpuffer / Fragen
+</td>
+<td style="text-align:left;">
+Zeit für Fragen
 </td>
 </tr>
 <tr grouplength="3">
@@ -416,6 +417,17 @@ Animationen
 Erstellen von Animationen, Grundverständnis für die Arbeit mit dem Paket gganimate, Einblick in die Funktionsweise des Pakets plotly für interaktive Abbildungen
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+12:20 - 13:00 Uhr
+</td>
+<td style="text-align:left;">
+Zeitpuffer / Fragen
+</td>
+<td style="text-align:left;">
+Zeit für Fragen
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -428,7 +440,7 @@ Erstellen von Animationen, Grundverständnis für die Arbeit mit dem Paket ggani
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
