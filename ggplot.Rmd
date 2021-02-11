@@ -68,8 +68,6 @@ Man sieht also, dass die "Grammar of Graphics" und damit auch <code>ggplot2</cod
 
 Der wichtigste Frage, die man vor jeder Datenvisualisierung beantworten sollte: Was soll dargestellt werden? Konkreter: Was soll verglichen werden?  
 
-!!Hier noch mehr zu generellen Punkten bei Datenvisualisierung!!!
-
 
 ```{r load_data}
 library(tidyverse)
