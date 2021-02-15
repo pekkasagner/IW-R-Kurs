@@ -35,7 +35,7 @@ test %>%
   kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
     pack_rows("Tag 1: 17.02.2021", 1, 4) %>% 
-    pack_rows("Tag 2: 03.03.2021", 5, 7) 
+    pack_rows("Tag 2: 03.03.2021", 5, 8) 
 
 
 ```
