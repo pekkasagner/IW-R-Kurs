@@ -20,8 +20,8 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 
 # Ziele der Sitzung
 
-* Grundverständnis der tidyverse
-* Laden verschiedener Dateiformate
+* Grundverständnis des tidyverse
+* Laden von Daten
 * Bearbeiten von Daten
 * Verstädnnigs von Pipes (%>%)
 * Übergang in ggplot2
@@ -36,7 +36,7 @@ Das [tidyverse](https://www.tidyverse.org/) in R ist eine Sammlung von Paketen, 
 
 # Installation und Inhalt
 
-Das tidyverse kann über den Befehl <code>install.packages("tidyverse")</code> installiert werden. Wird die Bibilothek in mit <code>library(tidyverse) </code> in die Umgebung geladen, sind die folgenden Pakete direkt nutzbar:
+Das tidyverse kann über den Befehl <code>install.packages("tidyverse")</code> installiert werden. Wird die Bibilothek mit <code>library(tidyverse) </code> in die Umgebung geladen, sind die folgenden Pakete direkt nutzbar:
 
 * [ggplot2](https://ggplot2.tidyverse.org), für Datenvisualisierung,
 * [dplyr](https://dplyr.tidyverse.org), für Datenbearbeitung,
@@ -47,7 +47,7 @@ Das tidyverse kann über den Befehl <code>install.packages("tidyverse")</code> i
 * [stringr](https://github.com/tidyverse/stringr), für Strings,
 * [forcats](https://github.com/hadley/forcats), für Faktor-Variablen.
 
-Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages("tidyverse")</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library("Paketname")</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:
+Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages("tidyverse")</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library("Paketname")</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mitinstallierten Befehle umfassen:
 
 *   Für die Arbeit mit Daten mit zeitlichem Bezug:
 
@@ -58,7 +58,7 @@ Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das 
 *   Für den Import weiterer Datenformate:
 
     * [feather](https://github.com/wesm/feather), für das Teilen von Daten mit Python und weiteren Programmiersprachen,
-    * [haven](https://github.com/tidyverse/haven), für SPSS, SAS and **Stata** Daten
+    * [haven](https://github.com/tidyverse/haven), für SPSS, SAS und **Stata** Daten
     * [httr](https://github.com/r-lib/httr), für Web-APIs,
     * [jsonlite](https://github.com/jeroen/jsonlite) für JSON,
     * [readxl](https://github.com/tidyverse/readxl), für `.xls` und `.xlsx` Dateien,
@@ -77,7 +77,7 @@ Lädt man das tidyverse in die Arbeitsumgebung, wird folgende Nachricht angezeig
 
 <center>
 
-![](images/tidyverse_1_load.png){width=75%}
+![](images/tidyverse_1_load.png){width=80%}
 
 </center>
 
@@ -96,13 +96,13 @@ filter()
 
 # Datenmanagement im tidyverse
 
-Das tidyverse bietet ein kohärentes Framework, in welchem Daten intuitiv in ein gewünschtes Format übertragen werden können. Zunächst wird das Konzept von "Tidy Data" erklärt und anschließen ein Beispieldatensatz von Arbeitslosenzaheln in deutschen Landkreisen geladen.
+Das tidyverse bietet ein kohärentes Framework, in welchem Daten intuitiv in ein gewünschtes Format übertragen werden können. Zunächst wird das Konzept von "Tidy Data" erklärt und anschließend ein Beispieldatensatz von Arbeitslosenzaheln in deutschen Landkreisen geladen.
 
 ----
 
 ## Tidy Data
 
-"Tidy data" umschreibt "aufgeräumte" bzw. "saubere" Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Es ist wichtig, das Konuzept von tidy data zu verstehen, da alle Pakete im tidyverse darauf basieren. Im tidy data Format sollte ein Datensatz von den folgenden, zusammenhängenden Regeln beschrieben werden können:
+"Tidy data" umschreibt "aufgeräumte" bzw. "saubere" Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Es ist wichtig, das Konzept von tidy data zu verstehen, da alle Pakete im tidyverse darauf aufbauen. Im tidy data Format sollte ein Datensatz von den folgenden, zusammenhängenden Regeln beschrieben werden können:
 
 1. Jede Variable muss in einer eigenen Spalte sein
 2. Jede Beobachtung muss eine eigene Zeile haben
@@ -122,7 +122,7 @@ In ihrer ursprünglichen Form sehen die Daten folgendermaßen aus:
 
 </center>
 
-Hier sieht man, dass sich die obene genannten Regeln für tidy data nicht anwenden lassen. Während die Variablen "Kennziffer", "Raumeinheit" und "Aggregat" korrekt in einer Spalte gespeichert wurden, wurden die Variablen "Arbeitslosenquote" und "Jahr" auf mehrere Spalten (ins wide format) aufgeteilt. Dadurch hat jede Beobachtung (also die Arbeitslosenquote einer Raumeinheit pro Jahr) auch nicht eine eigene Zeile. Der folgende R-Code lädt die Daten und überführt sie in ein tidy data Format. 
+Hier sieht man, dass sich die obene genannten Regeln für tidy data nicht anwenden lassen. Während die Variablen "Kennziffer", "Raumeinheit" und "Aggregat" korrekt in einer Spalte gespeichert wurden, wurden die Variablen "Arbeitslosenquote" und "Jahr" auf mehrere Spalten (im *wide format*) aufgeteilt. Dadurch hat jede Beobachtung (also die Arbeitslosenquote einer Raumeinheit pro Jahr) auch nicht eine eigene Zeile. Der folgende R-Code lädt die Daten und überführt sie in ein tidy data Format. 
 
 ```{r load_data}
 library(tidyverse)
@@ -178,7 +178,7 @@ Arbeitslosenquote %>%
   top_n(5) %>% 
   arrange(desc(Arbeitslosenquote))
 ```
-Vor allem in punkto Lesbarkeit und Kompaktheit bietet die Pipe gegenüber ihren Alternativen große Vorteile. Auch wird hier kein zusätzlicher Arbeitsspeicher verwendent, um Objekte zu speichern, die eigentlich gar nicht benötigt werden. Illustriert am obigen Beispiel, kann man die Pipe folgendermaßen verstehen: 
+Vor allem in punkto Lesbarkeit und Kompaktheit bietet die Pipe gegenüber ihren Alternativen große Vorteile. Auch wird hier kein zusätzlicher Arbeitsspeicher verwendent, um Objekte zwischenzuspeichern, die eigentlich gar nicht benötigt werden. Illustriert am obigen Beispiel, kann man die Pipe folgendermaßen verstehen: 
 
 1. Das aktuelle Datenobjekt wird immer in den nächsten Schritt weitergegeben. Hier wird das Objekt "Arbeitslosenquote" also direkt im auf <code>%>%</code> folgenden Befehl als Datenobjekt verwendet. So entfällt der Schritt, in jeder Funktion vom Format <code>filter(data, variable == "value")</code>, das Datenobjekt (data) mit anzugeben. 
 
@@ -249,7 +249,7 @@ Arbeitslosenquote %>%
 
 ----
 
-## summarise()
+## dplyr::summarise()
 
 <code>summarise()</code> oder <code>summarize()</code> fasst alle Reihen zusammen und gibt eine Zusammenfassung dieser Reihen aus.
 
@@ -264,7 +264,7 @@ Arbeitslosenquote %>%
 
 ----
 
-## arrange()
+## dplyr::arrange()
 
 Die Funktion <code>arrange()</code> sortiert die Daten in einer gewünschten Reihenfolge.
 
@@ -301,7 +301,7 @@ Ausführliche Informationen zu Datenvisualisierung in R mit ggplot2 gibt es im a
 
 # Weiterführende Informationen 
 
-Hier werden eine Reihe von Links mit weiterführenden Informationen zum Datenmanagement mit dem Tidyverse angeführt. Auch wenn dieser Kurs hauptsächlich Datenvisualisierung diskutiert, ist das Datenmanagement und die Transformation von Daten ein zentraler Teil von Datenvisualisierung. Deshalb ist es unerlässlich, sich vertieft mit den wichtigsten dplyr-Funktionen vertraut zu machen und diese regelmäßig zu benutzen. Gute weiterführende Informationsquellen über das Datenmanagement im Tidyverse sind deshalb hier aufgeführt. 
+Hier werden eine Reihe von Links mit weiterführenden Informationen zum Datenmanagement mit dem Tidyverse angeführt. Auch wenn dieser Kurs hauptsächlich Datenvisualisierung diskutiert, ist das Datenmanagement und die Transformation von Daten ein zentraler Bestandteil dieses Prozesses. Deshalb ist es unerlässlich, sich vertieft mit den wichtigsten dplyr-Funktionen vertraut zu machen und diese regelmäßig zu benutzen. Gute weiterführende Informationsquellen über das Datenmanagement im Tidyverse sind deshalb hier aufgeführt. 
 
 * [R for Data Science (Kapitel 9-21)](https://r4ds.had.co.nz/wrangle-intro.html)
 
