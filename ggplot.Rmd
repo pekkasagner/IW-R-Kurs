@@ -50,7 +50,7 @@ data %>%
 
 # Was ist ggplot2?
 
-<code>ggplot2</code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der "Grammar of Graphics" dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt. 
+<code>ggplot2</code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham, stellt <code>ggplot2</code> eine Implementierung der "Grammar of Graphics" dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt. 
 
 Die "Grammar of Graphics" spezifiziert Bausteine, mit welchen Grafiken erstellt werden können. Diese beinhalten, in der Reihenfolge der Anwendung:
 
@@ -62,7 +62,7 @@ Die "Grammar of Graphics" spezifiziert Bausteine, mit welchen Grafiken erstellt 
 
 4. Weitere <code>geoms</code> (z.B. Regressionslinie, etc.)
 
-5. Feinschliff der Axenbeschriftungen, Skalen, etc.
+5. Feinschliff der Axenbeschriftungen, Skalen, Farben etc.
 
 Man sieht also, dass die "Grammar of Graphics" und damit auch <code>ggplot2</code> ein modulares Konzept verfolgen, wo Ebenen sukzessiv übereinander gelegt werden. 
 
@@ -76,8 +76,6 @@ library(tidyverse)
 landkreise <-
   read_csv('daten_beispiele/Landkreise_merged.csv') %>% 
   filter(Jahr == 2017)
-
-glimpse(data)
 ```
 # Bausteine von ggplot2
 
@@ -90,13 +88,13 @@ ggplot(data = landkreise,
 geom_point()
 ```
 
-Hier werden in einem einfachen Plot die ersten drei Bausteine angewandt, um einen Scatterplot vom Verhältnis der Wahlbeteiligung zur Arbeitslosenquote in den einzelnen Landkreise zu erstellen. 
+Hier werden in einem einfachen Plot die ersten drei Bausteine angewaendet, um einen Scatterplot vom Verhältnis der Wahlbeteiligung zur Arbeitslosenquote in den einzelnen Landkreise zu erstellen. 
 
-Das erste Argument in der <code>ggplot</code> Funktion <code>data</code> gibt an, welche Daten grafisch dargestellt werden sollen. Da die Daten immer in dem Format sein müssen, in welchem sie nachher im Plot erscheinen, sollte man vor erstellen des Plots darüber nachdenken, was genau dargestellt werden soll. Im Beispiel gegen wir die schon bearbeiteten Daten der <code>landkreise</code> an. 
+Das erste Argument in der <code>ggplot</code> Funktion <code>data</code> gibt an, welche Daten grafisch dargestellt werden sollen. Da die Daten immer in dem Format sein müssen, in welchem sie nachher im Plot erscheinen, sollte man vor erstellen des Plots darüber nachdenken, was genau dargestellt werden soll. Im Beispiel nutzen wir dafür die schon bearbeiteten Daten der <code>landkreise</code> an. 
 
 Der zweite Befehl umfasst das Mapping der Aesthetics. Aesthetics (<code>aes</code>) beschreiben wie die Variablen in den Daten zu visuellen Eigenschaften von <code>geoms</code> zugeordnet werden sollen. Im Beispiel sollen die Variable "Wahlbeteiligung" auf der x-Achse und die Variable "Arbeitslosenquote" auf der y-Achse dargestellt werden. Konkretere Beispiele verschiedener Aesthetics werden weiter unten erklärt. 
 
-Zuletzt gibt der Befehl <code>geom_point</code> an, in welcher Art die Daten dargestellt werden sollen bzw. welches geometrische Objekt genutzt werden soll. Hier gibt es eine sehr große Auswahl verschiedener <code>geom</code>, um etwa Balkendiagramme, Liniendiagramme, Boxplots, usw. zu plotten. 
+Zuletzt gibt der Befehl <code>geom_point</code> an, in welcher Art die Daten dargestellt werden sollen bzw. welches geometrische Objekt genutzt werden soll. Hier gibt es eine sehr große Auswahl verschiedener <code>geoms</code>, um etwa Balkendiagramme, Liniendiagramme, Boxplots, usw. zu plotten. 
 
 ## Aesthetics
 
@@ -141,7 +139,7 @@ landkreise %>%
   geom_point()
 ```
 
-In <code>ggplot2</code> gibt es eine Reihe weiterer Aesthetics, die festgelegt werden können (siehe [hier](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)). Hier ist zunächst wichtig, zu verstehen, dass alle
+In <code>ggplot2</code> gibt es eine Reihe weiterer Aesthetics, die festgelegt werden können (siehe [hier](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)). Hier ist es zunächst wichtig zu verstehen, dass alle Informationen, die direkt aus den Daten kommen, im <code>aes</code>-Befehl festgelegt werden müssen. 
 
 ### Aesthetics setzen
 
@@ -184,7 +182,7 @@ landkreise %>%
 
 ### geom_line()
 
-Mit <code>geom_line()</code> können gewöhnliche Liniendiagramme erstellt werden. Im unten dargestellten Plot werden beispielthaft fünf Landkreise ausgewählt.
+Mit <code>geom_line()</code> können gewöhnliche Liniendiagramme erstellt werden. Im unten dargestellten Plot werden beispielhaft fünf Landkreise ausgewählt.
 
 ```{r, fig.align="center", out.width = "75%"}
 data %>% 
@@ -201,7 +199,7 @@ data %>%
 
 ### geom_bar()
 
-Auch ein Balkendiagramm lässt sich einfach mit dem <code>geom</code> <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat="bin"</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat="identity"</code> an, dass der Wert aus den Daten gemapped werden soll. 
+Auch ein Balkendiagramm lässt sich einfach mit <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat="bin"</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat="identity"</code> an, dass der Wert aus den Daten gemapped werden soll. 
 
 ```{r, fig.align="center", out.width = "75%"}
 data %>% 
@@ -235,9 +233,9 @@ Innerhalb der <code>ggplot2</code> Umgebung lassen sich ein Vielzahl verschieden
 
 ## Kombinieren von geoms
 
-In einem mit <code>ggplot2</code> erstelltem Plot lassen sich weitere <code>geoms</code> einfach übereinander darstellen. Wichtig hierbei ist, dass jeder weitere Ebene die weiter unten liegenden Ebenen potenziell überlagert. 
+In einem mit <code>ggplot2</code> erstelltem Plot lassen sich weitere <code>geoms</code> einfach übereinander darstellen. Wichtig hierbei ist, dass jede weitere Ebene die weiter unten liegenden Ebenen potenziell überlagert. 
 
-Im folgenden Beispiel wird über einen gewöhnlichen mit <code>geom_point()</code> erstellten Scatterplot mit einem weiteren <code>geom</code>, <code>geom_smooth()</code> ein Regressionlinie abgebildet. In dem Befehl <code>method = "lm"</code> steht "lm" für "linear model", das eine lineare Regressionslinie umschreibt. 
+Im folgenden Beispiel wird über einen gewöhnlichen mit <code>geom_point()</code> erstellten Scatterplot mit einem weiteren <code>geom</code>, <code>geom_smooth()</code>, ein Regressionlinie abgebildet. In dem Befehl <code>method = "lm"</code> steht "lm" für "linear model", das eine lineare Regressionslinie festlegt. 
 
 ```{r, fig.align="center", out.width = "75%"}
 data %>% 
@@ -303,9 +301,9 @@ landkreise %>%
 
 Weitere vorinstallierte Themes findet man [hier](https://ggplot2.tidyverse.org/reference/ggtheme.html). 
 
-Es besteht zudem die Möglichkeit, Themes selbst nach den eigenen Vorstellungen anzupassen. Hier lassen sich alle vorstellbaren Elemente anpassen. Eine Übersicht über die jeweiligen Befehle findet sich hier [hier](https://ggplot2.tidyverse.org/reference/theme.html).
+Es besteht zudem die Möglichkeit, Themes selbst nach den eigenen Vorstellungen anzupassen. Hier lassen sich alle vorstellbaren Elemente anpassen. Eine Übersicht über die jeweiligen Befehle gibt es [hier](https://ggplot2.tidyverse.org/reference/theme.html).
 
-Im Beispiel unten werden neben der Schriftgröße (<code>base_size = 14</code>) mit dem zusätzlichen Befehl <code>theme()</code> weitere Anpassungen vorgenommen. Wichtig hierbei ist, dass mehrere <code>theme</code> Befehle sich gegenseitig überlagern können. 
+Im Beispiel unten werden neben der Schriftgröße (<code>base_size = 14</code>) mit dem zusätzlichen Befehl <code>theme()</code> weitere Anpassungen vorgenommen. Wichtig hierbei ist, dass sich mehrere <code>theme</code> Befehle gegenseitig überlagern können. 
 
 
 ```{r, fig.align="center", out.width = "75%"}
@@ -365,7 +363,7 @@ data %>%
 
 Zu viel Text gleichzeitig darzustellen ist allerdings nicht immer sinnvoll, da es so schnell unübersichtlich wird. Hier macht es meist mehr Sinn, Textelemente selektiver zu nutzen. Im Beispiel unten werden die fünf Städte mit dem höchsten BIP pro Kopf hervorgehoben und mit einem Label namentlich genannt.
 
-Hier lassen sich auch die verschiedenen Ebenen von <code>ggplot2</code> noch einmal verdeutlichen, die übereinander gelegt werden. Hier werden zunächst alle Städte und Landkreise in grau (<code>"grey80"</code>) geplottet, um dann mit <code>subset</code> ein Subset der Daten (solche Beobachtanugen mit einem BIP größer 92.5) farbig darüber zu legen. 
+Hier lassen sich auch die verschiedenen Ebenen von <code>ggplot2</code> noch einmal verdeutlichen, die übereinander gelegt werden. Zunächst werden alle Städte und Landkreise in grau (<code>"grey80"</code>) geplottet, um dann mit <code>subset</code> ein Subset der Daten (solche Beobachtanugen mit einem BIP größer 92.5) farbig darüber zu legen. 
 
 Der Befehl <code>geom_text_repel()</code> aus der <code>ggrepel</code> Bibilothek plottet dann die Label für dieses Subset. Durch den Beisatz "repel" werden die Label hier so dargestellt, dass sie nicht den eigentlichen Punkt überlagern. 
 
@@ -395,7 +393,7 @@ data %>%
 
 Oft gelingt es nicht, die gewünschten Informationen in einen einzelnen Plot 
 unterzubringen. Hier bietet es sich an, Multi-Panel Plots zu erstellen. Hierfür
-gibt es mehere Möglichkeiten, an dieser Stelle soll der <code>facet_wrap()</code>
+gibt es mehere Möglichkeiten, an dieser Stelle soll <code>facet_wrap()</code>
 diskutiert werden. In diesem Befehl können mit einem Tilde (<code>~</code>) die 
 jeweiligen Variablen übergeben werden, die in verschiedenen Panels innerhalb
 eines Plots dargestellt werden sollen.
@@ -444,7 +442,7 @@ data %>%
 ## Speichern von Grafiken
 
 Mit <code>ggplot2</code> erstellte Plots können am einfachsten über die 
-<code>ggsave()</code> Funktion erstellt werden. Hierfür geht man folgendermaßen
+<code>ggsave()</code> Funktion gespeichert werden. Hierfür geht man folgendermaßen
 vor:
 
 ```{r, , fig.align="center", out.width = "75%"}
