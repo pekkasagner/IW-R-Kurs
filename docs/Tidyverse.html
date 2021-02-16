@@ -496,8 +496,8 @@ div.tocify {
 <div id="ziele-der-sitzung" class="section level1">
 <h1>Ziele der Sitzung</h1>
 <ul>
-<li>Grundverständnis der tidyverse</li>
-<li>Laden verschiedener Dateiformate</li>
+<li>Grundverständnis des tidyverse</li>
+<li>Laden von Daten</li>
 <li>Bearbeiten von Daten</li>
 <li>Verstädnnigs von Pipes (%&gt;%)</li>
 <li>Übergang in ggplot2</li>
@@ -511,7 +511,7 @@ div.tocify {
 </div>
 <div id="installation-und-inhalt" class="section level1">
 <h1>Installation und Inhalt</h1>
-<p>Das tidyverse kann über den Befehl <code>install.packages(“tidyverse”)</code> installiert werden. Wird die Bibilothek in mit <code>library(tidyverse) </code> in die Umgebung geladen, sind die folgenden Pakete direkt nutzbar:</p>
+<p>Das tidyverse kann über den Befehl <code>install.packages(“tidyverse”)</code> installiert werden. Wird die Bibilothek mit <code>library(tidyverse) </code> in die Umgebung geladen, sind die folgenden Pakete direkt nutzbar:</p>
 <ul>
 <li><a href="https://ggplot2.tidyverse.org">ggplot2</a>, für Datenvisualisierung,</li>
 <li><a href="https://dplyr.tidyverse.org">dplyr</a>, für Datenbearbeitung,</li>
@@ -522,7 +522,7 @@ div.tocify {
 <li><a href="https://github.com/tidyverse/stringr">stringr</a>, für Strings,</li>
 <li><a href="https://github.com/hadley/forcats">forcats</a>, für Faktor-Variablen.</li>
 </ul>
-<p>Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages(“tidyverse”)</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library(“Paketname”)</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mit installierten Befehle umfassen:</p>
+<p>Neben den bisher genannten Paketen, die sofort genutzt werden können, wenn das tidyverse-Paket geladen wird, installiert der Befehl <code>install.packages(“tidyverse”)</code> weitere Pakete. Diese werden seltener gebraucht, sind aber doch so gebräuchlich, dass sie direkt mit installiert werden. Über den <code>library(“Paketname”)</code> Befehl müssen diese allerdings je nach Anwendungsbedarf zusätzlich in die Arbeitsumgebung geladen werden. Diese mitinstallierten Befehle umfassen:</p>
 <ul>
 <li><p>Für die Arbeit mit Daten mit zeitlichem Bezug:</p>
 <ul>
@@ -532,7 +532,7 @@ div.tocify {
 <li><p>Für den Import weiterer Datenformate:</p>
 <ul>
 <li><a href="https://github.com/wesm/feather">feather</a>, für das Teilen von Daten mit Python und weiteren Programmiersprachen,</li>
-<li><a href="https://github.com/tidyverse/haven">haven</a>, für SPSS, SAS and <strong>Stata</strong> Daten</li>
+<li><a href="https://github.com/tidyverse/haven">haven</a>, für SPSS, SAS und <strong>Stata</strong> Daten</li>
 <li><a href="https://github.com/r-lib/httr">httr</a>, für Web-APIs,</li>
 <li><a href="https://github.com/jeroen/jsonlite">jsonlite</a> für JSON,</li>
 <li><a href="https://github.com/tidyverse/readxl">readxl</a>, für <code>.xls</code> und <code>.xlsx</code> Dateien,</li>
@@ -549,7 +549,7 @@ div.tocify {
 <h2>Mögliche Probleme</h2>
 <p>Lädt man das tidyverse in die Arbeitsumgebung, wird folgende Nachricht angezeigt:</p>
 <center>
-<p><img src="images/tidyverse_1_load.png" style="width:75.0%" /></p>
+<p><img src="images/tidyverse_1_load.png" style="width:80.0%" /></p>
 </center>
 <p>Einerseits werden hier unter “Attaching packages” die geladenen Pakete samt der jeweiligen Version angezeigt. Unter “Conflicts” gibt es zudem zwei Warnhinweise. Diese weisen auf mögliche Probleme bei der Nutzung verschiedener R-Pakete hin. Hier werden durch das Laden des tidyverse zwei Befehle aus der “stats-Bibliothek” maskiert, also überschrieben. Konkret bedeutet das, dass nachdem das tidyverse geladen wurde, die Befehle <code>filter()</code> und <code>lag()</code> ihre Funktionalität aus dem “dplyr-Paket” und nicht mehr von “stats” beziehen. Möchte man jetzt die <code>filter()</code> Funktion aus der stats-Bibliothek nutzen, kann man diesen folgendermaßen aufrufen <code>stats::filter()</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Lädt nur die filter() Funktion von dplyr</span></span>
@@ -563,11 +563,11 @@ div.tocify {
 </div>
 <div id="datenmanagement-im-tidyverse" class="section level1">
 <h1>Datenmanagement im tidyverse</h1>
-<p>Das tidyverse bietet ein kohärentes Framework, in welchem Daten intuitiv in ein gewünschtes Format übertragen werden können. Zunächst wird das Konzept von “Tidy Data” erklärt und anschließen ein Beispieldatensatz von Arbeitslosenzaheln in deutschen Landkreisen geladen.</p>
+<p>Das tidyverse bietet ein kohärentes Framework, in welchem Daten intuitiv in ein gewünschtes Format übertragen werden können. Zunächst wird das Konzept von “Tidy Data” erklärt und anschließend ein Beispieldatensatz von Arbeitslosenzaheln in deutschen Landkreisen geladen.</p>
 <hr />
 <div id="tidy-data" class="section level2">
 <h2>Tidy Data</h2>
-<p>“Tidy data” umschreibt “aufgeräumte” bzw. “saubere” Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Es ist wichtig, das Konuzept von tidy data zu verstehen, da alle Pakete im tidyverse darauf basieren. Im tidy data Format sollte ein Datensatz von den folgenden, zusammenhängenden Regeln beschrieben werden können:</p>
+<p>“Tidy data” umschreibt “aufgeräumte” bzw. “saubere” Daten und damit Daten, die so aufbereitet sind, dass jede Variable in einer Spalte und jede Beobachtung in einer Reihe repäsentiert wird. Es ist wichtig, das Konzept von tidy data zu verstehen, da alle Pakete im tidyverse darauf aufbauen. Im tidy data Format sollte ein Datensatz von den folgenden, zusammenhängenden Regeln beschrieben werden können:</p>
 <ol style="list-style-type: decimal">
 <li>Jede Variable muss in einer eigenen Spalte sein</li>
 <li>Jede Beobachtung muss eine eigene Zeile haben</li>
@@ -582,7 +582,7 @@ div.tocify {
 <center>
 <p><img src="images/tidyverse_3_data_horrible_data.png" style="width:100.0%" /></p>
 </center>
-<p>Hier sieht man, dass sich die obene genannten Regeln für tidy data nicht anwenden lassen. Während die Variablen “Kennziffer”, “Raumeinheit” und “Aggregat” korrekt in einer Spalte gespeichert wurden, wurden die Variablen “Arbeitslosenquote” und “Jahr” auf mehrere Spalten (ins wide format) aufgeteilt. Dadurch hat jede Beobachtung (also die Arbeitslosenquote einer Raumeinheit pro Jahr) auch nicht eine eigene Zeile. Der folgende R-Code lädt die Daten und überführt sie in ein tidy data Format.</p>
+<p>Hier sieht man, dass sich die obene genannten Regeln für tidy data nicht anwenden lassen. Während die Variablen “Kennziffer”, “Raumeinheit” und “Aggregat” korrekt in einer Spalte gespeichert wurden, wurden die Variablen “Arbeitslosenquote” und “Jahr” auf mehrere Spalten (im <em>wide format</em>) aufgeteilt. Dadurch hat jede Beobachtung (also die Arbeitslosenquote einer Raumeinheit pro Jahr) auch nicht eine eigene Zeile. Der folgende R-Code lädt die Daten und überführt sie in ein tidy data Format.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Laden der Daten</span></span>
@@ -636,7 +636,7 @@ div.tocify {
 ## 3 05112      Duisburg, Stadt      krsfr. Stadt 2017               12.5
 ## 4 07317      Pirmasens, Stadt     krsfr. Stadt 2017               12.3
 ## 5 05916      Herne, Stadt         krsfr. Stadt 2017               12.1</code></pre>
-<p>Vor allem in punkto Lesbarkeit und Kompaktheit bietet die Pipe gegenüber ihren Alternativen große Vorteile. Auch wird hier kein zusätzlicher Arbeitsspeicher verwendent, um Objekte zu speichern, die eigentlich gar nicht benötigt werden. Illustriert am obigen Beispiel, kann man die Pipe folgendermaßen verstehen:</p>
+<p>Vor allem in punkto Lesbarkeit und Kompaktheit bietet die Pipe gegenüber ihren Alternativen große Vorteile. Auch wird hier kein zusätzlicher Arbeitsspeicher verwendent, um Objekte zwischenzuspeichern, die eigentlich gar nicht benötigt werden. Illustriert am obigen Beispiel, kann man die Pipe folgendermaßen verstehen:</p>
 <ol style="list-style-type: decimal">
 <li><p>Das aktuelle Datenobjekt wird immer in den nächsten Schritt weitergegeben. Hier wird das Objekt “Arbeitslosenquote” also direkt im auf <code>%&gt;%</code> folgenden Befehl als Datenobjekt verwendet. So entfällt der Schritt, in jeder Funktion vom Format <code>filter(data, variable == “value”)</code>, das Datenobjekt (data) mit anzugeben.</p></li>
 <li><p>Das bearbeitete Objekt wird immer in den nächsten Schritt weitergegeben, ohne dass es zwischengespeichert wird und werden muss.</p></li>
@@ -742,8 +742,8 @@ div.tocify {
 ## # ... with 391 more rows</code></pre>
 <hr />
 </div>
-<div id="summarise" class="section level2">
-<h2>summarise()</h2>
+<div id="dplyrsummarise" class="section level2">
+<h2>dplyr::summarise()</h2>
 <p><code>summarise()</code> oder <code>summarize()</code> fasst alle Reihen zusammen und gibt eine Zusammenfassung dieser Reihen aus.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Kennziffer) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -758,8 +758,8 @@ div.tocify {
 ## 2 Landkreis          10.1</code></pre>
 <hr />
 </div>
-<div id="arrange" class="section level2">
-<h2>arrange()</h2>
+<div id="dplyrarrange" class="section level2">
+<h2>dplyr::arrange()</h2>
 <p>Die Funktion <code>arrange()</code> sortiert die Daten in einer gewünschten Reihenfolge.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Kennziffer) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -801,7 +801,7 @@ div.tocify {
 </div>
 <div id="weiterführende-informationen" class="section level1">
 <h1>Weiterführende Informationen</h1>
-<p>Hier werden eine Reihe von Links mit weiterführenden Informationen zum Datenmanagement mit dem Tidyverse angeführt. Auch wenn dieser Kurs hauptsächlich Datenvisualisierung diskutiert, ist das Datenmanagement und die Transformation von Daten ein zentraler Teil von Datenvisualisierung. Deshalb ist es unerlässlich, sich vertieft mit den wichtigsten dplyr-Funktionen vertraut zu machen und diese regelmäßig zu benutzen. Gute weiterführende Informationsquellen über das Datenmanagement im Tidyverse sind deshalb hier aufgeführt.</p>
+<p>Hier werden eine Reihe von Links mit weiterführenden Informationen zum Datenmanagement mit dem Tidyverse angeführt. Auch wenn dieser Kurs hauptsächlich Datenvisualisierung diskutiert, ist das Datenmanagement und die Transformation von Daten ein zentraler Bestandteil dieses Prozesses. Deshalb ist es unerlässlich, sich vertieft mit den wichtigsten dplyr-Funktionen vertraut zu machen und diese regelmäßig zu benutzen. Gute weiterführende Informationsquellen über das Datenmanagement im Tidyverse sind deshalb hier aufgeführt.</p>
 <ul>
 <li><p><a href="https://r4ds.had.co.nz/wrangle-intro.html">R for Data Science (Kapitel 9-21)</a></p></li>
 <li><p><a href="https://bookdown.org/yih_huynh/Guide-to-R-Book/basic-data-management.html">Yih Huynh - Guide to R (Kapitel 6 und 7)</a></p></li>

@@ -506,14 +506,14 @@ div.tocify {
 </div>
 <div id="was-ist-ggplot2" class="section level1">
 <h1>Was ist ggplot2?</h1>
-<p><code>ggplot2</code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham stellt ggplot2 eine Implementierung der “Grammar of Graphics” dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt.</p>
+<p><code>ggplot2</code> ist eines der bekanntesten und populärsten R-Pakete für Datenvisualisierung. Ursprünglich entwickelt von Hadley Wickham, stellt <code>ggplot2</code> eine Implementierung der “Grammar of Graphics” dar, die Datenvisualisierung in semantische Einheiten (wie Skalen und Ebenen) unterteilt.</p>
 <p>Die “Grammar of Graphics” spezifiziert Bausteine, mit welchen Grafiken erstellt werden können. Diese beinhalten, in der Reihenfolge der Anwendung:</p>
 <ol style="list-style-type: decimal">
 <li><p>Daten (<em>Was</em> soll dargestellt werden?)</p></li>
 <li><p>Mapping der Aesthetics (Was kommt auf die X- und die Y-Achse, etc.)</p></li>
 <li><p>Geometrisches Objekt (<code>geom</code>) (Wie sollen die Daten dargestellt werden? Linien, Punkte, Balken, etc.)</p></li>
 <li><p>Weitere <code>geoms</code> (z.B. Regressionslinie, etc.)</p></li>
-<li><p>Feinschliff der Axenbeschriftungen, Skalen, etc.</p></li>
+<li><p>Feinschliff der Axenbeschriftungen, Skalen, Farben etc.</p></li>
 </ol>
 <p>Man sieht also, dass die “Grammar of Graphics” und damit auch <code>ggplot2</code> ein modulares Konzept verfolgen, wo Ebenen sukzessiv übereinander gelegt werden.</p>
 <p>Der wichtigste Frage, die man vor jeder Datenvisualisierung beantworten sollte: Was soll dargestellt werden? Konkreter: Was soll verglichen werden?</p>
@@ -522,24 +522,20 @@ div.tocify {
 <span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Laden der Daten</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a>landkreise &lt;-</span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="st">  </span><span class="kw">read_csv</span>(<span class="st">&#39;daten_beispiele/Landkreise_merged.csv&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>)</span>
-<span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">glimpse</span>(data)</span></code></pre></div>
-<pre><code>## function (..., list = character(), package = NULL, lib.loc = NULL, verbose = getOption(&quot;verbose&quot;), 
-##     envir = .GlobalEnv, overwrite = TRUE)</code></pre>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>)</span></code></pre></div>
 </div>
 <div id="bausteine-von-ggplot2" class="section level1">
 <h1>Bausteine von ggplot2</h1>
 <p>Die wichtigsten Bausteine von <code>ggplot2</code> sollen an einem Beispiel genauer erklärt werden.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> landkreise,</span>
-<span id="cb3-2"><a href="#cb3-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb3-3"><a href="#cb3-3"></a>                     <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> landkreise,</span>
+<span id="cb2-2"><a href="#cb2-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>                     <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/build_plot-1.png" width="60%" style="display: block; margin: auto;" /></p>
-<p>Hier werden in einem einfachen Plot die ersten drei Bausteine angewandt, um einen Scatterplot vom Verhältnis der Wahlbeteiligung zur Arbeitslosenquote in den einzelnen Landkreise zu erstellen.</p>
-<p>Das erste Argument in der <code>ggplot</code> Funktion <code>data</code> gibt an, welche Daten grafisch dargestellt werden sollen. Da die Daten immer in dem Format sein müssen, in welchem sie nachher im Plot erscheinen, sollte man vor erstellen des Plots darüber nachdenken, was genau dargestellt werden soll. Im Beispiel gegen wir die schon bearbeiteten Daten der <code>landkreise</code> an.</p>
+<p>Hier werden in einem einfachen Plot die ersten drei Bausteine angewaendet, um einen Scatterplot vom Verhältnis der Wahlbeteiligung zur Arbeitslosenquote in den einzelnen Landkreise zu erstellen.</p>
+<p>Das erste Argument in der <code>ggplot</code> Funktion <code>data</code> gibt an, welche Daten grafisch dargestellt werden sollen. Da die Daten immer in dem Format sein müssen, in welchem sie nachher im Plot erscheinen, sollte man vor erstellen des Plots darüber nachdenken, was genau dargestellt werden soll. Im Beispiel nutzen wir dafür die schon bearbeiteten Daten der <code>landkreise</code> an.</p>
 <p>Der zweite Befehl umfasst das Mapping der Aesthetics. Aesthetics (<code>aes</code>) beschreiben wie die Variablen in den Daten zu visuellen Eigenschaften von <code>geoms</code> zugeordnet werden sollen. Im Beispiel sollen die Variable “Wahlbeteiligung” auf der x-Achse und die Variable “Arbeitslosenquote” auf der y-Achse dargestellt werden. Konkretere Beispiele verschiedener Aesthetics werden weiter unten erklärt.</p>
-<p>Zuletzt gibt der Befehl <code>geom_point</code> an, in welcher Art die Daten dargestellt werden sollen bzw. welches geometrische Objekt genutzt werden soll. Hier gibt es eine sehr große Auswahl verschiedener <code>geom</code>, um etwa Balkendiagramme, Liniendiagramme, Boxplots, usw. zu plotten.</p>
+<p>Zuletzt gibt der Befehl <code>geom_point</code> an, in welcher Art die Daten dargestellt werden sollen bzw. welches geometrische Objekt genutzt werden soll. Hier gibt es eine sehr große Auswahl verschiedener <code>geoms</code>, um etwa Balkendiagramme, Liniendiagramme, Boxplots, usw. zu plotten.</p>
 <div id="aesthetics" class="section level2">
 <h2>Aesthetics</h2>
 <p>In den aesthetics <code>aes()</code> in <code>ggplot2</code> muss festgelegt werden, welche Variablen aus den Daten wie im Plot dargestellt werden sollen.</p>
@@ -547,49 +543,49 @@ div.tocify {
 <h3>Size</h3>
 <p>Zunächst soll die Größe (size) der Punkte, dem jeweiligen Wert der Variable “BIP” - also des BIP per capita pro Landkreis - entsprechen. Dafür wird in <code>aes()</code> neben den Variablen, die auf der x- bzw. der y-Achse dargestellt werden sollen auch die <code>size = BIP</code> gesetzt.</p>
 <p>Im Unterschied zum Code oben werden hier die Daten mit der <code>%&gt;%</code> in das ggplot-Objekt weitergegeben. Das hat den Vorteil, dass etwaige Datentransformationen vorgenommen und dann direkt in <code>ggplot</code> überführt werden können.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb4-3"><a href="#cb4-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>             <span class="dt">size =</span> BIP)) <span class="op">+</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
+<span id="cb3-3"><a href="#cb3-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>             <span class="dt">size =</span> BIP)) <span class="op">+</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-2-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="color" class="section level3">
 <h3>Color</h3>
 <p>Auch die Farbe (color) kann durch Variablenwerte bestimmt werden.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>landkreise <span class="op">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb5-3"><a href="#cb5-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>             <span class="dt">color =</span> Durchschnittsalter)) <span class="op">+</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>landkreise <span class="op">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
+<span id="cb4-3"><a href="#cb4-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>             <span class="dt">color =</span> Durchschnittsalter)) <span class="op">+</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-3-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="shape" class="section level3">
 <h3>Shape</h3>
 <p>Zuletzt wird Beispielhaft die Form (shape) der Objekte durch die Variable “Aggregat” festegelt. Hier sieht man auch, dass weitere Aesthetics darüber gelagert werden können. Hier werden shape und color festgelegt.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb6-3"><a href="#cb6-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>             <span class="dt">shape =</span> Aggregat,</span>
-<span id="cb6-5"><a href="#cb6-5"></a>             <span class="dt">color =</span> Aggregat)) <span class="op">+</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
+<span id="cb5-3"><a href="#cb5-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>             <span class="dt">shape =</span> Aggregat,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>             <span class="dt">color =</span> Aggregat)) <span class="op">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-4-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>In <code>ggplot2</code> gibt es eine Reihe weiterer Aesthetics, die festgelegt werden können (siehe <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">hier</a>). Hier ist zunächst wichtig, zu verstehen, dass alle</p>
+<p>In <code>ggplot2</code> gibt es eine Reihe weiterer Aesthetics, die festgelegt werden können (siehe <a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">hier</a>). Hier ist es zunächst wichtig zu verstehen, dass alle Informationen, die direkt aus den Daten kommen, im <code>aes</code>-Befehl festgelegt werden müssen.</p>
 </div>
 <div id="aesthetics-setzen" class="section level3">
 <h3>Aesthetics setzen</h3>
 <p>Neben der Option, Aesthetics über den <code>aes()</code> Befehl zu mappen, kann man aesthetics auch statisch festsetzen. Im Beispiel unten wird hier die Farbe für <em>alle</em> Punkte im Diagramm festgelegt. Hier wird die Farbe also nicht von den Daten auf die Punkte gemapped sondern vom Anwender konkret festgelegt.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
+<span id="cb6-3"><a href="#cb6-3"></a>             <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>)</span></code></pre></div>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-5-1.png" width="75%" style="display: block; margin: auto;" /> Im gleichen Stil können auch andere Aesthetics statisch festgelegt werden.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
 <span id="cb7-3"><a href="#cb7-3"></a>             <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>)</span></code></pre></div>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-5-1.png" width="75%" style="display: block; margin: auto;" /> Im gleichen Stil können auch andere Aesthetics statisch festgelegt werden.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb8-3"><a href="#cb8-3"></a>             <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>,</span>
-<span id="cb8-5"><a href="#cb8-5"></a>             <span class="dt">size =</span> <span class="dv">2</span>,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>             <span class="dt">shape =</span> <span class="dv">17</span>)</span></code></pre></div>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>             <span class="dt">size =</span> <span class="dv">2</span>,</span>
+<span id="cb7-6"><a href="#cb7-6"></a>             <span class="dt">shape =</span> <span class="dv">17</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-6-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
@@ -600,50 +596,50 @@ div.tocify {
 <div id="geom_point" class="section level3">
 <h3>geom_point()</h3>
 <p>Im Beispiel von oben gibt <code>geom_point()</code> an, dass die Mappings in einem Scatterplot (in Punkten) dargestellt werden sollen.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb9-3"><a href="#cb9-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
-<span id="cb9-4"><a href="#cb9-4"></a>             <span class="dt">color =</span> Durchschnittsalter)) <span class="op">+</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
+<span id="cb8-3"><a href="#cb8-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>             <span class="dt">color =</span> Durchschnittsalter)) <span class="op">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-7-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geom_line" class="section level3">
 <h3>geom_line()</h3>
-<p>Mit <code>geom_line()</code> können gewöhnliche Liniendiagramme erstellt werden. Im unten dargestellten Plot werden beispielthaft fünf Landkreise ausgewählt.</p>
+<p>Mit <code>geom_line()</code> können gewöhnliche Liniendiagramme erstellt werden. Im unten dargestellten Plot werden beispielhaft fünf Landkreise ausgewählt.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Elbe-Elster&quot;</span>,</span>
+<span id="cb9-3"><a href="#cb9-3"></a>                            <span class="st">&quot;Oberspreewald-Lausitz&quot;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>                            <span class="st">&quot;Prignitz&quot;</span>, <span class="st">&quot;Spree-Neiße&quot;</span>,</span>
+<span id="cb9-5"><a href="#cb9-5"></a>                            <span class="st">&quot;Vogtlandkreis&quot;</span>),</span>
+<span id="cb9-6"><a href="#cb9-6"></a>         <span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr,</span>
+<span id="cb9-8"><a href="#cb9-8"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
+<span id="cb9-9"><a href="#cb9-9"></a>             <span class="dt">col =</span> Raumeinheit)) <span class="op">+</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="fl">1.0</span>)</span></code></pre></div>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="geom_bar" class="section level3">
+<h3>geom_bar()</h3>
+<p>Auch ein Balkendiagramm lässt sich einfach mit <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat=“bin”</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat=“identity”</code> an, dass der Wert aus den Daten gemapped werden soll.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Elbe-Elster&quot;</span>,</span>
 <span id="cb10-3"><a href="#cb10-3"></a>                            <span class="st">&quot;Oberspreewald-Lausitz&quot;</span>,</span>
 <span id="cb10-4"><a href="#cb10-4"></a>                            <span class="st">&quot;Prignitz&quot;</span>, <span class="st">&quot;Spree-Neiße&quot;</span>,</span>
 <span id="cb10-5"><a href="#cb10-5"></a>                            <span class="st">&quot;Vogtlandkreis&quot;</span>),</span>
-<span id="cb10-6"><a href="#cb10-6"></a>         <span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr,</span>
-<span id="cb10-8"><a href="#cb10-8"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
-<span id="cb10-9"><a href="#cb10-9"></a>             <span class="dt">col =</span> Raumeinheit)) <span class="op">+</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="fl">1.0</span>)</span></code></pre></div>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="geom_bar" class="section level3">
-<h3>geom_bar()</h3>
-<p>Auch ein Balkendiagramm lässt sich einfach mit dem <code>geom</code> <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat=“bin”</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat=“identity”</code> an, dass der Wert aus den Daten gemapped werden soll.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">filter</span>(Raumeinheit <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Elbe-Elster&quot;</span>,</span>
-<span id="cb11-3"><a href="#cb11-3"></a>                            <span class="st">&quot;Oberspreewald-Lausitz&quot;</span>,</span>
-<span id="cb11-4"><a href="#cb11-4"></a>                            <span class="st">&quot;Prignitz&quot;</span>, <span class="st">&quot;Spree-Neiße&quot;</span>,</span>
-<span id="cb11-5"><a href="#cb11-5"></a>                            <span class="st">&quot;Vogtlandkreis&quot;</span>),</span>
-<span id="cb11-6"><a href="#cb11-6"></a>         Jahr <span class="op">==</span><span class="st"> </span><span class="dv">1998</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Raumeinheit,</span>
-<span id="cb11-8"><a href="#cb11-8"></a>             <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<span id="cb10-6"><a href="#cb10-6"></a>         Jahr <span class="op">==</span><span class="st"> </span><span class="dv">1998</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Raumeinheit,</span>
+<span id="cb10-8"><a href="#cb10-8"></a>             <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-9-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geom_boxplot" class="section level3">
 <h3>geom_boxplot()</h3>
 <p>Ein letztes Beispiel zeigt die Erstellung eines Boxplots mit <code>geom_boxplot()</code>. Hier wird die Arbeitslosenquote pro Jahr dargetellt.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr, <span class="dt">y =</span> Arbeitslosenquote,</span>
-<span id="cb12-4"><a href="#cb12-4"></a>             <span class="dt">group =</span> Jahr)) <span class="op">+</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr, <span class="dt">y =</span> Arbeitslosenquote,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>             <span class="dt">group =</span> Jahr)) <span class="op">+</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-10-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="weitere-geoms" class="section level3">
@@ -654,25 +650,25 @@ div.tocify {
 </div>
 <div id="kombinieren-von-geoms" class="section level2">
 <h2>Kombinieren von geoms</h2>
-<p>In einem mit <code>ggplot2</code> erstelltem Plot lassen sich weitere <code>geoms</code> einfach übereinander darstellen. Wichtig hierbei ist, dass jeder weitere Ebene die weiter unten liegenden Ebenen potenziell überlagert.</p>
-<p>Im folgenden Beispiel wird über einen gewöhnlichen mit <code>geom_point()</code> erstellten Scatterplot mit einem weiteren <code>geom</code>, <code>geom_smooth()</code> ein Regressionlinie abgebildet. In dem Befehl <code>method = “lm”</code> steht “lm” für “linear model”, das eine lineare Regressionslinie umschreibt.</p>
+<p>In einem mit <code>ggplot2</code> erstelltem Plot lassen sich weitere <code>geoms</code> einfach übereinander darstellen. Wichtig hierbei ist, dass jede weitere Ebene die weiter unten liegenden Ebenen potenziell überlagert.</p>
+<p>Im folgenden Beispiel wird über einen gewöhnlichen mit <code>geom_point()</code> erstellten Scatterplot mit einem weiteren <code>geom</code>, <code>geom_smooth()</code>, ein Regressionlinie abgebildet. In dem Befehl <code>method = “lm”</code> steht “lm” für “linear model”, das eine lineare Regressionslinie festlegt.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
+<span id="cb12-4"><a href="#cb12-4"></a>             <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb12-7"><a href="#cb12-7"></a>              <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-11-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Die Verbindung mehrerer <code>geoms</code> kann auch mit weiteren Aesthetics kombiniert werden. Das Beispiel unten zeigt etwa jeweils eingefärbte Punkte und Regressionslinien für kreisfreie Städte und Landkreise.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb13-4"><a href="#cb13-4"></a>             <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
-<span id="cb13-7"><a href="#cb13-7"></a>              <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-11-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Die Verbindung mehrerer <code>geoms</code> kann auch mit weiteren Aesthetics kombiniert werden. Das Beispiel unten zeigt etwa jeweils eingefärbte Punkte und Regressionslinien für kreisfreie Städte und Landkreise.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb14-4"><a href="#cb14-4"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
-<span id="cb14-5"><a href="#cb14-5"></a>             <span class="dt">group =</span> Aggregat,</span>
-<span id="cb14-6"><a href="#cb14-6"></a>             <span class="dt">col =</span> Aggregat)) <span class="op">+</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<span id="cb13-4"><a href="#cb13-4"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
+<span id="cb13-5"><a href="#cb13-5"></a>             <span class="dt">group =</span> Aggregat,</span>
+<span id="cb13-6"><a href="#cb13-6"></a>             <span class="dt">col =</span> Aggregat)) <span class="op">+</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-12-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
@@ -680,121 +676,139 @@ div.tocify {
 <h2>Themes</h2>
 <p>Themes in <code>ggplot2</code> beziehen sich auf alles in einem Plot, was nichts mit den Daten zu tun hat. Über <code>theme_set()</code> kann ein Theme entweder global festgelegt werden oder innerhalb eines <code>ggplot</code> Codes festgelegt werden.</p>
 <p><code>ggplot2</code> beinhaltet vorinstalliert eininge Themes, die sofot genutzt werden können. Diese sind etwa <code>theme_classic()</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
+<span id="cb14-3"><a href="#cb14-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>             <span class="dt">color =</span> Durchschnittsalter)) <span class="op">+</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span></code></pre></div>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-13-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><code>theme_bw()</code></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
 <span id="cb15-3"><a href="#cb15-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
 <span id="cb15-4"><a href="#cb15-4"></a>             <span class="dt">color =</span> Durchschnittsalter)) <span class="op">+</span></span>
 <span id="cb15-5"><a href="#cb15-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span></code></pre></div>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-13-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p><code>theme_bw()</code></p>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-14-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>oder <code>theme_minimal</code></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
 <span id="cb16-3"><a href="#cb16-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
 <span id="cb16-4"><a href="#cb16-4"></a>             <span class="dt">color =</span> Durchschnittsalter)) <span class="op">+</span></span>
 <span id="cb16-5"><a href="#cb16-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-14-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>oder <code>theme_minimal</code></p>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-15-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Weitere vorinstallierte Themes findet man <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">hier</a>.</p>
+<p>Es besteht zudem die Möglichkeit, Themes selbst nach den eigenen Vorstellungen anzupassen. Hier lassen sich alle vorstellbaren Elemente anpassen. Eine Übersicht über die jeweiligen Befehle gibt es <a href="https://ggplot2.tidyverse.org/reference/theme.html">hier</a>.</p>
+<p>Im Beispiel unten werden neben der Schriftgröße (<code>base_size = 14</code>) mit dem zusätzlichen Befehl <code>theme()</code> weitere Anpassungen vorgenommen. Wichtig hierbei ist, dass sich mehrere <code>theme</code> Befehle gegenseitig überlagern können.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
 <span id="cb17-3"><a href="#cb17-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
 <span id="cb17-4"><a href="#cb17-4"></a>             <span class="dt">color =</span> Durchschnittsalter)) <span class="op">+</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-15-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p>Weitere vorinstallierte Themes findet man <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">hier</a>.</p>
-<p>Es besteht zudem die Möglichkeit, Themes selbst nach den eigenen Vorstellungen anzupassen. Hier lassen sich alle vorstellbaren Elemente anpassen. Eine Übersicht über die jeweiligen Befehle findet sich hier <a href="https://ggplot2.tidyverse.org/reference/theme.html">hier</a>.</p>
-<p>Im Beispiel unten werden neben der Schriftgröße (<code>base_size = 14</code>) mit dem zusätzlichen Befehl <code>theme()</code> weitere Anpassungen vorgenommen. Wichtig hierbei ist, dass mehrere <code>theme</code> Befehle sich gegenseitig überlagern können.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb18-3"><a href="#cb18-3"></a>             <span class="dt">y =</span> Arbeitslosenquote,</span>
-<span id="cb18-4"><a href="#cb18-4"></a>             <span class="dt">color =</span> Durchschnittsalter)) <span class="op">+</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="st">  </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">14</span>) <span class="op">+</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="st">  </span><span class="co"># plot.background setzt den Hintergrund hinter dem Plot fest</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;grey80&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>),</span>
-<span id="cb18-9"><a href="#cb18-9"></a>        <span class="co"># Hier werden die gridlines entfernt</span></span>
-<span id="cb18-10"><a href="#cb18-10"></a>        <span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(), </span>
-<span id="cb18-11"><a href="#cb18-11"></a>        <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb18-12"><a href="#cb18-12"></a>        <span class="co"># Hier wird die Legende entfernt</span></span>
-<span id="cb18-13"><a href="#cb18-13"></a>        <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="st">  </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">14</span>) <span class="op">+</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="st">  </span><span class="co"># plot.background setzt den Hintergrund hinter dem Plot fest</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;grey80&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>),</span>
+<span id="cb17-9"><a href="#cb17-9"></a>        <span class="co"># Hier werden die gridlines entfernt</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>        <span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb17-11"><a href="#cb17-11"></a>        <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb17-12"><a href="#cb17-12"></a>        <span class="co"># Hier wird die Legende entfernt</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a>        <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-16-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="titel-und-achsenbeschriftungen" class="section level2">
 <h2>Titel und Achsenbeschriftungen</h2>
 <p>Auch Titel, Untertitel und Achsenbeschriftungen von Plots lassen sich in <code>ggplot2</code> einfach festelegen. Hier wird zunächst wie oben das Theme definiert. Mit dem Befehl <code>theme_update()</code> wird das aktuelle Theme weiter angepasst. Hier werden die Abstände der X- und Y-Achsenbeschriftung leicht erhöht und die Position der Überschrift auf ganz links im Plot festgelegt.</p>
 <p>Über den <code>labs</code> Befehl lassen sich dann <code>x</code>-Achse <code>y</code>-Achse <code>title</code> und <code>subtitle</code> definieren.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">theme_set</span>(<span class="kw">theme_minimal</span>()) </span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">theme_update</span>(<span class="dt">axis.title.y =</span> </span>
-<span id="cb19-3"><a href="#cb19-3"></a>               <span class="kw">element_text</span>(<span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">t =</span> <span class="dv">0</span>, <span class="dt">r =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">l =</span> <span class="dv">0</span>)),</span>
-<span id="cb19-4"><a href="#cb19-4"></a>             <span class="dt">axis.title.x =</span> </span>
-<span id="cb19-5"><a href="#cb19-5"></a>               <span class="kw">element_text</span>(<span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">t =</span> <span class="dv">10</span>, <span class="dt">r =</span> <span class="dv">0</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">l =</span> <span class="dv">0</span>)),</span>
-<span id="cb19-6"><a href="#cb19-6"></a>             <span class="dt">plot.title.position =</span> <span class="st">&#39;plot&#39;</span>)</span>
-<span id="cb19-7"><a href="#cb19-7"></a></span>
-<span id="cb19-8"><a href="#cb19-8"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb19-9"><a href="#cb19-9"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
-<span id="cb19-10"><a href="#cb19-10"></a>             <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
-<span id="cb19-11"><a href="#cb19-11"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>) <span class="op">+</span></span>
-<span id="cb19-12"><a href="#cb19-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wahlbeteiligung (in%)&quot;</span>,</span>
-<span id="cb19-13"><a href="#cb19-13"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote (in %)&quot;</span>,</span>
-<span id="cb19-14"><a href="#cb19-14"></a>       <span class="dt">title =</span> <span class="st">&quot;Verhältnis von Arbeitslosigkeit und Wahlbeteiligung&quot;</span>,</span>
-<span id="cb19-15"><a href="#cb19-15"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Kreisfreie Städte und Landkreise in Deutschland (2017)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">theme_set</span>(<span class="kw">theme_minimal</span>()) </span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="kw">theme_update</span>(<span class="dt">axis.title.y =</span> </span>
+<span id="cb18-3"><a href="#cb18-3"></a>               <span class="kw">element_text</span>(<span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">t =</span> <span class="dv">0</span>, <span class="dt">r =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">l =</span> <span class="dv">0</span>)),</span>
+<span id="cb18-4"><a href="#cb18-4"></a>             <span class="dt">axis.title.x =</span> </span>
+<span id="cb18-5"><a href="#cb18-5"></a>               <span class="kw">element_text</span>(<span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">t =</span> <span class="dv">10</span>, <span class="dt">r =</span> <span class="dv">0</span>, <span class="dt">b =</span> <span class="dv">0</span>, <span class="dt">l =</span> <span class="dv">0</span>)),</span>
+<span id="cb18-6"><a href="#cb18-6"></a>             <span class="dt">plot.title.position =</span> <span class="st">&#39;plot&#39;</span>)</span>
+<span id="cb18-7"><a href="#cb18-7"></a></span>
+<span id="cb18-8"><a href="#cb18-8"></a>landkreise <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-9"><a href="#cb18-9"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, </span>
+<span id="cb18-10"><a href="#cb18-10"></a>             <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb18-11"><a href="#cb18-11"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>) <span class="op">+</span></span>
+<span id="cb18-12"><a href="#cb18-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wahlbeteiligung (in%)&quot;</span>,</span>
+<span id="cb18-13"><a href="#cb18-13"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote (in %)&quot;</span>,</span>
+<span id="cb18-14"><a href="#cb18-14"></a>       <span class="dt">title =</span> <span class="st">&quot;Verhältnis von Arbeitslosigkeit und Wahlbeteiligung&quot;</span>,</span>
+<span id="cb18-15"><a href="#cb18-15"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Kreisfreie Städte und Landkreise in Deutschland (2017)&quot;</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-17-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="text" class="section level2">
 <h2>Text</h2>
 <p>Auch Textdaten lassen sich in <code>ggplot2</code> einfach darstellten. Hier werden mit <code>geom_text()</code> die Namen der jeweiligen Landkreise und kreisfreien Städte geplottet.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">label =</span> Raumeinheit)) <span class="op">+</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="st">  </span><span class="kw">geom_text</span>() <span class="op">+</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wahlbeteiligung (in%)&quot;</span>,</span>
-<span id="cb20-6"><a href="#cb20-6"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote (in %)&quot;</span>,</span>
-<span id="cb20-7"><a href="#cb20-7"></a>       <span class="dt">title =</span> <span class="st">&quot;Verhältnis von Arbeitslosigkeit und Wahlbeteiligung&quot;</span>,</span>
-<span id="cb20-8"><a href="#cb20-8"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Kreisfreie Städte und Landkreise in Deutschland (2017)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote, <span class="dt">label =</span> Raumeinheit)) <span class="op">+</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="st">  </span><span class="kw">geom_text</span>() <span class="op">+</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wahlbeteiligung (in%)&quot;</span>,</span>
+<span id="cb19-6"><a href="#cb19-6"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote (in %)&quot;</span>,</span>
+<span id="cb19-7"><a href="#cb19-7"></a>       <span class="dt">title =</span> <span class="st">&quot;Verhältnis von Arbeitslosigkeit und Wahlbeteiligung&quot;</span>,</span>
+<span id="cb19-8"><a href="#cb19-8"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Kreisfreie Städte und Landkreise in Deutschland (2017)&quot;</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-18-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Zu viel Text gleichzeitig darzustellen ist allerdings nicht immer sinnvoll, da es so schnell unübersichtlich wird. Hier macht es meist mehr Sinn, Textelemente selektiver zu nutzen. Im Beispiel unten werden die fünf Städte mit dem höchsten BIP pro Kopf hervorgehoben und mit einem Label namentlich genannt.</p>
-<p>Hier lassen sich auch die verschiedenen Ebenen von <code>ggplot2</code> noch einmal verdeutlichen, die übereinander gelegt werden. Hier werden zunächst alle Städte und Landkreise in grau (<code>“grey80”</code>) geplottet, um dann mit <code>subset</code> ein Subset der Daten (solche Beobachtanugen mit einem BIP größer 92.5) farbig darüber zu legen.</p>
+<p>Hier lassen sich auch die verschiedenen Ebenen von <code>ggplot2</code> noch einmal verdeutlichen, die übereinander gelegt werden. Zunächst werden alle Städte und Landkreise in grau (<code>“grey80”</code>) geplottet, um dann mit <code>subset</code> ein Subset der Daten (solche Beobachtanugen mit einem BIP größer 92.5) farbig darüber zu legen.</p>
 <p>Der Befehl <code>geom_text_repel()</code> aus der <code>ggrepel</code> Bibilothek plottet dann die Label für dieses Subset. Durch den Beisatz “repel” werden die Label hier so dargestellt, dass sie nicht den eigentlichen Punkt überlagern.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>,</span>
-<span id="cb21-5"><a href="#cb21-5"></a>             <span class="dt">size =</span> <span class="fl">2.0</span>) <span class="op">+</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> (data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="st">                       </span><span class="kw">filter</span>(BIP <span class="op">&gt;</span><span class="st"> </span><span class="fl">92.5</span>,</span>
-<span id="cb21-8"><a href="#cb21-8"></a>                              Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>)),</span>
-<span id="cb21-9"><a href="#cb21-9"></a>             <span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>,</span>
-<span id="cb21-10"><a href="#cb21-10"></a>             <span class="dt">size =</span> <span class="fl">2.0</span>) <span class="op">+</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a><span class="st">  </span>ggrepel<span class="op">::</span><span class="kw">geom_text_repel</span>(<span class="dt">data =</span> (data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb21-12"><a href="#cb21-12"></a><span class="st">                                     </span><span class="kw">filter</span>(BIP <span class="op">&gt;</span><span class="st"> </span><span class="fl">92.5</span>,</span>
-<span id="cb21-13"><a href="#cb21-13"></a>                                            Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>)),</span>
-<span id="cb21-14"><a href="#cb21-14"></a>                           <span class="kw">aes</span>(<span class="dt">label =</span> Raumeinheit),</span>
-<span id="cb21-15"><a href="#cb21-15"></a>                           <span class="dt">size =</span> <span class="fl">3.5</span>) <span class="op">+</span></span>
-<span id="cb21-16"><a href="#cb21-16"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wahlbeteiligung (in%)&quot;</span>,</span>
-<span id="cb21-17"><a href="#cb21-17"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote (in %)&quot;</span>,</span>
-<span id="cb21-18"><a href="#cb21-18"></a>       <span class="dt">title =</span> <span class="st">&quot;Verhältnis von Arbeitslosigkeit und Wahlbeteiligung&quot;</span>,</span>
-<span id="cb21-19"><a href="#cb21-19"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Kreisfreie Städte und Landkreise in Deutschland (2017)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;grey80&quot;</span>,</span>
+<span id="cb20-5"><a href="#cb20-5"></a>             <span class="dt">size =</span> <span class="fl">2.0</span>) <span class="op">+</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> (data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-7"><a href="#cb20-7"></a><span class="st">                       </span><span class="kw">filter</span>(BIP <span class="op">&gt;</span><span class="st"> </span><span class="fl">92.5</span>,</span>
+<span id="cb20-8"><a href="#cb20-8"></a>                              Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>)),</span>
+<span id="cb20-9"><a href="#cb20-9"></a>             <span class="dt">color =</span> <span class="st">&quot;#2e4964&quot;</span>,</span>
+<span id="cb20-10"><a href="#cb20-10"></a>             <span class="dt">size =</span> <span class="fl">2.0</span>) <span class="op">+</span></span>
+<span id="cb20-11"><a href="#cb20-11"></a><span class="st">  </span>ggrepel<span class="op">::</span><span class="kw">geom_text_repel</span>(<span class="dt">data =</span> (data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb20-12"><a href="#cb20-12"></a><span class="st">                                     </span><span class="kw">filter</span>(BIP <span class="op">&gt;</span><span class="st"> </span><span class="fl">92.5</span>,</span>
+<span id="cb20-13"><a href="#cb20-13"></a>                                            Jahr <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>)),</span>
+<span id="cb20-14"><a href="#cb20-14"></a>                           <span class="kw">aes</span>(<span class="dt">label =</span> Raumeinheit),</span>
+<span id="cb20-15"><a href="#cb20-15"></a>                           <span class="dt">size =</span> <span class="fl">3.5</span>) <span class="op">+</span></span>
+<span id="cb20-16"><a href="#cb20-16"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Wahlbeteiligung (in%)&quot;</span>,</span>
+<span id="cb20-17"><a href="#cb20-17"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote (in %)&quot;</span>,</span>
+<span id="cb20-18"><a href="#cb20-18"></a>       <span class="dt">title =</span> <span class="st">&quot;Verhältnis von Arbeitslosigkeit und Wahlbeteiligung&quot;</span>,</span>
+<span id="cb20-19"><a href="#cb20-19"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Kreisfreie Städte und Landkreise in Deutschland (2017)&quot;</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-19-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="facets" class="section level2">
 <h2>Facets</h2>
-<p>Oft gelingt es nicht, die gewünschten Informationen in einen einzelnen Plot unterzubringen. Hier bietet es sich an, Multi-Panel Plots zu erstellen. Hierfür gibt es mehere Möglichkeiten, an dieser Stelle soll der <code>facet_wrap()</code> diskutiert werden. In diesem Befehl können mit einem Tilde (<code>~</code>) die jeweiligen Variablen übergeben werden, die in verschiedenen Panels innerhalb eines Plots dargestellt werden sollen.</p>
+<p>Oft gelingt es nicht, die gewünschten Informationen in einen einzelnen Plot unterzubringen. Hier bietet es sich an, Multi-Panel Plots zu erstellen. Hierfür gibt es mehere Möglichkeiten, an dieser Stelle soll <code>facet_wrap()</code> diskutiert werden. In diesem Befehl können mit einem Tilde (<code>~</code>) die jeweiligen Variablen übergeben werden, die in verschiedenen Panels innerhalb eines Plots dargestellt werden sollen.</p>
 <p>Im folgenden Beispiel wird die Wahlbeteiligung so nicht nur für ein Jahr dargestellt, sondern für alle im Datensatz verfügbaren Wahljahre. Mit dem Befehl <code>facet_wrap(~Jahr)</code> wird also für jedes Wahljahr ein eigenes Panel erzeugt.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Wahlbeteiligung)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Jahr) <span class="op">+</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Verhältnis von Wahlbeteiligung, Arbeitslosenquote und Durchschnittsalter&quot;</span>,</span>
-<span id="cb22-7"><a href="#cb22-7"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Deutsche Landkreise und kreisfreie Städte (1998-2017)&quot;</span>,</span>
-<span id="cb22-8"><a href="#cb22-8"></a>       <span class="dt">x =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">Wahlbeteiligung&quot;</span>,</span>
-<span id="cb22-9"><a href="#cb22-9"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="op">+</span></span>
-<span id="cb22-10"><a href="#cb22-10"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
-<span id="cb22-11"><a href="#cb22-11"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title.position =</span> <span class="st">&#39;plot&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Wahlbeteiligung)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Jahr) <span class="op">+</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Verhältnis von Wahlbeteiligung, Arbeitslosenquote und Durchschnittsalter&quot;</span>,</span>
+<span id="cb21-7"><a href="#cb21-7"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Deutsche Landkreise und kreisfreie Städte (1998-2017)&quot;</span>,</span>
+<span id="cb21-8"><a href="#cb21-8"></a>       <span class="dt">x =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">Wahlbeteiligung&quot;</span>,</span>
+<span id="cb21-9"><a href="#cb21-9"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="op">+</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title.position =</span> <span class="st">&#39;plot&#39;</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-20-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Auch hier können wieder weitere Aestheitcs angepasst werden. Um die Grafik vom Anfang zu erzeugen, wird zusätzlich noch das Durchschnittsalter als Farbe übergeben. Der Befehel <code>scale_color_viridis_c()</code> gibt eine Farbpalette an, mit welcher die Punkte je nach Wert gefüllt werden sollen.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Wahlbeteiligung)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote,</span>
+<span id="cb22-4"><a href="#cb22-4"></a>             <span class="dt">col =</span> Durchschnittsalter)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">direction =</span> <span class="dv">-1</span>) <span class="op">+</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Jahr) <span class="op">+</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Verhältnis von Wahlbeteiligung, Arbeitslosenquote und Durchschnittsalter&quot;</span>,</span>
+<span id="cb22-9"><a href="#cb22-9"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Deutsche Landkreise und kreisfreie Städte (1998-2017)&quot;</span>,</span>
+<span id="cb22-10"><a href="#cb22-10"></a>       <span class="dt">x =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">Wahlbeteiligung&quot;</span>,</span>
+<span id="cb22-11"><a href="#cb22-11"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="op">+</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb22-13"><a href="#cb22-13"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title.position =</span> <span class="st">&#39;plot&#39;</span>)</span></code></pre></div>
+<p><img src="ggplot_files/figure-html/unnamed-chunk-21-1.png" width="75%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="speichern-von-grafiken" class="section level2">
+<h2>Speichern von Grafiken</h2>
+<p>Mit <code>ggplot2</code> erstellte Plots können am einfachsten über die <code>ggsave()</code> Funktion gespeichert werden. Hierfür geht man folgendermaßen vor:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb23-2"><a href="#cb23-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Wahlbeteiligung)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb23-3"><a href="#cb23-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote,</span>
@@ -808,43 +822,25 @@ div.tocify {
 <span id="cb23-11"><a href="#cb23-11"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="op">+</span></span>
 <span id="cb23-12"><a href="#cb23-12"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
 <span id="cb23-13"><a href="#cb23-13"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title.position =</span> <span class="st">&#39;plot&#39;</span>)</span></code></pre></div>
-<p><img src="ggplot_files/figure-html/unnamed-chunk-21-1.png" width="75%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="speichern-von-grafiken" class="section level2">
-<h2>Speichern von Grafiken</h2>
-<p>Mit <code>ggplot2</code> erstellte Plots können am einfachsten über die <code>ggsave()</code> Funktion erstellt werden. Hierfür geht man folgendermaßen vor:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>data <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Wahlbeteiligung)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Wahlbeteiligung, <span class="dt">y =</span> Arbeitslosenquote,</span>
-<span id="cb24-4"><a href="#cb24-4"></a>             <span class="dt">col =</span> Durchschnittsalter)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="st">  </span><span class="kw">scale_color_viridis_c</span>(<span class="dt">direction =</span> <span class="dv">-1</span>) <span class="op">+</span></span>
-<span id="cb24-7"><a href="#cb24-7"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Jahr) <span class="op">+</span></span>
-<span id="cb24-8"><a href="#cb24-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Verhältnis von Wahlbeteiligung, Arbeitslosenquote und Durchschnittsalter&quot;</span>,</span>
-<span id="cb24-9"><a href="#cb24-9"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Deutsche Landkreise und kreisfreie Städte (1998-2017)&quot;</span>,</span>
-<span id="cb24-10"><a href="#cb24-10"></a>       <span class="dt">x =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">Wahlbeteiligung&quot;</span>,</span>
-<span id="cb24-11"><a href="#cb24-11"></a>       <span class="dt">y =</span> <span class="st">&quot;Arbeitslosenquote</span><span class="ch">\n</span><span class="st">&quot;</span>) <span class="op">+</span></span>
-<span id="cb24-12"><a href="#cb24-12"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
-<span id="cb24-13"><a href="#cb24-13"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title.position =</span> <span class="st">&#39;plot&#39;</span>)</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-22-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Speichern des Plots</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.pdf&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Speichern des Plots</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.pdf&quot;</span>)</span></code></pre></div>
 <p>Der <code>ggsave()</code> Befehl übernimmt dabei automatisch den zuletzt erzeugten Plot als Objekt. Um sicherzugehen, dass der gewünschte Plot auch tatsächlich übergeben wird, kann dieser auch zunächst in einem Objekt zwischengespeichert werden und dann mit <code>ggsave(plot_object, “plot_name.pdf”)</code> gespeichert werden. Möchte man den Plot in einem anderen (Datei)Format speichern, bietet <code>ggsave()</code> verschiedene Optionen:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Einfaches Speichern eines Plots</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.pdf&quot;</span>)</span>
-<span id="cb26-3"><a href="#cb26-3"></a></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="co"># Verändern des Dateiformats</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.png&quot;</span>)</span>
-<span id="cb26-6"><a href="#cb26-6"></a></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="co"># Verändern des Formats</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.png&quot;</span>,</span>
-<span id="cb26-9"><a href="#cb26-9"></a>       <span class="dt">width =</span> <span class="dv">200</span>,</span>
-<span id="cb26-10"><a href="#cb26-10"></a>       <span class="dt">height =</span> <span class="dv">120</span>,</span>
-<span id="cb26-11"><a href="#cb26-11"></a>       <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>)</span>
-<span id="cb26-12"><a href="#cb26-12"></a></span>
-<span id="cb26-13"><a href="#cb26-13"></a><span class="co"># Verändern der Pixeldichte</span></span>
-<span id="cb26-14"><a href="#cb26-14"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.png&quot;</span>,</span>
-<span id="cb26-15"><a href="#cb26-15"></a>       <span class="dt">dpi =</span> <span class="dv">300</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Einfaches Speichern eines Plots</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.pdf&quot;</span>)</span>
+<span id="cb25-3"><a href="#cb25-3"></a></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="co"># Verändern des Dateiformats</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.png&quot;</span>)</span>
+<span id="cb25-6"><a href="#cb25-6"></a></span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="co"># Verändern des Formats</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.png&quot;</span>,</span>
+<span id="cb25-9"><a href="#cb25-9"></a>       <span class="dt">width =</span> <span class="dv">200</span>,</span>
+<span id="cb25-10"><a href="#cb25-10"></a>       <span class="dt">height =</span> <span class="dv">120</span>,</span>
+<span id="cb25-11"><a href="#cb25-11"></a>       <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>)</span>
+<span id="cb25-12"><a href="#cb25-12"></a></span>
+<span id="cb25-13"><a href="#cb25-13"></a><span class="co"># Verändern der Pixeldichte</span></span>
+<span id="cb25-14"><a href="#cb25-14"></a><span class="kw">ggsave</span>(<span class="st">&quot;Wahlbeteiligung.png&quot;</span>,</span>
+<span id="cb25-15"><a href="#cb25-15"></a>       <span class="dt">dpi =</span> <span class="dv">300</span>)</span></code></pre></div>
 <p>Mit RStudio lassen sich Plots alternativ auch im Plotsfenster unter “Export” in einem gewünschten Dateiformat und einer gewünschten Größe exportieren. Für spätere Reproduzierbarkeit sollte man diese Option aber selten nutzen.</p>
 </div>
 </div>
