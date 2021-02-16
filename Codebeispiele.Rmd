@@ -61,7 +61,7 @@ data %>%
 ## Racing Bar Chart (animiert)
 
 Hier wird ein sogenannter "Racing Bar Chart" gezeigt, bei dem sich Veränderungen
-der Rangfolge zwischen Untersuchungseinheiten über die Zeit darstellten lassen.
+der Rangfolge zwischen Untersuchungseinheiten über die Zeit darstellen lassen.
 Der Code sieht auf den ersten Blick relativ umständlich aus, lässt sich aber in
 weiten Teilen übernehmen und individuell anpassen. Der hier verwendete Trick 
 besteht darin, den Datensatz zu erweitern und zwischen ganzen Jahren 
@@ -135,8 +135,7 @@ anim_save('BIP.gif', animation = last_animation(), path = "../Desktop/")
 
 # Boxplot
 
-Von der Strutkur her ähnlich wie Balkendiagramme lassen sich mit <code>geom_boxplot()</code> einfach Boxplots erstellen, die häufig 
-aussagekräftiger sind als Balkendiagramme. 
+Von der Strutkur her ähnlich wie Balkendiagramme lassen sich mit <code>geom_boxplot()</code> einfach Boxplots erstellen, die aussagekräftiger sein können als Balkendiagramme. 
 
 ## Gewöhnlicher Boxplot
 
@@ -198,7 +197,7 @@ data %>%
 
 # Statische Karten
 
-Hier visualisieren wir die Arbeitslosenquote in den 401 deutschen Kreisen und kreisfreien Städten.
+Hier visualisieren wir die Arbeitslosenquote in den 401 deutschen Kreisen und kreisfreien Städten auf einer Karte.
 
 ## Kontinuierlich
 
@@ -238,7 +237,7 @@ ggsave("images/Arbeitslosenquote_2017_kontinuierlich.png")
 
 ## Gruppiert
 
-In der gruppierten Variante teilen wir die 401 Kreise in 6 Gruppen, die wir dann ensprechend visualisieren. Im Unterschied zum vorherigen Beispiel müssen wir lediglich einige Strings manipulieren, um die entsprechenden Gruppen zu erstellen und die deutsche Kommaregel zu beachten.
+In der gruppierten Variante teilen wir die 401 Kreise in 6 Gruppen, die wir dann entsprechend visualisieren. Im Unterschied zum vorherigen Beispiel müssen wir lediglich einige Strings manipulieren, um die entsprechenden Gruppen zu erstellen und die deutsche Kommaregel zu beachten.
 
 ```{r eval=FALSE}
 library(tidyverse)

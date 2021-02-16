@@ -551,7 +551,7 @@ div.tocify {
 </div>
 <div id="racing-bar-chart-animiert" class="section level2">
 <h2>Racing Bar Chart (animiert)</h2>
-<p>Hier wird ein sogenannter “Racing Bar Chart” gezeigt, bei dem sich Veränderungen der Rangfolge zwischen Untersuchungseinheiten über die Zeit darstellten lassen. Der Code sieht auf den ersten Blick relativ umständlich aus, lässt sich aber in weiten Teilen übernehmen und individuell anpassen. Der hier verwendete Trick besteht darin, den Datensatz zu erweitern und zwischen ganzen Jahren Zwischenschritte zu erzeugen und die fehlenden Daten der darzustellenden Variable zu interpolieren. Im konkreten Anwendungsfall werden hierfür zwischen den Ausprägungen der Jahresvariable (2000, 2001, 2002, etc.) in 0.1er Schritten (2000.1, 2000.2, 2000.3, …) Werte für das BIP interpoliert, die in der Animation flüssigere Übergänge erzeugen.</p>
+<p>Hier wird ein sogenannter “Racing Bar Chart” gezeigt, bei dem sich Veränderungen der Rangfolge zwischen Untersuchungseinheiten über die Zeit darstellen lassen. Der Code sieht auf den ersten Blick relativ umständlich aus, lässt sich aber in weiten Teilen übernehmen und individuell anpassen. Der hier verwendete Trick besteht darin, den Datensatz zu erweitern und zwischen ganzen Jahren Zwischenschritte zu erzeugen und die fehlenden Daten der darzustellenden Variable zu interpolieren. Im konkreten Anwendungsfall werden hierfür zwischen den Ausprägungen der Jahresvariable (2000, 2001, 2002, etc.) in 0.1er Schritten (2000.1, 2000.2, 2000.3, …) Werte für das BIP interpoliert, die in der Animation flüssigere Übergänge erzeugen.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="kw">library</span>(gganimate)</span>
 <span id="cb2-3"><a href="#cb2-3"></a></span>
@@ -613,7 +613,7 @@ div.tocify {
 </div>
 <div id="boxplot" class="section level1">
 <h1>Boxplot</h1>
-<p>Von der Strutkur her ähnlich wie Balkendiagramme lassen sich mit <code>geom_boxplot()</code> einfach Boxplots erstellen, die häufig aussagekräftiger sind als Balkendiagramme.</p>
+<p>Von der Strutkur her ähnlich wie Balkendiagramme lassen sich mit <code>geom_boxplot()</code> einfach Boxplots erstellen, die aussagekräftiger sein können als Balkendiagramme.</p>
 <div id="gewöhnlicher-boxplot" class="section level2">
 <h2>Gewöhnlicher Boxplot</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(tidyverse)</span>
@@ -666,7 +666,7 @@ div.tocify {
 </div>
 <div id="statische-karten" class="section level1">
 <h1>Statische Karten</h1>
-<p>Hier visualisieren wir die Arbeitslosenquote in den 401 deutschen Kreisen und kreisfreien Städten.</p>
+<p>Hier visualisieren wir die Arbeitslosenquote in den 401 deutschen Kreisen und kreisfreien Städten auf einer Karte.</p>
 <div id="kontinuierlich" class="section level2">
 <h2>Kontinuierlich</h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(tidyverse)</span>
@@ -701,7 +701,7 @@ div.tocify {
 </div>
 <div id="gruppiert" class="section level2">
 <h2>Gruppiert</h2>
-<p>In der gruppierten Variante teilen wir die 401 Kreise in 6 Gruppen, die wir dann ensprechend visualisieren. Im Unterschied zum vorherigen Beispiel müssen wir lediglich einige Strings manipulieren, um die entsprechenden Gruppen zu erstellen und die deutsche Kommaregel zu beachten.</p>
+<p>In der gruppierten Variante teilen wir die 401 Kreise in 6 Gruppen, die wir dann entsprechend visualisieren. Im Unterschied zum vorherigen Beispiel müssen wir lediglich einige Strings manipulieren, um die entsprechenden Gruppen zu erstellen und die deutsche Kommaregel zu beachten.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="kw">library</span>(ggthemes)</span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="kw">library</span>(sf)</span>
