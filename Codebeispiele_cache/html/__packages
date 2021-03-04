@@ -8,6 +8,8 @@ purrr
 dplyr
 stringr
 forcats
+gganimate
+downloadthis
 leaflet
 rmapshaper
 sp

@@ -13,34 +13,58 @@
 
 <title>Mikrodatenanalyse in R</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -60,7 +84,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -113,39 +137,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -155,10 +149,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -175,40 +165,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -236,7 +199,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -248,7 +211,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -259,10 +222,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -274,7 +250,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -400,13 +375,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -473,7 +448,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -528,8 +503,6 @@ div.tocify {
 ## |   +-- phealth.dta
 ## |   +-- pl.sav
 ## |   \-- ppathl.dta
-## +-- data_out
-## +-- graphs_out
 ## \-- Projekt_Mikrodatenanalyse.Rproj</code></pre>
 <p>Der Projektordner <code> Beispielordner_Mikrodatenanalyse </code> enthält alle relevanten Dateien. In der ersten Ebene liegt die .Rproj-Datei (<code>Projekt_Mikrodatenanalyse.Rproj</code>), .R-Dateien und Unterordner.</p>
 <p>Ausgehend vom Projektordner, in dem die .Rproj-Datei liegt, können beliebige Unterordner gebildet werden. Alternativ zur obigen Struktur könnten die .R-Dateien auch in einen eigenen Ordner verschoben werden.</p>
@@ -551,13 +524,13 @@ div.tocify {
 <p>Mikrodaten werden in der Regel (noch) nicht in einem R-Datenformat ausgeliefert. Häufig sind zunächst nur dta-Dateien (Stata) oder sav-Dateien (SPSS) verfügbar.</p>
 <p>###Lösung:</p>
 <p>Das Paket <code>haven</code> ermöglicht das Einlesen <em>fremder</em> Dateitypen.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#Einmalig installieren</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;haven&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#Laden</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">library</span>(haven)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Einmalig installieren</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;haven&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Laden</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code></pre></div>
 <p>Das Paket bietet verschiedene Funktionen, um fremde Dateiformate einzulesen, und diese zu speichern. Stata oder SPSS-Nutzer sind zudem die Arbeit mit <em>Labeln</em> gewohnt. In R wird dies standardmäßig nicht unterstützt. <code>haven</code> enthält verschiedene Funktionen, um Label zu definieren, ändern, löschen, usw.:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#Liste aller Funktionen im Paket haven</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">ls</span>(<span class="st">&quot;package:haven&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Liste aller Funktionen im Paket haven</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">&quot;package:haven&quot;</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;as_factor&quot;                &quot;format_tagged_na&quot;        
 ##  [3] &quot;is.labelled&quot;              &quot;is_tagged_na&quot;            
 ##  [5] &quot;labelled&quot;                 &quot;labelled_spss&quot;           
@@ -574,12 +547,12 @@ div.tocify {
 ## [27] &quot;zap_missing&quot;              &quot;zap_widths&quot;</code></pre>
 <p>Bei der Arbeit mit Mikrodatensätzen liegt die erste Hürde im Zusammentragen der Datensätze. Beispielhaft soll dies anhand dreier Datensätze demonstriert werden. Die Datensätze basieren auf dem frei zugänglichen <a href="https://www.diw.de/de/diw_02.c.222838.de/soep_in_der_lehre.html">SOEP-Übungsdatensatz</a>. Dieser wurde um weitere Variablen ergänzt und für einen realistischeren Anwendungsfall aufgesplittet. Die Variablen sind verfremdet, beziehungsweise auf Zufallsbasis erstellt.</p>
 <p>Für unsere Mikrodatenanalyse nutzen wir drei Datensätze: <code>ppathl.dta</code>, <code>pl.sav</code>, <code>phealth.dta</code>. Wir lesen diese mit den Befehlen <code>read_dta()</code> beziehungsweise <code>read_sav()</code> aus dem Paket <code>haven</code> ein.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>ppathl &lt;-<span class="st"> </span><span class="kw">read_dta</span>(<span class="st">&quot;Beispielordner_Mikrodatenanalyse/data_in/ppathl.dta&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>pl &lt;-<span class="st"> </span><span class="kw">read_sav</span>(<span class="st">&quot;Beispielordner_Mikrodatenanalyse/data_in/pl.sav&quot;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>phealth &lt;-<span class="st"> </span><span class="kw">read_dta</span>(<span class="st">&quot;Beispielordner_Mikrodatenanalyse/data_in/phealth.dta&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ppathl <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;Beispielordner_Mikrodatenanalyse/data_in/ppathl.dta&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pl <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;Beispielordner_Mikrodatenanalyse/data_in/pl.sav&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>phealth <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;Beispielordner_Mikrodatenanalyse/data_in/phealth.dta&quot;</span>)</span></code></pre></div>
 <p>Wie immer sollten die Datensätze zunächst inspiziert werden:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>ppathl</span></code></pre></div>
-<pre><code>## # A tibble: 12,922 x 4
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ppathl</span></code></pre></div>
+<pre><code>## # A tibble: 12.922 x 4
 ##    persnr  jahr          sex weight
 ##     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl+lbl&gt;  &lt;dbl&gt;
 ##  1 500575  2001 1 [weiblich]   467.
@@ -592,9 +565,9 @@ div.tocify {
 ##  8 666151  2002 0 [maenlich]   908.
 ##  9 383792  2001 0 [maenlich]   793.
 ## 10 482355  2002 1 [weiblich]   648.
-## # ... with 12,912 more rows</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>pl</span></code></pre></div>
-<pre><code>## # A tibble: 12,922 x 7
+## # ... with 12.912 more rows</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pl</span></code></pre></div>
+<pre><code>## # A tibble: 12.922 x 7
 ##    persnr  jahr bildung anz_kind income  bula region
 ##     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
 ##  1 294354  2001    10.5        0  2947.    11 Land  
@@ -607,9 +580,9 @@ div.tocify {
 ##  8 587268  2001    NA          0  3940.     6 Stadt 
 ##  9  75033  2000    13          1  1927.    13 Stadt 
 ## 10 180832  2003    12          0  1568.    13 Land  
-## # ... with 12,912 more rows</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>phealth</span></code></pre></div>
-<pre><code>## # A tibble: 12,276 x 6
+## # ... with 12.912 more rows</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>phealth</span></code></pre></div>
+<pre><code>## # A tibble: 12.276 x 6
 ##    persnr  jahr      gesund_org gesund_std               lebensz_org lebensz_std
 ##     &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl+lbl&gt;      &lt;dbl&gt;                 &lt;dbl+lbl&gt;       &lt;dbl&gt;
 ##  1 235585  2000 4 [Gut]              0.567  5 [5 Zufrieden: Skala 0~     -1.23  
@@ -622,13 +595,13 @@ div.tocify {
 ##  8 246747  2002 5 [Sehr_gut]         1.60  10 [10 Zufrieden: Skala ~      1.61  
 ##  9 544752  2001 4 [Gut]              0.567  6 [6 Zufrieden: Skala 0~     -0.659 
 ## 10 152915  2000 5 [Sehr_gut]         1.60   7 [7 Zufrieden: Skala 0~     -0.0909
-## # ... with 12,266 more rows</code></pre>
+## # ... with 12.266 more rows</code></pre>
 <p>Ein Teil der Variablen ist vom Typ <code>haven_labelled</code>, angezeigt durch <code>&lt;dbl+lbl&gt;</code>. Für Statanutzer ist dies nichts Neues. Dies bedeutet lediglich, dass die Variablen neben dem eigentlichen Variablennamen noch eine Kurzbeschreibung tragen. <code>&lt;dbl+lbl&gt;</code> zeigt an, dass die Variable numerisch ist (<code><dbl></code>) und ein Label trägt <code>&lt;+lbl&gt;</code>.</p>
 <p>Um die drei Datensätze zusammenzufügen nutzen wir die beiden Matching-Variablen <code>persnr</code> und <code>jahr</code>.</p>
 <p>Optional: Standardmäßig zeigt R keine Änderungen an Datensätzen in der Konsole an. Wer gerne Feedback für Datenmanipulationen und auch Mergevorgänge möchte, der kann hierfür das Paket <code>tidylog</code> nutzen. Das Paket bietet Informationen für eine Vielzahl an Datenmanipulationsfunktionen aus dem tidyverse.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">library</span>(tidylog)</span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">ls</span>(<span class="st">&quot;package:tidylog&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidylog)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">&quot;package:tidylog&quot;</span>)</span></code></pre></div>
 <pre><code>##  [1] &quot;add_count&quot;     &quot;add_tally&quot;     &quot;anti_join&quot;     &quot;count&quot;        
 ##  [5] &quot;distinct&quot;      &quot;distinct_all&quot;  &quot;distinct_at&quot;   &quot;distinct_if&quot;  
 ##  [9] &quot;drop_na&quot;       &quot;fill&quot;          &quot;filter&quot;        &quot;filter_all&quot;   
@@ -667,29 +640,29 @@ div.tocify {
 <h2>Reihenfolge des Zusammenfügens bei Mikrodatensätzen</h2>
 <p>Bei der Arbeit mit Mikrodatensätzen beginnt man in der Regel mit einem Basisdatensatz, in unserem Fall <code>ppathl</code>. Dieser enthält in der Regel alle Beobachtungen. Aufbauend auf diesem Datensatz werden weitere Informationen hinzugefügt. Wir wissen also, dass wir an <code>ppathl</code> alle anderen Datensätze dranspielen können. In unserem finalen Datensatz sind alle Zeilen aus <code>ppathl</code> enthalten, ergänzt um weitere Variablen aus den anderen Datensätzen. Wir nutzen also den <code>left_join</code>.</p>
 <p>Um einen Arbeitsdatensatz aus mehreren Datensätzen zu erstellen, kann man schrittweise vorgehen:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">#1. Schritt</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>zwischendatensatz1 &lt;-<span class="st"> </span><span class="kw">left_join</span>(ppathl, pl, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;persnr&quot;</span>, <span class="st">&quot;jahr&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">#2. Schritt</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>arbeitsdatensatz_mit_zwischenschritt &lt;-<span class="st"> </span><span class="kw">left_join</span>(zwischendatensatz1, phealth, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;persnr&quot;</span>, <span class="st">&quot;jahr&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1. Schritt</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>zwischendatensatz1 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(ppathl, pl, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;persnr&quot;</span>, <span class="st">&quot;jahr&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2. Schritt</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz_mit_zwischenschritt <span class="ot">&lt;-</span> <span class="fu">left_join</span>(zwischendatensatz1, phealth, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;persnr&quot;</span>, <span class="st">&quot;jahr&quot;</span>))</span></code></pre></div>
 <p>Besser natürlich alles hintereinander mit Pipes:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb17-2"><a href="#cb17-2"></a>arbeitsdatensatz &lt;-<span class="st"> </span>ppathl <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#Ausgangsdatensatz ppathl</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="st">  </span><span class="kw">left_join</span>(pl, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;persnr&quot;</span>, <span class="st">&quot;jahr&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#1. Schritt</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="st">  </span><span class="kw">left_join</span>(phealth, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;persnr&quot;</span>, <span class="st">&quot;jahr&quot;</span>)) <span class="co">#2. Schritt</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="ot">&lt;-</span> ppathl <span class="sc">%&gt;%</span> <span class="co">#Ausgangsdatensatz ppathl</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(pl, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;persnr&quot;</span>, <span class="st">&quot;jahr&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co">#1. Schritt</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(phealth, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;persnr&quot;</span>, <span class="st">&quot;jahr&quot;</span>)) <span class="co">#2. Schritt</span></span></code></pre></div>
 <p>Das Ergebnis ist identisch:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">library</span>(waldo)</span>
-<span id="cb18-2"><a href="#cb18-2"></a>waldo<span class="op">::</span><span class="kw">compare</span>(arbeitsdatensatz, arbeitsdatensatz_mit_zwischenschritt)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(waldo)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>waldo<span class="sc">::</span><span class="fu">compare</span>(arbeitsdatensatz, arbeitsdatensatz_mit_zwischenschritt)</span></code></pre></div>
 <pre><code>## v No differences</code></pre>
 <p>An dieser Stelle bietet es sich an, den Arbeitsdatensatz oder vielleicht sogar alle bisher geladenen und erstellten Objekte (z.B. Datensätze) abzuspeichern. Mit <code>saveRDS</code> kann ein einzelnes R-Objekt gespeichert werden. <code>readRDS</code> lädt dieses ein.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Einzelnes Objekt speichern:</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="kw">saveRDS</span>(<span class="dt">object =</span> arbeitsdatensatz, <span class="dt">file =</span> <span class="st">&quot;arbeitsdatensatz.rds&quot;</span>)</span>
-<span id="cb20-3"><a href="#cb20-3"></a><span class="co"># Einzelnes Objekt laden:</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a>arbeitsdatensatz &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;arbeitsdatensatz.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Einzelnes Objekt speichern:</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(<span class="at">object =</span> arbeitsdatensatz, <span class="at">file =</span> <span class="st">&quot;arbeitsdatensatz.rds&quot;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Einzelnes Objekt laden:</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;arbeitsdatensatz.rds&quot;</span>)</span></code></pre></div>
 <p>Sollen alle bisher erstellten Obejekte gespeichert werden, geschieht dies mit <code>save.image</code>. Geladen wird mit dem Befehl <code>load</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Gesamten Workspace speichern:</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="kw">save.image</span>(<span class="dt">file =</span> <span class="st">&quot;arbeitsdatensatz.RData&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Und wieder laden</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">load</span>(<span class="st">&quot;arbeitsdatensatz.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gesamten Workspace speichern:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="at">file =</span> <span class="st">&quot;arbeitsdatensatz.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Und wieder laden</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;arbeitsdatensatz.RData&quot;</span>)</span></code></pre></div>
 <hr />
 </div>
 <div id="analyse-von-mikrodaten" class="section level2">
@@ -698,26 +671,26 @@ div.tocify {
 <p>Sollen lediglich aggregierte Werte, wie beispielsweise Mittelwerte, Quantile und Dispersionsmaße dargestellt werden, unterscheidet sich die Datenvisualisierung von Mikrodaten nicht von der von anderen Daten. Lediglich bei der Datenanalyse muss auf die Gewichtung der Daten geachtet werden.</p>
 <p>###Gewichte (Hochrechnungsfaktoren)</p>
 <p>Um für die Grundgesamtheit repräsentative Ergebnisse zu erhalten, müssen die Daten aus der Stichprobe gewichtet werden. Wie immer kann ein gewünschtes Ergebnis, hier zum Beispiel die durchschnittlichen Einkommen im Jahr 2004, <em>händisch</em> berechnet werden.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="st">  </span><span class="kw">filter</span>(jahr <span class="op">==</span><span class="st"> </span><span class="dv">2004</span>) <span class="op">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">income_mean_weighted =</span> <span class="kw">sum</span>(income<span class="op">*</span>weight)<span class="op">/</span><span class="kw">sum</span>(weight)) </span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jahr <span class="sc">==</span> <span class="dv">2004</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">income_mean_weighted =</span> <span class="fu">sum</span>(income<span class="sc">*</span>weight)<span class="sc">/</span><span class="fu">sum</span>(weight)) </span></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
 ##   income_mean_weighted
 ##                  &lt;dbl&gt;
 ## 1               21521.</code></pre>
 <p>In der Regel hat sich jedoch schon jemand die Mühe gemacht und eine Funktion geschrieben:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="st">  </span><span class="kw">filter</span>(jahr <span class="op">==</span><span class="st"> </span><span class="dv">2004</span>) <span class="op">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">income_mean_weighted =</span> <span class="kw">weighted.mean</span>(<span class="dt">x =</span> income, <span class="dt">w =</span> weight))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(jahr <span class="sc">==</span> <span class="dv">2004</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">income_mean_weighted =</span> <span class="fu">weighted.mean</span>(<span class="at">x =</span> income, <span class="at">w =</span> weight))</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
 ##   income_mean_weighted
 ##                  &lt;dbl&gt;
 ## 1               21521.</code></pre>
 <p>So bietet zum Beispiel das Paket <code>spatstat</code> Funktionen, die für die Berechnung deskriptiver, gewichteter Statistiken sinnvoll sind.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">library</span>(spatstat)</span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="kw">ls</span>(<span class="st">&quot;package:spatstat&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-4"><a href="#cb27-4"></a><span class="st">  </span><span class="kw">filter</span>(stringr<span class="op">::</span><span class="kw">str_detect</span>(value, <span class="st">&quot;weighted&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">&quot;package:spatstat&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(stringr<span class="sc">::</span><span class="fu">str_detect</span>(value, <span class="st">&quot;weighted&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 4 x 1
 ##   value             
 ##   &lt;chr&gt;             
@@ -726,67 +699,67 @@ div.tocify {
 ## 3 weighted.var      
 ## 4 weightedclosepairs</code></pre>
 <p>Die Anwendung dieser Funktionen funktioniert genau wie in unseren bisherigen Beispielen. Sind wir an der Entwicklung des gewichteten Medianeinkommens über die Zeit interessiert, bestimmen wir diese mit:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="st">  </span><span class="kw">group_by</span>(jahr) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">income_weighted_median =</span> spatstat<span class="op">::</span><span class="kw">weighted.median</span>(income, weight, <span class="dt">na.rm =</span> T)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb29-4"><a href="#cb29-4"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(jahr) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">income_weighted_median =</span> spatstat<span class="sc">::</span><span class="fu">weighted.median</span>(income, weight, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##    jahr income_weighted_median
-##   &lt;dbl&gt;                  &lt;dbl&gt;
+## * &lt;dbl&gt;                  &lt;dbl&gt;
 ## 1  2000                  1971.
 ## 2  2001                  2477.
 ## 3  2002                  2651.
 ## 4  2003                  2838.
 ## 5  2004                  2790.</code></pre>
 <p>Als Visualisierung:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="st">  </span><span class="kw">group_by</span>(jahr) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">income_weighted_median =</span> spatstat<span class="op">::</span><span class="kw">weighted.median</span>(income, weight, <span class="dt">na.rm =</span> T)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(jahr), <span class="dt">y =</span> income_weighted_median, <span class="dt">group =</span> <span class="dv">1</span>)) <span class="op">+</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">factor</span>(jahr)), <span class="dt">size =</span> <span class="dv">5</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(jahr) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">income_weighted_median =</span> spatstat<span class="sc">::</span><span class="fu">weighted.median</span>(income, weight, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(jahr), <span class="at">y =</span> income_weighted_median, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(jahr)), <span class="at">size =</span> <span class="dv">5</span>) </span></code></pre></div>
 <p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Insbesondere bei Daten mit vielen Beobachtungen kann es spannend sein, die Verteilung der Variablen von Interesse zu visualisieren. Ein Klassiker ist der Boxplot.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(jahr), <span class="dt">y =</span> income, <span class="dt">color =</span> <span class="kw">factor</span>(jahr), <span class="dt">weight =</span> weight)) <span class="op">+</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(jahr), <span class="at">y =</span> income, <span class="at">color =</span> <span class="fu">factor</span>(jahr), <span class="at">weight =</span> weight)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>Wie wir sehen, scheinen wir einige Ausreißer in den Daten zu haben. Wir könnten diese entweder aus dem Datensatz entfernen, oder die Skalierung anpassen.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(jahr), <span class="dt">y =</span> income, <span class="dt">color =</span> <span class="kw">factor</span>(jahr), <span class="dt">weight =</span> weight)) <span class="op">+</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
-<span id="cb33-4"><a href="#cb33-4"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">750</span>, <span class="dv">5000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(jahr), <span class="at">y =</span> income, <span class="at">color =</span> <span class="fu">factor</span>(jahr), <span class="at">weight =</span> weight)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">750</span>, <span class="dv">5000</span>)</span></code></pre></div>
 <p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>Der klassiche Boxplot gibt zwar einige Hinweise auf die Verteilung der Daten, es geht aber auch schicker. Zum Beispiel mit <code>geom_jitter</code>.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(jahr), <span class="dt">y =</span> income, <span class="dt">color =</span> <span class="kw">factor</span>(jahr), <span class="dt">weight =</span> weight)) <span class="op">+</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">0.8</span>, <span class="dt">outlier.color =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
-<span id="cb34-5"><a href="#cb34-5"></a><span class="st">    </span><span class="kw">ylim</span>(<span class="dv">750</span>, <span class="dv">5000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(jahr), <span class="at">y =</span> income, <span class="at">color =</span> <span class="fu">factor</span>(jahr), <span class="at">weight =</span> weight)) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">outlier.color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="dv">750</span>, <span class="dv">5000</span>)</span></code></pre></div>
 <p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>Oder mit <code>geom_violin</code>:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb35-2"><a href="#cb35-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">factor</span>(jahr), <span class="dt">y =</span> income, <span class="dt">color =</span> <span class="kw">factor</span>(jahr), <span class="dt">weight =</span> weight)) <span class="op">+</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
-<span id="cb35-4"><a href="#cb35-4"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">alpha =</span> <span class="fl">0.8</span>, <span class="dt">draw_quantiles =</span> <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)) <span class="op">+</span></span>
-<span id="cb35-5"><a href="#cb35-5"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">10000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(jahr), <span class="at">y =</span> income, <span class="at">color =</span> <span class="fu">factor</span>(jahr), <span class="at">weight =</span> weight)) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">draw_quantiles =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">10000</span>)</span></code></pre></div>
 <p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Eine weitere Option zur Visualisierung von Verteilungen ist <code>geom_density</code>.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> income, <span class="dt">weight =</span> weight)) <span class="op">+</span><span class="st"> </span><span class="co">#auch hier erlaubt weight eine Ausgabe gewichteter Graphen</span></span>
-<span id="cb36-4"><a href="#cb36-4"></a><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> income), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co">#zum Vergleich der ungewichtete Graph, macht in diesem dummy-Beispiel kaum einen Unterschied</span></span>
-<span id="cb36-5"><a href="#cb36-5"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>,<span class="dv">20000</span>) <span class="op">+</span></span>
-<span id="cb36-6"><a href="#cb36-6"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>jahr)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> income, <span class="at">weight =</span> weight)) <span class="sc">+</span> <span class="co">#auch hier erlaubt weight eine Ausgabe gewichteter Graphen</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> income), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="co">#zum Vergleich der ungewichtete Graph, macht in diesem dummy-Beispiel kaum einen Unterschied</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">20000</span>) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>jahr)</span></code></pre></div>
 <p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Neben den direkten Visualisierungsmöglichkeiten mit “gewichteten Abbildungen” unterscheidet sich die Visualisierung von Mikrodaten sonst nicht.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>arbeitsdatensatz <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-2"><a href="#cb37-2"></a><span class="st">  </span><span class="kw">group_by</span>(jahr, lebensz_org) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-3"><a href="#cb37-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">weighted_median_income =</span> spatstat<span class="op">::</span><span class="kw">weighted.median</span>(income, <span class="dt">w =</span> weight)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-4"><a href="#cb37-4"></a><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-5"><a href="#cb37-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lebensz_org, <span class="dt">y =</span> weighted_median_income)) <span class="op">+</span></span>
-<span id="cb37-6"><a href="#cb37-6"></a><span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span></span>
-<span id="cb37-7"><a href="#cb37-7"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>jahr)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>arbeitsdatensatz <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(jahr, lebensz_org) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weighted_median_income =</span> spatstat<span class="sc">::</span><span class="fu">weighted.median</span>(income, <span class="at">w =</span> weight)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lebensz_org, <span class="at">y =</span> weighted_median_income)) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>jahr)</span></code></pre></div>
 <p><img src="Mikrodatenanalyse_Workflow_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 </div>
 </div>
@@ -802,7 +775,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -820,7 +793,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

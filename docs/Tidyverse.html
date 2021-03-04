@@ -13,34 +13,58 @@
 
 <title>Das Tidyverse</title>
 
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -60,7 +84,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -113,39 +137,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -155,10 +149,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -175,40 +165,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 45px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h2 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h3 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h4 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h5 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
-.section h6 {
-  padding-top: 50px;
-  margin-top: -50px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -236,7 +199,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -248,7 +211,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -259,10 +222,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -274,7 +250,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -400,13 +375,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -473,7 +448,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -542,12 +517,12 @@ div.tocify {
 <p><img src="images/tidyverse_1_load.png" style="width:80.0%" /></p>
 </center>
 <p>Einerseits werden hier unter “Attaching packages” die geladenen Pakete samt der jeweiligen Version angezeigt. Unter “Conflicts” gibt es zudem zwei Warnhinweise. Diese weisen auf mögliche Probleme bei der Nutzung verschiedener R-Pakete hin. Hier werden durch das Laden des tidyverse zwei Befehle aus der “stats-Bibliothek” maskiert, also überschrieben. Konkret bedeutet das, dass nachdem das tidyverse geladen wurde, die Befehle <code>filter()</code> und <code>lag()</code> ihre Funktionalität aus dem “dplyr-Paket” und nicht mehr von “stats” beziehen. Möchte man jetzt die <code>filter()</code> Funktion aus der stats-Bibliothek nutzen, kann man diesen folgendermaßen aufrufen <code>stats::filter()</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Lädt nur die filter() Funktion von dplyr</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>dplyr<span class="op">::</span><span class="kw">filter</span>()</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Lädt alle (!) Funktionen von dplyr und nutzt dann filter()</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">filter</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt nur die filter() Funktion von dplyr</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">filter</span>()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Lädt alle (!) Funktionen von dplyr und nutzt dann filter()</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>()</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -573,19 +548,19 @@ div.tocify {
 <p><img src="images/tidyverse_3_data_horrible_data.png" style="width:100.0%" /></p>
 </center>
 <p>Hier sieht man, dass sich die obene genannten Regeln für tidy data nicht anwenden lassen. Während die Variablen “Kennziffer”, “Raumeinheit” und “Aggregat” korrekt in einer Spalte gespeichert wurden, wurden die Variablen “Arbeitslosenquote” und “Jahr” auf mehrere Spalten (im <em>wide format</em>) aufgeteilt. Dadurch hat jede Beobachtung (also die Arbeitslosenquote einer Raumeinheit pro Jahr) auch nicht eine eigene Zeile. Der folgende R-Code lädt die Daten und überführt sie in ein tidy data Format.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Laden der Daten</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>Arbeitslosenquote &lt;-<span class="st"> </span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="st">  </span>readxl<span class="op">::</span><span class="kw">read_xls</span>(<span class="st">&#39;daten_beispiele/Arbeitslosenquote.xls&#39;</span>,</span>
-<span id="cb2-6"><a href="#cb2-6"></a>                         <span class="dt">skip =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="st">  </span><span class="kw">rename</span>(<span class="st">&#39;Kennziffer&#39;</span> =<span class="st"> &#39;...1&#39;</span>,</span>
-<span id="cb2-8"><a href="#cb2-8"></a>         <span class="st">&#39;Raumeinheit&#39;</span> =<span class="st"> &#39;...2&#39;</span>,</span>
-<span id="cb2-9"><a href="#cb2-9"></a>         <span class="st">&#39;Aggregat&#39;</span> =<span class="st"> &#39;...3&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">!</span><span class="kw">c</span>(Kennziffer, Raumeinheit, Aggregat), </span>
-<span id="cb2-11"><a href="#cb2-11"></a>               <span class="dt">names_to =</span> <span class="st">&#39;Jahr&#39;</span>, </span>
-<span id="cb2-12"><a href="#cb2-12"></a>               <span class="dt">values_to =</span> <span class="st">&#39;Arbeitslosenquote&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Jahr =</span> <span class="kw">as.integer</span>(Jahr)) </span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Laden der Daten</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote <span class="ot">&lt;-</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  readxl<span class="sc">::</span><span class="fu">read_xls</span>(<span class="st">&#39;daten_beispiele/Arbeitslosenquote.xls&#39;</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">skip =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&#39;Kennziffer&#39;</span> <span class="ot">=</span> <span class="st">&#39;...1&#39;</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">&#39;Raumeinheit&#39;</span> <span class="ot">=</span> <span class="st">&#39;...2&#39;</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">&#39;Aggregat&#39;</span> <span class="ot">=</span> <span class="st">&#39;...3&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span><span class="fu">c</span>(Kennziffer, Raumeinheit, Aggregat), </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&#39;Jahr&#39;</span>, </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&#39;Arbeitslosenquote&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Jahr =</span> <span class="fu">as.integer</span>(Jahr)) </span></code></pre></div>
 <p>Hier wird zunächst mit <code>read_xls()</code> die .xls-Datei geladen. Da das Paket readxl zwar im tidyverse mit heruntergeladen aber nicht automatisch in die Arbeitsumgebung geladen wird, wird das Paket hier mit <code>readxl::read_xls()</code> direkt angesprochen. Der Zusatz <code>skip = 1</code> überspringt die erste Zeile der .xls-Datei, da die Variabelnnamen auf zwei Spalten verteilt sind.</p>
 <p>Mit der Funktion <code>rename()</code> werden die fehlenden Variablennamen ergänzt.</p>
 <p>Die letzte Funktion <code>pivot_longer()</code> überführt die restlichen Spalten vom wide ins long Format. Die Funktion wird im späteren Kursverlauf genauer erklärt.</p>
@@ -599,11 +574,11 @@ div.tocify {
 <div id="magrittr-pipe" class="section level2">
 <h2>magrittr-Pipe (%&gt;%)</h2>
 <p>Das tidyverse lädt automatisch die sogenannte “Pipe” aus dem magrittr-Paket. Die Pipe erlaubt es, Code zu schreiben der einfacher verstehen und zu lesen ist. Wollen wir etwa die fünf kreisfreien Städte mit der höchsten Arbeitslosenquote im aktuellsten Jahr gibt es mehrere Möglichkeiten, diese darzustellen. Eine Möglichkeit wäre, die notwendigen Operationen in neue Objekte zu speichern und diese dann weiterzu bearbeiten.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>Arbeitslosenquote_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(Arbeitslosenquote, Aggregat <span class="op">==</span><span class="st"> &quot;krsfr. Stadt&quot;</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>Arbeitslosenquote_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(Arbeitslosenquote_<span class="dv">1</span>, Jahr <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(Jahr))</span>
-<span id="cb3-3"><a href="#cb3-3"></a>Arbeitslosenquote_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">top_n</span>(Arbeitslosenquote_<span class="dv">2</span>, <span class="dv">5</span>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a>Arbeitslosenquote_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">arrange</span>(Arbeitslosenquote_<span class="dv">3</span>, <span class="kw">desc</span>(Arbeitslosenquote))</span>
-<span id="cb3-5"><a href="#cb3-5"></a>Arbeitslosenquote_<span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote_1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(Arbeitslosenquote, Aggregat <span class="sc">==</span> <span class="st">&quot;krsfr. Stadt&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote_2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(Arbeitslosenquote_1, Jahr <span class="sc">==</span> <span class="fu">max</span>(Jahr))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote_3 <span class="ot">&lt;-</span> <span class="fu">top_n</span>(Arbeitslosenquote_2, <span class="dv">5</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote_4 <span class="ot">&lt;-</span> <span class="fu">arrange</span>(Arbeitslosenquote_3, <span class="fu">desc</span>(Arbeitslosenquote))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote_4</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 5
 ##   Kennziffer Raumeinheit          Aggregat     Jahr  Arbeitslosenquote
 ##   &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;        &lt;chr&gt;             &lt;dbl&gt;
@@ -613,11 +588,11 @@ div.tocify {
 ## 4 07317      Pirmasens, Stadt     krsfr. Stadt 2017               12.3
 ## 5 05916      Herne, Stadt         krsfr. Stadt 2017               12.1</code></pre>
 <p>Mit der Pipe lässt sich der obige Code wie folgt darstellen.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">filter</span>(Aggregat <span class="op">==</span><span class="st"> &quot;krsfr. Stadt&quot;</span>,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>         Jahr <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(Jahr)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Arbeitslosenquote))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Aggregat <span class="sc">==</span> <span class="st">&quot;krsfr. Stadt&quot;</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         Jahr <span class="sc">==</span> <span class="fu">max</span>(Jahr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Arbeitslosenquote))</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 5
 ##   Kennziffer Raumeinheit          Aggregat     Jahr  Arbeitslosenquote
 ##   &lt;chr&gt;      &lt;chr&gt;                &lt;chr&gt;        &lt;chr&gt;             &lt;dbl&gt;
@@ -643,10 +618,10 @@ div.tocify {
 <div id="dplyrfilter" class="section level2">
 <h2>dplyr::filter()</h2>
 <p>Die <code>filter()</code> Funktion ermöglicht, wie der Name impliziert, das filtern von Datensätzen nach festgelegten Kriterien.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Filtern nach Aggregat und Arbeitslosenquote</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">filter</span>(Aggregat <span class="op">==</span><span class="st"> &quot;Landkreis&quot;</span>,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>         Arbeitslosenquote <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtern nach Aggregat und Arbeitslosenquote</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Aggregat <span class="sc">==</span> <span class="st">&quot;Landkreis&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>         Arbeitslosenquote <span class="sc">&gt;</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1,148 x 5
 ##    Kennziffer Raumeinheit         Aggregat  Jahr  Arbeitslosenquote
 ##    &lt;chr&gt;      &lt;chr&gt;               &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;
@@ -666,8 +641,8 @@ div.tocify {
 <div id="dplyrselect" class="section level2">
 <h2>dplyr::select()</h2>
 <p>Mit der Funktion <code>select()</code> wählt man alle relevanten Spalten bzw. Variablen aus einem Datensatz aus.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">select</span>(Raumeinheit, Jahr, Arbeitslosenquote)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Raumeinheit, Jahr, Arbeitslosenquote)</span></code></pre></div>
 <pre><code>## # A tibble: 8,020 x 3
 ##    Raumeinheit      Jahr  Arbeitslosenquote
 ##    &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt;
@@ -687,10 +662,10 @@ div.tocify {
 <div id="dplyrmutate" class="section level2">
 <h2>dplyr::mutate()</h2>
 <p>Die Funktion <code>mutate()</code> erlaubt es, Spalten bzw. Variablen in einem Datensatz zu verändern oder neue Spalten zu erzeugen.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">select</span>(Raumeinheit, Jahr, Arbeitslosenquote) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> &quot;2007&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Abweichung =</span> Arbeitslosenquote <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Arbeitslosenquote))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Raumeinheit, Jahr, Arbeitslosenquote) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Jahr <span class="sc">==</span> <span class="st">&quot;2007&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Abweichung =</span> Arbeitslosenquote <span class="sc">-</span> <span class="fu">mean</span>(Arbeitslosenquote))</span></code></pre></div>
 <pre><code>## # A tibble: 401 x 4
 ##    Raumeinheit         Jahr  Arbeitslosenquote Abweichung
 ##    &lt;chr&gt;               &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt;
@@ -710,12 +685,12 @@ div.tocify {
 <div id="dplyrgroup_by" class="section level2">
 <h2>dplyr::group_by()</h2>
 <p><code>group_by()</code> gruppiert bestimmte Variablen in gewünschte Gruppen für nachfolgende Operationen. Viele Funktionen bauen auf <code>group_by</code> auf.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Kennziffer) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> &quot;1998&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="st">  </span><span class="kw">group_by</span>(Aggregat) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Quote_Aggr =</span> <span class="kw">mean</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Kennziffer) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Jahr <span class="sc">==</span> <span class="st">&quot;1998&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Aggregat) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Quote_Aggr =</span> <span class="fu">mean</span>(Arbeitslosenquote)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 401 x 5
 ##    Raumeinheit         Aggregat      Jahr Arbeitslosenquote Quote_Aggr
 ##    &lt;chr&gt;               &lt;chr&gt;        &lt;int&gt;             &lt;dbl&gt;      &lt;dbl&gt;
@@ -735,12 +710,12 @@ div.tocify {
 <div id="dplyrsummarise" class="section level2">
 <h2>dplyr::summarise()</h2>
 <p><code>summarise()</code> oder <code>summarize()</code> fasst alle Reihen zusammen und gibt eine Zusammenfassung dieser Reihen aus.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Kennziffer) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> &quot;1998&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="st">  </span><span class="kw">group_by</span>(Aggregat) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Quote_Aggr =</span> <span class="kw">mean</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="st">  </span><span class="kw">ungroup</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote <span class="sc">%&gt;%</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Kennziffer) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Jahr <span class="sc">==</span> <span class="st">&quot;1998&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Aggregat) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Quote_Aggr =</span> <span class="fu">mean</span>(Arbeitslosenquote)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   Aggregat     Quote_Aggr
 ##   &lt;chr&gt;             &lt;dbl&gt;
@@ -751,10 +726,10 @@ div.tocify {
 <div id="dplyrarrange" class="section level2">
 <h2>dplyr::arrange()</h2>
 <p>Die Funktion <code>arrange()</code> sortiert die Daten in einer gewünschten Reihenfolge.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Kennziffer) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="st">  </span><span class="kw">filter</span>(Jahr <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(Jahr)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="st">  </span><span class="kw">arrange</span>(Arbeitslosenquote)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Kennziffer) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Jahr <span class="sc">==</span> <span class="fu">max</span>(Jahr)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Arbeitslosenquote)</span></code></pre></div>
 <pre><code>## # A tibble: 401 x 4
 ##    Raumeinheit          Aggregat  Jahr  Arbeitslosenquote
 ##    &lt;chr&gt;                &lt;chr&gt;     &lt;chr&gt;             &lt;dbl&gt;
@@ -776,15 +751,15 @@ div.tocify {
 <h1>Übergang in ggplot2</h1>
 <p>Für das Erstellen von Grafiken mit ggplot2 müssen die Daten im oben beschriebenen tidy data Format sein. Ein guter Workflow beinhaltet deshalb, die Daten mit den oben besprochenen Funktionen in das gewünschte Format zu bringen und dann direkt mit der Pipe nach ggplot zu übergeben.</p>
 <p>Eine beispielhafte erste Grafik, die die Arbeitslosenquote pro Jahr und Aggregat zeigt, könnte folgendermaßen aussehen:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>Arbeitslosenquote <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="st">  </span><span class="kw">group_by</span>(Aggregat, Jahr) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Arbeitslosenquote =</span> <span class="kw">mean</span>(Arbeitslosenquote)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Jahr, </span>
-<span id="cb19-5"><a href="#cb19-5"></a>             <span class="dt">y =</span> Arbeitslosenquote, </span>
-<span id="cb19-6"><a href="#cb19-6"></a>             <span class="dt">group =</span> Aggregat, </span>
-<span id="cb19-7"><a href="#cb19-7"></a>             <span class="dt">col =</span> Aggregat)) <span class="op">+</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="fl">1.0</span>) <span class="op">+</span></span>
-<span id="cb19-9"><a href="#cb19-9"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Arbeitslosenquote <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Aggregat, Jahr) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Arbeitslosenquote =</span> <span class="fu">mean</span>(Arbeitslosenquote)) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Jahr, </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> Arbeitslosenquote, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">group =</span> Aggregat, </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> Aggregat)) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.0</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="Tidyverse_files/figure-html/plot_1-1.png" width="672" /></p>
 <p>Ausführliche Informationen zu Datenvisualisierung in R mit ggplot2 gibt es im anschließenden Kapitel unter “Visualisierung”.</p>
 <hr />
@@ -810,7 +785,7 @@ div.tocify {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -828,7 +803,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
