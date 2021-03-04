@@ -10,3 +10,8 @@ stringr
 forcats
 gganimate
 downloadthis
+leaflet
+rmapshaper
+sp
+rgdal
+readxl

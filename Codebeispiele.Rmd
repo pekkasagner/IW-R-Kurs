@@ -280,3 +280,361 @@ ggsave("images/Arbeitslosenquote_gruppiert_2017.png")
 <center>
 ![](images/Arbeitslosenquote_gruppiert_2017.png){width=70%}
 </center>
+
+## Interaktive Karte (mit Leaflet)
+
+Hier ein Beispiel einer interaktiven Karte mit Leaflet. Da Leaflet eine 
+JavaSkript Bibliothek ist, muss hierfür die bekannte ggplot-Logik verlassen
+werden. [Hier](https://rstudio.github.io/leaflet/) gibt es eine Einführung für 
+Leaflet in R, welche die Grundlagen gut erklärt. Der hier dargestellte Code
+sieht auf den ersten Blick relativ umfangreich aus, die meisten Zeilen 
+beziehen sich aber auf die Customization der Label und der Legende und lassen
+sich mit Copy & Pate und kleinen Anpassungen übernehmen.
+
+```{r eval=FALSE}
+# lib ----
+library(tidyverse)
+library(leaflet)
+library(rmapshaper)
+library(rgdal)
+library(readxl)
+
+# Laden der Daten ----
+# Vfa Pharma Unternehmen
+pharma_fin <- read_xlsx("pharma_vfa.xlsx")
+# An Corona forschende Unternehmen
+pharma_corona <- read_xlsx("pharma_corona.xlsx")
+# Institutionsdaten
+affiliation_full <- read_xlsx("affiliations.xlsx")
+# Shapefiles für Deutschland (für Landesgrenzen)
+germany <- readOGR(dsn = 'Germany_shapefiles/gadm36_DEU_1.shp')
+
+# Erstellung der Karte ----
+# Erstellung der Custom Label für die Karte ----
+# Label für Forschungsstandorte
+labels <- sprintf(
+  '<strong style="font-size:20px">%s</strong><br/>%s Publikationsbeiträge.\n
+  <br><strong>Top-Institutionen (Publikationsbeiträge)</strong>
+  <br>%s
+  <br>%s
+  <br>%s',
+  substring(affiliation_full$address, 7, length(affiliation_full$address)),
+  round(affiliation_full$weigth,2)
+) %>%
+  lapply(htmltools::HTML)
+
+# Label für vfa Pharma Unternehmen
+labels_pharma <- sprintf(
+  '<strong style="font-size:20px">%s</strong><br/>%s',
+  substring(pharma_fin$Name, 1, length(pharma_fin$Name)),
+  paste(pharma_fin$Standort, ".", sep = "")
+) %>%
+  lapply(htmltools::HTML)
+
+# Label für Corona Forschungseinrichtungen
+labels_corona <- sprintf(
+  '<strong style="font-size:20px">%s</strong><br/>%s',
+  pharma_corona$Unternehmen,
+  paste(pharma_corona$Text, ".", sep = "")
+) %>%
+  lapply(htmltools::HTML)
+
+# Erstellen der Legende ----
+addLegendCustom <- function(map, colors, labels, sizes, opacity = 0.75,
+                            position = 'bottomleft'){
+  colorAdditions <- paste0(colors, "; border-radius: 50%; width:",
+                           sizes, "px;margin-top: 3.5px;line-height: ",
+                           sizes, "px")
+  labelAdditions <- paste0("<div style='display: inline-block;height: ",
+                           sizes, "px;margin-top: 2px;line-height: ",
+                           sizes, "px;'>",
+                           labels, "</div>")
+  return(addLegend(map, colors = colorAdditions,
+                   labels = labelAdditions, opacity = opacity,
+                   position = position))
+}
+
+# Plotten der Karte in Leaflet ----
+map <-
+  leaflet(germany) %>%
+  # Einstellung Anfganszoom
+  setView(lng = 10.065627, lat = 51.153053, zoom = 6) %>%
+  # Plotten der Deutschland-/Bundesländergrenzen
+  addPolygons(color = "#444444", weight = 1, smoothFactor =0.5,
+              opacity = 5, fillOpacity = 0.15) %>%
+  # Hintergrundkarte
+  addProviderTiles(providers$OpenStreetMap.DE) %>%
+  # Icons für Institutonen
+  addCircleMarkers(
+    lat = affiliation_full$lat,
+    lng = affiliation_full$lon,
+    radius = sqrt(affiliation_full$weigth)*5,
+    stroke = FALSE,
+    col = "#748A9D",
+    fillOpacity = 0.75,
+    label = labels_3,
+    labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                             "font-family" = "Source Sans Pro",
+                                             padding = "3px 8px",
+                                             color = "#2e4964"),
+                                textsize = "15px",
+                                direction = "auto")) %>%
+  # Icons für Pharmaunternehmen (vfa)
+  addCircleMarkers(
+    lat = pharma_fin$lat,
+    lng = pharma_fin$lon,
+    stroke = FALSE,
+    col = "#32727C",
+    fillOpacity = 0.9,
+    radius = 5,
+    label = labels_pharma,
+    labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                             "font-family" = "Source Sans Pro",
+                                             padding = "3px 8px",
+                                             color = "#2e4964"),
+                                textsize = "15px",
+                                direction = "auto")) %>%
+  # Icons für Pharmaunternehmen (Corona Forschung)
+  addCircleMarkers(
+    lat = pharma_corona$lat,
+    lng = pharma_corona$lon,
+    stroke = FALSE,
+    col = "#2e4964",
+    fillOpacity = 0.9,
+    radius = 5,
+    label = labels_corona,
+    labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                             "font-family" = "Source Sans Pro",
+                                             padding = "3px 8px",
+                                             color = "#2e4964"),
+                                textsize = "15px",
+                                direction = "auto")) %>%
+  # Legende
+  addLegendCustom(colors = c("#2e4964","#32727C", "#748A9D"),
+                  labels = c("Covid-19 Unternehmensprojekte",
+                             "Pharma-Unternehmen (vfa)",
+                             "Wissenschaftliche Publikationen <br>zu Covid-19"),
+                  sizes = c(20, 20, 20),
+                  opacity = 0.9)
+
+# Exportieren als .html
+htmlwidgets::saveWidget(map, file="map.html")
+```
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE, out.width="100%"}
+## Skript: Corona Wissenschaft Interktive Karte
+## Autor: Armin Mertens
+## Datum: 2020-04-29
+
+# libraries --------------------
+library(tidyverse)
+library(leaflet)
+library(rmapshaper)
+library(rgdal)
+library(readxl)
+# ------------------------------
+
+# Deutsche Dezimaltrennweise
+options(OutDec= ",")
+
+
+# Laden der Daten
+
+# Vfa Pharma Unternehmen
+pharma_fin <- read_xlsx("daten_beispiele/pharma_vfa.xlsx")
+# An Corona forschende Unternehmen
+pharma_corona <- read_xlsx("daten_beispiele/pharma_corona.xlsx")
+# Laden der Institutionsdaten
+affiliation_full <- read_xlsx("daten_beispiele/affiliations.xlsx")
+# Laden des Shapefiles für Deutschland (für Landesgrenzen)
+germany <- readOGR(dsn = 'daten_beispiele/Germany_shapefiles/gadm36_DEU_1.shp',
+                   verbose = FALSE)
+
+# Erstellung der Karte
+# Mein Lösung hier ist glaube ich suboptimal bzw. recht aufwändig. Das kann man
+# sicher besser machen. War hier dem Umstand geschuldet, dass ich nur einen
+# halben Tag Zeit hatte, die Karte zu machen ;) Beim nächsten Projekt werde ich
+# mir das nochmal anschauen, ob es hier ne bessere Lösung gibt.
+# Subsets für Labels
+affiliation_3 <- affiliation_full %>%
+  filter(n == 0)
+
+affiliation_2 <- affiliation_full %>%
+  filter(n == 1)
+
+affiliation_1 <- affiliation_full %>%
+  filter(n == 2)
+
+# Labels für Forschungsstandorte (mit 3 Top-Insitutitonen)
+labels_3 <- sprintf(
+  '<strong style="font-size:20px">%s</strong><br/>%s Publikationsbeiträge.\n
+  <br><strong>Top-Institutionen (Publikationsbeiträge)</strong>
+  <br>%s
+  <br>%s
+  <br>%s',
+  substring(affiliation_3$address, 7, length(affiliation_3$address)),
+  round(affiliation_3$weigth,2),
+  paste("1. ", affiliation_3$Institution_1, " (",
+        round(affiliation_3$weigth_1, 2), ").",  sep = ""),
+  paste("2. ", affiliation_3$Institution_2, " (",
+        round(affiliation_3$weigth_2, 2), ").",  sep = ""),
+  paste("3. ", affiliation_3$Institution_3, " (",
+        round(affiliation_3$weigth_3, 2), ").",  sep = "")
+) %>%
+  lapply(htmltools::HTML)
+
+# Labels für Forschungsstandorte (mit 2 Top-Insitutitonen)
+labels_2 <- sprintf(
+  '<strong style="font-size:20px">%s</strong><br/>%g Publikationsbeiträge.\n
+  <br><strong>Top-Institutionen (Publikationsbeiträge)</strong>
+  <br>%s
+  <br>%s',
+  substring(affiliation_2$address, 7, length(affiliation_3$address)),
+  round(affiliation_2$weigth,2),
+  paste("1. ", affiliation_2$Institution_1, " (",
+        round(affiliation_2$weigth_1, 2), ").",  sep = ""),
+  paste("2. ", affiliation_2$Institution_2, " (",
+        round(affiliation_2$weigth_2, 2), ").",  sep = "")
+) %>%
+  lapply(htmltools::HTML)
+
+# Labels für Forschungsstandorte (mit 1 Top-Insitutiton)
+labels_1 <- sprintf(
+  '<strong style="font-size:20px">%s</strong><br/>%g Publikationsbeiträge.\n
+  <br><strong>Top-Institutionen (Publikationsbeiträge)</strong>
+  <br>%s',
+  substring(affiliation_1$address, 7, length(affiliation_3$address)),
+  round(affiliation_1$weigth,2),
+  paste("1. ", affiliation_1$Institution_1, " (",
+        round(affiliation_1$weigth_1, 2), ").",  sep = "")
+) %>%
+  lapply(htmltools::HTML)
+
+# Labels für vfa Pharma Unternehmen
+labels_pharma <- sprintf(
+  '<strong style="font-size:20px">%s</strong><br/>%s',
+  substring(pharma_fin$Name, 1, length(pharma_fin$Name)),
+  paste(pharma_fin$Standort, ".", sep = "")
+) %>%
+  lapply(htmltools::HTML)
+
+# Labels für Corona Forschungseinrichtungen
+labels_corona <- sprintf(
+  '<strong style="font-size:20px">%s</strong><br/>%s',
+  pharma_corona$Unternehmen,
+  paste(pharma_corona$Text, ".", sep = "")
+) %>%
+  lapply(htmltools::HTML)
+
+# Erstellen der Legende
+addLegendCustom <- function(map, colors, labels, sizes, opacity = 0.75,
+                            position = 'bottomleft'){
+  colorAdditions <- paste0(colors, "; border-radius: 50%; width:",
+                           sizes, "px;margin-top: 3.5px;line-height: ",
+                           sizes, "px")
+  labelAdditions <- paste0("<div style='display: inline-block;height: ",
+                           sizes, "px;margin-top: 2px;line-height: ",
+                           sizes, "px;'>",
+                           labels, "</div>")
+  return(addLegend(map, colors = colorAdditions,
+                   labels = labelAdditions, opacity = opacity,
+                   position = position))
+}
+
+# Plotten der Karte in Leaflet
+map <-
+  leaflet(germany) %>%
+  # Einstellung Anfganszoom
+  setView(lng = 10.065627, lat = 51.153053, zoom = 5) %>%
+  # Plotten der Deutschland/Bundesländergrenzen
+  addPolygons(color = "#444444", weight = 1, smoothFactor =0.5,
+              opacity = 5, fillOpacity = 0.15) %>%
+  # Hintergrundkarte
+  addProviderTiles(providers$OpenStreetMap.DE) %>%
+  # Icons für Institutonen (3)
+  addCircleMarkers(
+      lat = affiliation_3$lat,
+      lng = affiliation_3$lon,
+      radius = sqrt(affiliation_3$weigth)*5,
+      stroke = FALSE,
+      col = "#748A9D",
+      fillOpacity = 0.75,
+      label = labels_3,
+      labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                               "font-family" = "Source Sans Pro",
+                                               padding = "3px 8px",
+                                               color = "#2e4964"),
+                                  textsize = "15px",
+                                  direction = "auto")) %>%
+  # Icons für Institutonen (2)
+  addCircleMarkers(
+    lat = affiliation_2$lat,
+    lng = affiliation_2$lon,
+    radius = sqrt(affiliation_2$weigth)*5,
+    stroke = FALSE,
+    col = "#748A9D",
+    fillOpacity = 0.75,
+    label = labels_2,
+    labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                             "font-family" = "Source Sans Pro",
+                                             padding = "3px 8px",
+                                             color = "#2e4964"),
+                                textsize = "15px",
+                                direction = "auto")) %>%
+  # Icons für Institutonen (1)
+  addCircleMarkers(
+    lat = affiliation_1$lat,
+    lng = affiliation_1$lon,
+    radius = sqrt(affiliation_1$weigth)*5,
+    stroke = FALSE,
+    col = "#748A9D",
+    fillOpacity = 0.75,
+    label = labels_1,
+    labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                             "font-family" = "Source Sans Pro",
+                                             padding = "3px 8px",
+                                             color = "#2e4964"),
+                                textsize = "15px",
+                                direction = "auto")) %>%
+  # Icons für Pharmaunternehmen (vfa)
+  addCircleMarkers(
+    lat = pharma_fin$lat,
+    lng = pharma_fin$lon,
+    stroke = FALSE,
+    col = "#32727C",
+    fillOpacity = 0.9,
+    radius = 5,
+    label = labels_pharma,
+    labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                             "font-family" = "Source Sans Pro",
+                                             padding = "3px 8px",
+                                             color = "#2e4964"),
+                                textsize = "15px",
+                                direction = "auto")) %>%
+  # Icons für Pharmaunternehmen (Corona Forschung)
+  addCircleMarkers(
+    lat = pharma_corona$lat,
+    lng = pharma_corona$lon,
+    stroke = FALSE,
+    col = "#2e4964",
+    fillOpacity = 0.9,
+    radius = 5,
+    label = labels_corona,
+    labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                             "font-family" = "Source Sans Pro",
+                                             padding = "3px 8px",
+                                             color = "#2e4964"),
+                                textsize = "15px",
+                                direction = "auto")) %>%
+  # Legende
+  addLegendCustom(colors = c("#2e4964","#32727C", "#748A9D"),
+                  labels = c("Covid-19 Unternehmensprojekte",
+                             "Pharma-Unternehmen (vfa)",
+                             "Wissenschaftliche Publikationen <br>zu Covid-19"),
+                  sizes = c(20, 20, 20),
+                  opacity = 0.9)
+
+
+map
+```
+
