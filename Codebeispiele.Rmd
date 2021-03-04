@@ -286,10 +286,9 @@ ggsave("images/Arbeitslosenquote_gruppiert_2017.png")
 Hier ein Beispiel einer interaktiven Karte mit Leaflet. Da Leaflet eine 
 JavaSkript Bibliothek ist, muss hierfür die bekannte ggplot-Logik verlassen
 werden. [Hier](https://rstudio.github.io/leaflet/) gibt es eine Einführung für 
-Leaflet in R, welche die Grundlagen gut erklärt. Der hier dargestellte Code
-sieht auf den ersten Blick relativ umfangreich aus, die meisten Zeilen 
-beziehen sich aber auf die Customization der Label und der Legende und lassen
-sich mit Copy & Pate und kleinen Anpassungen übernehmen.
+Leaflet in R, welche die Grundlagen gut erklärt. Der Code unten sieht auf den
+ersten Blick relativ komplex aus, viele der Zeilen beziehen sich aber auf die
+Anpassungen der Label und der Legende. 
 
 ```{r eval=FALSE}
 # lib ----
@@ -421,7 +420,7 @@ map <-
 htmlwidgets::saveWidget(map, file="map.html")
 ```
 
-```{r, echo=FALSE,message=FALSE,warning=FALSE, out.width="100%"}
+```{r echo=FALSE,message=FALSE,warning=FALSE, out.width="100%"}
 ## Skript: Corona Wissenschaft Interktive Karte
 ## Autor: Armin Mertens
 ## Datum: 2020-04-29
