@@ -585,7 +585,7 @@ div.tocify {
 </div>
 <div id="geom_bar" class="section level3">
 <h3>geom_bar()</h3>
-<p>Auch ein Balkendiagramm lässt sich einfach mit <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat=“bin”</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat=“identity”</code> an, dass der Wert aus den Daten gemapped werden soll.</p>
+<p>Auch ein Balkendiagramm lässt sich einfach mit <code>geom_col()</code> erstellen. Alternativ lässt sich das gleich Diagramm mit <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat=“bin”</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat=“identity”</code> an, dass der Wert aus den Daten gemapped werden soll.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Raumeinheit <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Elbe-Elster&quot;</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;Oberspreewald-Lausitz&quot;</span>,</span>
@@ -594,7 +594,7 @@ div.tocify {
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>         Jahr <span class="sc">==</span> <span class="dv">1998</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Raumeinheit,</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> Arbeitslosenquote)) <span class="sc">+</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
 <p><img src="ggplot_files/figure-html/unnamed-chunk-9-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geom_boxplot" class="section level3">
