@@ -31,7 +31,7 @@ knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=TRUE)
 
 Wenn IW-Laptops benutzt werden, sollten R und RStudio bereits von der IT installiert bzw. aktualisiert worden sein. Auf privaten Laptops müssen R und RStudio selbst installiert werden. Falls sich schon ältere Versionen auf den Laptops befinden, sollten diese auf die untenstehnden Versionen aktualisiert werden:
 
-* Für **R** wird **Version 4.0.3** (Bunny-Wunnies Freak Out) verwendet ([Link](https://ftp.fau.de/cran/)). Andere Versionen ab R 4.0 sollten aber keine Probleme für den Kurs verursachen und können auch verwendet werden.
+* Für **R** wird **Version 4.0.4** (Lost Library Book) verwendet ([Link](https://ftp.fau.de/cran/)). Andere Versionen ab R 4.0 sollten aber keine Probleme für den Kurs verursachen und können auch verwendet werden.
 * Eine aktuelle Version von **RStudio** kann hier heruntergeladen werden ([Link](https://rstudio.com/products/rstudio/download/#download))
 
 Wie oben beschrieben, können die Kursinhalte auch mit älteren Versionen bearbeitet werden. Für eine Minimierung möglicher Fehler macht es aber Sinn, dass alle Kursteilnehmer mit den gleichen Versionen arbeiten. 
