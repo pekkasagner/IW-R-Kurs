@@ -199,7 +199,7 @@ data %>%
 
 ### geom_bar()
 
-Auch ein Balkendiagramm lässt sich einfach mit <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat="bin"</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat="identity"</code> an, dass der Wert aus den Daten gemapped werden soll. 
+Auch ein Balkendiagramm lässt sich einfach mit <code>geom_col()</code> erstellen. Alternativ lässt sich das gleich Diagramm mit <code>geom_bar()</code> erstellen. Hier wird standardmäßig <code>stat="bin"</code> benutzt. Dieser Befehl setzt die Höhe jedes Balkens gleich der Anzahl an Beobachtungen pro Gruppe (wie in einem Histogramm). Da hier der Wert der y-Achse aber manuell gesetzt wird, gibt <code>stat="identity"</code> an, dass der Wert aus den Daten gemapped werden soll. 
 
 ```{r, fig.align="center", out.width = "75%"}
 data %>% 
@@ -210,7 +210,7 @@ data %>%
          Jahr == 1998) %>% 
   ggplot(aes(x = Raumeinheit,
              y = Arbeitslosenquote)) +
-  geom_bar(stat = "identity")
+  geom_col()
 ```
 
 ### geom_boxplot()
