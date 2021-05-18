@@ -16,7 +16,7 @@ output:
 knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache=F)
 ```
 
----- 
+----
 
 # Balkendiagramme
 
@@ -47,7 +47,7 @@ data %>%
     labs(x = "",
          y = "",
          title = "Arbeitslosenquote in Deutschland",
-         subtitle = "Landkreise und kreisfreie Städte mit der höchsten 
+         subtitle = "Landkreise und kreisfreie Städte mit der höchsten
                      Arbeitslosenquote (2017)") +
     theme_minimal() +
     theme(plot.title.position = "plot")
@@ -63,12 +63,12 @@ data %>%
 Hier wird ein sogenannter "Racing Bar Chart" gezeigt, bei dem sich Veränderungen
 der Rangfolge zwischen Untersuchungseinheiten über die Zeit darstellen lassen.
 Der Code sieht auf den ersten Blick relativ umständlich aus, lässt sich aber in
-weiten Teilen übernehmen und individuell anpassen. Der hier verwendete Trick 
-besteht darin, den Datensatz zu erweitern und zwischen ganzen Jahren 
-Zwischenschritte zu erzeugen und die fehlenden Daten der darzustellenden 
+weiten Teilen übernehmen und individuell anpassen. Der hier verwendete Trick
+besteht darin, den Datensatz zu erweitern und zwischen ganzen Jahren
+Zwischenschritte zu erzeugen und die fehlenden Daten der darzustellenden
 Variable zu interpolieren. Im konkreten Anwendungsfall werden hierfür zwischen
 den Ausprägungen der Jahresvariable (2000, 2001, 2002, etc.) in 0.1er Schritten
-(2000.1, 2000.2, 2000.3, ...) Werte für das BIP interpoliert, die in der 
+(2000.1, 2000.2, 2000.3, ...) Werte für das BIP interpoliert, die in der
 Animation flüssigere Übergänge erzeugen.
 
 ```{r eval=FALSE}
@@ -99,8 +99,8 @@ plot <-
                color = as.factor(Raumeinheit))) +
     geom_tile(aes(y = BIP / 2, height = BIP, width = 0.9),
               alpha = 0.8, color = NA) +
-    geom_text(aes(y = BIP, label = paste0(format(round(BIP*1000,0), 
-                                                 big.mark = ".", 
+    geom_text(aes(y = BIP, label = paste0(format(round(BIP*1000,0),
+                                                 big.mark = ".",
                                                  decimal.mark = ","), "€")),
               hjust = 0, nudge_y = 2) +
     geom_text(aes(y = 0, label = paste(Raumeinheit, " ")),
@@ -131,11 +131,11 @@ anim_save('BIP.gif', animation = last_animation(), path = "../Desktop/")
 ![](images/BIP.gif)
 </center>
 
----- 
+----
 
 # Boxplot
 
-Von der Strutkur her ähnlich wie Balkendiagramme lassen sich mit <code>geom_boxplot()</code> einfach Boxplots erstellen, die aussagekräftiger sein können als Balkendiagramme. 
+Von der Strutkur her ähnlich wie Balkendiagramme lassen sich mit <code>geom_boxplot()</code> einfach Boxplots erstellen, die aussagekräftiger sein können als Balkendiagramme.
 
 ## Gewöhnlicher Boxplot
 
@@ -166,7 +166,7 @@ data %>%
 
 ## Violinen-Plot
 
-Eine Alternative zu Boxplots können Violinenplots darstellen, da hier auch 
+Eine Alternative zu Boxplots können Violinenplots darstellen, da hier auch
 die Verteilung der jeweiligen Variable dargestellt wird.
 
 ```{r eval=FALSE}
@@ -207,16 +207,16 @@ library(ggthemes)
 library(sf)
 library(Hmisc)
 
-data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>% 
+data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>%
   filter(Jahr == 2017)
 
 shapefile <- st_read("daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp")
 
 #Daten und Shapefile zusammenführen
-data_merged <- shapefile %>% 
-  left_join(data, by = c("RS" = "Kennziffer")) 
-    
-data_merged %>% 
+data_merged <- shapefile %>%
+  left_join(data, by = c("RS" = "Kennziffer"))
+
+data_merged %>%
   ggplot(aes(fill = Arbeitslosenquote/100)) +
   geom_sf() +
   scale_fill_gradient(low = "white", high = "#2e4964", guide = "colorbar", labels = scales::percent_format(accuracy = 2)) +
@@ -245,25 +245,25 @@ library(ggthemes)
 library(sf)
 library(Hmisc)
 
-data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>% 
-  filter(Jahr == 2017) %>% 
-  mutate(Gruppen_Arbeitslosenquote = Hmisc::cut2(Arbeitslosenquote, g = 6)) %>% 
-  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\,", " -")) %>% 
-  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\.", "\\,")) %>% 
-  group_by(Gruppen_Arbeitslosenquote) %>% 
-  mutate(observations = n()) %>% 
-  ungroup() %>% 
+data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>%
+  filter(Jahr == 2017) %>%
+  mutate(Gruppen_Arbeitslosenquote = Hmisc::cut2(Arbeitslosenquote, g = 6)) %>%
+  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\,", " -")) %>%
+  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\.", "\\,")) %>%
+  group_by(Gruppen_Arbeitslosenquote) %>%
+  mutate(observations = n()) %>%
+  ungroup() %>%
   mutate(Gruppenbezeichnung = paste(Gruppen_Arbeitslosenquote, ", n = ", observations, sep = ""))
 
 shapefile <- st_read("daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp")
 
-data_merged <- shapefile %>% 
-  left_join(data, by = c("RS" = "Kennziffer")) 
+data_merged <- shapefile %>%
+  left_join(data, by = c("RS" = "Kennziffer"))
 
-#IW-Farbschema 
+#IW-Farbschema
 meine_IW_Farben <- c("#ca9c4d", "#e0c599", "#f3e2c5", "#93a7bb", "#748a9d", "#2e4964")
-    
-data_merged %>% 
+
+data_merged %>%
   ggplot(aes(fill = Gruppenbezeichnung)) +
   geom_sf() +
   scale_fill_manual(values = meine_IW_Farben) +
@@ -281,14 +281,14 @@ ggsave("images/Arbeitslosenquote_gruppiert_2017.png")
 ![](images/Arbeitslosenquote_gruppiert_2017.png){width=70%}
 </center>
 
-## Interaktive Karte (mit Leaflet)
+# Interaktive Karte (mit Leaflet) (1)
 
-Hier ein Beispiel einer interaktiven Karte mit Leaflet. Da Leaflet eine 
+Hier ein Beispiel einer interaktiven Karte mit Leaflet. Da Leaflet eine
 JavaSkript Bibliothek ist, muss hierfür die bekannte ggplot-Logik verlassen
-werden. [Hier](https://rstudio.github.io/leaflet/) gibt es eine Einführung für 
+werden. [Hier](https://rstudio.github.io/leaflet/) gibt es eine Einführung für
 Leaflet in R, welche die Grundlagen gut erklärt. Der Code unten sieht auf den
 ersten Blick relativ komplex aus, viele der Zeilen beziehen sich aber auf die
-Anpassungen der Label und der Legende. 
+Anpassungen der Label und der Legende.
 
 ```{r eval=FALSE}
 # lib ----
@@ -419,6 +419,8 @@ map <-
 # Exportieren als .html
 htmlwidgets::saveWidget(map, file="map.html")
 ```
+
+
 
 ```{r echo=FALSE,message=FALSE,warning=FALSE, out.width="100%"}
 ## Skript: Corona Wissenschaft Interktive Karte
@@ -635,5 +637,165 @@ map <-
 
 
 map
+```
+
+
+```{r include=F}
+
+options(OutDec= ".") #Armins Optionen wieder überschreiben, sonst läufts unten nicht durch
+```
+
+
+# Interaktive Karte (mit Leaflet) (2)
+
+In diesem Beispiel wird die obige statische Karte der Arbeitslosenquoten in den deutschen Landkreisen und kreisfreien Städten zur interaktiven.
+
+```{r eval=FALSE}
+library(tidyverse)
+library(sf)
+library(Hmisc)
+library(leaflet)
+library(rmapshaper)
+
+#Daten einlesen und Gruppen bilden
+data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>% 
+  filter(Jahr == 2017) %>% 
+  mutate(Gruppen_Arbeitslosenquote = Hmisc::cut2(Arbeitslosenquote, g = 6)) %>% 
+  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\,", " -")) %>% 
+  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\.", "\\,")) %>% 
+  group_by(Gruppen_Arbeitslosenquote) %>% 
+  mutate(observations = n()) %>% 
+  ungroup() %>% 
+  mutate(Gruppenbezeichnung = paste(Gruppen_Arbeitslosenquote, ", n = ", observations, sep = ""))
+
+#Shapefile einlesen
+shapefile <- st_read("daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp", quiet = TRUE)
+
+#Daten mergen
+data_merged <- shapefile %>%
+  left_join(data, by = c("RS" = "Kennziffer"))
+
+#Ab hier Schritte für Leaflet:
+
+#Geometrien vereinfachen
+leaflet_data <- data_merged %>%
+          st_transform(crs = 4326) %>%
+          rmapshaper::ms_simplify() #verkleinert das Shapefile, sorgt für schnellere Ladezeiten
+
+#IW-Farbpalette, diese in der gewünschten Reihenfolge den Gruppen zuweisen
+IW_palette <- colorFactor(palette = c("#ca9c4d", "#e0c599", "#f3e2c5", "#93a7bb", "#748a9d", "#2e4964"),
+                      levels = unique(data_merged$Gruppenbezeichnung) %>%
+                             sort(decreasing = F))
+
+#Labels für das Mouseover
+leaflet_label <- sprintf(
+          '<strong style="font-size:20px">%s</strong><br/>%s',
+          leaflet_data$Raumeinheit,
+          gsub(paste("Arbeitslosenquote im Jahr 2017: ", sprintf("%1.2f", leaflet_data$Arbeitslosenquote), " %", sep = ""), pattern = "\\.", replacement = ",")) %>%
+                    map(htmltools::HTML)
+
+
+#Karte erstellen
+(plot <- leaflet::leaflet(data = leaflet_data ) %>%
+          addProviderTiles("CartoDB.Positron") %>%
+          addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,
+                      opacity = 1.0, fillOpacity = 1,
+                      fillColor = ~IW_palette(Gruppenbezeichnung),
+                      highlightOptions = highlightOptions(color = "white", weight = 2,
+                                                          bringToFront = TRUE),
+                      label = leaflet_label,
+                      labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                                               padding = "3px 8px",
+                                                               color = "#2e4964"),
+                                                  textsize = "15px",
+                                                  direction = "auto")) %>%
+          addLegend(position = "bottomleft",
+                    values = ~Gruppenbezeichnung,
+                    opacity = .9,
+                    pal = IW_palette,
+                    title = 'Durchschnittliche Arbeitslosenquote</br>
+                    im Jahr 2017
+                    <p style="font-weight: normal;">in Prozent</p>') %>%
+          setView(lng = 10.065627, lat = 51.153053, zoom = 5)
+)
+  
+# Exportieren als html-Datei
+htmlwidgets::saveWidget(plot, file="interaktive_karte_arbeitslosenquoten.html", selfcontained = T)
+
+
+```
+
+
+
+```{r echo=FALSE,message=FALSE,warning=FALSE, out.width="100%", error=F} 
+library(tidyverse)
+library(sf)
+library(Hmisc)
+library(leaflet)
+library(rmapshaper)
+
+#Daten einlesen und Gruppen bilden
+data <- read_csv("daten_beispiele/Landkreise_merged.csv") %>% 
+  filter(Jahr == 2017) %>% 
+  mutate(Gruppen_Arbeitslosenquote = Hmisc::cut2(Arbeitslosenquote, g = 6)) %>% 
+  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\,", " -")) %>% 
+  mutate(Gruppen_Arbeitslosenquote = str_replace_all(Gruppen_Arbeitslosenquote, "\\.", "\\,")) %>% 
+  group_by(Gruppen_Arbeitslosenquote) %>% 
+  mutate(observations = n()) %>% 
+  ungroup() %>% 
+  mutate(Gruppenbezeichnung = paste(Gruppen_Arbeitslosenquote, ", n = ", observations, sep = ""))
+
+#Shapefile einlesen
+shapefile <- st_read("daten_beispiele/shapefiles_kreise/Kreisgrenzen_2017_mit_Einwohnerzahl.shp", quiet = TRUE)
+
+#Daten mergen
+data_merged <- shapefile %>%
+  left_join(data, by = c("RS" = "Kennziffer"))
+
+#Ab hier Schritte für Leaflet:
+
+#Geometrien vereinfachen
+leaflet_data <- data_merged %>%
+          st_transform(crs = 4326) %>%
+          rmapshaper::ms_simplify() #verkleinert das Shapefile, sorgt für schnellere Ladezeiten
+
+#IW-Farbpalette, diese in der gewünschten Reihenfolge den Gruppen zuweisen
+IW_palette <- colorFactor(palette = c("#ca9c4d", "#e0c599", "#f3e2c5", "#93a7bb", "#748a9d", "#2e4964"),
+                      levels = unique(data_merged$Gruppenbezeichnung) %>%
+                             sort(decreasing = F))
+
+#Labels für das Mouseover
+leaflet_label <- sprintf(
+          '<strong style="font-size:20px">%s</strong><br/>%s',
+          leaflet_data$Raumeinheit,
+          gsub(paste("Arbeitslosenquote im Jahr 2017: ", sprintf("%1.2f", leaflet_data$Arbeitslosenquote), " %", sep = ""), pattern = "\\.", replacement = ",")) %>%
+                    map(htmltools::HTML)
+
+
+#Karte erstellen
+(plot <- leaflet::leaflet(data = leaflet_data ) %>%
+          addProviderTiles("CartoDB.Positron") %>%
+          addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5,
+                      opacity = 1.0, fillOpacity = 1,
+                      fillColor = ~IW_palette(Gruppenbezeichnung),
+                      highlightOptions = highlightOptions(color = "white", weight = 2,
+                                                          bringToFront = TRUE),
+                      label = leaflet_label,
+                      labelOptions = labelOptions(style = list("font-weight" = "normal",
+                                                               padding = "3px 8px",
+                                                               color = "#2e4964"),
+                                                  textsize = "15px",
+                                                  direction = "auto")) %>%
+          addLegend(position = "bottomleft",
+                    values = ~Gruppenbezeichnung,
+                    opacity = .9,
+                    pal = IW_palette,
+                    title = 'Durchschnittliche Arbeitslosenquote</br>
+                    im Jahr 2017
+                    <p style="font-weight: normal;">in Prozent</p>') %>%
+          setView(lng = 10.065627, lat = 51.153053, zoom = 5)
+)
+
+
 ```
 
