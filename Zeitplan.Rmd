@@ -33,8 +33,8 @@ Erstellen von Karten im printfähigen Format",
 test %>% 
   kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% 
-    pack_rows("Tag 1: 11.03.2021", 1, 4) %>% 
-    pack_rows("Tag 2: 18.03.2021", 5, 8) 
+    pack_rows("Tag 1: 09.09.2021", 1, 4) %>% 
+    pack_rows("Tag 2: 23.09.2021", 5, 8) 
 
 
 ```
